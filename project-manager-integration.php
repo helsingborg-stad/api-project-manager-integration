@@ -21,6 +21,7 @@ if (! defined('WPINC')) {
 define('PROJECTMANAGERINTEGRATION_PATH', plugin_dir_path(__FILE__));
 define('PROJECTMANAGERINTEGRATION_URL', plugins_url('', __FILE__));
 define('PROJECTMANAGERINTEGRATION_TEMPLATE_PATH', PROJECTMANAGERINTEGRATION_PATH . 'templates/');
+define('PROJECTMANAGERINTEGRATION_TEXTDOMAIN', 'project-manager-integration');
 
 load_plugin_textdomain('project-manager-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
