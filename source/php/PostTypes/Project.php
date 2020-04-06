@@ -38,52 +38,52 @@ class Project
             $restArgs
         );
 
-        // Statuses
-        $postType->addTaxonomy(
-            'status',
-            __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true)
-        );
+        // // Statuses
+        // $postType->addTaxonomy(
+        //     'status',
+        //     __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     array('hierarchical' => true)
+        // );
 
-        // Technologies
-        $postType->addTaxonomy(
-            'technology',
-            __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true)
-        );
+        // // Technologies
+        // $postType->addTaxonomy(
+        //     'technology',
+        //     __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     array('hierarchical' => true)
+        // );
 
-        // Sectors
-        $postType->addTaxonomy(
-            'sector',
-            __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true)
-        );
+        // // Sectors
+        // $postType->addTaxonomy(
+        //     'sector',
+        //     __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     array('hierarchical' => true)
+        // );
 
-        // Organisations
-        $postType->addTaxonomy(
-            'organisation',
-            __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true)
-        );
+        // // Organisations
+        // $postType->addTaxonomy(
+        //     'organisation',
+        //     __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     array('hierarchical' => true)
+        // );
 
-        // Global goals
-        $postType->addTaxonomy(
-            'global_goal',
-            __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true)
-        );
+        // // Global goals
+        // $postType->addTaxonomy(
+        //     'global_goal',
+        //     __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     array('hierarchical' => true)
+        // );
 
-        // Categories
-        $postType->addTaxonomy(
-            'category',
-            __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true)
-        );
+        // // Categories
+        // $postType->addTaxonomy(
+        //     'category',
+        //     __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        //     array('hierarchical' => true)
+        // );
     }
 }

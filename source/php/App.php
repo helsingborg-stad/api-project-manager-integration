@@ -7,6 +7,7 @@ class App
     public function __construct()
     {
         new PostTypes\Project();
+        new Import\Cron();
 
         // add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
         // add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
