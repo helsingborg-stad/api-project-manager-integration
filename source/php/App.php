@@ -16,7 +16,7 @@ class App
      */
     public function enqueueStyles()
     {
-        wp_register_style('api-project-manager-integration-css', PROJECTMANAGERINTEGRATION_URL . '/dist/' . \ProjectManagerIntegration\Helper\CacheBust::name('css/api-project-manager-integration.css'));
+        wp_register_style('project-manager-integration-css', PROJECTMANAGERINTEGRATION_URL . '/dist/' . \ProjectManagerIntegration\Helper\CacheBust::name('css/project-manager-integration.css'));
     }
 
     /**
@@ -25,6 +25,6 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_register_script('api-project-manager-integration-js', PROJECTMANAGERINTEGRATION_URL . '/dist/' . \ProjectManagerIntegration\Helper\CacheBust::name('js/api-project-manager-integration.js'));
+        wp_register_script('project-manager-integration-js', PROJECTMANAGERINTEGRATION_URL . '/dist/' . \ProjectManagerIntegration\Helper\CacheBust::name('js/project-manager-integration.js'));
     }
 }

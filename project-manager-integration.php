@@ -9,7 +9,7 @@
  * Author URI:        (#plugin_author_url#)
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       api-project-manager-integration
+ * Text Domain:       project-manager-integration
  * Domain Path:       /languages
  */
 
@@ -22,7 +22,7 @@ define('PROJECTMANAGERINTEGRATION_PATH', plugin_dir_path(__FILE__));
 define('PROJECTMANAGERINTEGRATION_URL', plugins_url('', __FILE__));
 define('PROJECTMANAGERINTEGRATION_TEMPLATE_PATH', PROJECTMANAGERINTEGRATION_PATH . 'templates/');
 
-load_plugin_textdomain('api-project-manager-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
+load_plugin_textdomain('project-manager-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
 require_once PROJECTMANAGERINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once PROJECTMANAGERINTEGRATION_PATH . 'Public.php';

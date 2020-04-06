@@ -16,10 +16,10 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'js/api-project-manager-integration': './source/js/api-project-manager-integration.js',
-        'css/api-project-manager-integration': './source/sass/api-project-manager-integration.scss',
+        'js/project-manager-integration': './source/js/project-manager-integration.js',
+        'css/project-manager-integration': './source/sass/project-manager-integration.scss',
     },
-    
+
     /**
      * Output files
      */
@@ -138,7 +138,7 @@ module.exports = {
                 ) {
                     const pathParts = file.path.split('.');
                     const nameParts = file.name.split('.');
-    
+
                     // Compare extensions
                     if (pathParts[pathParts.length - 1] !== nameParts[nameParts.length - 1]) {
                         file.name = pathParts[0].concat('.', pathParts[pathParts.length - 1]);
