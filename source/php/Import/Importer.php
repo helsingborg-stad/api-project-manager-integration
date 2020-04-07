@@ -44,41 +44,137 @@ class Importer
 
             $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
-            error_log(print_r($totalPages, true));
-            //error_log(print_r($requestResponse['headers'], true));
-            //error_log(print_r($requestResponse['body'], true));
-
             $this->savePosts($requestResponse['body']);
         }
     }
 
     public function savePosts($posts)
     {
-        foreach ($posts as $key => $post) {
+        foreach ($posts as $post) {
             $this->savePost($post);
         }
     }
 
     public function savePost($post)
     {
-        //error_log(print_r($post, true));
-
         extract($post);
 
-        $postData = array(
-          'post_title' => $title['rendered'] ?? '',
-          'post_content' => $content['rendered'] ?? '',
-          'post_type' => $this->postType,
-          'post_status' => 'publish',
+        //Get matching post
+        $postObject = $this->getPost(
+            array(
+              'key' => 'uuid',
+              'value' => $id
+            )
         );
 
-        error_log(print_r($postData, true));
+        // Not existing, create new
+        if (!isset($postObject->ID)) {
+            $postData = array(
+              'post_title' => $title['rendered'] ?? '',
+              'post_content' => $content['rendered'] ?? '',
+              'post_type' => $this->postType,
+              'post_status' => 'publish',
+            );
+            $postId = wp_insert_post($postData);
 
+            error_log("POST DOES NOT EXIST; CREATE ME " . $postId);
+        } else {
+            // Post already exist, do updates
 
-        $postId = wp_insert_post($postData);
+            error_log("POST EXIST: TRY UPDATE: " . $postObject->ID);
 
-        error_log("Created post: " . $postId);
+            // Get post object id
+            $postId = $postObject->ID;
+
+            // Bail if no updates has been made
+            if ($modified === get_post_meta($postId, 'last_modified', true)) {
+                error_log("BAIL: " . $postObject->ID);
+                return;
+            }
+
+            $remotePost = array(
+                'ID' => $postId,
+                'post_title' => $title['rendered'] ?? '',
+                'post_content' => $content['rendered'] ?? ''
+            );
+
+            $localPost = array(
+                'ID' => $postId,
+                'post_title' => $postObject->post_title,
+                'post_content' => $postObject->post_content,
+            );
+            // Update if post object is modified
+            if ($localPost !== $remotePost) {
+                error_log("UPDATE POST OBJECT: " . $postObject->ID);
+                wp_update_post($remotePost);
+            }
+        }
+
+        // TODO: Only update if post has been updated or is created
+        $postMeta = array(
+          'uuid' => $id,
+          'last_modified' => $modified
+        );
+        //Update post with meta
+        $this->updatePostMeta($postId, $postMeta);
     }
+
+    /**
+     *  Get posts
+     * @param $search
+     * @return mixed|null
+     */
+    public function getPost($search)
+    {
+        $post = get_posts(
+            array(
+                'meta_query' => array(
+                    array(
+                        'key' => $search['key'],
+                        'value' => $search['value']
+                    )
+                ),
+                'post_type' => $this->postType,
+                'posts_per_page' => 1,
+                'post_status' => 'all'
+            )
+        );
+
+        if (!empty($post) && is_array($post)) {
+            $post = array_pop($post);
+            if (isset($post->ID) && is_numeric($post->ID)) {
+                return $post;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     *  Update post meta
+     * @param $postId
+     * @param $dataObject
+     * @return bool
+     */
+    public function updatePostMeta($postId, $dataObject)
+    {
+        if (is_array($dataObject) && !empty($dataObject)) {
+            foreach ($dataObject as $metaKey => $metaValue) {
+                if ($metaKey == "") {
+                    continue;
+                }
+
+                if ($metaValue != get_post_meta($postId, $metaKey, true)) {
+                    update_post_meta($postId, $metaKey, $metaValue);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * Request to Api
