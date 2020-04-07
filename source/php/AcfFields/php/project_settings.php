@@ -21,6 +21,25 @@
             'default_value' => '',
             'placeholder' => '',
         ),
+        1 => array(
+            'key' => 'field_5e8c514c89ee4',
+            'label' => __('Daily import', 'project-manager-integration'),
+            'name' => 'project_daily_import',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => '',
+            'default_value' => 0,
+            'ui' => 1,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
+        ),
     ),
     'location' => array(
         0 => array(
