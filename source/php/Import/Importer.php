@@ -135,7 +135,7 @@ class Importer
                     )
                 ),
                 'post_type' => $this->postType,
-                'posts_per_page' => 1,
+                'posts_per_page' => 50,
                 'post_status' => 'all'
             )
         );
