@@ -15,7 +15,7 @@ class Cron
             return;
         }
 
-        $url = 'https://api.local/innovation/wp-json/wp/v2/project/';
+        $url = 'https://multi.local/inovations-api/wp-json/wp/v2/project/';
 
         error_log("importPosts");
         new \ProjectManagerIntegration\Import\Importer($url);

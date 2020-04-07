@@ -1,0 +1,24 @@
+{
+  "name": "helsingborg-stad/api-project-manager",
+  "description": "Manage projects",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jonatan Hanson",
+      "email": "jonatan.hanson@helsingborg.se"
+    },
+    {
+      "name": "Nikolas Ramstedt",
+      "email": "nikolas.ramstedt@helsingborg.se"
+    },
+    {
+      "name": "Ehsan Zilaei",
+      "email": "ehsan.zilaei@helsingborg.se"
+    }
+  ],
+  "require": {
+    "composer/installers": "~1.0",
+    "helsingborg-stad/acf-export-manager": ">=1.0.0"
+  }
+}

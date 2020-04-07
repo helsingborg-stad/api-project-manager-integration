@@ -28,6 +28,21 @@ load_plugin_textdomain('project-manager-integration', false, plugin_basename(dir
 require_once PROJECTMANAGERINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once PROJECTMANAGERINTEGRATION_PATH . 'Public.php';
 
+if (file_exists(PROJECTMANAGERINTEGRATION_PATH . 'vendor/autoload.php')) {
+    require_once PROJECTMANAGERINTEGRATION_PATH . 'vendor/autoload.php';
+}
+
+// Acf auto import and export
+add_action('plugins_loaded', function () {
+    $acfExportManager = new \AcfExportManager\AcfExportManager();
+    $acfExportManager->setTextdomain(PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+    $acfExportManager->setExportFolder(PROJECTMANAGERINTEGRATION_PATH . 'source/php/AcfFields/');
+    $acfExportManager->autoExport(array(
+        'project_settings' => 'group_5e8c4a83e611a',
+    ));
+    $acfExportManager->import();
+});
+
 // Instantiate and register the autoloader
 $loader = new ProjectManagerIntegration\Vendor\Psr4ClassLoader();
 $loader->addPrefix('ProjectManagerIntegration', PROJECTMANAGERINTEGRATION_PATH);

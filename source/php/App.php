@@ -8,6 +8,7 @@ class App
     {
         new PostTypes\Project();
         new Import\Cron();
+        new Options();
 
         // add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
         // add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
