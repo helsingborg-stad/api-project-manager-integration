@@ -15,5 +15,18 @@ class Options
                 'capability' => 'manage_options'
             ));
         }
+
+        add_filter('acf/update_value/name=project_daily_import', array($this, 'registerCronjob'), 10, 1);
+    }
+
+    public function registerCronjob($value) 
+    {
+        if($value) {
+            \ProjectManagerIntegration\Import\Setup::addCronJob();
+        } else {
+            \ProjectManagerIntegration\Import\Setup::removeCronJob();
+        }
+
+        return $value;
     }
 }

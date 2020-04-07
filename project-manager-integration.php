@@ -49,5 +49,7 @@ $loader->addPrefix('ProjectManagerIntegration', PROJECTMANAGERINTEGRATION_PATH);
 $loader->addPrefix('ProjectManagerIntegration', PROJECTMANAGERINTEGRATION_PATH . 'source/php/');
 $loader->register();
 
+register_deactivation_hook(plugin_basename(__FILE__), '\ProjectManagerIntegration\Import\Setup::removeCronJob');
+
 // Start application
 new ProjectManagerIntegration\App();
