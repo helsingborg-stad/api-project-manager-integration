@@ -1,0 +1,193 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Project Manager Integration\n"
+"POT-Creation-Date: 2020-04-08 10:12+0200\n"
+"PO-Revision-Date: 2020-04-08 10:14+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: project-manager-integration.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/AcfFields/php/project_settings.php:6
+msgid "project settings"
+msgstr "Inställningar"
+
+#: source/php/AcfFields/php/project_settings.php:10
+msgid "API URL"
+msgstr ""
+
+#: source/php/AcfFields/php/project_settings.php:26
+msgid "Daily import"
+msgstr ""
+
+#: source/php/Helper/PostType.php:42 source/php/Helper/PostType.php:43
+#: source/php/Helper/PostType.php:172
+#, php-format
+msgid "Add new %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:44 source/php/Helper/PostType.php:170
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:45
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:46
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:47 source/php/Helper/PostType.php:166
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:48
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: source/php/Helper/PostType.php:49
+#, php-format
+msgid "No %s found in trash"
+msgstr ""
+
+#: source/php/Helper/PostType.php:50 source/php/Helper/PostType.php:168
+#: source/php/Helper/PostType.php:169
+#, php-format
+msgid "Parent %s:"
+msgstr ""
+
+#: source/php/Helper/PostType.php:167
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:171
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#: source/php/Helper/PostType.php:173
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#: source/php/Import/Importer.php:216
+msgid "API request failed."
+msgstr ""
+
+#: source/php/Import/Setup.php:39
+msgid "Import projects"
+msgstr "Importera projekt"
+
+#: source/php/Options.php:11
+msgctxt "ACF"
+msgid "Project Manager Integration settings"
+msgstr ""
+
+#: source/php/Options.php:12
+msgctxt "Project Manager Integration settings"
+msgid "Options"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:36
+msgid "Project"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:37
+msgid "Projects"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:46
+msgid "Status"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:47
+msgid "Statuses"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:54
+msgid "Technology"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:55
+msgid "Technologies"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:62
+msgid "Sector"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:63
+msgid "Sectors"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:70
+msgid "Organisation"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:71
+msgid "Organisations"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:78
+msgid "Global goal"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:79
+msgid "Global goals"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:86
+msgid "Category"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:87
+msgid "Categories"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
+msgid "Export with AcfExportManager"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
+#, php-format
+msgid "Exported %d fieldgroup(s)."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Project Manager Integration"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "(#plugin_url#)"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Imports and displays projects from Project Manager API."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Jonatan Hanson"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "(#plugin_author_url#)"
+msgstr ""
