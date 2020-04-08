@@ -21,7 +21,7 @@ class Project
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
-            'supports'           => array('title', 'author', 'revisions', 'editor', 'thumbnail'),
+            'supports'           => array('title', 'editor', 'thumbnail'),
             'show_in_rest'       => true,
         );
 
