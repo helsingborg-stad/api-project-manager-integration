@@ -82,18 +82,14 @@ class Importer
 
             // Update post meta data
             $this->updatePostMeta($postId, $postMeta);
-            error_log("POST DOES NOT EXIST; CREATE ME " . $postId);
         } else {
             // Post already exist, do updates
-
-            error_log("POST EXIST: TRY UPDATE: " . $postObject->ID);
 
             // Get post object id
             $postId = $postObject->ID;
 
             // Bail if no updates has been made
             if ($modified === get_post_meta($postId, 'last_modified', true)) {
-                error_log("BAIL: " . $postObject->ID);
                 return;
             }
 
@@ -110,7 +106,6 @@ class Importer
             );
             // Update if post object is modified
             if ($localPost !== $remotePost) {
-                error_log("UPDATE POST OBJECT: " . $postObject->ID);
                 wp_update_post($remotePost);
             }
 
