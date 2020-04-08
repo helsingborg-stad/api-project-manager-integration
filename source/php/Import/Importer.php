@@ -125,7 +125,8 @@ class Importer
           'address' => $address ?? null,
           'contacts' => $contacts ?? null,
           'partners' => $partners ?? null,
-          'links' => $links ?? null
+          'links' => $links ?? null,
+          'map' => $map ?? null
         );
 
         return $data;
