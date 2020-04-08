@@ -4,6 +4,8 @@ namespace ProjectManagerIntegration\PostTypes;
 
 class Project
 {
+    public $postType = 'project';
+
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
@@ -30,7 +32,7 @@ class Project
         );
 
         $postType = new \ProjectManagerIntegration\Helper\PostType(
-            'project',
+            $this->postType,
             __('Project', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Projects', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             $args,
@@ -38,52 +40,52 @@ class Project
             $restArgs
         );
 
-        // // Statuses
-        // $postType->addTaxonomy(
-        //     'status',
-        //     __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     array('hierarchical' => true)
-        // );
+        // Statuses
+        $postType->addTaxonomy(
+            $this->postType . '_status',
+            __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
 
-        // // Technologies
-        // $postType->addTaxonomy(
-        //     'technology',
-        //     __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     array('hierarchical' => true)
-        // );
+        // Technologies
+        $postType->addTaxonomy(
+            $this->postType . '_technology',
+            __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
 
-        // // Sectors
-        // $postType->addTaxonomy(
-        //     'sector',
-        //     __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     array('hierarchical' => true)
-        // );
+        // Sectors
+        $postType->addTaxonomy(
+            $this->postType . '_sector',
+            __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
 
-        // // Organisations
-        // $postType->addTaxonomy(
-        //     'organisation',
-        //     __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     array('hierarchical' => true)
-        // );
+        // Organisations
+        $postType->addTaxonomy(
+            $this->postType . '_organisation',
+            __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
 
-        // // Global goals
-        // $postType->addTaxonomy(
-        //     'global_goal',
-        //     __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     array('hierarchical' => true)
-        // );
+        // Global goals
+        $postType->addTaxonomy(
+            $this->postType . '_global_goal',
+            __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
 
-        // // Categories
-        // $postType->addTaxonomy(
-        //     'category',
-        //     __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        //     array('hierarchical' => true)
-        // );
+        // Categories
+        $postType->addTaxonomy(
+            $this->postType . '_category',
+            __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
     }
 }
