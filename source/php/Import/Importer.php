@@ -67,6 +67,9 @@ class Importer
             )
         );
 
+        // Collect post meta
+        $postMeta = $this->mapMetaKeys($post);
+
         // Not existing, create new
         if (!isset($postObject->ID)) {
             $postData = array(
@@ -77,6 +80,8 @@ class Importer
             );
             $postId = wp_insert_post($postData);
 
+            // Update post meta data
+            $this->updatePostMeta($postId, $postMeta);
             error_log("POST DOES NOT EXIST; CREATE ME " . $postId);
         } else {
             // Post already exist, do updates
@@ -108,15 +113,27 @@ class Importer
                 error_log("UPDATE POST OBJECT: " . $postObject->ID);
                 wp_update_post($remotePost);
             }
-        }
 
-        // TODO: Only update if post has been updated or is created
-        $postMeta = array(
+            // Update post meta data
+            $this->updatePostMeta($postId, $postMeta);
+        }
+    }
+
+    public function mapMetaKeys($post)
+    {
+        extract($post);
+
+        $data = array(
           'uuid' => $id,
-          'last_modified' => $modified
+          'last_modified' => $modified,
+          'internal_project' => $internal_project ?? null,
+          'address' => $address ?? null,
+          'contacts' => $contacts ?? null,
+          'partners' => $partners ?? null,
+          'links' => $links ?? null
         );
-        //Update post with meta
-        $this->updatePostMeta($postId, $postMeta);
+
+        return $data;
     }
 
     /**
@@ -164,7 +181,7 @@ class Importer
                     continue;
                 }
 
-                if ($metaValue != get_post_meta($postId, $metaKey, true)) {
+                if ($metaValue !== get_post_meta($postId, $metaKey, true)) {
                     update_post_meta($postId, $metaKey, $metaValue);
                 }
             }
