@@ -45,7 +45,7 @@ class Project
             $this->postType . '_status',
             __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
+            array('hierarchical' => false, 'show_ui' => false)
         );
 
         // Technologies
