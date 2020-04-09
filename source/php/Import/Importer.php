@@ -69,6 +69,8 @@ class Importer
 
         // Collect post meta
         $postMeta = $this->mapMetaKeys($post);
+        // Collect taxonomies
+        $postTaxonomies = $this->mapTaxonomies($post);
 
         // Not existing, create new
         if (!isset($postObject->ID)) {
@@ -82,6 +84,8 @@ class Importer
 
             // Update post meta data
             $this->updatePostMeta($postId, $postMeta);
+            // Update taxonomies
+            $this->updateTaxonomies($postId, $postTaxonomies);
         } else {
             // Post already exist, do updates
 
@@ -111,7 +115,62 @@ class Importer
 
             // Update post meta data
             $this->updatePostMeta($postId, $postMeta);
+            // Update taxonomies
+            $this->updateTaxonomies($postId, $postTaxonomies);
         }
+    }
+
+    public function updateTaxonomies($postId, $taxonomies)
+    {
+        foreach ($taxonomies as $taxonomyKey => $taxonomy) {
+            // Remove previous connections
+            wp_delete_object_term_relationships($postId, $taxonomyKey);
+
+            if (empty($taxonomy) || !is_array($taxonomy)) {
+                continue;
+            }
+
+            $termList = array();
+
+            foreach ($taxonomy as $key => $term) {
+                // Check if term exist
+                $localTerm = term_exists($term['slug'], $taxonomyKey);
+
+                if (!$localTerm) {
+                    // Create term if not exist
+                    $localTerm = wp_insert_term(
+                        $term['name'],
+                        $taxonomyKey,
+                        array(
+                        'description' => $term['description'],
+                        'slug' => $term['slug'],
+                        'parent' => $term['parent']
+                        )
+                    );
+                }
+
+                $termList[] = (int) $localTerm['term_id'];
+            }
+
+            // Connecting term to post
+            wp_set_post_terms($postId, $termList, $taxonomyKey, true);
+        }
+    }
+
+    public function mapTaxonomies($post)
+    {
+        extract($post);
+
+        $data = array(
+          $this->postType . '_status' => $status,
+          $this->postType . '_technology' => $technology,
+          $this->postType . '_sector' => $sector,
+          $this->postType . '_organisation' => $organisation,
+          $this->postType . '_global_goal' => $global_goal,
+          $this->postType . '_partner' => $partner
+        );
+
+        return $data;
     }
 
     public function mapMetaKeys($post)
@@ -124,7 +183,6 @@ class Importer
           'internal_project' => $internal_project ?? null,
           'address' => $address ?? null,
           'contacts' => $contacts ?? null,
-          'partners' => $partners ?? null,
           'links' => $links ?? null,
           'map' => $map ?? null
         );
