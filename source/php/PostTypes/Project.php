@@ -87,5 +87,13 @@ class Project
             __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array('hierarchical' => true, 'show_ui' => false)
         );
+
+        // Partner
+        $postType->addTaxonomy(
+            $this->postType . '_parnter',
+            __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
+        );
     }
 }
