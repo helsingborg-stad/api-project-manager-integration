@@ -1,0 +1,299 @@
+(
+    [id] => 3
+    [date] => 2020-04-07T08:14:49
+    [date_gmt] => 2020-04-07T08:14:49
+    [modified] => 2020-04-15T17:10:46
+    [modified_gmt] => 2020-04-15T17:10:46
+    [slug] => test
+    [status] => Array
+        (
+            [0] => Array
+                (
+                    [term_id] => 2
+                    [name] => Done
+                    [slug] => done
+                    [term_group] => 0
+                    [term_taxonomy_id] => 2
+                    [taxonomy] => status
+                    [description] =>
+                    [parent] => 0
+                    [count] => 1
+                    [filter] => raw
+                )
+
+        )
+
+    [type] => project
+    [title] => Array
+        (
+            [rendered] => API project
+        )
+
+    [content] => Array
+        (
+            [rendered] => <p>Project Stone</p>
+<p>Some info text for project Stone.</p>
+
+            [protected] =>
+        )
+
+    [featured_media] => 54
+    [technology] => Array
+        (
+            [0] => Array
+                (
+                    [term_id] => 3
+                    [name] => Pooler
+                    [slug] => pooler
+                    [term_group] => 0
+                    [term_taxonomy_id] => 3
+                    [taxonomy] => technology
+                    [description] =>
+                    [parent] => 0
+                    [count] => 1
+                    [filter] => raw
+                )
+
+        )
+
+    [sector] => Array
+        (
+            [0] => Array
+                (
+                    [term_id] => 4
+                    [name] => Skola
+                    [slug] => skola
+                    [term_group] => 0
+                    [term_taxonomy_id] => 4
+                    [taxonomy] => sector
+                    [description] =>
+                    [parent] => 0
+                    [count] => 1
+                    [filter] => raw
+                )
+
+        )
+
+    [organisation] => Array
+        (
+            [0] => Array
+                (
+                    [term_id] => 5
+                    [name] => Hbg
+                    [slug] => hbg
+                    [term_group] => 0
+                    [term_taxonomy_id] => 5
+                    [taxonomy] => organisation
+                    [description] =>
+                    [parent] => 0
+                    [count] => 1
+                    [filter] => raw
+                )
+
+        )
+
+    [global_goal] => Array
+        (
+            [0] => Array
+                (
+                    [term_id] => 6
+                    [name] => Miljö
+                    [slug] => miljo
+                    [term_group] => 0
+                    [term_taxonomy_id] => 6
+                    [taxonomy] => global_goal
+                    [description] =>
+                    [parent] => 0
+                    [count] => 1
+                    [filter] => raw
+                )
+
+        )
+
+    [partner] => Array
+        (
+            [0] => Array
+                (
+                    [term_id] => 11
+                    [name] => Volvo
+                    [slug] => volvo
+                    [term_group] => 0
+                    [term_taxonomy_id] => 11
+                    [taxonomy] => partner
+                    [description] =>
+                    [parent] => 0
+                    [count] => 0
+                    [filter] => raw
+                )
+
+        )
+
+    [internal_project] =>
+    [address] => Array
+        (
+            [street_address] =>
+            [postal_code] =>
+            [city] =>
+        )
+
+    [contacts] =>
+    [files] => Array
+        (
+            [0] => Array
+                (
+                    [title] =>
+                    [file] =>
+                )
+
+        )
+
+    [gallery] =>
+    [video] => Array
+        (
+            [0] => Array
+                (
+                    [url] => https://www.youtube.com
+                )
+
+        )
+
+    [links] =>
+    [map] =>
+    [_links] => Array
+        (
+            [self] => Array
+                (
+                    [0] => Array
+                        (
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/project/3
+                        )
+
+                )
+
+            [collection] => Array
+                (
+                    [0] => Array
+                        (
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/project
+                        )
+
+                )
+
+            [about] => Array
+                (
+                    [0] => Array
+                        (
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/types/project
+                        )
+
+                )
+
+            [author] => Array
+                (
+                    [0] => Array
+                        (
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/users/1
+                        )
+
+                )
+
+            [version-history] => Array
+                (
+                    [0] => Array
+                        (
+                            [count] => 3
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/project/3/revisions
+                        )
+
+                )
+
+            [predecessor-version] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 64
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/project/3/revisions/64
+                        )
+
+                )
+
+            [wp:featuredmedia] => Array
+                (
+                    [0] => Array
+                        (
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/media/54
+                        )
+
+                )
+
+            [wp:attachment] => Array
+                (
+                    [0] => Array
+                        (
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/media?parent=3
+                        )
+
+                )
+
+            [wp:term] => Array
+                (
+                    [0] => Array
+                        (
+                            [taxonomy] => status
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/status?post=3
+                        )
+
+                    [1] => Array
+                        (
+                            [taxonomy] => technology
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/technology?post=3
+                        )
+
+                    [2] => Array
+                        (
+                            [taxonomy] => sector
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/sector?post=3
+                        )
+
+                    [3] => Array
+                        (
+                            [taxonomy] => organisation
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/organisation?post=3
+                        )
+
+                    [4] => Array
+                        (
+                            [taxonomy] => global_goal
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/global_goal?post=3
+                        )
+
+                    [5] => Array
+                        (
+                            [taxonomy] => partner
+                            [embeddable] => 1
+                            [href] => https://multi.local/inovations-api/wp-json/wp/v2/partner?post=3
+                        )
+
+                )
+
+            [curies] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => wp
+                            [href] => https://api.w.org/{rel}
+                            [templated] => 1
+                        )
+
+                )
+
+        )
+
+)
