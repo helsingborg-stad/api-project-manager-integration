@@ -131,6 +131,7 @@ class Importer
     {   
         extract($post);
         
+        // TODO: Fix naive fetching of JSON elemetns.
         $fimg_api_url = $_links['wp:featuredmedia'][0]['href'];
         $fimg_api_res = $this->requestApi($fimg_api_url);
         $fimg_url = $fimg_api_res['body']['source_url'];
