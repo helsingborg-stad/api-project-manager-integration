@@ -226,6 +226,7 @@ class Importer
 
                 if (!$localTerm) {
                     // Create term if not exist
+                    error_log($taxonomyKey);
                     $localTerm = wp_insert_term(
                         $term['name'],
                         $taxonomyKey,
@@ -378,7 +379,7 @@ class Importer
      */
     private function attachmentExists($src)
     {
-        global $wpdb;       // TODO: Reed some more about global wpdb.
+        global $wpdb;       
         $query = "SELECT ID FROM {$wpdb->posts} WHERE guid = '$src'";
         $id = $wpdb->get_var($query);
 
