@@ -88,9 +88,9 @@ class Project
             array('hierarchical' => true, 'show_ui' => false)
         );
 
-        // Partner
+        // Partners
         $postType->addTaxonomy(
-            $this->postType . '_parnter',
+            $this->postType . '_partner',
             __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array('hierarchical' => true, 'show_ui' => false)

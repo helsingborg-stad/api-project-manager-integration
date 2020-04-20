@@ -86,6 +86,8 @@ class Importer
             $this->updatePostMeta($postId, $postMeta);
             // Update taxonomies
             $this->updateTaxonomies($postId, $postTaxonomies);
+            
+            $this->updateFeatureImage($post, $postId);
         } else {
             // Post already exist, do updates
 
@@ -97,7 +99,7 @@ class Importer
                 return;
             }
 
-            $remotePost = array(
+            $remotePost = array(  
                 'ID' => $postId,
                 'post_title' => $title['rendered'] ?? '',
                 'post_content' => $content['rendered'] ?? ''
@@ -117,7 +119,116 @@ class Importer
             $this->updatePostMeta($postId, $postMeta);
             // Update taxonomies
             $this->updateTaxonomies($postId, $postTaxonomies);
+
+            $this->updateFeatureImage($post, $postId);
         }
+    }
+
+    /**
+     * Update if any feature image found.
+     */
+    public function updateFeatureImage($post, $idOfCopyPost)
+    {   
+        extract($post);
+        
+        // TODO: Fix naive fetching of JSON elemetns.
+        if (!isset($_links['wp:featuredmedia']) || !is_array($_links['wp:featuredmedia']) || !isset($_links['wp:featuredmedia'][0]) || !isset($_links['wp:featuredmedia'][0]['href'])) {
+            return;
+        }
+
+        $fimg_api_url = $_links['wp:featuredmedia'][0]['href'];
+
+        if (!isset($fimg_api_url) || strlen($fimg_api_url) === 0 || !filter_var($fimg_api_url, FILTER_VALIDATE_URL)) {
+            // Did not find valid href for feature image,
+            return;
+        }
+
+        $fimg_api_res = $this->requestApi($fimg_api_url);
+
+        if (is_wp_error($fimg_api_res)) {
+            return;
+        }
+
+        $fimg_url = $fimg_api_res['body']['source_url'];
+
+        if (is_string($fimg_url)) {
+            $this->setFeaturedImageFromUrl($fimg_url, $idOfCopyPost);
+        }        
+    }
+
+    /**
+     * Uploads an image from a specified url and sets it as the current post's featured image
+     * @param string $url Image url
+     * @return bool|void
+     */
+    public function setFeaturedImageFromUrl($url, $id)
+    {             
+        // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
+        // stream_context_set_default( [
+        //     'ssl' => [
+        //         'verify_peer' => false,
+        //         'verify_peer_name' => false,
+        //     ],
+        // ]);
+
+        $headers = get_headers($url, 1);
+
+        if (!isset($url) || strlen($url) === 0 || !wp_http_validate_url($url) || preg_match('/200 OK/', $headers[0]) === 0) {
+            return false;
+        }
+
+        // TODO: Set correct uploadDir.
+        // Upload paths
+        $uploadDir = wp_upload_dir();
+        $uploadDir = $uploadDir['basedir'];
+        $uploadDir = $uploadDir . '/project_manager';
+
+        if (!is_dir($uploadDir)) {
+            if (!mkdir($uploadDir, 0776)) {
+                error_log('could not crate folder');
+                return new WP_Error('event', __('Could not create folder',
+                        'event-manager') . ' "' . $uploadDir . '", ' . __('please go ahead and create it manually and rerun the import.',
+                        'event-manager'));
+            }
+        }
+
+        $filename = sanitize_file_name(basename($url));
+        if (stripos(basename($url), '.aspx')) {
+            $filename = md5($filename) . '.jpg';
+        }
+
+        // Bail if image already exists in library
+        if ($attachmentId = $this->attachmentExists($uploadDir . '/' . basename($filename))) {
+            set_post_thumbnail((int)$id, (int)$attachmentId);
+
+            return;
+        }
+
+        // Save file to server
+        $contents = file_get_contents($url);
+        $save = fopen($uploadDir . '/' . $filename, 'w');
+        fwrite($save, $contents);
+        fclose($save);
+
+        // Detect file type
+        $filetype = wp_check_filetype($filename, null);
+
+        // Insert the file to media library
+        $attachmentId = wp_insert_attachment(array(
+            'guid' => $uploadDir . '/' . basename($filename),
+            'post_mime_type' => $filetype['type'],
+            'post_title' => $filename,
+            'post_content' => '',
+            'post_status' => 'inherit',
+            'post_parent' => $id
+        ), $uploadDir . '/' . $filename, $id);
+
+        // Generate attachment meta
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        $attachData = wp_generate_attachment_metadata($attachmentId, $uploadDir . '/' . $filename);
+        wp_update_attachment_metadata($attachmentId, $attachData);
+
+        set_post_thumbnail($id, $attachmentId);
     }
 
     public function updateTaxonomies($postId, $taxonomies)
@@ -138,6 +249,7 @@ class Importer
 
                 if (!$localTerm) {
                     // Create term if not exist
+                    error_log($taxonomyKey);
                     $localTerm = wp_insert_term(
                         $term['name'],
                         $taxonomyKey,
@@ -283,5 +395,23 @@ class Importer
         );
 
         return $returnData;
+    }
+
+    /**
+     * Checks if a attachment src already exists in media library
+     * @param  string $src Media url
+     * @return mixed
+     */
+    private function attachmentExists($src)
+    {
+        global $wpdb;       
+        $query = "SELECT ID FROM {$wpdb->posts} WHERE guid = '$src'";
+        $id = $wpdb->get_var($query);
+
+        if (!empty($id) && $id > 0) {
+            return $id;
+        }
+
+        return false;
     }
 }
