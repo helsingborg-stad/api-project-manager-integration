@@ -132,6 +132,10 @@ class Importer
         extract($post);
         
         // TODO: Fix naive fetching of JSON elemetns.
+        if (!isset($_links['wp:featuredmedia']) || !is_array($_links['wp:featuredmedia']) || !isset($_links['wp:featuredmedia'][0]) || !isset($_links['wp:featuredmedia'][0]['href'])) {
+            return;
+        }
+
         $fimg_api_url = $_links['wp:featuredmedia'][0]['href'];
 
         if (!isset($fimg_api_url) || strlen($fimg_api_url) === 0 || !filter_var($fimg_api_url, FILTER_VALIDATE_URL)) {
