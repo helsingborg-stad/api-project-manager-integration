@@ -133,6 +133,11 @@ class Importer
         
         // TODO: Fix naive fetching of JSON elemetns.
         $fimg_api_url = $_links['wp:featuredmedia'][0]['href'];
+        
+        if (!filter_var($fimg_api_url, FILTER_VALIDATE_URL)) {            
+            return;
+        }
+
         $fimg_api_res = $this->requestApi($fimg_api_url);
         $fimg_url = $fimg_api_res['body']['source_url'];
 
@@ -146,6 +151,14 @@ class Importer
      */
     public function setFeaturedImageFromUrl($url, $id)
     {             
+        // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
+        // stream_context_set_default( [
+        //     'ssl' => [
+        //         'verify_peer' => false,
+        //         'verify_peer_name' => false,
+        //     ],
+        // ]);
+
         $headers = get_headers($url, 1);
 
         error_log(print_r($headers[0], true));
