@@ -135,6 +135,7 @@ class Importer
         $fimg_api_url = $_links['wp:featuredmedia'][0]['href'];
         
         if (!filter_var($fimg_api_url, FILTER_VALIDATE_URL)) {            
+            // TODO: Remove any feature img.
             return;
         }
 
