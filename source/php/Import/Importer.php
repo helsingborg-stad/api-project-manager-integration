@@ -142,14 +142,16 @@ class Importer
                         $term['name'],
                         $taxonomyKey,
                         array(
-                        'description' => $term['description'],
-                        'slug' => $term['slug'],
-                        'parent' => $term['parent']
+                            'description' => $term['description'],
+                            'slug' => $term['slug'],
+                            'parent' => $term['parent']
                         )
                     );
                 }
 
-                $termList[] = (int) $localTerm['term_id'];
+                if (is_array($localTerm) && isset($localTerm['term_id'])) {
+                    $termList[] = (int) $localTerm['term_id'];
+                }
             }
 
             // Connecting term to post
