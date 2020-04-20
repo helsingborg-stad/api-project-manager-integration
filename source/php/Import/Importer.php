@@ -133,18 +133,23 @@ class Importer
         
         // TODO: Fix naive fetching of JSON elemetns.
         $fimg_api_url = $_links['wp:featuredmedia'][0]['href'];
-        
-        if (!filter_var($fimg_api_url, FILTER_VALIDATE_URL)) {            
-            // No feature image URL found, remove any feature image for post
-            delete_post_thumbnail((int) $idOfCopyPost);
 
+        if (!isset($fimg_api_url) || strlen($fimg_api_url) === 0 || !filter_var($fimg_api_url, FILTER_VALIDATE_URL)) {
+            // Did not find valid href for feature image,
             return;
         }
 
         $fimg_api_res = $this->requestApi($fimg_api_url);
+
+        if (is_wp_error($fimg_api_res)) {
+            return;
+        }
+
         $fimg_url = $fimg_api_res['body']['source_url'];
 
-        $this->setFeaturedImageFromUrl($fimg_url, $idOfCopyPost);
+        if (is_string($fimg_url)) {
+            $this->setFeaturedImageFromUrl($fimg_url, $idOfCopyPost);
+        }        
     }
 
     /**
@@ -163,8 +168,6 @@ class Importer
         // ]);
 
         $headers = get_headers($url, 1);
-
-        error_log(print_r($headers[0], true));
 
         if (!isset($url) || strlen($url) === 0 || !wp_http_validate_url($url) || preg_match('/200 OK/', $headers[0]) === 0) {
             return false;
