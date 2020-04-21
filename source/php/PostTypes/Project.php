@@ -9,6 +9,24 @@ class Project
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
+        add_filter('Municipio/viewData', array($this, 'singleProjectViewController'));
+    }
+
+    public function singleProjectViewController($data)
+    {
+        if (!is_singular('project')) {
+            return $data;
+        }
+
+        $data['project'] = array();
+
+        // Contacts
+        $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
+        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
+            $data['project']['contacts'] = $contactsMeta[0];
+        }
+
+        return $data;
     }
 
     public function registerPostType()
