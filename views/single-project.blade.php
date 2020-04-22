@@ -52,7 +52,53 @@
         </div>
 
         <div class="grid-md-12 grid-lg-4">
+            
+            {{-- Project meta --}}
+            @if (in_array_any([
+                'organisation', 
+                'status', 
+                'sector', 
+                'technologies', 
+                'partners'], array_keys($project)))
+                <div class="box box-filled box-filled-1">
+                    <div class="box-content">
+                        {{-- Organisation --}}
+                        @if (!empty($project['organisation']))
+                            <h4>Organisation</h4>
+                            <p>{{$project['organisation']}}</p>
+                            <br/>
+                        @endif
                         
+                        {{-- Status --}}
+                        @if (!empty($project['status']))
+                            <h4>Status</h4>
+                            <p>{{$project['status']}}</p>
+                            <br/>
+                        @endif
+
+                        {{-- Sector --}}
+                        @if (!empty($project['sector']))
+                            <h4>Sector</h4>
+                            <p>{{$project['sector']}}</p>
+                            <br/>
+                        @endif
+
+                        {{-- Technologies --}}
+                        @if (!empty($project['technologies']))
+                            <h4>Teknologier</h4>
+                            <p>{{$project['technologies']}}</p>
+                            <br/>
+                        @endif
+
+                        {{-- Partners --}}
+                        @if (!empty($project['partners']))
+                            <h4>Partners</h4>
+                            <p>{{$project['partners']}}</p>
+                        @endif
+                    </div>
+                </div>
+            @endif
+            
             {{-- Contacts --}}
             @if ($project && $project['contacts'])
                 @php
