@@ -28,17 +28,17 @@ class Project
 
         // Organisation
         if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
-            $data['project']['organisation'] = get_the_terms(get_queried_object_id(), 'project_organisation')[0];
+            $data['project']['organisation'] = get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name;
         }
-
+        
         // Partners
         if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
-            $data['project']['partners'] = get_the_terms(get_queried_object_id(), 'project_partner');
+            $data['project']['partners'] = array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '');
         }
 
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
-            $data['project']['status'] = get_the_terms(get_queried_object_id(), 'project_status')[0];
+            $data['project']['status'] = get_the_terms(get_queried_object_id(), 'project_status')[0]->name;
         }
 
         // Global Goals
@@ -47,16 +47,27 @@ class Project
         }
 
         // Sector
-        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
-            $data['project']['sector'] = $contactsMeta[0];
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
+            $data['project']['sector'] = array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '');
         }
 
         // Technologies
         if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
-            $data['project']['technologies'] = get_the_terms(get_queried_object_id(), 'project_technology');
+            $data['project']['technologies'] = array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '');
         }
 
         return $data;
+    }
+
+    public static function reduceTermsToString($accumilator, $item)
+    {
+        if (empty($accumilator)) {
+            $accumilator = $item->name;
+        } else {
+            $accumilator .= ', ' . $item->name;
+        }
+
+        return $accumilator;
     }
 
     public function registerPostType()
