@@ -9,6 +9,54 @@ class Project
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
+        add_filter('Municipio/viewData', array($this, 'singleViewController'));
+    }
+
+    public function singleViewController($data)
+    {
+        if (!is_singular('project')) {
+            return $data;
+        }
+
+        $data['project'] = array();
+
+        // Contacts
+        $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
+        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
+            $data['project']['contacts'] = $contactsMeta[0];
+        }
+
+        // Organisation
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
+            $data['project']['organisation'] = get_the_terms(get_queried_object_id(), 'project_organisation')[0];
+        }
+
+        // Partners
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
+            $data['project']['partners'] = get_the_terms(get_queried_object_id(), 'project_partner');
+        }
+
+        // Status
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
+            $data['project']['status'] = get_the_terms(get_queried_object_id(), 'project_status')[0];
+        }
+
+        // Global Goals
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_global_goal'))) {
+            $data['project']['globalGoals'] = get_the_terms(get_queried_object_id(), 'project_global_goal');
+        }
+
+        // Sector
+        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
+            $data['project']['sector'] = $contactsMeta[0];
+        }
+
+        // Technologies
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
+            $data['project']['technologies'] = get_the_terms(get_queried_object_id(), 'project_technology');
+        }
+
+        return $data;
     }
 
     public function registerPostType()
