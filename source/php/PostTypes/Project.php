@@ -9,10 +9,10 @@ class Project
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
-        add_filter('Municipio/viewData', array($this, 'singleProjectViewController'));
+        add_filter('Municipio/viewData', array($this, 'singleViewController'));
     }
 
-    public function singleProjectViewController($data)
+    public function singleViewController($data)
     {
         if (!is_singular('project')) {
             return $data;
