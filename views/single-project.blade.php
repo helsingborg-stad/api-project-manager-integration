@@ -64,7 +64,11 @@
                     <h4 class="box-title">Kontakt</h4>
                     <div class="box-content">
                         @foreach ($project['contacts'] as $contact)
-                            <p><b>Namn:</b> {{$contact['name']}}</br> <b>E-post: </b><a href="mailto:{{$contact['email']}}">{{$contact['email']}}</a></p>
+                            <p><b>Namn:</b> {{$contact['name']}}
+                                @if($contact['email'])
+                                    </br> <b>E-post: </b><a href="mailto:{{$contact['email']}}">{{$contact['email']}}</a>
+                                @endif
+                            </p>
                         @endforeach
                     </div>
                 </div>
