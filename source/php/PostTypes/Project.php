@@ -26,34 +26,52 @@ class Project
             $data['project']['contacts'] = $contactsMeta[0];
         }
 
-        // Organisation
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
-            $data['project']['organisation'] = get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name;
-        }
-        
-        // Partners
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
-            $data['project']['partners'] = array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '');
-        }
-
-        // Status
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
-            $data['project']['status'] = get_the_terms(get_queried_object_id(), 'project_status')[0]->name;
-        }
-
         // Global Goals
         if (!empty(get_the_terms(get_queried_object_id(), 'project_global_goal'))) {
             $data['project']['globalGoals'] = get_the_terms(get_queried_object_id(), 'project_global_goal');
         }
 
+        //Meta
+        $data['project']['meta'] = array();
+
+        // Organisation
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
+            $data['project']['meta'][] = array(
+                'title' => 'Organisation',
+                'content' => get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name
+            );
+        }
+        
+        // Partners
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
+            $data['project']['meta'][] = array(
+                'title' => 'Partners',
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '')
+            );
+        }
+
+        // Status
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
+            $data['project']['meta'][] = array(
+                'title' => 'Status',
+                'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
+            );
+        }
+
         // Sector
         if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
-            $data['project']['sector'] = array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '');
+            $data['project']['meta'][] = array(
+                'title' => 'Sector',
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
+            );
         }
 
         // Technologies
         if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
-            $data['project']['technologies'] = array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '');
+            $data['project']['meta'][] = array(
+                'title' => 'Technologies',
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
+            );
         }
 
         return $data;

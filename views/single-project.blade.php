@@ -52,61 +52,33 @@
         </div>
 
         <div class="grid-md-12 grid-lg-4">
+            {{-- Inline scoped styles --}}
+            <style scoped>
+                .box-project-meta .box-project-meta__list > li:not(:last-child) {
+                    margin-bottom: 16px;
+                }
+            </style>
             
             {{-- Project meta --}}
-            @if (in_array_any([
-                'organisation', 
-                'status', 
-                'sector', 
-                'technologies', 
-                'partners'], array_keys($project)))
-                <div class="box box-filled box-filled-1">
+            @if ($project && !empty($project['meta']))
+                <div class="box box-filled box-filled-1 box-project box-project-meta">
                     <div class="box-content">
-                        {{-- Organisation --}}
-                        @if (!empty($project['organisation']))
-                            <h4>Organisation</h4>
-                            <p>{{$project['organisation']}}</p>
-                            <br/>
-                        @endif
-                        
-                        {{-- Status --}}
-                        @if (!empty($project['status']))
-                            <h4>Status</h4>
-                            <p>{{$project['status']}}</p>
-                            <br/>
-                        @endif
-
-                        {{-- Sector --}}
-                        @if (!empty($project['sector']))
-                            <h4>Sector</h4>
-                            <p>{{$project['sector']}}</p>
-                            <br/>
-                        @endif
-
-                        {{-- Technologies --}}
-                        @if (!empty($project['technologies']))
-                            <h4>Teknologier</h4>
-                            <p>{{$project['technologies']}}</p>
-                            <br/>
-                        @endif
-
-                        {{-- Partners --}}
-                        @if (!empty($project['partners']))
-                            <h4>Partners</h4>
-                            <p>{{$project['partners']}}</p>
-                        @endif
+                        <ul class="box-project-meta__list">
+                            @foreach ($project['meta'] as $meta)
+                                <li>
+                                    <h4>{{$meta['title']}}</h4>
+                                    <p>{{$meta['content']}}</p>
+                                </li>
+                            @endforeach                            
+                        </ul>
                     </div>
                 </div>
             @endif
             
             {{-- Contacts --}}
             @if ($project && $project['contacts'])
-                @php
-                    $contacts = get_post_meta(get_the_id(), 'contacts', false )[0];
-                @endphp
-
                 {{-- TODO: Translate labels --}}
-                <div class="box box-filled box-filled-1">
+                <div class="box box-filled box-filled-1 box-project box-project-contact">
                     <h4 class="box-title">Kontakt</h4>
                     <div class="box-content">
                         @foreach ($project['contacts'] as $contact)
