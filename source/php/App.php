@@ -8,8 +8,8 @@ class App
     {
         new PostTypes\Project();
         new Import\Setup();
-        new Options();
-
+        new Options();        
+        new UI\Theme();
 
         // Add view paths
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
