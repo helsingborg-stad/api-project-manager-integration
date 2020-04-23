@@ -52,15 +52,33 @@
         </div>
 
         <div class="grid-md-12 grid-lg-4">
-                        
+            {{-- Inline scoped styles --}}
+            <style scoped>
+                .box-project-meta .box-project-meta__list > li:not(:last-child) {
+                    margin-bottom: 16px;
+                }
+            </style>
+            
+            {{-- Project meta --}}
+            @if ($project && !empty($project['meta']))
+                <div class="box box-filled box-filled-1 box-project box-project-meta">
+                    <div class="box-content">
+                        <ul class="box-project-meta__list">
+                            @foreach ($project['meta'] as $meta)
+                                <li>
+                                    <h4>{{$meta['title']}}</h4>
+                                    <p>{{$meta['content']}}</p>
+                                </li>
+                            @endforeach                            
+                        </ul>
+                    </div>
+                </div>
+            @endif
+            
             {{-- Contacts --}}
             @if ($project && $project['contacts'])
-                @php
-                    $contacts = get_post_meta(get_the_id(), 'contacts', false )[0];
-                @endphp
-
                 {{-- TODO: Translate labels --}}
-                <div class="box box-filled box-filled-1">
+                <div class="box box-filled box-filled-1 box-project box-project-contact">
                     <h4 class="box-title">Kontakt</h4>
                     <div class="box-content">
                         @foreach ($project['contacts'] as $contact)
