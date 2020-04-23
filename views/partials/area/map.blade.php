@@ -26,7 +26,7 @@
 
               // Create new map
               map = new google.maps.Map(document.getElementById('areaMap'), {
-                zoom: 9,
+                zoom: 11,
                 // center: {!!json_encode($center)!!},
 
                 // Temporary center position, this shall be calculated
@@ -38,10 +38,10 @@
                 //Get details about pin
                 name  = jsonPlots[item].location;
                 info  = jsonPlots[item].excerpt;
+                link = jsonPlots[item].permalink;
 
                 //Append html markup for infowindow
-                // jsonPlots[item].info  = '<h3>' + name + '</h3>' + '<p>' + info + '</p>' + '<br><a target="_top" class="btn btn-md btn-primary" href="' + link + '"><?php _e("Read more about ", 'familjen-hbg') ?> ' + name + '</a>';
-                jsonPlots[item].info  = '<h3>' + name + '</h3>' + '<p>' + info + '</p>' + '<br>';
+                jsonPlots[item].info  = '<h3>' + name + '</h3>' + '<p>' + info + '</p>' + '<br><a target="_top" class="btn btn-md btn-primary" href="' + link + '"><?php _e("Läs mer om ", 'innovations-db') ?> ' + name + '</a>';
 
                 //Create new marker
                 marker = new google.maps.Marker({

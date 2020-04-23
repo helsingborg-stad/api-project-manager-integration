@@ -49,10 +49,13 @@ class Theme
                         continue;
                     }
 
+                    error_log(print_r(get_permalink($postItem->ID), true));
+
                     $result[] = array(
                         'location' => $postItem->post_title,
                         'excerpt' => wp_trim_words($postItem->post_content, 20),
-                        'geo' => get_field('map', $postItem->ID)
+                        'geo' => get_field('map', $postItem->ID),
+                        'permalink' => get_permalink($postItem->ID)
                     );
                 }
             }
