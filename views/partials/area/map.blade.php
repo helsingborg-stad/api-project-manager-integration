@@ -27,10 +27,7 @@
               // Create new map
               map = new google.maps.Map(document.getElementById('areaMap'), {
                 zoom: 11,
-                // center: {!!json_encode($center)!!},
-
-                // Temporary center position, this shall be calculated
-                center: {lat: 56.050921, lng: 12.697870}
+                center: {!!json_encode($center)!!},
               });
 
               for(var item in jsonPlots) {

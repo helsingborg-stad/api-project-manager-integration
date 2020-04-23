@@ -59,9 +59,25 @@ class Theme
                     );
                 }
             }
-        }
 
-        $center = null;
+            // Get center of all points
+            if (is_array($result) && !empty($result)) {
+                $lat = (float) 0;
+                $lng = (float) 0;
+
+                //Sum all lat lng
+                foreach ($result as $latLngItem) {
+                    $lat = $lat + (float) $latLngItem['geo']['lat'];
+                    $lng = $lng + (float) $latLngItem['geo']['lng'];
+                }
+
+                //Calc center position
+                $center = array(
+                    'lat' => $lat/count($result),
+                    'lng' => $lng/count($result)
+                );
+            }
+        }
 
         $blade = new Blade(PROJECTMANAGERINTEGRATION_VIEW_PATH, $this->CACHE_PATH);
         echo $blade->view()->make('partials.area.map', array('data' => $result, 'center' => $center))->render();
