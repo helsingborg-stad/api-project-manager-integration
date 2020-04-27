@@ -76,7 +76,7 @@
             @endif
             
             {{-- Contacts --}}
-            @if ($project && $project['contacts'])
+            @if ($project && !empty($project['contacts']))
                 {{-- TODO: Translate labels --}}
                 <div class="box box-filled box-filled-1 box-project box-project-contact">
                     <h4 class="box-title">Kontakt</h4>
