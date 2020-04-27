@@ -99,7 +99,7 @@ class Importer
                 return;
             }
 
-            $remotePost = array(  
+            $remotePost = array(
                 'ID' => $postId,
                 'post_title' => $title['rendered'] ?? '',
                 'post_content' => $content['rendered'] ?? ''
@@ -128,11 +128,14 @@ class Importer
      * Update if any feature image found.
      */
     public function updateFeatureImage($post, $idOfCopyPost)
-    {   
+    {
         extract($post);
         
         // TODO: Fix naive fetching of JSON elemetns.
-        if (!isset($_links['wp:featuredmedia']) || !is_array($_links['wp:featuredmedia']) || !isset($_links['wp:featuredmedia'][0]) || !isset($_links['wp:featuredmedia'][0]['href'])) {
+        if (!isset($_links['wp:featuredmedia'])
+            || !is_array($_links['wp:featuredmedia'])
+            || !isset($_links['wp:featuredmedia'][0])
+            || !isset($_links['wp:featuredmedia'][0]['href'])) {
             return;
         }
 
@@ -153,7 +156,7 @@ class Importer
 
         if (is_string($fimg_url)) {
             $this->setFeaturedImageFromUrl($fimg_url, $idOfCopyPost);
-        }        
+        }
     }
 
     /**
@@ -162,7 +165,7 @@ class Importer
      * @return bool|void
      */
     public function setFeaturedImageFromUrl($url, $id)
-    {             
+    {
         // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
         // stream_context_set_default( [
         //     'ssl' => [
@@ -186,9 +189,13 @@ class Importer
         if (!is_dir($uploadDir)) {
             if (!mkdir($uploadDir, 0776)) {
                 error_log('could not crate folder');
-                return new WP_Error('event', __('Could not create folder',
-                        'event-manager') . ' "' . $uploadDir . '", ' . __('please go ahead and create it manually and rerun the import.',
-                        'event-manager'));
+                return new WP_Error('event', __(
+                    'Could not create folder',
+                    'event-manager'
+                ) . ' "' . $uploadDir . '", ' . __(
+                    'please go ahead and create it manually and rerun the import.',
+                    'event-manager'
+                ));
             }
         }
 
@@ -404,7 +411,7 @@ class Importer
      */
     private function attachmentExists($src)
     {
-        global $wpdb;       
+        global $wpdb;
         $query = "SELECT ID FROM {$wpdb->posts} WHERE guid = '$src'";
         $id = $wpdb->get_var($query);
 
