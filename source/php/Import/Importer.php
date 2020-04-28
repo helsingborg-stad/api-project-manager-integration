@@ -81,13 +81,6 @@ class Importer
               'post_status' => 'publish',
             );
             $postId = wp_insert_post($postData);
-
-            // Update post meta data
-            $this->updatePostMeta($postId, $postMeta);
-            // Update taxonomies
-            $this->updateTaxonomies($postId, $postTaxonomies);
-            
-            $this->updateFeatureImage($post, $postId);
         } else {
             // Post already exist, do updates
 
@@ -98,30 +91,30 @@ class Importer
             if ($modified === get_post_meta($postId, 'last_modified', true)) {
                 return;
             }
-
+            
             $remotePost = array(
-                'ID' => $postId,
-                'post_title' => $title['rendered'] ?? '',
-                'post_content' => $content['rendered'] ?? ''
-            );
+                    'ID' => $postId,
+                    'post_title' => $title['rendered'] ?? '',
+                    'post_content' => $content['rendered'] ?? ''
+                );
 
             $localPost = array(
-                'ID' => $postId,
-                'post_title' => $postObject->post_title,
-                'post_content' => $postObject->post_content,
-            );
+                    'ID' => $postId,
+                    'post_title' => $postObject->post_title,
+                    'post_content' => $postObject->post_content,
+                );
             // Update if post object is modified
             if ($localPost !== $remotePost) {
                 wp_update_post($remotePost);
             }
-
-            // Update post meta data
-            $this->updatePostMeta($postId, $postMeta);
-            // Update taxonomies
-            $this->updateTaxonomies($postId, $postTaxonomies);
-
-            $this->updateFeatureImage($post, $postId);
         }
+
+        // Update post meta data
+        $this->updatePostMeta($postId, $postMeta);
+        // Update taxonomies
+        $this->updateTaxonomies($postId, $postTaxonomies);
+
+        $this->updateFeatureImage($post, $postId);
     }
 
     /**
@@ -237,7 +230,7 @@ class Importer
 
         set_post_thumbnail($id, $attachmentId);
     }
-
+    
     public function updateTaxonomies($postId, $taxonomies)
     {
         foreach ($taxonomies as $taxonomyKey => $taxonomy) {
@@ -263,7 +256,7 @@ class Importer
                         array(
                             'description' => $term['description'],
                             'slug' => $term['slug'],
-                            'parent' => $term['parent']
+                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
                         )
                     );
                 }
@@ -276,6 +269,32 @@ class Importer
             // Connecting term to post
             wp_set_post_terms($postId, $termList, $taxonomyKey, true);
         }
+    }
+
+    public function getParentByRemoteId($remoteId, $remoteTaxonomy)
+    {
+        if ($remoteId === 0) {
+            return $remoteId;
+        }
+
+        $url = str_replace('project', $remoteTaxonomy, $this->url) . '/' . $remoteId;
+        $requestResponse = $this->requestApi($url);
+        $remoteParentTerm = $requestResponse['body'];
+        $localParentTerm = get_term_by('slug', $remoteParentTerm['slug'], 'project_' . $remoteTaxonomy, ARRAY_A);
+
+        if (empty($localParentTerm)) {
+            $localParentTerm = wp_insert_term(
+                $remoteParentTerm['name'],
+                'project_' . $remoteParentTerm['taxonomy'],
+                array(
+                    'description' => $remoteParentTerm['description'],
+                    'slug' => $remoteParentTerm['slug'],
+                    'parent' => $this->getParentByRemoteId($remoteParentTerm['parent'], $remoteParentTerm['taxonomy'])
+                )
+            );
+        }
+
+        return $localParentTerm['term_id'];
     }
 
     public function mapTaxonomies($post)
