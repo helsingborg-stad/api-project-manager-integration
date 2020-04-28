@@ -20,6 +20,14 @@ class Theme
 
     public function mapPlotData($query)
     {
+        // Set map default center position to Helsingborg.
+        // Center position will be recalculated if any markers gets added to map.
+        $center = array(
+            'lat' => 56.05,
+            'lng' => 12.716667
+        );
+
+
         if (is_object($query) && $query->is_main_query() && isset($query->query['post_type'])) {
             
             if (is_single()) {

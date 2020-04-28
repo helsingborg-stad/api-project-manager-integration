@@ -1,10 +1,8 @@
-@if(isset($data) && is_array($data) && !empty($data))
-<div></div>
     <script>
       var jsonPlots = {!!json_encode($data)!!}
     </script>
     <div class="grid-xs-12">
-    
+
       <style scoped>
         .area-map {
           width: 100%;
@@ -62,4 +60,3 @@
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcTrRdDFsoCu3bNbfBMU5Me1-9iqChOM8&callback=areaInitMap"></script>
       </div>
     </div>
-@endif
