@@ -19,44 +19,55 @@
 
           <div id="areaMap"></div>
           <script>
-            function areaInitMap() {
-              var marker, item, map;
 
-              // Create new map
-              map = new google.maps.Map(document.getElementById('areaMap'), {
+            function areaInitMap() {
+
+              var map = new google.maps.Map(document.getElementById('areaMap'), {
                 zoom: 11,
                 center: {!!json_encode($center)!!},
               });
 
-              for(var item in jsonPlots) {
+              var markers;
 
-                //Get details about pin
-                name  = jsonPlots[item].location;
-                info  = jsonPlots[item].excerpt;
-                link = jsonPlots[item].permalink;
-
-                //Append html markup for infowindow
-                jsonPlots[item].info  = '<h3>' + name + '</h3>' + '<p>' + info + '</p>' + '<br><a target="_top" class="btn btn-md btn-primary" href="' + link + '"><?php _e("Läs mer om ", 'innovations-db') ?> ' + name + '</a>';
-
-                //Create new marker
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(jsonPlots[item].geo.lat,jsonPlots[item].geo.lng),
-                    name: name,
-                    map: map
+              var markers = jsonPlots.map(function(jsonPlot) {
+                var name = jsonPlot.location;
+                
+                var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(jsonPlot.geo.lat, jsonPlot.geo.lng),
+                  name: name,
                 });
 
-                //Add infowindow trigger
+                name = jsonPlot.location;
+                info = jsonPlot.excerpt;
+                link = jsonPlot.permalink;
+
+                
+                jsonPlot.info = '<h3>' + name + '</h3>' + '<p>' + info + '</p>' + '<br><a target="_top" class="btn btn-md btn-primary" href="' + link + '"><?php _e("Läs mer om ", 'innovations-db') ?> ' + name + '</a>';
+
+                // Add infowindow trigger
                 google.maps.event.addListener(marker, 'click', (function(marker, item) {
                   return function() {
                       var infoWindow = new google.maps.InfoWindow();
-                      infoWindow.setContent(jsonPlots[item].info);
+                      infoWindow.setContent(item.info);
                       infoWindow.open(map, marker);
                   }
-                })(marker, item));
+                })(marker, jsonPlot));
+                
+                return marker;
+              });
 
-              }
+
+              
+
+              // Add a marker clusterer to manage the markers.
+              var markerCluster = new MarkerClusterer(map, markers,
+                  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+              
+            
             }
+            
           </script>
+          <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcTrRdDFsoCu3bNbfBMU5Me1-9iqChOM8&callback=areaInitMap"></script>
       </div>
     </div>
