@@ -16,10 +16,20 @@ class Theme
 
         // TODO: Should not be running mapPlotData action during loop_start
         add_action('loop_start', array($this, 'mapPlotData'));
+
+        // if (self::displayMap()) {
+        //     // TODO: Should not be running mapPlotData action during loop_start
+        //     add_action('loop_start', array($this, 'mapPlotData'));
+        // }
     }
 
     public function mapPlotData($query)
     {
+        // Should we display map?
+        if (!self::displayMap()) {
+            return;
+        }
+
         // Set map default center position to Helsingborg.
         // Center position will be recalculated if any markers gets added to map.
         $center = array(
@@ -57,8 +67,6 @@ class Theme
                         continue;
                     }
 
-                    error_log(print_r(get_permalink($postItem->ID), true));
-
                     $result[] = array(
                         'location' => $postItem->post_title,
                         'excerpt' => wp_trim_words($postItem->post_content, 20),
@@ -89,5 +97,17 @@ class Theme
 
         $blade = new Blade(PROJECTMANAGERINTEGRATION_VIEW_PATH, $this->CACHE_PATH);
         echo $blade->view()->make('partials.area.map', array('data' => $result, 'center' => $center))->render();
+    }
+
+    public static function displayMap()
+    {
+        global $archive;
+        global $post;
+
+        if (is_archive() && is_main_site() && is_post_type_archive()) {
+            return true;
+        }
+
+        return false;
     }
 }
