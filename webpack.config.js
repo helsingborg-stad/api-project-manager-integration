@@ -16,8 +16,8 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'js/project-manager-integration': './source/js/project-manager-integration.js',
-        'css/project-manager-integration': './source/sass/project-manager-integration.scss',
+        'js/project-manager-integration': './source/js/api-project-manager-integration.js',
+        'css/project-manager-integration': './source/sass/api-project-manager-integration.scss',
     },
 
     /**
@@ -119,7 +119,7 @@ module.exports = {
             chunkFilename: devMode ? '[name].css' : '[name].[contenthash:8].css'
         }),
         new ManifestPlugin({
-            fileName: 'rev-manifest.json',
+            fileName: 'manifest.json',
             // Filter manifest items
             filter: function(file) {
                 // Don't include source maps
