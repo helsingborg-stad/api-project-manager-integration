@@ -2,19 +2,21 @@
 
 namespace ProjectManagerIntegration;
 
+use ProjectManagerIntegration\Helper\CacheBust as CacheBust;
+
 class App
 {
     public function __construct()
     {
         new PostTypes\Project();
         new Import\Setup();
-        new Options();        
+        new Options();
         new UI\Theme();
 
         // Add view paths
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
 
-        // add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
         // add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
     }
 
@@ -24,7 +26,14 @@ class App
      */
     public function enqueueStyles()
     {
-        wp_register_style('project-manager-integration-css', PROJECTMANAGERINTEGRATION_URL . '/dist/' . \ProjectManagerIntegration\Helper\CacheBust::name('css/project-manager-integration.css'));
+        wp_enqueue_style(
+            'project-manager-integration-css',
+            PROJECTMANAGERINTEGRATION_URL .
+                        '/dist/' .
+                        CacheBust::name('css/project-manager-integration.css'),
+            array(),
+            ''
+        );
     }
 
     /**
