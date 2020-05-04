@@ -1,3 +1,5 @@
+<?php do_action('municipio/view/before_hero'); ?>
+
 @if (!is_singular('project') && is_active_sidebar('slider-area') === true )
     <div class="hero has-stripe sidebar-slider-area">
         <div class="grid">
@@ -35,3 +37,5 @@
         </div>
     </div>
 @endif
+
+<?php do_action('municipio/view/after_hero'); ?>
