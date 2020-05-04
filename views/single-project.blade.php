@@ -3,10 +3,8 @@
 @section('content')
 
 <div class="container main-container">
-    @include('partials.breadcrumbs')
-
     <div class="grid grid--columns">
-        <div class="grid-md-12 grid-lg-8">
+        <div class="grid-sm-12 grid-md-7 grid-lg-8">
             @if (is_single() && is_active_sidebar('content-area-top'))
                 <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
@@ -15,8 +13,8 @@
 
             <div class="grid" id="readspeaker-read">
                 <div class="grid-sm-12">
-                        {!! the_post() !!}
-                        @include('partials.blog.type.post-single')
+                    {!! the_post() !!}
+                    @include('partials.blog.type.post-project')
                 </div>
             </div>
 
@@ -51,7 +49,7 @@
             @endif
         </div>
 
-        <div class="grid-md-12 grid-lg-4">
+        <div class="grid-sm-12 grid-md-5 grid-lg-4">
             {{-- Inline scoped styles --}}
             <style scoped>
                 .box-project-meta .box-project-meta__list > li:not(:last-child) {
