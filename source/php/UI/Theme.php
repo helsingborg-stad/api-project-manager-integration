@@ -20,6 +20,10 @@ class Theme
 
     public function mapPlotData($query)
     {
+        if (!is_archive() || get_post_type() !== 'project') {
+            return;
+        }
+
         global $wp_query;
         $query = $wp_query;
 
