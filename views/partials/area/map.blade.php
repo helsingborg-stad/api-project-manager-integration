@@ -1,6 +1,9 @@
     <script>
       var jsonPlots = {!!json_encode($data)!!}
     </script>
+    <div class="grid">
+
+
     <div class="grid-xs-12">
 
       <style scoped>
@@ -10,7 +13,12 @@
 
         #areaMap {
           height: 400px;
-          margin-bottom: 30px;
+        }
+
+        @media only screen and (min-width: 1440px) {
+          #areaMap {
+            height: 700px;
+          }
         }
 
       </style>
@@ -240,4 +248,5 @@
           <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcTrRdDFsoCu3bNbfBMU5Me1-9iqChOM8&callback=areaInitMap"></script>
       </div>
+    </div>
     </div>
