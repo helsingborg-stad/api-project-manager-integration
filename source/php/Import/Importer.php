@@ -21,6 +21,11 @@ class Importer
             kses_remove_filters();
         }
 
+        // TODO: For testing, move import of taxonomies!
+        error_log('Importing taxonomies...');
+        $this->importTaxonomies();
+        return;
+
         $totalPages = 1;
 
         for ($i = 1; $i <= $totalPages; $i++) {
@@ -115,6 +120,8 @@ class Importer
         $this->updateTaxonomies($postId, $postTaxonomies);
 
         $this->updateFeatureImage($post, $postId);
+
+        // $this->updateTerms($postTaxonomies);
     }
 
     /**
@@ -268,6 +275,63 @@ class Importer
 
             // Connecting term to post
             wp_set_post_terms($postId, $termList, $taxonomyKey, true);
+        }
+    }
+
+    public function importTaxonomies() 
+    {
+        $taxonomies = array(['organisation']);
+
+        foreach ($taxonomies as $taxonomie) {
+            
+        }
+        
+        $url = str_replace('project', 'organisation', $this->url);
+
+        // TODO: Spin through all pages, look at Jonatans code.
+        $url = add_query_arg(
+            array(
+              'page' => 1,
+              'per_page' => 50,
+            ),
+            $url
+        );
+
+        $response = $this->requestApi($url);
+        error_log('got url response: ');
+        error_log(print_r($response));
+
+        if (!$response['body']) {
+            return;
+        } 
+
+        $terms = $response['body'];
+
+        if (!empty($terms)) {
+            foreach ($terms as $term) {
+                $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
+
+                $wpInsertResp = null;
+
+                if (!$localTerm) {
+                    $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
+                        'description' => $term['description'],
+                        'slug' => $term['slug'],
+                        'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                    ));
+
+                    continue;
+                }
+
+                $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
+                    'description' => $term['description'],
+                    'slug' => $term['slug'],
+                    'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
+                    'name' => $term['name']
+                ));
+
+                // error_log(print_r($wpUpdateResp, true));
+            }
         }
     }
 
