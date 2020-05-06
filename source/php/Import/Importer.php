@@ -22,7 +22,6 @@ class Importer
         }
 
         // TODO: For testing, move import of taxonomies!
-        error_log('Importing taxonomies...');
         $this->importTaxonomies();
         return;
 
@@ -280,59 +279,60 @@ class Importer
 
     public function importTaxonomies() 
     {
-        $taxonomies = array(['organisation']);
+        // TODO: Add all taxonomies, only added two for testing.
+        $taxonomies = array('organisation', 'partner');
 
         foreach ($taxonomies as $taxonomie) {
+            $url = str_replace('project', $taxonomie, $this->url); 
+
+            // TODO: Spin through all pages, look at Jonatans code.
+            $url = add_query_arg(
+                array(
+                'page' => 1,
+                'per_page' => 50,
+                ),
+                $url
+            );
+
+            $response = $this->requestApi($url);
             
-        }
-        
-        $url = str_replace('project', 'organisation', $this->url);
+            if (!$response['body']) {
+                return;
+            } 
 
-        // TODO: Spin through all pages, look at Jonatans code.
-        $url = add_query_arg(
-            array(
-              'page' => 1,
-              'per_page' => 50,
-            ),
-            $url
-        );
+            $terms = $response['body'];
 
-        $response = $this->requestApi($url);
-        error_log('got url response: ');
-        error_log(print_r($response));
+            if (!empty($terms)) {
+                foreach ($terms as $term) {
+                    $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
 
-        if (!$response['body']) {
-            return;
-        } 
+                    $wpInsertResp = null;
 
-        $terms = $response['body'];
+                    if (!$localTerm) {
+                        $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
+                            'description' => $term['description'],
+                            'slug' => $term['slug'],
+                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                        ));
 
-        if (!empty($terms)) {
-            foreach ($terms as $term) {
-                $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
+                        continue;
+                    }
 
-                $wpInsertResp = null;
-
-                if (!$localTerm) {
-                    $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
+                    $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
                         'description' => $term['description'],
                         'slug' => $term['slug'],
-                        'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                        'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
+                        'name' => $term['name']
                     ));
 
-                    continue;
+                    // error_log(print_r($wpUpdateResp, true));
                 }
-
-                $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
-                    'description' => $term['description'],
-                    'slug' => $term['slug'],
-                    'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
-                    'name' => $term['name']
-                ));
-
-                // error_log(print_r($wpUpdateResp, true));
             }
         }
+        
+        
+
+        // TODO: Remove all old post and taxonomi by collect all new IDs 
     }
 
     public function getParentByRemoteId($remoteId, $remoteTaxonomy)
