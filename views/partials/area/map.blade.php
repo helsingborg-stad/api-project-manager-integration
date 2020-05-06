@@ -15,7 +15,7 @@
           height: 400px;
         }
 
-        @media only screen and (min-width: 1440px) {
+        @media only screen and (min-width: 1441px) {
           #areaMap {
             height: 700px;
           }
