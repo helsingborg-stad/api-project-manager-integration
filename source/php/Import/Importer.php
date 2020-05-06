@@ -285,52 +285,67 @@ class Importer
         foreach ($taxonomies as $taxonomie) {
             $url = str_replace('project', $taxonomie, $this->url); 
 
-            // TODO: Spin through all pages, look at Jonatans code.
-            $url = add_query_arg(
-                array(
-                'page' => 1,
-                'per_page' => 50,
-                ),
-                $url
-            );
+            // Fetch taxonomy from API.
+            $totalPages = 1;
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $url = add_query_arg(
+                    array(
+                        'page' => 1,
+                        'per_page' => 50,
+                    ),
+                    $url
+                );
 
-            $response = $this->requestApi($url);
-            
-            if (!$response['body']) {
-                return;
-            } 
+                error_log(print_r($url, true));
 
-            $terms = $response['body'];
+                $requestResponse = $this->requestApi($url);
 
-            if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
+                if (is_wp_error($requestResponse)) {
+                    break;
+                }
 
-                    $wpInsertResp = null;
+                $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
-                    if (!$localTerm) {
-                        $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
+                error_log(print_r($totalPages, true));
+
+                if (!$requestResponse['body']) {
+                    return;
+                } 
+    
+                // Start import of taxonomies.
+                $terms = $requestResponse['body'];
+    
+                // Crate term if it does not exist or update existing
+                if (!empty($terms)) {
+                    foreach ($terms as $term) {
+                        $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
+    
+                        $wpInsertResp = null;
+    
+                        if (!$localTerm) {
+                            // Crate term, could not find any existing.
+                            $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
+                                'description' => $term['description'],
+                                'slug' => $term['slug'],
+                                'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                            ));
+    
+                            continue;
+                        }
+    
+                        // Update term, did find existing.
+                        $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
                             'description' => $term['description'],
                             'slug' => $term['slug'],
-                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
+                            'name' => $term['name']
                         ));
-
-                        continue;
+    
+                        // error_log(print_r($wpUpdateResp, true));
                     }
-
-                    $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
-                        'description' => $term['description'],
-                        'slug' => $term['slug'],
-                        'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
-                        'name' => $term['name']
-                    ));
-
-                    // error_log(print_r($wpUpdateResp, true));
                 }
-            }
+            }            
         }
-        
-        
 
         // TODO: Remove all old post and taxonomi by collect all new IDs 
     }
