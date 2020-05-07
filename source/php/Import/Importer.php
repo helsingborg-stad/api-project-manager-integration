@@ -166,12 +166,12 @@ class Importer
     public function setFeaturedImageFromUrl($url, $id)
     {
         // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
-        // stream_context_set_default( [
-        //     'ssl' => [
-        //         'verify_peer' => false,
-        //         'verify_peer_name' => false,
-        //     ],
-        // ]);
+        stream_context_set_default( [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
 
         $headers = get_headers($url, 1);
 
@@ -282,8 +282,7 @@ class Importer
         $insertAndUpdateId = array();
         // TODO: Add all taxonomies, only added two for testing.
         // Bug: Taxonomy 'status' returns 'Undefined index'.
-        // $taxonomies = array('technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
-        $taxonomies = array('status');
+        $taxonomies = array('technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
 
         foreach ($taxonomies as $taxonomie) {
             $url = str_replace('project', $taxonomie, $this->url); 
@@ -321,38 +320,35 @@ class Importer
                     foreach ($terms as $term) {
                         $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
     
-                        $wpInsertResp = null;
+                        $wpInsertUpdateResp = null;
+                        $wpInsertUpdateArgs = array(
+                            'description' => $term['description'],
+                            'slug' => $term['slug']
+                        );
 
+                        if (isset($term['parent'])) {
+                            $wpInsertUpdateArgs['parent'] = $term['parent'];
+                        }
+    
                         if (!$localTerm) {
                             // Crate term, could not find any existing.
-                            $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
-                                'description' => $term['description'],
-                                'slug' => $term['slug'],
-                                'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
-                            ));
+                            $wpInsertUpdateResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], $wpInsertUpdateArgs);
 
                             // TODO: Log errors.
-                            if (!is_wp_error($wpInsertResp)) {
-                                $insertAndUpdateId[] = $wpInsertResp;
+                            if (!is_wp_error($wpInsertUpdateResp)) {
+                                $insertAndUpdateId[] = $wpInsertUpdateResp;
                             }
     
                             continue;
                         }
-                        
-                        // $parent = $this->getParentByRemoteId($term['parent'], $term['taxonomy']);
-                        //error_log(print_r($parent, true));
-                        return;
 
-                        // Update term, did find existing.
-                        $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
-                            'description' => $term['description'],
-                            'slug' => $term['slug'],
-                            // 'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
-                            'name' => $term['name']
-                        ));
+                        $wpInsertUpdateArgs['name'] = $term['name'];
     
-                        if (!is_wp_error($wpUpdateResp)) {
-                            $insertAndUpdateId[] = $wpUpdateResp;
+                        // Update term, did find existing.
+                        $wpInsertUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], $wpInsertUpdateArgs);
+    
+                        if (!is_wp_error($wpInsertUpdateResp)) {
+                            $insertAndUpdateId[] = $wpInsertUpdateResp;
                         }
                     }
                 }
@@ -373,11 +369,6 @@ class Importer
         $requestResponse = $this->requestApi($url);
         $remoteParentTerm = $requestResponse['body'];
         $localParentTerm = get_term_by('slug', $remoteParentTerm['slug'], 'project_' . $remoteTaxonomy, ARRAY_A);
-
-        error_log('getPranetByRemoteId');
-        // error_log(print_r($url, true));
-
-        return 0;
 
         if (empty($localParentTerm)) {
             $localParentTerm = wp_insert_term(
