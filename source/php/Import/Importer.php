@@ -282,7 +282,7 @@ class Importer
         $insertAndUpdateId = array();
         // TODO: Add all taxonomies, only added two for testing.
         // Bug: Taxonomy 'status' returns 'Undefined index'.
-        $taxonomies = array('technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
+        $taxonomies = array('status', 'technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
 
         foreach ($taxonomies as $taxonomie) {
             $url = str_replace('project', $taxonomie, $this->url); 
@@ -320,7 +320,10 @@ class Importer
                     foreach ($terms as $term) {
                         $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
     
+                        // Keep track of newly inserted and updated querys. Will be used to delte old entries.
                         $wpInsertUpdateResp = null;
+
+                        // Construct arguments for insert and update querys.
                         $wpInsertUpdateArgs = array(
                             'description' => $term['description'],
                             'slug' => $term['slug']
