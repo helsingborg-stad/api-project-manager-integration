@@ -14,7 +14,7 @@
             <div class="grid" id="readspeaker-read">
                 <div class="grid-sm-12">
                     {!! the_post() !!}
-                    @include('partials.blog.type.post-project')
+                    @include('partials.blog.type.post-single-project')
                 </div>
             </div>
 
