@@ -5,8 +5,9 @@
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
-    "watch": "cross-env NODE_ENV=development webpack --watch --config  webpack.config.js"
+    "build": "cross-env NODE_ENV=production webpack",
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "watch": "cross-env NODE_ENV=development webpack --watch"
   },
   "repository": {
     "type": "git",
