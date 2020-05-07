@@ -279,8 +279,11 @@ class Importer
 
     public function importTaxonomies() 
     {
+        $insertAndUpdateId = array();
         // TODO: Add all taxonomies, only added two for testing.
-        $taxonomies = array('organisation', 'partner');
+        // Bug: Taxonomy 'status' returns 'Undefined index'.
+        // $taxonomies = array('technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
+        $taxonomies = array('status');
 
         foreach ($taxonomies as $taxonomie) {
             $url = str_replace('project', $taxonomie, $this->url); 
@@ -306,8 +309,6 @@ class Importer
 
                 $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
-                error_log(print_r($totalPages, true));
-
                 if (!$requestResponse['body']) {
                     return;
                 } 
@@ -321,7 +322,7 @@ class Importer
                         $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
     
                         $wpInsertResp = null;
-    
+
                         if (!$localTerm) {
                             // Crate term, could not find any existing.
                             $wpInsertResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], array(
@@ -329,25 +330,37 @@ class Importer
                                 'slug' => $term['slug'],
                                 'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
                             ));
+
+                            // TODO: Log errors.
+                            if (!is_wp_error($wpInsertResp)) {
+                                $insertAndUpdateId[] = $wpInsertResp;
+                            }
     
                             continue;
                         }
-    
+                        
+                        // $parent = $this->getParentByRemoteId($term['parent'], $term['taxonomy']);
+                        //error_log(print_r($parent, true));
+                        return;
+
                         // Update term, did find existing.
                         $wpUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], array(
                             'description' => $term['description'],
                             'slug' => $term['slug'],
-                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
+                            // 'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy']),
                             'name' => $term['name']
                         ));
     
-                        // error_log(print_r($wpUpdateResp, true));
+                        if (!is_wp_error($wpUpdateResp)) {
+                            $insertAndUpdateId[] = $wpUpdateResp;
+                        }
                     }
                 }
             }            
         }
 
         // TODO: Remove all old post and taxonomi by collect all new IDs 
+        // error_log(print_r($insertAndUpdateId, true));
     }
 
     public function getParentByRemoteId($remoteId, $remoteTaxonomy)
@@ -360,6 +373,11 @@ class Importer
         $requestResponse = $this->requestApi($url);
         $remoteParentTerm = $requestResponse['body'];
         $localParentTerm = get_term_by('slug', $remoteParentTerm['slug'], 'project_' . $remoteTaxonomy, ARRAY_A);
+
+        error_log('getPranetByRemoteId');
+        // error_log(print_r($url, true));
+
+        return 0;
 
         if (empty($localParentTerm)) {
             $localParentTerm = wp_insert_term(
