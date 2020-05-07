@@ -3,7 +3,7 @@
 @section('content')
 
 @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'top')
-    @include('partials.archive-filters')
+    @include('partials.archive-filters-project')
 @endif
 
 <div class="container main-container">
@@ -72,7 +72,7 @@
             @else
             @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
                 <div class="grid filter-content">
-                    @include('partials.archive-filters')
+                    @include('partials.archive-filters-project')
                 </div>
             @endif
                 <div class="grid grid--columns" @if (in_array($template, array('cards'))) data-equal-container @endif>
