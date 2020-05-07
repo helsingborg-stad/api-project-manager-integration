@@ -122,10 +122,14 @@
     }
 
     .box__title {
-        margin-bottom: 4px;
+        margin-bottom: 8px;
     }
 }
 
 a.box.box--project:hover {
     text-decoration: none;
+
+    .box__title {
+        text-decoration: underline;
+    }
 }
