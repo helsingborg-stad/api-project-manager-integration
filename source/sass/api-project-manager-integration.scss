@@ -95,3 +95,41 @@
         }
     }
 }
+
+.box.box--project {
+    .box__content {
+        padding: 16px 32px;
+    }
+
+    .box__meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+
+    .box__organisation {
+        font-weight: bold;
+    }
+
+    .box__organisation + .box__status {
+        margin-left: 8px;
+    }
+
+    .box__tags,
+    .box__status {
+        color: #464646;
+    }
+
+    .box__title {
+        margin-bottom: 8px;
+    }
+}
+
+a.box.box--project:hover {
+    text-decoration: none;
+
+    .box__title {
+        text-decoration: underline;
+    }
+}
