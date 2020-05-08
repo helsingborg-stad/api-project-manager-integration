@@ -280,8 +280,6 @@ class Importer
     public function saveTerms() 
     {
         $insertAndUpdateId = array();
-        // TODO: Add all taxonomies, only added two for testing.
-        // Bug: Taxonomy 'status' returns 'Undefined index'.
         $taxonomies = array('status', 'technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
 
         foreach ($taxonomies as $taxonomie) {
