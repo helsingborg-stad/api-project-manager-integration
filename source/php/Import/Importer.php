@@ -21,8 +21,8 @@ class Importer
             kses_remove_filters();
         }
 
-        // TODO: For testing, move import of taxonomies!
-        // $this->importTaxonomies();
+        // Sync terms before posts
+        $this->saveTerms();
 
         $totalPages = 1;
 
@@ -48,7 +48,6 @@ class Importer
             $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
             $this->savePosts($requestResponse['body']);
-            $this->saveTerms();
         }
     }
 
@@ -166,7 +165,7 @@ class Importer
     public function setFeaturedImageFromUrl($url, $id)
     {
         // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
-        stream_context_set_default( [
+        stream_context_set_default([
             'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
@@ -277,13 +276,13 @@ class Importer
         }
     }
 
-    public function saveTerms() 
+    public function saveTerms()
     {
         $insertAndUpdateId = array();
         $taxonomies = array('status', 'technology', 'sector', 'organisation', 'global_goal', 'category', 'partner');
 
         foreach ($taxonomies as $taxonomie) {
-            $url = str_replace('project', $taxonomie, $this->url); 
+            $url = str_replace('project', $taxonomie, $this->url);
 
             // Fetch taxonomy from API.
             $totalPages = 1;
@@ -308,7 +307,7 @@ class Importer
 
                 if (!$requestResponse['body']) {
                     return;
-                } 
+                }
     
                 // Start import of taxonomies.
                 $terms = $requestResponse['body'];
@@ -316,7 +315,7 @@ class Importer
                 // Crate term if it does not exist or update existing
                 if (!empty($terms)) {
                     foreach ($terms as $term) {
-                        $localTerm = term_exists($term['slug'] , 'project_' . $term['taxonomy']);
+                        $localTerm = term_exists($term['slug'], 'project_' . $term['taxonomy']);
     
                         // Keep track of newly inserted and updated querys. Will be used to delte old entries.
                         $wpInsertUpdateResp = null;
@@ -353,7 +352,7 @@ class Importer
                         }
                     }
                 }
-            }            
+            }
         }
 
         $removeEntries = get_terms(array(
@@ -368,9 +367,8 @@ class Importer
                 continue;
             }
             
-            wp_delete_term($entries->term_id, $entries->taxonomy);            
+            wp_delete_term($entries->term_id, $entries->taxonomy);
         }
-
     }
 
     public function getParentByRemoteId($remoteId, $remoteTaxonomy)
