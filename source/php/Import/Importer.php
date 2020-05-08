@@ -23,7 +23,7 @@ class Importer
 
         // TODO: For testing, move import of taxonomies!
         $this->importTaxonomies();
-        return;
+        // return;
 
         $totalPages = 1;
 
@@ -298,7 +298,7 @@ class Importer
                     $url
                 );
 
-                error_log(print_r($url, true));
+                // error_log(print_r($url, true));
 
                 $requestResponse = $this->requestApi($url);
 
@@ -339,7 +339,7 @@ class Importer
 
                             // TODO: Log errors.
                             if (!is_wp_error($wpInsertUpdateResp)) {
-                                $insertAndUpdateId[] = $wpInsertUpdateResp;
+                                $insertAndUpdateId[] = $wpInsertUpdateResp['term_id'];
                             }
     
                             continue;
@@ -351,15 +351,28 @@ class Importer
                         $wpInsertUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], $wpInsertUpdateArgs);
     
                         if (!is_wp_error($wpInsertUpdateResp)) {
-                            $insertAndUpdateId[] = $wpInsertUpdateResp;
+                            $insertAndUpdateId[] = $wpInsertUpdateResp['term_id'];
                         }
                     }
                 }
             }            
         }
 
-        // TODO: Remove all old post and taxonomi by collect all new IDs 
-        // error_log(print_r($insertAndUpdateId, true));
+        $removeEntries = get_terms(array(
+            'hide_empty' => false,
+            'exclude' => $insertAndUpdateId
+        ));
+        
+
+        foreach ($removeEntries as $entries) {
+            // TODO: Should we skip root antry?
+            if ($entries->term_id === 1 && $entries->taxonomy === 'category') {
+                continue;
+            }
+            
+            wp_delete_term($entries->term_id, $entries->taxonomy);            
+        }
+
     }
 
     public function getParentByRemoteId($remoteId, $remoteTaxonomy)
