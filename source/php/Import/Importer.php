@@ -22,8 +22,7 @@ class Importer
         }
 
         // TODO: For testing, move import of taxonomies!
-        $this->importTaxonomies();
-        // return;
+        // $this->importTaxonomies();
 
         $totalPages = 1;
 
@@ -49,6 +48,7 @@ class Importer
             $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
             $this->savePosts($requestResponse['body']);
+            $this->saveTerms();
         }
     }
 
@@ -277,7 +277,7 @@ class Importer
         }
     }
 
-    public function importTaxonomies() 
+    public function saveTerms() 
     {
         $insertAndUpdateId = array();
         // TODO: Add all taxonomies, only added two for testing.
