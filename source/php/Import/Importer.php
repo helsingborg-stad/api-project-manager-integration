@@ -333,10 +333,11 @@ class Importer
                         if (!$localTerm) {
                             // Crate term, could not find any existing.
                             $wpInsertUpdateResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], $wpInsertUpdateArgs);
-
-                            // TODO: Log errors.
+                            
                             if (!is_wp_error($wpInsertUpdateResp)) {
                                 $insertAndUpdateId[] = $wpInsertUpdateResp['term_id'];
+                            } else {
+                                error_log(print_r($wpInsertUpdateResp, true));
                             }
     
                             continue;
@@ -349,6 +350,8 @@ class Importer
     
                         if (!is_wp_error($wpInsertUpdateResp)) {
                             $insertAndUpdateId[] = $wpInsertUpdateResp['term_id'];
+                        } else {
+                            error_log(print_r($wpInsertUpdateResp, true));
                         }
                     }
                 }
