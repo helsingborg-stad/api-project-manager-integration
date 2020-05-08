@@ -327,7 +327,7 @@ class Importer
                         );
 
                         if (isset($term['parent'])) {
-                            $wpInsertUpdateArgs['parent'] = $term['parent'];
+                            $wpInsertUpdateArgs['parent'] = $this->getParentByRemoteId($term['parent'], $term['taxonomy']);
                         }
     
                         if (!$localTerm) {
