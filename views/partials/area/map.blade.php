@@ -187,7 +187,7 @@
               ];
 
               var map = new google.maps.Map(document.getElementById('areaMap'), {
-                zoom: 11,
+                zoom: 10,
                 center: {!!json_encode($center)!!},
                 styles: mapStylePurpleSilver
               });
@@ -227,12 +227,21 @@
                     width: 58,
                     height: 58,
                     textColor: 'white',
+                    textSize: 21,
                     url: 'https://inovation-db-recourses.s3.eu-north-1.amazonaws.com/cluster/m1.png'
                   },
                   {
                     width: 58,
                     height: 58,
                     textColor: 'white',
+                    textSize: 21,
+                    url: 'https://inovation-db-recourses.s3.eu-north-1.amazonaws.com/cluster/m1.png'
+                  },
+                  {
+                    width: 58,
+                    height: 58,
+                    textColor: 'white',
+                    textSize: 21,
                     url: 'https://inovation-db-recourses.s3.eu-north-1.amazonaws.com/cluster/m1.png'
                   }
                 ];
@@ -244,4 +253,5 @@
           <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
           <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcTrRdDFsoCu3bNbfBMU5Me1-9iqChOM8&callback=areaInitMap"></script>
       </div>
-    </div>
+
+    </div> 
