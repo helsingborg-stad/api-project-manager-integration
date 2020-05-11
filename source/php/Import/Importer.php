@@ -254,7 +254,6 @@ class Importer
 
                 if (!$localTerm) {
                     // Create term if not exist
-                    error_log($taxonomyKey);
                     $localTerm = wp_insert_term(
                         $term['name'],
                         $taxonomyKey,
