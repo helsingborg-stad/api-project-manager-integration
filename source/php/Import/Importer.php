@@ -91,10 +91,11 @@ class Importer
             // Get post object id
             $postId = $postObject->ID;
 
+            // TODO: Removed bail as any update to taxonomies, saveTerms(), requires new linking from all posts.
             // Bail if no updates has been made
-            if ($modified === get_post_meta($postId, 'last_modified', true)) {
-                return;
-            }
+            // if ($modified === get_post_meta($postId, 'last_modified', true)) {
+            //     return;
+            // }
             
             $remotePost = array(
                     'ID' => $postId,
@@ -119,8 +120,6 @@ class Importer
         $this->updateTaxonomies($postId, $postTaxonomies);
 
         $this->updateFeatureImage($post, $postId);
-
-        // $this->updateTerms($postTaxonomies);
     }
 
     /**
@@ -295,8 +294,6 @@ class Importer
                     ),
                     $url
                 );
-
-                // error_log(print_r($url, true));
 
                 $requestResponse = $this->requestApi($url);
 
