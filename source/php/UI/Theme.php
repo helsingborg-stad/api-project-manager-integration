@@ -62,8 +62,6 @@ class Theme
                         continue;
                     }
 
-                    error_log(print_r(get_permalink($postItem->ID), true));
-
                     $result[] = array(
                         'location' => $postItem->post_title,
                         'excerpt' => wp_trim_words($postItem->post_content, 20),
