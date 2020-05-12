@@ -79,9 +79,6 @@
                     <a class="btn btn-block btn-contrasted disabled pricon pricon-close pricon-space-right" href="{{ $archiveUrl }}"><?php _e('Clear filters', 'municipio'); ?></a>
                 </div>
             @endif
-            <!-- <div class="grid-sm-12 grid-md-fit-content">
-                <input type="submit" value="<?php _e('Search', 'municipio'); ?>" class="btn btn-primary btn-block">
-            </div> -->
         </div>
 
         @if (isset($enabledTaxonomyFilters->row) && !empty($enabledTaxonomyFilters->row))
