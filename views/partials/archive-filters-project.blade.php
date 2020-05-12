@@ -72,7 +72,7 @@
 
             @if($queryString)
                 <div class="grid-sm-12 hidden-sm hidden-xs grid-md-fit-content">
-                    <a class="btn btn-block pricon pricon-close pricon-space-right" href="{{ $archiveUrl }}"><?php _e('Clear filters', 'municipio'); ?></a>
+                    <a class="btn btn-block btn-contrasted pricon pricon-close pricon-space-right" href="{{ $archiveUrl }}"><?php _e('Clear filters', 'municipio'); ?></a>
                 </div>
             @else
                 <div class="grid-sm-12 grid-md-fit-content">
