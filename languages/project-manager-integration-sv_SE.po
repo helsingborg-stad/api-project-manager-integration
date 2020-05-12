@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
 "POT-Creation-Date: 2020-04-08 10:12+0200\n"
-"PO-Revision-Date: 2020-04-08 10:14+0200\n"
+"PO-Revision-Date: 2020-05-11 15:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -109,43 +109,43 @@ msgstr ""
 
 #: source/php/PostTypes/Project.php:36
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: source/php/PostTypes/Project.php:37
 msgid "Projects"
-msgstr ""
+msgstr "Projekt"
 
 #: source/php/PostTypes/Project.php:46
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: source/php/PostTypes/Project.php:47
 msgid "Statuses"
-msgstr ""
+msgstr "Status"
 
 #: source/php/PostTypes/Project.php:54
 msgid "Technology"
-msgstr ""
+msgstr "Teknologi"
 
 #: source/php/PostTypes/Project.php:55
 msgid "Technologies"
-msgstr ""
+msgstr "Teknologier"
 
 #: source/php/PostTypes/Project.php:62
 msgid "Sector"
-msgstr ""
+msgstr "Sektor"
 
 #: source/php/PostTypes/Project.php:63
 msgid "Sectors"
-msgstr ""
+msgstr "Sektorer"
 
 #: source/php/PostTypes/Project.php:70
 msgid "Organisation"
-msgstr ""
+msgstr "Organisation"
 
 #: source/php/PostTypes/Project.php:71
 msgid "Organisations"
-msgstr ""
+msgstr "Organisationer"
 
 #: source/php/PostTypes/Project.php:78
 msgid "Global goal"
