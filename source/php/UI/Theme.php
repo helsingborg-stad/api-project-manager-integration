@@ -25,20 +25,14 @@ class Theme
             return;
         }
 
-        // TODO: Add some checks to figure out right post.
-        // if (!$query->is_main_query() || !isset($query->query['post_type']) || $query->query['post_type'] != "area" || is_single()) {
-        //     return;
-        // }
-
+        // Query info should only be displayed for post project.
         if (!is_archive() || get_post_type() !== 'project') {
             return;
         }
 
-        $output;    // Fill in return value.
+        $output;    // Output for return value.
         $postCount = \Municipio\Helper\Query::getPaginationData()['postCount'];
         $postTotal = \Municipio\Helper\Query::getPaginationData()['postTotal'];
-
-        // TODO: Show filter selection?
 
         // If no posts.
         if (!isset($postCount) || !$postCount || $postCount == 0) {
@@ -48,15 +42,15 @@ class Theme
 
         // If posts.
         if (isset($postCount) && !$postCount || $postCount > 0) {
-            $output = __('Showing', 'import_projects') . ' ' . $postCount . ' ' . strtolower(__('of', 'import-project')) . ' ' . $postTotal;
+            $output = __('Showing', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . $postCount . ' ' . strtolower(__('of', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)) . ' ' . $postTotal;
         }
 
-        // Return
+        // Return if no output could be crated.
         if (!isset($output) || !output || !is_string($output)) {
             return;
         }
 
-        echo '<div><p>' . $output . '</p></div>';
+        echo '<div class="grid-xs-12 u-element"><p>' . $output . '</p></div>';
     }
 
     public function mapPlotData($query)
