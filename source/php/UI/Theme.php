@@ -42,7 +42,7 @@ class Theme
 
         // If posts.
         if (isset($postCount) && !$postCount || $postCount > 0) {
-            $output = __('Showing', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . $postCount . ' ' . strtolower(__('of', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)) . ' ' . $postTotal;
+            $output = __('Showing', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . $postCount . ' ' . strtolower(__('Of', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)) . ' ' . $postTotal . ' ' . strtolower(__('Results', PROJECTMANAGERINTEGRATION_TEXTDOMAIN));
         }
 
         // Return if no output could be crated.
