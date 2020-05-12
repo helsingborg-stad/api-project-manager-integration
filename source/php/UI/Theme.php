@@ -16,6 +16,47 @@ class Theme
 
         // TODO: Should not be running mapPlotData action during loop_start
         add_action('municipio/view/before_hero', array($this, 'mapPlotData'));
+        add_action('loop_start', array($this, 'outputQueryInfo'));
+    }
+
+    public function outputQueryInfo($query)
+    {
+        if (!is_object($query)) {
+            return;
+        }
+
+        // TODO: Add some checks to figure out right post.
+        // if (!$query->is_main_query() || !isset($query->query['post_type']) || $query->query['post_type'] != "area" || is_single()) {
+        //     return;
+        // }
+
+        if (!is_archive() || get_post_type() !== 'project') {
+            return;
+        }
+
+        $output;    // Fill in return value.
+        $postCount = \Municipio\Helper\Query::getPaginationData()['postCount'];
+        $postTotal = \Municipio\Helper\Query::getPaginationData()['postTotal'];
+
+        // TODO: Show filter selection?
+
+        // If no posts.
+        if (!isset($postCount) || !$postCount || $postCount == 0) {
+            // TODO: Will not post any output but placeholder exists for feature improvments.
+            // $output = __('Could not find any', 'import_projects');
+        }
+
+        // If posts.
+        if (isset($postCount) && !$postCount || $postCount > 0) {
+            $output = __('Showing', 'import_projects') . ' ' . $postCount . ' ' . strtolower(__('of', 'import-project')) . ' ' . $postTotal;
+        }
+
+        // Return
+        if (!isset($output) || !output || !is_string($output)) {
+            return;
+        }
+
+        echo '<div><p>' . $output . '</p></div>';
     }
 
     public function mapPlotData($query)
@@ -28,7 +69,7 @@ class Theme
         $query = $wp_query;
 
         // Set map default center position to Helsingborg.
-        // Center position will be recalculated if any markers gets added to map.
+        // Center position should be recalculated if any markers gets added to map.
         $center = array(
             'lat' => 56.05,
             'lng' => 12.716667
