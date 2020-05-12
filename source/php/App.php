@@ -17,7 +17,7 @@ class App
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
 
         add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
-        // add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
     }
 
     /**
@@ -42,7 +42,17 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_register_script('project-manager-integration-js', PROJECTMANAGERINTEGRATION_URL . '/dist/' . \ProjectManagerIntegration\Helper\CacheBust::name('js/project-manager-integration.js'));
+        wp_register_script(
+            'project-manager-integration-js',
+            PROJECTMANAGERINTEGRATION_URL .
+                                '/dist/' .
+                                CacheBust::name('js/project-manager-integration.js'),
+            array('jquery'),
+            false,
+            true
+        );
+
+        wp_enqueue_script('project-manager-integration-js');
     }
 
     /**
