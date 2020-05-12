@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-04-08 10:12+0200\n"
-"PO-Revision-Date: 2020-05-11 15:17+0200\n"
+"POT-Creation-Date: 2020-05-12 15:37+0200\n"
+"PO-Revision-Date: 2020-05-12 15:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -89,7 +89,15 @@ msgstr ""
 msgid "New %s Name"
 msgstr ""
 
-#: source/php/Import/Importer.php:216
+#: source/php/Import/Importer.php:191
+msgid "Could not create folder"
+msgstr ""
+
+#: source/php/Import/Importer.php:194
+msgid "please go ahead and create it manually and rerun the import."
+msgstr ""
+
+#: source/php/Import/Importer.php:515
 msgid "API request failed."
 msgstr ""
 
@@ -107,61 +115,81 @@ msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:36
+#: source/php/PostTypes/Project.php:113
 msgid "Project"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:37
+#: source/php/PostTypes/Project.php:114
 msgid "Projects"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:46
+#: source/php/PostTypes/Project.php:123
 msgid "Status"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:47
+#: source/php/PostTypes/Project.php:124
 msgid "Statuses"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:54
+#: source/php/PostTypes/Project.php:131
 msgid "Technology"
 msgstr "Teknologi"
 
-#: source/php/PostTypes/Project.php:55
+#: source/php/PostTypes/Project.php:132
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/PostTypes/Project.php:62
+#: source/php/PostTypes/Project.php:139
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/PostTypes/Project.php:63
+#: source/php/PostTypes/Project.php:140
 msgid "Sectors"
 msgstr "Sektorer"
 
-#: source/php/PostTypes/Project.php:70
+#: source/php/PostTypes/Project.php:147
 msgid "Organisation"
 msgstr "Organisation"
 
-#: source/php/PostTypes/Project.php:71
+#: source/php/PostTypes/Project.php:148
 msgid "Organisations"
 msgstr "Organisationer"
 
-#: source/php/PostTypes/Project.php:78
+#: source/php/PostTypes/Project.php:155
 msgid "Global goal"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:79
+#: source/php/PostTypes/Project.php:156
 msgid "Global goals"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:86
+#: source/php/PostTypes/Project.php:163
 msgid "Category"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:87
+#: source/php/PostTypes/Project.php:164
 msgid "Categories"
 msgstr ""
+
+#: source/php/PostTypes/Project.php:171
+msgid "Partner"
+msgstr ""
+
+#: source/php/PostTypes/Project.php:172
+msgid "Partners"
+msgstr ""
+
+#: source/php/UI/Theme.php:45
+msgid "Showing"
+msgstr "Visar"
+
+#: source/php/UI/Theme.php:45
+msgid "Of"
+msgstr "Av"
+
+#: source/php/UI/Theme.php:45
+msgid "Results"
+msgstr "Resultat"
 
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
 msgid "Export with AcfExportManager"
@@ -170,6 +198,44 @@ msgstr ""
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
 #, php-format
 msgid "Exported %d fieldgroup(s)."
+msgstr ""
+
+#: views/archive-project.blade.php:90
+msgid "No posts to show"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:40
+#: views/partials/archive-filters-project.blade.php:43
+#: views/partials/archive-filters-project.blade.php:79
+msgid "Search"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:50
+msgid "Date published"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:52
+msgid "From"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:53
+msgid "From date"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:54
+msgid "To"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:55
+msgid "To date"
+msgstr ""
+
+#: views/partials/archive-filters-project.blade.php:75
+msgid "Clear filters"
+msgstr ""
+
+#: views/partials/area/map.blade.php:212
+msgid "Läs mer om "
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -191,3 +257,6 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "(#plugin_author_url#)"
 msgstr ""
+
+#~ msgid "of"
+#~ msgstr "Av"
