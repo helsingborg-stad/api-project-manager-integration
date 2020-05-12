@@ -7,7 +7,7 @@
 @endif
 
 <div class="container main-container">
-    @include('partials.breadcrumbs')
+    <!-- @include('partials.breadcrumbs') -->
 
     <div class="grid">
         @if (get_field('archive_' . sanitize_title($postType) . '_show_sidebar_navigation', 'option'))
