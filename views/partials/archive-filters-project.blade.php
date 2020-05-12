@@ -6,7 +6,7 @@
     <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
 @endif
 
-    <form method="get" action="{{ $archiveUrl }}" class="container" id="archive-filter">
+    <form method="get" action="{{ $archiveUrl }}" class="container js-submit" id="archive-filter">
 
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
         @foreach ($enabledTaxonomyFilters->highlighted as $taxKey => $taxonomy)
