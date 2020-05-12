@@ -46,7 +46,7 @@ class Theme
         }
 
         // Return if no output could be crated.
-        if (!isset($output) || !output || !is_string($output)) {
+        if (!isset($output) || !$output || !is_string($output)) {
             return;
         }
 
