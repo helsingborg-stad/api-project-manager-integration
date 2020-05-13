@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
 "POT-Creation-Date: 2020-05-12 15:37+0200\n"
-"PO-Revision-Date: 2020-05-12 15:39+0200\n"
+"PO-Revision-Date: 2020-05-13 10:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -157,27 +157,27 @@ msgstr "Organisationer"
 
 #: source/php/PostTypes/Project.php:155
 msgid "Global goal"
-msgstr ""
+msgstr "Globala mål"
 
 #: source/php/PostTypes/Project.php:156
 msgid "Global goals"
-msgstr ""
+msgstr "Globala mål"
 
 #: source/php/PostTypes/Project.php:163
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: source/php/PostTypes/Project.php:164
 msgid "Categories"
-msgstr ""
+msgstr "kategorier"
 
 #: source/php/PostTypes/Project.php:171
 msgid "Partner"
-msgstr ""
+msgstr "Parnter"
 
 #: source/php/PostTypes/Project.php:172
 msgid "Partners"
-msgstr ""
+msgstr "Partners"
 
 #: source/php/UI/Theme.php:45
 msgid "Showing"
@@ -202,21 +202,21 @@ msgstr ""
 
 #: views/archive-project.blade.php:90
 msgid "No posts to show"
-msgstr ""
+msgstr "Inga inlägg att visa"
 
 #: views/partials/archive-filters-project.blade.php:40
 #: views/partials/archive-filters-project.blade.php:43
 #: views/partials/archive-filters-project.blade.php:79
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: views/partials/archive-filters-project.blade.php:50
 msgid "Date published"
-msgstr ""
+msgstr "Publiceringsdatum"
 
 #: views/partials/archive-filters-project.blade.php:52
 msgid "From"
-msgstr ""
+msgstr "Från:"
 
 #: views/partials/archive-filters-project.blade.php:53
 msgid "From date"
@@ -224,7 +224,7 @@ msgstr ""
 
 #: views/partials/archive-filters-project.blade.php:54
 msgid "To"
-msgstr ""
+msgstr "Till"
 
 #: views/partials/archive-filters-project.blade.php:55
 msgid "To date"
@@ -232,7 +232,7 @@ msgstr ""
 
 #: views/partials/archive-filters-project.blade.php:75
 msgid "Clear filters"
-msgstr ""
+msgstr "Återställ filter"
 
 #: views/partials/area/map.blade.php:212
 msgid "Läs mer om "
