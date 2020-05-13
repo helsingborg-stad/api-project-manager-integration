@@ -30,15 +30,15 @@ class Theme
             return;
         }
 
-        $output;    // Output for return value.
+        $output = null;    // Output for return value.
         $postCount = \Municipio\Helper\Query::getPaginationData()['postCount'];
         $postTotal = \Municipio\Helper\Query::getPaginationData()['postTotal'];
 
         // If no posts.
-        if (!isset($postCount) || !$postCount || $postCount == 0) {
-            // TODO: Will not post any output but placeholder exists for feature improvments.
-            // $output = __('Could not find any', 'import_projects');
-        }
+        // TODO: Will not post any output but placeholder exists for feature improvements.
+//        if (!isset($postCount) || !$postCount || $postCount == 0) {
+//            $output = __('Could not find any', 'import_projects');
+//        }‚
 
         // If posts.
         if (isset($postCount) && !$postCount || $postCount > 0) {
