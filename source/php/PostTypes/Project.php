@@ -20,7 +20,7 @@ class Project
             return $data;
         }
 
-        $data['noResultLabels'][0] = __('Haha. We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['noResultLabels'][0] = __('We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
         $data['noResultLabels'][1] = __('Try to refine your search.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
 
         return $data;
