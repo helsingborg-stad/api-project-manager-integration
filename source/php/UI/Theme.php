@@ -55,12 +55,12 @@ class Theme
 
     public function mapPlotData($query)
     {
-        if (!is_archive() || get_post_type() !== 'project') {
+        global $wp_query;
+        $query = $wp_query;
+        if (!is_archive() || $wp_query->query['post_type'] !== 'project') {
             return;
         }
 
-        global $wp_query;
-        $query = $wp_query;
 
         // Set map default center position to Helsingborg.
         // Center position should be recalculated if any markers gets added to map.
