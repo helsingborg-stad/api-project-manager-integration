@@ -10,6 +10,20 @@ class Project
     {
         add_action('init', array($this, 'registerPostType'), 9);
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
+        add_filter('Municipio/viewData', array($this, 'archiveViewController'));
+    }
+
+    public function archiveViewController($data)
+    {
+        global $wp_query;
+        if (!is_archive() || $wp_query->query['post_type'] !== 'project') {
+            return $data;
+        }
+
+        $data['noResultLabels'][0] = __('Haha. We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['noResultLabels'][1] = __('Try to refine your search.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+
+        return $data;
     }
 
     public function singleViewController($data)

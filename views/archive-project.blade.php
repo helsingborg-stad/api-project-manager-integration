@@ -87,7 +87,9 @@
                         @endwhile
                     @else
                         <div class="grid-xs-12">
-                            <div class="notice info pricon pricon-info-o pricon-space-right"><?php _e('No posts to show', 'municipio'); ?>…</div>
+                            <div class="u-text-center u-py-6">
+                                <h1> {{$noResultLabels[0]}} 😭</br>{{$noResultLabels[1]}}</h2>
+                            </div>
                         </div>
                     @endif
                 </div>
