@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-05-12 15:37+0200\n"
-"PO-Revision-Date: 2020-05-13 10:01+0200\n"
+"POT-Creation-Date: 2020-05-15 15:49+0200\n"
+"PO-Revision-Date: 2020-05-15 15:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -115,67 +115,75 @@ msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:113
+#: source/php/PostTypes/Project.php:23
+msgid "We found no results for your search"
+msgstr "Vi hittade inga träffar på din sökning"
+
+#: source/php/PostTypes/Project.php:24
+msgid "Try to refine your search."
+msgstr "Prova ändra din sökning."
+
+#: source/php/PostTypes/Project.php:127
 msgid "Project"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:114
+#: source/php/PostTypes/Project.php:128
 msgid "Projects"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:123
+#: source/php/PostTypes/Project.php:137
 msgid "Status"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:124
+#: source/php/PostTypes/Project.php:138
 msgid "Statuses"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:131
+#: source/php/PostTypes/Project.php:145
 msgid "Technology"
 msgstr "Teknologi"
 
-#: source/php/PostTypes/Project.php:132
+#: source/php/PostTypes/Project.php:146
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/PostTypes/Project.php:139
+#: source/php/PostTypes/Project.php:153
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/PostTypes/Project.php:140
+#: source/php/PostTypes/Project.php:154
 msgid "Sectors"
 msgstr "Sektorer"
 
-#: source/php/PostTypes/Project.php:147
+#: source/php/PostTypes/Project.php:161
 msgid "Organisation"
 msgstr "Organisation"
 
-#: source/php/PostTypes/Project.php:148
+#: source/php/PostTypes/Project.php:162
 msgid "Organisations"
 msgstr "Organisationer"
 
-#: source/php/PostTypes/Project.php:155
+#: source/php/PostTypes/Project.php:169
 msgid "Global goal"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:156
+#: source/php/PostTypes/Project.php:170
 msgid "Global goals"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:163
+#: source/php/PostTypes/Project.php:177
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/PostTypes/Project.php:164
+#: source/php/PostTypes/Project.php:178
 msgid "Categories"
 msgstr "kategorier"
 
-#: source/php/PostTypes/Project.php:171
+#: source/php/PostTypes/Project.php:185
 msgid "Partner"
 msgstr "Parnter"
 
-#: source/php/PostTypes/Project.php:172
+#: source/php/PostTypes/Project.php:186
 msgid "Partners"
 msgstr "Partners"
 
@@ -200,13 +208,8 @@ msgstr ""
 msgid "Exported %d fieldgroup(s)."
 msgstr ""
 
-#: views/archive-project.blade.php:90
-msgid "No posts to show"
-msgstr "Inga inlägg att visa"
-
 #: views/partials/archive-filters-project.blade.php:40
 #: views/partials/archive-filters-project.blade.php:43
-#: views/partials/archive-filters-project.blade.php:79
 msgid "Search"
 msgstr "Sök"
 
@@ -231,6 +234,7 @@ msgid "To date"
 msgstr ""
 
 #: views/partials/archive-filters-project.blade.php:75
+#: views/partials/archive-filters-project.blade.php:79
 msgid "Clear filters"
 msgstr "Återställ filter"
 
@@ -257,6 +261,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "(#plugin_author_url#)"
 msgstr ""
+
+#~ msgid "No posts to show"
+#~ msgstr "Inga inlägg att visa"
 
 #~ msgid "of"
 #~ msgstr "Av"
