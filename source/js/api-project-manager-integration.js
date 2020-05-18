@@ -1,6 +1,6 @@
 import archiveFilter from './archiveFilter';
 
-window.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function(event) {
     // Do stuff
     archiveFilter();
   });
