@@ -53,10 +53,11 @@ class Importer
             $this->savePosts($requestResponse['body']);
         }
 
-        $this->removeUnusedPosts();
+        $this->removePosts();
     }
 
-    private function removeUnusedPosts() {
+    // Remove post that got deleted in the project manager (source that this API copies).
+    private function removePosts() {
         if (count($this->addedPostsId) > 0) {
             $removeEntries = get_posts(array(
                 'hide_empty' => false,

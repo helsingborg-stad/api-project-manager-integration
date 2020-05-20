@@ -144,7 +144,7 @@ class Project
             $this->postType . '_technology',
             __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
+            array('hierarchical' => true, 'show_ui' => true)
         );
 
         // Sectors
@@ -152,7 +152,7 @@ class Project
             $this->postType . '_sector',
             __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
+            array('hierarchical' => true, 'show_ui' => true)
         );
 
         // Organisations
@@ -160,7 +160,7 @@ class Project
             $this->postType . '_organisation',
             __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
+            array('hierarchical' => true, 'show_ui' => true)
         );
 
         // Global goals
