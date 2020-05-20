@@ -65,9 +65,8 @@ class Importer
             ));
 
             foreach ($removeEntries as $entry) {
-                delete_post_thumbnail($entry->ID);
-
                 // TODO: Remove thumbnail (feature image).
+//                delete_post_thumbnail($entry->ID);
 //                wp_delete_post($entry->ID);
             }
         }
