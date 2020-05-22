@@ -57,18 +57,23 @@ class Importer
     }
 
     // Remove post that got deleted in the project manager (source that this API copies).
-    private function removePosts() {
+    private function removePosts()
+    {
         if (count($this->addedPostsId) > 0) {
-            $removeEntries = get_posts(array(
+            $entriesToRemove = get_posts(array(
                 'hide_empty' => false,
                 'exclude' => $this->addedPostsId,
                 'post_type' => 'project'
             ));
 
-            foreach ($removeEntries as $entry) {
-                // TODO: Remove thumbnail (feature image).
-//                delete_post_thumbnail($entry->ID);
-//                wp_delete_post($entry->ID);
+            foreach ($entriesToRemove as $entry) {
+                $featuredImageId = get_post_thumbnail_id($entry->ID);
+
+                if (!empty($featuredImageId)) {
+                    wp_delete_post($featuredImageId, true);
+                }
+
+                wp_delete_post($entry->ID, true);
             }
         }
 
