@@ -9,6 +9,8 @@ class Importer
     public $url;
     public $postType = 'project';
     private $addedPostsId = array();
+    private $localTerms = array();
+    private $taxonomies = array();
 
     public function __construct($url)
     {
@@ -23,9 +25,6 @@ class Importer
         if (function_exists('kses_remove_filters')) {
             kses_remove_filters();
         }
-
-        // Sync terms before posts
-        // $this->saveTerms();
 
         $totalPages = 1;
 
@@ -54,6 +53,27 @@ class Importer
         }
 
         $this->removePosts();
+        $this->removeTerms();
+    }
+
+    private function removeTerms()
+    {
+        $termsToRemove = get_terms(array(
+            'taxonomy' => $this->taxonomies,
+            'exclude' => $this->localTerms,
+            'hide_empty' => false,
+            'childless' => true
+        ));
+
+        if (!empty($termsToRemove)) {
+            foreach ($termsToRemove as $term) {
+                $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
+                
+                if (is_wp_error($deletedTerm)) {
+                    error_log(print_r($deletedTerm, true));
+                }
+            }
+        }
     }
 
     // Remove post that got deleted in the project manager (source that this API copies).
@@ -310,6 +330,11 @@ class Importer
 
                 if (is_array($localTerm) && isset($localTerm['term_id'])) {
                     $termList[] = (int) $localTerm['term_id'];
+
+                    // Save to local terms
+                    if (!in_array($localTerm['term_id'], $this->localTerms)) {
+                        $this->localTerms[] = $localTerm['term_id'];
+                    }
                 }
             }
 
@@ -452,6 +477,8 @@ class Importer
           $this->postType . '_global_goal' => $global_goal,
           $this->postType . '_partner' => $partner
         );
+
+        $this->taxonomies = array_keys($data);
 
         return $data;
     }
