@@ -1,3 +1,45 @@
+.filterbar {
+    display: none;
+}
+
+.filterbar {
+    .filterbar__toggle {
+        background-color: initial;
+        border: none;
+        padding: 8px;
+    }
+    
+    .filterbar__toggle i:before {
+        transition: transform 0.3s ease-out;
+        transform: rotate(0deg);
+        font-size: 1rem;
+    }
+
+    .filterbar__toggle.is-active i:before {
+        transform: rotate(180deg);
+    }
+}
+
+
+
+@media only screen and (max-width: 55em) {
+    .filterbar {
+        display: block;
+    }
+    .collapse-filter {
+        overflow:hidden;
+        transition: height 0.3s ease-out;
+        margin-top: 8px * 2;
+        height: auto;
+    }
+    
+    .collapse-filter[data-collapsed="true"] {
+        height: 0;
+    }
+}
+
+
+
 .hero.hero--project {
     position: relative;
     background: white;
