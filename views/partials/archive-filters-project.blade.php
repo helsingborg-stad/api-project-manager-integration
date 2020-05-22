@@ -6,7 +6,7 @@
         <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters u-py-0@xs u-py-0@sm">
     @endif
    
-    <div class="filterbar hidden-md hidden-lg creamy u-py-2">
+    <div class="filterbar hidden-md hidden-lg creamy u-py-1">
         <div class="container">
             <div class="grid">
                 <div class="grid-xs-auto u-flex u-align-items-center"><span class="h4">Filtrera</span></div>
