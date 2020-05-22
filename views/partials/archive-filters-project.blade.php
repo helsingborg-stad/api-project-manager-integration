@@ -1,12 +1,26 @@
 @if (!empty($enabledHeaderFilters) || !empty($enabledTaxonomyFilters))
 
-@if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
-    <section class="u-mb-4 sidebar-content-area archive-filters grid-xs-12">
-@else
-    <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters">
-@endif
+    @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')
+        <section class="u-mb-4 sidebar-content-area archive-filters grid-xs-12">
+    @else
+        <section class="creamy creamy-border-bottom gutter-lg gutter-vertical sidebar-content-area archive-filters u-py-0@xs u-py-0@sm">
+    @endif
+   
+    <div class="filterbar hidden-md hidden-lg creamy u-py-2">
+        <div class="container">
+            <div class="grid">
+                <div class="grid-xs-auto u-flex u-align-items-center"><span class="h4">Filtrera</span></div>
+                <div class="grid-xs-auto u-text-right">
+                    <button class="filterbar__toggle js-collapsible-toggle" data-collapsible-target=".js-collapse-filter">
+                        <i class="pricon pricon-angle-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
-    <form method="get" action="{{ $archiveUrl }}" class="container js-submit" id="archive-filter">
+    <form method="get" action="{{ $archiveUrl }}" data-collapsed="true" class="container js-submit collapse-filter js-collapse-filter" id="archive-filter">
 
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
         @foreach ($enabledTaxonomyFilters->highlighted as $taxKey => $taxonomy)
@@ -71,7 +85,7 @@
             @endif
 
             @if($queryString)
-                <div class="grid-sm-12 hidden-sm hidden-xs grid-md-fit-content">
+                <div class="grid-sm-12 grid-md-fit-content">
                     <a class="btn btn-block btn-contrasted pricon pricon-close pricon-space-right" href="{{ $archiveUrl }}"><?php _e('Clear filters', 'municipio'); ?></a>
                 </div>
             @else
