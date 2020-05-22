@@ -1,78 +1,99 @@
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-const ManifestPlugin = require('webpack-manifest-plugin');
+require('dotenv').config();
 
-const devMode = process.env.NODE_ENV !== 'production';
+const path = require('path');
+
+const webpack = require('webpack');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+const { getIfUtils, removeEmpty } = require('webpack-config-utils');
+const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
+
 
 module.exports = {
-    externals: {
-        jquery: 'jQuery'
-    },
-
+    mode: ifProduction('production', 'development'),
     /**
-     * Entry files - Add more entries if needed.
+     * Add your entry files here
      */
     entry: {
         'js/project-manager-integration': './source/js/api-project-manager-integration.js',
         'css/project-manager-integration': './source/sass/api-project-manager-integration.scss',
     },
-
     /**
-     * Output files
+     * Output settings
      */
     output: {
-        filename: devMode ? '[name].js' : '[name].[contenthash:8].js',
-        chunkFilename: devMode ? '[id].js' : '[id].[contenthash:8].js',
-        path: path.resolve(process.cwd(), 'dist'),
+        filename: ifProduction('[name].[contenthash].js', '[name].js'),
+        path: path.resolve(__dirname, 'dist'),
     },
-
+    /**
+     * Define external dependencies here
+     */
+    externals: {
+        jquery: 'jQuery'
+    },
     module: {
         rules: [
-
             /**
-             * Babel
+             * Scripts
              */
             {
-                test: /\.jsx?/,
-                exclude: /(node_modules|bower_components)/,
+                test: /\.js$/,
+                exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        // Babel config here
-                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                        // Babel config goes here
+                        presets: ['@babel/preset-env'],
                         plugins: [
                             '@babel/plugin-syntax-dynamic-import',
                             '@babel/plugin-proposal-export-default-from',
                             '@babel/plugin-proposal-class-properties',
-                            'react-hot-loader/babel',
                         ],
-                    },
-                },
+                    }
+                }
             },
 
             /**
-             * Compile sass to css
+             * Styles
              */
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: process.env.NODE_ENV === 'development'
+                        }
+                    },
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 2, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
+                            importLoaders: 3, // 0 => no loaders (default); 1 => postcss-loader; 2 => sass-loader
+                            sourceMap: true,
                         },
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: [autoprefixer],
+                            plugins: [autoprefixer, require('postcss-object-fit-images')],
+                            sourceMap: true,
                         },
                     },
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        }
+                    },
+                    'import-glob-loader'
                 ],
             },
 
@@ -85,41 +106,100 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: devMode ? '[name].[ext]' : '[name].[contenthash:8].[ext]',
+                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
+                            outputPath: 'images',
+                            publicPath: '../images',
                         },
                     },
                 ],
             },
+
             /**
              * Fonts
              */
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            name: devMode ? '[name].[ext]' : '[name].[contenthash:8].[ext]',
+                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
+                            outputPath: 'fonts',
+                            publicPath: '../fonts',
                         },
                     },
                 ],
             }
-        ]
+        ],
     },
+    plugins: removeEmpty([
 
-    /**
-     * Plugins
-     */
-    plugins: [
-        new CleanWebpackPlugin(),
+        /**
+         * BrowserSync
+         */
+        typeof process.env.BROWSER_SYNC_PROXY_URL !== 'undefined' ? new BrowserSyncPlugin(
+            // BrowserSync options
+            {
+              // browse to http://localhost:3000/ during development
+              host: 'localhost',
+              port: process.env.BROWSER_SYNC_PORT ? process.env.BROWSER_SYNC_PORT : 3000,
+              // proxy the Webpack Dev Server endpoint
+              // (which should be serving on http://localhost:3100/)
+              // through BrowserSync
+              proxy: process.env.BROWSER_SYNC_PROXY_URL,
+              injectCss: true,
+              injectChanges: true,
+              files: [{
+                // Reload page
+                match: ['**/*.php', 'dist/**/*.js'],
+                fn: function(event, file) {
+                  if (event === "change") {
+                    const bs = require('browser-sync').get('bs-webpack-plugin');
+                    bs.reload();
+                  }
+                }
+              },
+              {
+                // Inject CSS
+                match: ['dist/**/*.css'],
+                fn: function(event, file) {
+                  if (event === "change") {
+                    const bs = require('browser-sync').get('bs-webpack-plugin');
+                    bs.reload("*.css");
+                  }
+                }
+              }],
+            },
+            // plugin options
+            {
+              // prevent BrowserSync from reloading the page
+              // and let Webpack Dev Server take care of this
+              reload: false
+            }
+        ) : null
+        ,
+
+        /**
+         * Fix CSS entry chunks generating js file
+         */
         new FixStyleOnlyEntriesPlugin(),
-        // Minify css and create css file
+
+        /**
+         * Clean dist folder
+         */
+        new CleanWebpackPlugin(),
+
+        /**
+         * Output CSS files
+         */
         new MiniCssExtractPlugin({
-            filename: devMode ? '[name].css' : '[name].[contenthash:8].css',
-            chunkFilename: devMode ? '[name].css' : '[name].[contenthash:8].css'
+            filename: ifProduction('[name].[contenthash:8].css', '[name].css')
         }),
+
+        /**
+         * Output manifest.json for cache busting
+         */
         new ManifestPlugin({
-            fileName: 'manifest.json',
             // Filter manifest items
             filter: function(file) {
                 // Don't include source maps
@@ -146,6 +226,27 @@ module.exports = {
                 }
                 return file;
             },
-        })
-    ]
+        }),
+
+        /**
+         * Required to enable sourcemap from node_modules assets
+         */
+        new webpack.SourceMapDevToolPlugin(),
+
+        /**
+         * Enable build OS notifications (when using watch command)
+         */
+        new WebpackNotifierPlugin({alwaysNotify: true, skipFirstNotification: true}),
+
+        /**
+         * Minimize CSS assets
+         */
+        ifProduction(new OptimizeCssAssetsPlugin({
+            cssProcessorPluginOptions: {
+                preset: ['default', { discardComments: { removeAll: true } }],
+            },
+        }))
+    ]).filter(Boolean),
+    devtool: ifProduction('source-map', 'eval-source-map'),
+    stats: { children: false }
 };
