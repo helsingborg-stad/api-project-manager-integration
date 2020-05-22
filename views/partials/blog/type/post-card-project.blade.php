@@ -37,12 +37,14 @@
 <div class="{{ $grid_size }}">
     <a href="{{ the_permalink() }}" class="box box--project">
         <div class="box__container" data-equal-item>
-            <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(600,600), '1:1') }}');">
+            <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(500,500), '1:1') }}');">
             </div>
             <div class="box__content">
                 <div class="box__meta">
                     <span class="box__organisation">{{$organisation}}</span>
-                    <span class="box__status box__status--{{sanitize_title($status)}}">{{$status}}</span>
+                    @if ($status)
+                        <span class="box__status box__status--{{sanitize_title($status)}}">{{$status}}</span>
+                    @endif
                 </div>
                 <h3 class="box__title">{{ the_title() }}</h3>
                 <span class="box__tags">{{$postTags}}</span>
