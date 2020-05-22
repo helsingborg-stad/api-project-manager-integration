@@ -2,10 +2,15 @@
 
 namespace ProjectManagerIntegration\Import;
 
+use function Sodium\add;
+
 class Importer
 {
     public $url;
     public $postType = 'project';
+    private $addedPostsId = array();
+    private $localTerms = array();
+    private $taxonomies = array();
 
     public function __construct($url)
     {
@@ -20,9 +25,6 @@ class Importer
         if (function_exists('kses_remove_filters')) {
             kses_remove_filters();
         }
-
-        // Sync terms before posts
-        $this->saveTerms();
 
         $totalPages = 1;
 
@@ -48,8 +50,54 @@ class Importer
             $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
             $this->savePosts($requestResponse['body']);
-            $this->saveTerms();
         }
+
+        $this->removePosts();
+        $this->removeTerms();
+    }
+
+    private function removeTerms()
+    {
+        $termsToRemove = get_terms(array(
+            'taxonomy' => $this->taxonomies,
+            'exclude' => $this->localTerms,
+            'hide_empty' => false,
+            'childless' => true
+        ));
+
+        if (!empty($termsToRemove)) {
+            foreach ($termsToRemove as $term) {
+                $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
+                
+                if (is_wp_error($deletedTerm)) {
+                    error_log(print_r($deletedTerm, true));
+                }
+            }
+        }
+    }
+
+    // Remove post that got deleted in the project manager (source that this API copies).
+    private function removePosts()
+    {
+        if (count($this->addedPostsId) > 0) {
+            $entriesToRemove = get_posts(array(
+                'hide_empty' => false,
+                'exclude' => $this->addedPostsId,
+                'post_type' => 'project'
+            ));
+
+            foreach ($entriesToRemove as $entry) {
+                $featuredImageId = get_post_thumbnail_id($entry->ID);
+
+                if (!empty($featuredImageId)) {
+                    wp_delete_post($featuredImageId, true);
+                }
+
+                wp_delete_post($entry->ID, true);
+            }
+        }
+
+        $this->addedPostsId = array();
     }
 
     public function savePosts($posts)
@@ -85,32 +133,34 @@ class Importer
               'post_status' => 'publish',
             );
             $postId = wp_insert_post($postData);
+
+            if (!is_wp_error($postId)) {
+                $this->addedPostsId[] = $postId;
+            }
         } else {
             // Post already exist, do updates
 
             // Get post object id
             $postId = $postObject->ID;
 
-            // TODO: Removed bail as any update to taxonomies, saveTerms(), requires new linking from all posts.
-            // Bail if no updates has been made
-            // if ($modified === get_post_meta($postId, 'last_modified', true)) {
-            //     return;
-            // }
-            
-            $remotePost = array(
+            $this->addedPostsId[] = $postId;
+
+            if (!($modified === get_post_meta($postId, 'last_modified', true))) {
+                $remotePost = array(
                     'ID' => $postId,
                     'post_title' => $title['rendered'] ?? '',
                     'post_content' => $content['rendered'] ?? ''
                 );
 
-            $localPost = array(
+                $localPost = array(
                     'ID' => $postId,
                     'post_title' => $postObject->post_title,
                     'post_content' => $postObject->post_content,
                 );
-            // Update if post object is modified
-            if ($localPost !== $remotePost) {
-                wp_update_post($remotePost);
+                // Update if post object is modified
+                if ($localPost !== $remotePost) {
+                    wp_update_post($remotePost);
+                }
             }
         }
 
@@ -165,12 +215,12 @@ class Importer
     public function setFeaturedImageFromUrl($url, $id)
     {
         // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
-        stream_context_set_default([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-            ],
-        ]);
+//        stream_context_set_default([
+//            'ssl' => [
+//                'verify_peer' => false,
+//                'verify_peer_name' => false,
+//            ],
+//        ]);
 
         $headers = get_headers($url, 1);
 
@@ -252,7 +302,20 @@ class Importer
                 // Check if term exist
                 $localTerm = term_exists($term['slug'], $taxonomyKey);
 
-                if (!$localTerm) {
+                if ($localTerm) {
+                    $localTermObject = get_term($localTerm['term_id'], $taxonomyKey);
+
+                    // Check if taxonomy name needs to be updated.
+                    if ($term['name'] !== $localTermObject->name) {
+                        wp_update_term(
+                            $localTermObject->term_id,
+                            $localTermObject->taxonomy,
+                            array(
+                                'name' => $term['name']
+                            )
+                        );
+                    }
+                } elseif (!$localTerm) {
                     // Create term if not exist
                     $localTerm = wp_insert_term(
                         $term['name'],
@@ -267,6 +330,11 @@ class Importer
 
                 if (is_array($localTerm) && isset($localTerm['term_id'])) {
                     $termList[] = (int) $localTerm['term_id'];
+
+                    // Save to local terms
+                    if (!in_array($localTerm['term_id'], $this->localTerms)) {
+                        $this->localTerms[] = $localTerm['term_id'];
+                    }
                 }
             }
 
@@ -409,6 +477,8 @@ class Importer
           $this->postType . '_global_goal' => $global_goal,
           $this->postType . '_partner' => $partner
         );
+
+        $this->taxonomies = array_keys($data);
 
         return $data;
     }
