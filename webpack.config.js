@@ -151,7 +151,7 @@ module.exports = {
               injectChanges: true,
               files: [{
                 // Reload page
-                match: ['**/*.php', 'assets/dist/**/*.js'],
+                match: ['**/*.php', 'dist/**/*.js'],
                 fn: function(event, file) {
                   if (event === "change") {
                     const bs = require('browser-sync').get('bs-webpack-plugin');
@@ -161,7 +161,7 @@ module.exports = {
               },
               {
                 // Inject CSS
-                match: ['assets/dist/**/*.css'],
+                match: ['dist/**/*.css'],
                 fn: function(event, file) {
                   if (event === "change") {
                     const bs = require('browser-sync').get('bs-webpack-plugin');
