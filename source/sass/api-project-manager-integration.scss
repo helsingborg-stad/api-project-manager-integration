@@ -139,6 +139,11 @@
 }
 
 .box.box--project {
+    .box__image {
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
     .box__content {
         padding: 16px 32px;
     }
