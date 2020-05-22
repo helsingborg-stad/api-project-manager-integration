@@ -5,6 +5,13 @@
       <style scoped>
         .area-map {
           width: 100%;
+          display: none;
+        }
+
+        @media only screen and (min-width: 56em) {
+          .area-map {
+            display: block;
+          }
         }
 
         #areaMap {
