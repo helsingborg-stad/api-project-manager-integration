@@ -168,6 +168,29 @@
         color: #464646;
     }
 
+    .box__status {
+        font-size: 11px;
+        padding: 4px 6px;
+        background-color: #f4f4f4;
+        border-radius: 15px;
+        font-weight: bold;
+    }
+
+    .box__status.box__status--testas {
+        background-color: #FFECB3;
+    }
+    .box__status.box__status--anvands {
+        background-color: #C8E6C9;
+    }
+    .box__status.box__status--utforskas {
+        background-color: #B3E5FC;
+    }
+
+    .box__status.box__status--avslutat,
+    .box__status.box__status--pausad {
+        background-color: #FFCCBC;
+    }
+
     .box__title {
         margin-bottom: 8px;
     }
