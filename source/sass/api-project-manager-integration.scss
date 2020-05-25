@@ -3,6 +3,13 @@
 @import './layout/project-hero';
 @import './layout/project-header';
 
+.main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
+    padding-top: 24px;
+
+    @media only screen and (min-width: 56em) {
+        padding-top: 48px;
+    }
+}
 
 // Small and down
 // @media only screen and (max-width: 56em - 0.0625em) {}
@@ -11,7 +18,7 @@
 // @media only screen and (max-width: 32.5em) {}
 
 // Medium and up
-// @media only screen and (min-width: 56em) {}
+
 
 // Large and up
 // @media only screen and (min-width: 78em) {}
