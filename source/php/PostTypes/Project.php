@@ -51,7 +51,7 @@ class Project
         // Organisation
         if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
             $data['project']['meta'][] = array(
-                'title' => 'Organisation',
+                'title' => __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name
             );
         }
@@ -59,7 +59,7 @@ class Project
         // Partners
         if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
             $data['project']['meta'][] = array(
-                'title' => 'Partners',
+                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '')
             );
         }
@@ -67,7 +67,7 @@ class Project
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
             $data['project']['meta'][] = array(
-                'title' => 'Status',
+                'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
             );
         }
@@ -75,7 +75,7 @@ class Project
         // Sector
         if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
             $data['project']['meta'][] = array(
-                'title' => 'Sector',
+                'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
             );
         }
@@ -83,7 +83,7 @@ class Project
         // Technologies
         if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
             $data['project']['meta'][] = array(
-                'title' => 'Technologies',
+                'title' => __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
             );
         }
