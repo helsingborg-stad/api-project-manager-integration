@@ -4,6 +4,8 @@ namespace ProjectManagerIntegration\Import;
 
 class Setup
 {
+    const urlProjectSufix = '/project';
+
     public function __construct()
     {
         //Add manual import button(s)
@@ -21,7 +23,7 @@ class Setup
             return;
         }
 
-        $url = get_field('project_api_url', 'option');
+        $url = get_field('project_api_url', 'option') . self::urlProjectSufix;
 
         new \ProjectManagerIntegration\Import\Importer($url);
     }
@@ -46,7 +48,7 @@ class Setup
      */
     public function projectEventsCron()
     {
-        $url = get_field('project_api_url', 'option');
+        $url = get_field('project_api_url', 'option') . self::urlProjectSufix;
 
         new \ProjectManagerIntegration\Import\Importer($url);
     }
