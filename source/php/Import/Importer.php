@@ -41,7 +41,7 @@ class Importer
 
             error_log(print_r($url, true));
 
-            $requestResponse = $this->requestApi($url);
+            $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
 
             if (is_wp_error($requestResponse)) {
                 break;
@@ -194,7 +194,7 @@ class Importer
             return;
         }
 
-        $fimg_api_res = $this->requestApi($fimg_api_url);
+        $fimg_api_res = \ProjectManagerIntegration\Helper\Request::get($fimg_api_url);
 
         if (is_wp_error($fimg_api_res)) {
             return;
@@ -362,7 +362,7 @@ class Importer
                     $url
                 );
 
-                $requestResponse = $this->requestApi($url);
+                $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
 
                 if (is_wp_error($requestResponse)) {
                     break;
@@ -446,7 +446,7 @@ class Importer
         }
 
         $url = str_replace('project', $remoteTaxonomy, $this->url) . '/' . $remoteId;
-        $requestResponse = $this->requestApi($url);
+        $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
         $remoteParentTerm = $requestResponse['body'];
         $localParentTerm = get_term_by('slug', $remoteParentTerm['slug'], 'project_' . $remoteTaxonomy, ARRAY_A);
 
@@ -554,43 +554,6 @@ class Importer
         }
 
         return false;
-    }
-
-
-    /**
-     * Request to Api
-     * @param  string $url Request Url
-     * @return array|bool|\WP_Error
-     */
-    public function requestApi($url)
-    {
-        $args = array(
-            'timeout' => 120,
-            'sslverify' => defined('DEV_MODE') && DEV_MODE == true ? false : true,
-            'headers' => array(
-                'PhpVersion' => phpversion(),
-                'referrer' => get_home_url(),
-            ),
-        );
-        $request = wp_remote_get($url, $args);
-        $responseCode = wp_remote_retrieve_response_code($request);
-        $headers = wp_remote_retrieve_headers($request);
-        $body = wp_remote_retrieve_body($request);
-
-        // Decode JSON
-        $body = json_decode($body, true);
-
-        // Return WP_Error if response code is not 200 OK or result is empty
-        if ($responseCode !== 200 || !is_array($body) || empty($body)) {
-            return new \WP_Error('error', __('API request failed.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN));
-        }
-
-        $returnData = array(
-          'body' => $body,
-          'headers' => $headers,
-        );
-
-        return $returnData;
     }
 
     /**
