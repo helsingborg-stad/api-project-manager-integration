@@ -19,6 +19,28 @@
             "placeholder": ""
         },
         {
+            "key": "field_5ece6ba2ad592",
+            "label": "Organisation filter",
+            "name": "organisation_filter",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_5e8c514c89ee4",
             "label": "Daily import",
             "name": "project_daily_import",

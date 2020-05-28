@@ -6,6 +6,8 @@ class Options
 {
     public function __construct()
     {
+        add_filter('acf/load_field/name=organisation_filter', array($this, 'testSettingOrgFilter'));
+
         if (function_exists('acf_add_options_sub_page')) {
             acf_add_options_sub_page(array(
                 'page_title' => _x('Project Manager Integration settings', 'ACF', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -28,5 +30,18 @@ class Options
         }
 
         return $value;
+    }
+
+    public function testSettingOrgFilter($field)
+    {
+        error_log(print_r('testing org fitler', true));
+
+        $field['required'] = false;
+        $field['choices'] = array(
+            'key0' => 'value0',
+            'key1' => 'value1',
+        );
+
+        return $field;
     }
 }
