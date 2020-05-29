@@ -81,6 +81,7 @@ class Importer
     {
         if (count($this->addedPostsId) > 0) {
             $entriesToRemove = get_posts(array(
+                'numberposts' => -1,
                 'hide_empty' => false,
                 'exclude' => $this->addedPostsId,
                 'post_type' => 'project'
