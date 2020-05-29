@@ -102,8 +102,22 @@ class Importer
 
     public function savePosts($posts)
     {
+        $importFilter = get_field('organisation_filter', 'option');
+
         foreach ($posts as $post) {
-            $this->savePost($post);
+            if (is_array($post)
+                && isset($post['organisation'])
+                && is_array($post['organisation']))
+            {
+                foreach ($post['organisation'] as $organisation) {
+                    if ('none' === $importFilter) {
+                        $this->savePost($post);
+                    } else if (isset($organisation['slug']) &&
+                        $organisation['slug'] === $importFilter ) {
+                        $this->savePost($post);
+                    }
+                }
+            }
         }
     }
 
