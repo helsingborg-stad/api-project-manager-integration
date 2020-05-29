@@ -35,7 +35,7 @@ class Options
     public function setupOrganisationFilters($field)
     {
         $organisationApiUrl = get_field('project_api_url', 'option') . '/organisation';
-        $fieldValues['none'] = __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);;
+        $fieldValues['disable'] = __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);;
 
         $totalPages = 1;
         for ($i = 1; $i <= $totalPages; $i++) {

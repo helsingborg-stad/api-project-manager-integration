@@ -110,7 +110,7 @@ class Importer
                 && is_array($post['organisation']))
             {
                 foreach ($post['organisation'] as $organisation) {
-                    if ('none' === $importFilter) {
+                    if ('disable' === $importFilter) {
                         $this->savePost($post);
                     } else if (isset($organisation['slug']) &&
                         $organisation['slug'] === $importFilter ) {
