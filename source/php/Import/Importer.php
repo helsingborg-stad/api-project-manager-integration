@@ -101,15 +101,23 @@ class Importer
         $this->addedPostsId = array();
     }
 
+    /**
+     * Save posts
+     * Posts can be filtered (by organisation) before saving.
+     *
+     * @param $posts
+     */
     public function savePosts($posts)
     {
         $importFilter = get_field('organisation_filter', 'option');
 
         foreach ($posts as $post) {
+            // Check post structure before accessing array fields.
             if (is_array($post)
                 && isset($post['organisation'])
                 && is_array($post['organisation']))
             {
+                // Travers organisations and save of organisation filter matches.
                 foreach ($post['organisation'] as $organisation) {
                     if ('disable' === $importFilter) {
                         $this->savePost($post);
