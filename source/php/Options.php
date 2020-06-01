@@ -63,6 +63,13 @@ class Options
             }
         }
 
+        // Associated sort, retain keys.
+        asort($fieldValues, SORT_STRING);
+
+        // Disable all filters shall be the first option in the filter drop down.
+        // Set index 0 to default value: Disable filter and import all projects.
+        array_unshift($fieldValues, __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN));
+
         $field['choices'] = $fieldValues;
 
         return $field;

@@ -119,7 +119,7 @@ class Importer
             {
                 // Travers organisations and save of organisation filter matches.
                 foreach ($post['organisation'] as $organisation) {
-                    if ('disable' === $importFilter) {
+                    if ('0' === $importFilter) {
                         $this->savePost($post);
                     } else if (isset($organisation['slug']) &&
                         $organisation['slug'] === $importFilter ) {
