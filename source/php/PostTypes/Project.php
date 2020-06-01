@@ -11,6 +11,29 @@ class Project
         add_action('init', array($this, 'registerPostType'), 9);
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
         add_filter('Municipio/viewData', array($this, 'archiveViewController'));
+        add_filter('the_content', array($this, 'overrideProjectContentWithFixedHeadings'), 10, 1);
+    }
+
+    public function overrideProjectContentWithFixedHeadings($content)
+    {
+        if (get_post_type(get_queried_object_id()) !== 'project'
+            || empty(get_post_meta(get_queried_object_id(), 'project_what', true))) {
+            return $content;
+        }
+
+        $content = get_post_meta(get_queried_object_id(), 'project_what', true);
+
+        if (!empty(get_post_meta(get_queried_object_id(), 'project_why', true))) {
+            $content .= '<h2>' . __('The Challange', 'project-manager-integration') . '</h2>';
+            $content .= get_post_meta(get_queried_object_id(), 'project_why', true);
+        }
+
+        if (!empty(get_post_meta(get_queried_object_id(), 'project_how', true))) {
+            $content .= '<h2>' . __('The Solution', 'project-manager-integration') . '</h2>';
+            $content .= get_post_meta(get_queried_object_id(), 'project_how', true);
+        }
+
+        return wpautop($content);
     }
 
     public function archiveViewController($data)
