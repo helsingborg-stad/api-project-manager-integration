@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-05-15 15:49+0200\n"
-"PO-Revision-Date: 2020-05-15 15:49+0200\n"
+"POT-Creation-Date: 2020-06-01 15:05+0200\n"
+"PO-Revision-Date: 2020-06-01 15:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -89,19 +89,19 @@ msgstr ""
 msgid "New %s Name"
 msgstr ""
 
-#: source/php/Import/Importer.php:191
-msgid "Could not create folder"
-msgstr ""
-
-#: source/php/Import/Importer.php:194
-msgid "please go ahead and create it manually and rerun the import."
-msgstr ""
-
-#: source/php/Import/Importer.php:515
+#: source/php/Helper/Request.php:32
 msgid "API request failed."
 msgstr ""
 
-#: source/php/Import/Setup.php:39
+#: source/php/Import/Importer.php:241
+msgid "Could not create folder"
+msgstr ""
+
+#: source/php/Import/Importer.php:244
+msgid "please go ahead and create it manually and rerun the import."
+msgstr ""
+
+#: source/php/Import/Setup.php:41
 msgid "Import projects"
 msgstr "Importera projekt"
 
@@ -115,77 +115,85 @@ msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:23
+#: source/php/PostTypes/Project.php:27
+msgid "The Challange"
+msgstr "Utmaningen"
+
+#: source/php/PostTypes/Project.php:32
+msgid "The Solution"
+msgstr "Lösningen"
+
+#: source/php/PostTypes/Project.php:46
 msgid "We found no results for your search"
 msgstr "Vi hittade inga träffar på din sökning"
 
-#: source/php/PostTypes/Project.php:24
+#: source/php/PostTypes/Project.php:47
 msgid "Try to refine your search."
 msgstr "Prova ändra din sökning."
 
-#: source/php/PostTypes/Project.php:127
-msgid "Project"
-msgstr "Projekt"
-
-#: source/php/PostTypes/Project.php:128
-msgid "Projects"
-msgstr "Projekt"
-
-#: source/php/PostTypes/Project.php:137
-msgid "Status"
-msgstr "Status"
-
-#: source/php/PostTypes/Project.php:138
-msgid "Statuses"
-msgstr "Status"
-
-#: source/php/PostTypes/Project.php:145
-msgid "Technology"
-msgstr "Teknologi"
-
-#: source/php/PostTypes/Project.php:146
-msgid "Technologies"
-msgstr "Teknologier"
-
-#: source/php/PostTypes/Project.php:153
-msgid "Sector"
-msgstr "Sektor"
-
-#: source/php/PostTypes/Project.php:154
-msgid "Sectors"
-msgstr "Sektorer"
-
-#: source/php/PostTypes/Project.php:161
+#: source/php/PostTypes/Project.php:77 source/php/PostTypes/Project.php:184
 msgid "Organisation"
 msgstr "Organisation"
 
-#: source/php/PostTypes/Project.php:162
+#: source/php/PostTypes/Project.php:85 source/php/PostTypes/Project.php:209
+msgid "Partners"
+msgstr "Partners"
+
+#: source/php/PostTypes/Project.php:93 source/php/PostTypes/Project.php:160
+msgid "Status"
+msgstr "Status"
+
+#: source/php/PostTypes/Project.php:101 source/php/PostTypes/Project.php:176
+msgid "Sector"
+msgstr "Sektor"
+
+#: source/php/PostTypes/Project.php:109 source/php/PostTypes/Project.php:169
+msgid "Technologies"
+msgstr "Teknologier"
+
+#: source/php/PostTypes/Project.php:150
+msgid "Project"
+msgstr "Projekt"
+
+#: source/php/PostTypes/Project.php:151
+msgid "Projects"
+msgstr "Projekt"
+
+#: source/php/PostTypes/Project.php:161
+msgid "Statuses"
+msgstr "Status"
+
+#: source/php/PostTypes/Project.php:168
+msgid "Technology"
+msgstr "Teknologi"
+
+#: source/php/PostTypes/Project.php:177
+msgid "Sectors"
+msgstr "Sektorer"
+
+#: source/php/PostTypes/Project.php:185
 msgid "Organisations"
 msgstr "Organisationer"
 
-#: source/php/PostTypes/Project.php:169
+#: source/php/PostTypes/Project.php:192
 msgid "Global goal"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:170
+#: source/php/PostTypes/Project.php:193
 msgid "Global goals"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:177
+#: source/php/PostTypes/Project.php:200
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/PostTypes/Project.php:178
+#: source/php/PostTypes/Project.php:201
 msgid "Categories"
 msgstr "kategorier"
 
-#: source/php/PostTypes/Project.php:185
+#: source/php/PostTypes/Project.php:208
 msgid "Partner"
 msgstr "Parnter"
-
-#: source/php/PostTypes/Project.php:186
-msgid "Partners"
-msgstr "Partners"
 
 #: source/php/UI/Theme.php:45
 msgid "Showing"
@@ -208,37 +216,37 @@ msgstr ""
 msgid "Exported %d fieldgroup(s)."
 msgstr ""
 
-#: views/partials/archive-filters-project.blade.php:40
-#: views/partials/archive-filters-project.blade.php:43
+#: views/partials/archive-filters-project.blade.php:54
+#: views/partials/archive-filters-project.blade.php:57
 msgid "Search"
 msgstr "Sök"
 
-#: views/partials/archive-filters-project.blade.php:50
+#: views/partials/archive-filters-project.blade.php:64
 msgid "Date published"
 msgstr "Publiceringsdatum"
 
-#: views/partials/archive-filters-project.blade.php:52
+#: views/partials/archive-filters-project.blade.php:66
 msgid "From"
 msgstr "Från:"
 
-#: views/partials/archive-filters-project.blade.php:53
+#: views/partials/archive-filters-project.blade.php:67
 msgid "From date"
 msgstr ""
 
-#: views/partials/archive-filters-project.blade.php:54
+#: views/partials/archive-filters-project.blade.php:68
 msgid "To"
 msgstr "Till"
 
-#: views/partials/archive-filters-project.blade.php:55
+#: views/partials/archive-filters-project.blade.php:69
 msgid "To date"
 msgstr ""
 
-#: views/partials/archive-filters-project.blade.php:75
-#: views/partials/archive-filters-project.blade.php:79
+#: views/partials/archive-filters-project.blade.php:89
+#: views/partials/archive-filters-project.blade.php:93
 msgid "Clear filters"
 msgstr "Återställ filter"
 
-#: views/partials/area/map.blade.php:212
+#: views/partials/area/map.blade.php:219
 msgid "Läs mer om "
 msgstr ""
 
