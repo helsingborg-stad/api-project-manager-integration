@@ -494,7 +494,10 @@ class Importer
           'address' => $address ?? null,
           'contacts' => $contacts ?? null,
           'links' => $links ?? null,
-          'map' => $map ?? null
+          'map' => $map ?? null,
+          'project_what' => $project_what ?? null,
+          'project_why' => $project_why ?? null,
+          'project_how' => $project_how ?? null
         );
 
         return $data;
