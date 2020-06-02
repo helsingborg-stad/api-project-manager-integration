@@ -22,6 +22,30 @@
             'placeholder' => '',
         ),
         1 => array(
+            'key' => 'field_5ece6ba2ad592',
+            'label' => __('Organisation filter', 'project-manager-integration'),
+            'name' => 'organisation_filter',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+            ),
+            'default_value' => array(
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+        ),
+        2 => array(
             'key' => 'field_5e8c514c89ee4',
             'label' => __('Daily import', 'project-manager-integration'),
             'name' => 'project_daily_import',

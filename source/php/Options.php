@@ -6,6 +6,8 @@ class Options
 {
     public function __construct()
     {
+        add_filter('acf/load_field/name=organisation_filter', array($this, 'setupOrganisationFilters'));
+
         if (function_exists('acf_add_options_sub_page')) {
             acf_add_options_sub_page(array(
                 'page_title' => _x('Project Manager Integration settings', 'ACF', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -28,5 +30,48 @@ class Options
         }
 
         return $value;
+    }
+
+    public function setupOrganisationFilters($field)
+    {
+        $organisationApiUrl = get_field('project_api_url', 'option') . '/organisation';
+        $fieldValues['disable'] = __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);;
+
+        $totalPages = 1;
+        for ($i = 1; $i <= $totalPages; $i++) {
+
+            $url = add_query_arg(
+                array(
+                    'page' => $i,
+                    'per_page' => 50,
+                ),
+                $organisationApiUrl
+            );
+
+            $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
+
+            if (is_wp_error($requestResponse)) {
+                return $field;
+            }
+
+            $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
+
+            foreach ($requestResponse['body'] as $organisation) {
+                if (isset($organisation['slug'])) {
+                    $fieldValues[$organisation['slug']] = $organisation['name'];
+                }
+            }
+        }
+
+        // Associated sort, retain keys.
+        asort($fieldValues, SORT_STRING);
+
+        // Disable all filters shall be the first option in the filter drop down.
+        // Set index 0 to default value: Disable filter and import all projects.
+        array_unshift($fieldValues, __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN));
+
+        $field['choices'] = $fieldValues;
+
+        return $field;
     }
 }

@@ -81,6 +81,7 @@ class Importer
     {
         if (count($this->addedPostsId) > 0) {
             $entriesToRemove = get_posts(array(
+                'numberposts' => -1,
                 'hide_empty' => false,
                 'exclude' => $this->addedPostsId,
                 'post_type' => 'project'
@@ -100,10 +101,32 @@ class Importer
         $this->addedPostsId = array();
     }
 
+    /**
+     * Save posts
+     * Posts can be filtered (by organisation) before saving.
+     *
+     * @param $posts
+     */
     public function savePosts($posts)
     {
+        $importFilter = get_field('organisation_filter', 'option');
+
         foreach ($posts as $post) {
-            $this->savePost($post);
+            // Check post structure before accessing array fields.
+            if (is_array($post)
+                && isset($post['organisation'])
+                && is_array($post['organisation']))
+            {
+                // Travers organisations and save of organisation filter matches.
+                foreach ($post['organisation'] as $organisation) {
+                    if ('0' === $importFilter) {
+                        $this->savePost($post);
+                    } else if (isset($organisation['slug']) &&
+                        $organisation['slug'] === $importFilter ) {
+                        $this->savePost($post);
+                    }
+                }
+            }
         }
     }
 

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: project-manager-integration.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -29,6 +29,12 @@ msgid "API URL"
 msgstr ""
 
 #: source/php/AcfFields/php/project_settings.php:26
+#, fuzzy
+#| msgid "Organisation"
+msgid "Organisation filter"
+msgstr "Organisation"
+
+#: source/php/AcfFields/php/project_settings.php:50
 msgid "Daily import"
 msgstr ""
 
@@ -94,10 +100,16 @@ msgid "API request failed."
 msgstr ""
 
 #: source/php/Import/Importer.php:241
+#: source/php/Helper/Request.php:32
+msgid "API request failed."
+msgstr ""
+
+#: source/php/Import/Importer.php:256
 msgid "Could not create folder"
 msgstr ""
 
 #: source/php/Import/Importer.php:244
+#: source/php/Import/Importer.php:259
 msgid "please go ahead and create it manually and rerun the import."
 msgstr ""
 
@@ -105,12 +117,12 @@ msgstr ""
 msgid "Import projects"
 msgstr "Importera projekt"
 
-#: source/php/Options.php:11
+#: source/php/Options.php:13
 msgctxt "ACF"
 msgid "Project Manager Integration settings"
 msgstr ""
 
-#: source/php/Options.php:12
+#: source/php/Options.php:14
 msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
@@ -124,6 +136,11 @@ msgid "The Solution"
 msgstr "Lösningen"
 
 #: source/php/PostTypes/Project.php:46
+#: source/php/Options.php:38
+msgid "Import all organisations"
+msgstr "Importera alla organisationer"
+
+#: source/php/PostTypes/Project.php:23
 msgid "We found no results for your search"
 msgstr "Vi hittade inga träffar på din sökning"
 
@@ -152,6 +169,27 @@ msgid "Technologies"
 msgstr "Teknologier"
 
 #: source/php/PostTypes/Project.php:150
+#: source/php/PostTypes/Project.php:54 source/php/PostTypes/Project.php:161
+msgid "Organisation"
+msgstr "Organisation"
+
+#: source/php/PostTypes/Project.php:62 source/php/PostTypes/Project.php:186
+msgid "Partners"
+msgstr "Partners"
+
+#: source/php/PostTypes/Project.php:70 source/php/PostTypes/Project.php:137
+msgid "Status"
+msgstr "Status"
+
+#: source/php/PostTypes/Project.php:78 source/php/PostTypes/Project.php:153
+msgid "Sector"
+msgstr "Sektor"
+
+#: source/php/PostTypes/Project.php:86 source/php/PostTypes/Project.php:146
+msgid "Technologies"
+msgstr "Teknologier"
+
+#: source/php/PostTypes/Project.php:127
 msgid "Project"
 msgstr "Projekt"
 
@@ -160,6 +198,7 @@ msgid "Projects"
 msgstr "Projekt"
 
 #: source/php/PostTypes/Project.php:161
+#: source/php/PostTypes/Project.php:138
 msgid "Statuses"
 msgstr "Status"
 
@@ -168,10 +207,12 @@ msgid "Technology"
 msgstr "Teknologi"
 
 #: source/php/PostTypes/Project.php:177
+#: source/php/PostTypes/Project.php:154
 msgid "Sectors"
 msgstr "Sektorer"
 
 #: source/php/PostTypes/Project.php:185
+#: source/php/PostTypes/Project.php:162
 msgid "Organisations"
 msgstr "Organisationer"
 
