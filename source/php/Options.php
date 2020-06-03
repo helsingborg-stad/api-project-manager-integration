@@ -21,9 +21,9 @@ class Options
         add_filter('acf/update_value/name=project_daily_import', array($this, 'registerCronjob'), 10, 1);
     }
 
-    public function registerCronjob($value) 
+    public function registerCronjob($value)
     {
-        if($value) {
+        if ($value) {
             \ProjectManagerIntegration\Import\Setup::addCronJob();
         } else {
             \ProjectManagerIntegration\Import\Setup::removeCronJob();
@@ -35,11 +35,10 @@ class Options
     public function setupOrganisationFilters($field)
     {
         $organisationApiUrl = get_field('project_api_url', 'option') . '/organisation';
-        $fieldValues['disable'] = __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);;
+        $fieldValues = array();
 
         $totalPages = 1;
         for ($i = 1; $i <= $totalPages; $i++) {
-
             $url = add_query_arg(
                 array(
                     'page' => $i,
@@ -57,20 +56,18 @@ class Options
             $totalPages = $requestResponse['headers']['x-wp-totalpages'] ?? $totalPages;
 
             foreach ($requestResponse['body'] as $organisation) {
-                if (isset($organisation['slug'])) {
-                    $fieldValues[$organisation['slug']] = $organisation['name'];
+                if ($organisation['count'] > 0) {
+                    $fieldValues[$organisation['id']] = $organisation['name'] . ' (' . $organisation['count']  . ')';
                 }
             }
         }
 
         // Associated sort, retain keys.
         asort($fieldValues, SORT_STRING);
-
-        // Disable all filters shall be the first option in the filter drop down.
-        // Set index 0 to default value: Disable filter and import all projects.
-        array_unshift($fieldValues, __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN));
-
-        $field['choices'] = $fieldValues;
+        
+        $field['choices'] = array(
+                0 => __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
+            ) + $fieldValues;
 
         return $field;
     }
