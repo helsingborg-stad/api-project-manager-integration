@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-06-01 15:05+0200\n"
-"PO-Revision-Date: 2020-06-01 15:06+0200\n"
+"POT-Creation-Date: 2020-06-03 09:41+0200\n"
+"PO-Revision-Date: 2020-06-03 09:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: project-manager-integration.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -29,14 +29,12 @@ msgid "API URL"
 msgstr ""
 
 #: source/php/AcfFields/php/project_settings.php:26
-#, fuzzy
-#| msgid "Organisation"
 msgid "Organisation filter"
-msgstr "Organisation"
+msgstr ""
 
 #: source/php/AcfFields/php/project_settings.php:50
 msgid "Daily import"
-msgstr ""
+msgstr "Daglig import"
 
 #: source/php/Helper/PostType.php:42 source/php/Helper/PostType.php:43
 #: source/php/Helper/PostType.php:172
@@ -97,19 +95,13 @@ msgstr ""
 
 #: source/php/Helper/Request.php:32
 msgid "API request failed."
-msgstr ""
+msgstr "Begäran misslyckades."
 
-#: source/php/Import/Importer.php:241
-#: source/php/Helper/Request.php:32
-msgid "API request failed."
-msgstr ""
-
-#: source/php/Import/Importer.php:256
+#: source/php/Import/Importer.php:264
 msgid "Could not create folder"
-msgstr ""
+msgstr "Kunde inte skapa mappen"
 
-#: source/php/Import/Importer.php:244
-#: source/php/Import/Importer.php:259
+#: source/php/Import/Importer.php:267
 msgid "please go ahead and create it manually and rerun the import."
 msgstr ""
 
@@ -127,112 +119,91 @@ msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
 
-#: source/php/PostTypes/Project.php:27
-msgid "The Challange"
-msgstr "Utmaningen"
-
-#: source/php/PostTypes/Project.php:32
-msgid "The Solution"
-msgstr "Lösningen"
-
-#: source/php/PostTypes/Project.php:46
-#: source/php/Options.php:38
+#: source/php/Options.php:38 source/php/Options.php:71
 msgid "Import all organisations"
 msgstr "Importera alla organisationer"
 
-#: source/php/PostTypes/Project.php:23
+#: source/php/PostTypes/Project.php:24
+msgid "Description"
+msgstr "Beskrivning"
+
+#: source/php/PostTypes/Project.php:28
+msgid "The Challange"
+msgstr "Utmaningen"
+
+#: source/php/PostTypes/Project.php:33
+msgid "The Solution"
+msgstr "Lösningen"
+
+#: source/php/PostTypes/Project.php:47
 msgid "We found no results for your search"
 msgstr "Vi hittade inga träffar på din sökning"
 
-#: source/php/PostTypes/Project.php:47
+#: source/php/PostTypes/Project.php:48
 msgid "Try to refine your search."
 msgstr "Prova ändra din sökning."
 
-#: source/php/PostTypes/Project.php:77 source/php/PostTypes/Project.php:184
+#: source/php/PostTypes/Project.php:78 source/php/PostTypes/Project.php:185
 msgid "Organisation"
 msgstr "Organisation"
 
-#: source/php/PostTypes/Project.php:85 source/php/PostTypes/Project.php:209
+#: source/php/PostTypes/Project.php:86 source/php/PostTypes/Project.php:210
 msgid "Partners"
 msgstr "Partners"
 
-#: source/php/PostTypes/Project.php:93 source/php/PostTypes/Project.php:160
+#: source/php/PostTypes/Project.php:94 source/php/PostTypes/Project.php:161
 msgid "Status"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:101 source/php/PostTypes/Project.php:176
+#: source/php/PostTypes/Project.php:102 source/php/PostTypes/Project.php:177
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/PostTypes/Project.php:109 source/php/PostTypes/Project.php:169
+#: source/php/PostTypes/Project.php:110 source/php/PostTypes/Project.php:170
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/PostTypes/Project.php:150
-#: source/php/PostTypes/Project.php:54 source/php/PostTypes/Project.php:161
-msgid "Organisation"
-msgstr "Organisation"
-
-#: source/php/PostTypes/Project.php:62 source/php/PostTypes/Project.php:186
-msgid "Partners"
-msgstr "Partners"
-
-#: source/php/PostTypes/Project.php:70 source/php/PostTypes/Project.php:137
-msgid "Status"
-msgstr "Status"
-
-#: source/php/PostTypes/Project.php:78 source/php/PostTypes/Project.php:153
-msgid "Sector"
-msgstr "Sektor"
-
-#: source/php/PostTypes/Project.php:86 source/php/PostTypes/Project.php:146
-msgid "Technologies"
-msgstr "Teknologier"
-
-#: source/php/PostTypes/Project.php:127
+#: source/php/PostTypes/Project.php:151
 msgid "Project"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:151
+#: source/php/PostTypes/Project.php:152
 msgid "Projects"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:161
-#: source/php/PostTypes/Project.php:138
+#: source/php/PostTypes/Project.php:162
 msgid "Statuses"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:168
+#: source/php/PostTypes/Project.php:169
 msgid "Technology"
 msgstr "Teknologi"
 
-#: source/php/PostTypes/Project.php:177
-#: source/php/PostTypes/Project.php:154
+#: source/php/PostTypes/Project.php:178
 msgid "Sectors"
 msgstr "Sektorer"
 
-#: source/php/PostTypes/Project.php:185
-#: source/php/PostTypes/Project.php:162
+#: source/php/PostTypes/Project.php:186
 msgid "Organisations"
 msgstr "Organisationer"
 
-#: source/php/PostTypes/Project.php:192
+#: source/php/PostTypes/Project.php:193
 msgid "Global goal"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:193
+#: source/php/PostTypes/Project.php:194
 msgid "Global goals"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:200
+#: source/php/PostTypes/Project.php:201
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/PostTypes/Project.php:201
+#: source/php/PostTypes/Project.php:202
 msgid "Categories"
 msgstr "kategorier"
 
-#: source/php/PostTypes/Project.php:208
+#: source/php/PostTypes/Project.php:209
 msgid "Partner"
 msgstr "Parnter"
 
@@ -272,7 +243,7 @@ msgstr "Från:"
 
 #: views/partials/archive-filters-project.blade.php:67
 msgid "From date"
-msgstr ""
+msgstr "Från datumet"
 
 #: views/partials/archive-filters-project.blade.php:68
 msgid "To"
@@ -280,7 +251,7 @@ msgstr "Till"
 
 #: views/partials/archive-filters-project.blade.php:69
 msgid "To date"
-msgstr ""
+msgstr "Till datum"
 
 #: views/partials/archive-filters-project.blade.php:89
 #: views/partials/archive-filters-project.blade.php:93
