@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-06-03 09:41+0200\n"
-"PO-Revision-Date: 2020-06-03 09:43+0200\n"
+"POT-Creation-Date: 2020-06-03 17:04+0200\n"
+"PO-Revision-Date: 2020-06-03 17:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: source/php/AcfFields/php/project_settings.php:26
 msgid "Organisation filter"
-msgstr ""
+msgstr "Organisationsfilter"
 
 #: source/php/AcfFields/php/project_settings.php:50
 msgid "Daily import"
@@ -97,13 +97,13 @@ msgstr ""
 msgid "API request failed."
 msgstr "Begäran misslyckades."
 
-#: source/php/Import/Importer.php:264
+#: source/php/Import/Importer.php:258
 msgid "Could not create folder"
 msgstr "Kunde inte skapa mappen"
 
-#: source/php/Import/Importer.php:267
+#: source/php/Import/Importer.php:261
 msgid "please go ahead and create it manually and rerun the import."
-msgstr ""
+msgstr "vänligen skapa den manuellt och gör om importen."
 
 #: source/php/Import/Setup.php:41
 msgid "Import projects"
@@ -119,7 +119,7 @@ msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
 
-#: source/php/Options.php:38 source/php/Options.php:71
+#: source/php/Options.php:69
 msgid "Import all organisations"
 msgstr "Importera alla organisationer"
 
