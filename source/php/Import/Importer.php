@@ -25,6 +25,13 @@ class Importer
         if (function_exists('kses_remove_filters')) {
             kses_remove_filters();
         }
+        
+        $filterQueryArgs = array();
+
+        $organisationFilter = get_field('organisation_filter', 'option');
+        if ($organisationFilter > 0) {
+            $filterQueryArgs['organisation'] = $organisationFilter;
+        }
 
         $totalPages = 1;
 
@@ -32,10 +39,13 @@ class Importer
             error_log("Do run: " . $i);
 
             $url = add_query_arg(
-                array(
-                  'page' => $i,
-                  'per_page' => 50,
-                  ),
+                array_merge(
+                    array(
+                        'page' => $i,
+                        'per_page' => 50,
+                    ),
+                    $filterQueryArgs
+                ),
                 $this->url
             );
 
@@ -109,24 +119,8 @@ class Importer
      */
     public function savePosts($posts)
     {
-        $importFilter = get_field('organisation_filter', 'option');
-
         foreach ($posts as $post) {
-            // Check post structure before accessing array fields.
-            if (is_array($post)
-                && isset($post['organisation'])
-                && is_array($post['organisation']))
-            {
-                // Travers organisations and save of organisation filter matches.
-                foreach ($post['organisation'] as $organisation) {
-                    if ('0' === $importFilter) {
-                        $this->savePost($post);
-                    } else if (isset($organisation['slug']) &&
-                        $organisation['slug'] === $importFilter ) {
-                        $this->savePost($post);
-                    }
-                }
-            }
+            $this->savePost($post);
         }
     }
 
