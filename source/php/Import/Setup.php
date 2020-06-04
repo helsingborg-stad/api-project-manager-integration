@@ -4,7 +4,7 @@ namespace ProjectManagerIntegration\Import;
 
 class Setup
 {
-    public static $urlProjectSufix = '/project';
+    const urlProjectSufix = '/project';
 
     public function __construct()
     {
@@ -28,6 +28,11 @@ class Setup
 
         if (!isset($payload['content']) || !isset($payload['content']->post)) {
             $response['msg'] = 'Project data is missing';
+            return $response;
+        }
+
+        if ($payload['content']->post->post_type !== 'project') {
+            $response['msg'] = 'Can only import posts with post type "project"';
             return $response;
         }
         
