@@ -32,10 +32,17 @@
             return $accumilator;
         }, '');
     }
+
+    $permalink = get_permalink($post->ID);
+
+    if (isset($_GET) && !empty($_GET)) {
+        $permalink .= '?' . http_build_query($_GET);
+    }
+
 @endphp
 
 <div class="{{ $grid_size }}">
-    <a href="{{ the_permalink() }}" class="box box--project">
+    <a href="{{ $permalink }}" class="box box--project">
         <div class="box__container" data-equal-item>
             <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(500,500), '1:1') }}');">
             </div>
