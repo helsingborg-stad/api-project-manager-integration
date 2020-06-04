@@ -14,8 +14,10 @@
         transform: rotate(0deg);
         font-size: 1rem;
     }
+}
 
-    .filterbar__toggle.is-active i:before {
+.filterbar.is-active {
+    .filterbar__toggle i:before {
         transform: rotate(180deg);
     }
 }
