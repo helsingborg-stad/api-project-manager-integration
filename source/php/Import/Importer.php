@@ -173,6 +173,10 @@ class Importer
               'post_name' => $slug,
               'post_type' => $this->postType,
               'post_status' => 'publish',
+              'post_date' => $date ?? '',
+              'post_date_gmt' => $date_gmt ?? '',
+              'post_modified' => $modified ?? '',
+              'post_date_modified' => $modified_gmt ?? ''
             );
             $postId = wp_insert_post($postData);
 
@@ -193,6 +197,10 @@ class Importer
                     'post_title' => $title['rendered'] ?? '',
                     'post_content' => $content['rendered'] ?? '',
                     'post_name' => $slug,
+                    'post_date' => $date ?? '',
+                    'post_date_gmt' => $date_gmt ?? '',
+                    'post_modified' => $modified ?? '',
+                    'post_date_modified' => $modified_gmt ?? ''
                 );
 
                 $localPost = array(
@@ -200,6 +208,10 @@ class Importer
                     'post_title' => $postObject->post_title,
                     'post_content' => $postObject->post_content,
                     'post_name' => $postObject->post_name,
+                    'post_date' => $postObject->date ?? '',
+                    'post_date_gmt' => $postObject->date_gmt ?? '',
+                    'post_modified' => $postObject->modified ?? '',
+                    'post_date_modified' => $postObject->modified_gmt ?? ''
                 );
                 // Update if post object is modified
                 if ($localPost !== $remotePost) {
