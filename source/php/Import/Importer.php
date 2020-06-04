@@ -8,19 +8,43 @@ class Importer
 {
     public $url;
     public $postType = 'project';
-    private $addedPostsId = array();
+    public $addedPostsId = array();
     private $localTerms = array();
     private $taxonomies = array();
 
-    public function __construct($url)
+    public function __construct($url, $postId = false)
     {
         ini_set('max_execution_time', 300);
 
         $this->url = $url;
-        $this->startImport();
+
+        if ($postId) {
+            $this->importPost($postId);
+        } else {
+            $this->importPosts();
+        }
     }
 
-    public function startImport()
+    public function importPost($postId)
+    {
+        if (function_exists('kses_remove_filters')) {
+            kses_remove_filters();
+        }
+
+        $url = $this->url . '/' . $postId;
+
+        $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
+        
+        if (is_wp_error($requestResponse)) {
+            error_log(print_r($url, true));
+            error_log(print_r($requestResponse, true));
+            return;
+        }
+        
+        $this->savePost($requestResponse['body']);
+    }
+
+    public function importPosts()
     {
         if (function_exists('kses_remove_filters')) {
             kses_remove_filters();
@@ -146,6 +170,7 @@ class Importer
             $postData = array(
               'post_title' => $title['rendered'] ?? '',
               'post_content' => $content['rendered'] ?? '',
+              'post_name' => $slug,
               'post_type' => $this->postType,
               'post_status' => 'publish',
             );
@@ -166,13 +191,15 @@ class Importer
                 $remotePost = array(
                     'ID' => $postId,
                     'post_title' => $title['rendered'] ?? '',
-                    'post_content' => $content['rendered'] ?? ''
+                    'post_content' => $content['rendered'] ?? '',
+                    'post_name' => $slug,
                 );
 
                 $localPost = array(
                     'ID' => $postId,
                     'post_title' => $postObject->post_title,
                     'post_content' => $postObject->post_content,
+                    'post_name' => $postObject->post_name,
                 );
                 // Update if post object is modified
                 if ($localPost !== $remotePost) {
@@ -232,12 +259,12 @@ class Importer
     public function setFeaturedImageFromUrl($url, $id)
     {
         // Fix for get_headers SSL errors (https://stackoverflow.com/questions/40830265/php-errors-with-get-headers-and-ssl)
-//        stream_context_set_default([
-//            'ssl' => [
-//                'verify_peer' => false,
-//                'verify_peer_name' => false,
-//            ],
-//        ]);
+        stream_context_set_default([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
 
         $headers = get_headers($url, 1);
 
