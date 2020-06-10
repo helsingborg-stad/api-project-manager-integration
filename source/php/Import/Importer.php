@@ -14,7 +14,7 @@ class Importer
 
     public function __construct($url, $postId = false)
     {
-        ini_set('max_execution_time', 300);
+        ini_set('max_execution_time', 3000);
 
         $this->url = $url;
 
@@ -304,6 +304,7 @@ class Importer
         }
 
         $filename = sanitize_file_name(basename($url));
+        
         if (stripos(basename($url), '.aspx')) {
             $filename = md5($filename) . '.jpg';
         }
