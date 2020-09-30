@@ -16,22 +16,28 @@ class Project
 
     public function overrideProjectContentWithFixedHeadings($content)
     {
-        if (get_post_type(get_queried_object_id()) !== 'project'
-            || empty(get_post_meta(get_queried_object_id(), 'project_what', true))) {
-            return $content;
-        }
+        global $post;
 
-        $content = '<h2>' . __('Description', 'project-manager-integration') . '</h2>';
-        $content .= get_post_meta(get_queried_object_id(), 'project_what', true);
+        if (is_object($post)
+          && $post->post_type === $this->postType
+          && !is_admin()
+          && is_main_query()
+          && $content === $post->post_content
+          ) {
+            if (!empty(get_post_meta(get_queried_object_id(), 'project_what', true))) {
+                $content = '<h2>' . __('Description', 'project-manager-integration') . '</h2>';
+                $content .= get_post_meta(get_queried_object_id(), 'project_what', true);
+            }
 
-        if (!empty(get_post_meta(get_queried_object_id(), 'project_why', true))) {
-            $content .= '<h2>' . __('The Challange', 'project-manager-integration') . '</h2>';
-            $content .= get_post_meta(get_queried_object_id(), 'project_why', true);
-        }
+            if (!empty(get_post_meta(get_queried_object_id(), 'project_why', true))) {
+                $content .= '<h2>' . __('The Challange', 'project-manager-integration') . '</h2>';
+                $content .= get_post_meta(get_queried_object_id(), 'project_why', true);
+            }
 
-        if (!empty(get_post_meta(get_queried_object_id(), 'project_how', true))) {
-            $content .= '<h2>' . __('The Solution', 'project-manager-integration') . '</h2>';
-            $content .= get_post_meta(get_queried_object_id(), 'project_how', true);
+            if (!empty(get_post_meta(get_queried_object_id(), 'project_how', true))) {
+                $content .= '<h2>' . __('The Solution', 'project-manager-integration') . '</h2>';
+                $content .= get_post_meta(get_queried_object_id(), 'project_how', true);
+            }
         }
 
         return wpautop($content);
@@ -79,7 +85,7 @@ class Project
                 'content' => get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name
             );
         }
-        
+
         // Partners
         if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
             $data['project']['meta'][] = array(
