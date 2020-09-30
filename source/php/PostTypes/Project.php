@@ -88,6 +88,27 @@ class Project
             );
         }
 
+        /**
+         * Add header based on project key name
+         */
+        $objectId = get_queried_object_id();
+        array_map(function($item) use ($objectId, &$data) {
+
+            // Split ie 'project_what' in two
+            $itemParts = explode('_', $item);
+
+            // Create header using last part in splitted array -> 'What'
+            $header = ucfirst($itemParts[1]);
+
+            // Create key - camelCase, using first part in splitted array -> projectWhat
+            $key = $itemParts[0] . $header;
+
+            // Array ie. 'projectWhat' used in blade template 'post-single-project.blade.php'
+            // Inject header translation and content body to the created projectWhat array
+            $data[$key]['header'] = __($header . '?', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+            $data[$key]['content'] = $postMeta ?: $postMeta = get_post_meta($objectId, $item, true);
+        }, ['project_what', 'project_why', 'project_how']);
+
         return $data;
     }
 
