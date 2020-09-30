@@ -106,7 +106,8 @@ class Project
             // Array ie. 'projectWhat' used in blade template 'post-single-project.blade.php'
             // Inject header translation and content body to the created projectWhat array
             $data[$key]['header'] = __($header . '?', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
-            $data[$key]['content'] = $postMeta ?: $postMeta = get_post_meta($objectId, $item, true);
+            $postMeta = get_post_meta($objectId, $item, true);
+            $data[$key]['content'] = !empty($postMeta) ? $postMeta : null;
         }, ['project_what', 'project_why', 'project_how']);
 
         return $data;
