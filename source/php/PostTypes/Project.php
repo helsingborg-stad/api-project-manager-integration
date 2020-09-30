@@ -11,30 +11,6 @@ class Project
         add_action('init', array($this, 'registerPostType'), 9);
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
         add_filter('Municipio/viewData', array($this, 'archiveViewController'));
-        add_filter('the_content', array($this, 'overrideProjectContentWithFixedHeadings'), 10, 1);
-    }
-
-    public function overrideProjectContentWithFixedHeadings($content)
-    {
-        if (get_post_type(get_queried_object_id()) !== 'project'
-            || empty(get_post_meta(get_queried_object_id(), 'project_what', true))) {
-            return $content;
-        }
-
-        $content = '<h2>' . __('Description', 'project-manager-integration') . '</h2>';
-        $content .= get_post_meta(get_queried_object_id(), 'project_what', true);
-
-        if (!empty(get_post_meta(get_queried_object_id(), 'project_why', true))) {
-            $content .= '<h2>' . __('The Challange', 'project-manager-integration') . '</h2>';
-            $content .= get_post_meta(get_queried_object_id(), 'project_why', true);
-        }
-
-        if (!empty(get_post_meta(get_queried_object_id(), 'project_how', true))) {
-            $content .= '<h2>' . __('The Solution', 'project-manager-integration') . '</h2>';
-            $content .= get_post_meta(get_queried_object_id(), 'project_how', true);
-        }
-
-        return wpautop($content);
     }
 
     public function archiveViewController($data)
@@ -79,7 +55,7 @@ class Project
                 'content' => get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name
             );
         }
-        
+
         // Partners
         if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
             $data['project']['meta'][] = array(
@@ -111,6 +87,28 @@ class Project
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
             );
         }
+
+        /**
+         * Add header based on project key name
+         */
+        $objectId = get_queried_object_id();
+        array_map(function($item) use ($objectId, &$data) {
+
+            // Split ie 'project_what' in two
+            $itemParts = explode('_', $item);
+
+            // Create header using last part in splitted array -> 'What'
+            $header = ucfirst($itemParts[1]);
+
+            // Create key - camelCase, using first part in splitted array -> projectWhat
+            $key = $itemParts[0] . $header;
+
+            // Array ie. 'projectWhat' used in blade template 'post-single-project.blade.php'
+            // Inject header translation and content body to the created projectWhat array
+            $data[$key]['header'] = __($header . '?', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+            $postMeta = get_post_meta($objectId, $item, true);
+            $data[$key]['content'] = !empty($postMeta) ? $postMeta : null;
+        }, ['project_what', 'project_why', 'project_how']);
 
         return $data;
     }
