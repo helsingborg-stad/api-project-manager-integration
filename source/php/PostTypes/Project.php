@@ -25,17 +25,17 @@ class Project
           && $content === $post->post_content
           ) {
             if (!empty(get_post_meta(get_queried_object_id(), 'project_what', true))) {
-                $content = '<h2>' . __('Description', 'project-manager-integration') . '</h2>';
+                $content = '<h2>' . __('What?', 'project-manager-integration') . '</h2>';
                 $content .= get_post_meta(get_queried_object_id(), 'project_what', true);
             }
 
             if (!empty(get_post_meta(get_queried_object_id(), 'project_why', true))) {
-                $content .= '<h2>' . __('The Challange', 'project-manager-integration') . '</h2>';
+                $content .= '<h2>' . __('Why?', 'project-manager-integration') . '</h2>';
                 $content .= get_post_meta(get_queried_object_id(), 'project_why', true);
             }
 
             if (!empty(get_post_meta(get_queried_object_id(), 'project_how', true))) {
-                $content .= '<h2>' . __('The Solution', 'project-manager-integration') . '</h2>';
+                $content .= '<h2>' . __('How?', 'project-manager-integration') . '</h2>';
                 $content .= get_post_meta(get_queried_object_id(), 'project_how', true);
             }
         }
