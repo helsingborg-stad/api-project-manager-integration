@@ -27,7 +27,31 @@ class PostType
             add_action('init', array(&$this, 'registerPostType'));
             add_action('rest_api_init', array($this, 'registerAcfMetadataInApi'));
             add_action('rest_prepare_' . $postTypeName, array($this, 'removeResponseKeys'), 10, 3);
+            add_filter('Municipio/viewData', array($this, 'singleViewData'));
         }
+    }
+
+    /**
+     * Make data accessible in view
+     */
+    public function singleViewData($data)
+    {
+        if(get_post_type() !== 'project' || is_archive()) {
+            return $data;
+        }
+
+        $objectId = get_queried_object_id();
+        array_map(function($item) use ($objectId, &$data) {
+            $itemParts = explode('_', $item);
+
+            $header = ucfirst($itemParts[1]);
+            $key = $itemParts[0] . $header;
+
+            $data[$key]['header'] = __($header . '?', 'project-manager-integration');
+            $data[$key]['content'] = $postMeta ?: $postMeta = get_post_meta($objectId, $item, true);
+        }, ['project_what', 'project_why', 'project_how']);
+
+        return $data;
     }
 
     /* Method which registers the post type */

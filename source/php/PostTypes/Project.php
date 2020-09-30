@@ -11,36 +11,6 @@ class Project
         add_action('init', array($this, 'registerPostType'), 9);
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
         add_filter('Municipio/viewData', array($this, 'archiveViewController'));
-        add_filter('the_content', array($this, 'overrideProjectContentWithFixedHeadings'), 10, 1);
-    }
-
-    public function overrideProjectContentWithFixedHeadings($content)
-    {
-        global $post;
-
-        if (is_object($post)
-          && $post->post_type === $this->postType
-          && !is_admin()
-          && is_main_query()
-          && $content === $post->post_content
-          ) {
-            if (!empty(get_post_meta(get_queried_object_id(), 'project_what', true))) {
-                $content = '<h2>' . __('What?', 'project-manager-integration') . '</h2>';
-                $content .= get_post_meta(get_queried_object_id(), 'project_what', true);
-            }
-
-            if (!empty(get_post_meta(get_queried_object_id(), 'project_why', true))) {
-                $content .= '<h2>' . __('Why?', 'project-manager-integration') . '</h2>';
-                $content .= get_post_meta(get_queried_object_id(), 'project_why', true);
-            }
-
-            if (!empty(get_post_meta(get_queried_object_id(), 'project_how', true))) {
-                $content .= '<h2>' . __('How?', 'project-manager-integration') . '</h2>';
-                $content .= get_post_meta(get_queried_object_id(), 'project_how', true);
-            }
-        }
-
-        return wpautop($content);
     }
 
     public function archiveViewController($data)
