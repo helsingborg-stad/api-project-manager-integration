@@ -62,13 +62,8 @@ class App
      */
     public function addViewPaths($array)
     {
-        // If child theme is active, insert plugin view path after child views path.
-        if (is_child_theme()) {
-            array_splice($array, 2, 0, array(PROJECTMANAGERINTEGRATION_VIEW_PATH));
-        } else {
-            // Add view path first in the list if child theme is not active.
-            array_unshift($array, PROJECTMANAGERINTEGRATION_VIEW_PATH);
-        }
+        // Add view path first in the list
+        array_unshift($array, PROJECTMANAGERINTEGRATION_VIEW_PATH);
 
         return $array;
     }
