@@ -92,7 +92,7 @@ class Project
          * Add header based on project key name
          */
         $objectId = get_queried_object_id();
-        array_map(function($item) use ($objectId, &$data) {
+        array_map(function ($item) use ($objectId, &$data) {
 
             // Split ie 'project_what' in two
             $itemParts = explode('_', $item);
@@ -207,6 +207,16 @@ class Project
             __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array('hierarchical' => true, 'show_ui' => false)
+        );
+
+        $postType->addTaxonomy(
+            'challenge_category',
+            __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array(
+              'hierarchical' => false,
+              'show_ui' => true,
+            )
         );
     }
 }
