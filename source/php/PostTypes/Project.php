@@ -53,6 +53,14 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
+        // Status
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
+            );
+        }
+
         // Investments
         $investmentTypes = get_post_meta(get_the_id(), 'investment_type', true);
         if (!empty($investmentTypes)) {
@@ -98,14 +106,6 @@ class Project
             $data['project']['meta'][] = array(
                 'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        // Status
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
             );
         }
 
