@@ -34,6 +34,11 @@ class Project
 
         $data['project'] = array();
 
+        $impactGoalsMeta = get_post_meta(get_the_id(), 'impact_goals', true);
+        if (!empty($impactGoalsMeta)) {
+            $data['project']['impact_goals'] = $impactGoalsMeta;
+        }
+    
         // Contacts
         $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
         if (!empty($contactsMeta) && !empty($contactsMeta[0])) {

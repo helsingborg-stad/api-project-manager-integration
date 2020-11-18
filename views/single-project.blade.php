@@ -57,6 +57,24 @@
                 }
             </style>
             
+            {{-- Impact goals --}}
+            @if ($project && !empty($project['impact_goals']))
+                @foreach ($project['impact_goals'] as $item)
+                    <div class="box box-filled box-filled-1 box-project box-project-contact">
+                        @if ($item['impact_goal_completed'])
+                            <h4 class="box-title"><small>Impact Goal - Completed</small><br>{{$item['impact_goal']}}</h4>
+                            @if (!empty($item['impact_goal_comment']))
+                                <div class="box-content">
+                                    {{$item['impact_goal_comment']}}
+                                </div>
+                            @endif
+                        @else
+                            <h4 class="box-title"><small>Impact Goal</small><br>{{$item['impact_goal']}}</h4>
+                        @endif
+                    </div>
+                @endforeach
+            @endif
+
             {{-- Project meta --}}
             @if ($project && !empty($project['meta']))
                 <div class="box box-filled box-filled-1 box-project box-project-meta">
