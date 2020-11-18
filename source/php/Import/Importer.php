@@ -532,7 +532,8 @@ class Importer
           $this->postType . '_sector' => $sector,
           $this->postType . '_organisation' => $organisation,
           $this->postType . '_global_goal' => $global_goal,
-          $this->postType . '_partner' => $partner
+          $this->postType . '_partner' => $partner,
+                            'challenge_category' => $challenge_category
         );
 
         $this->taxonomies = array_keys($data);
