@@ -53,6 +53,38 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
+        // Investments
+        $investmentTypes = get_post_meta(get_the_id(), 'investment_type', true);
+        if (!empty($investmentTypes)) {
+            $investments = array_filter(array_map(function ($type) {
+                $metaValue = get_post_meta(get_the_id(), 'investment_' . $type, true);
+    
+                if (!is_numeric($metaValue)) {
+                    return false;
+                }
+    
+                return array(
+                    'unit' => $type === 'amount' ? 'kr' : ' hours',
+                    'value' => $metaValue,
+                    'type' => $type
+                );
+            }, $investmentTypes), function ($item) {
+                return $item;
+            });
+            $data['project']['investments'] = $investments;
+
+            if (!empty($investments)) {
+                $investmentString = implode(', ', array_map(function ($investment) {
+                    return $investment['value'] . $investment['unit'];
+                }, $investments));
+
+                $data['project']['meta'][] = array(
+                    'title' => 'Investment',
+                    'content' => $investmentString
+                );
+            }
+        }
+
         // Organisation
         if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
             $data['project']['meta'][] = array(
