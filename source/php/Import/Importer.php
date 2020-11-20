@@ -118,7 +118,7 @@ class Importer
                 'numberposts' => -1,
                 'hide_empty' => false,
                 'exclude' => $this->addedPostsId,
-                'post_type' => 'project'
+                'post_type' => $this->postType
             ));
 
             foreach ($entriesToRemove as $entry) {
