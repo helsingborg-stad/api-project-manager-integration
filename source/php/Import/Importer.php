@@ -380,7 +380,7 @@ class Importer
                         array(
                             'description' => $term['description'],
                             'slug' => $term['slug'],
-                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                            'parent' => !empty($term['parent']) ? $this->getParentByRemoteId($term['parent'], $term['taxonomy']) : 0,
                         )
                     );
                 }
@@ -449,7 +449,7 @@ class Importer
                         );
 
                         if (isset($term['parent'])) {
-                            $wpInsertUpdateArgs['parent'] = $this->getParentByRemoteId($term['parent'], $term['taxonomy']);
+                            $wpInsertUpdateArgs['parent'] = !empty($term['parent']) ? $this->getParentByRemoteId($term['parent'], $term['taxonomy']) : 0;
                         }
     
                         if (!$localTerm) {
