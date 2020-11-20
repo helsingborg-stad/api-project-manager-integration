@@ -101,10 +101,12 @@ class Importer
 
         if (!empty($termsToRemove)) {
             foreach ($termsToRemove as $term) {
-                $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
-                
-                if (is_wp_error($deletedTerm)) {
-                    error_log(print_r($deletedTerm, true));
+                if ($term->count === 0) {
+                    $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
+                    
+                    if (is_wp_error($deletedTerm)) {
+                        error_log(print_r($deletedTerm, true));
+                    }
                 }
             }
         }
