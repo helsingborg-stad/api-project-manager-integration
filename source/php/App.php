@@ -9,12 +9,15 @@ class App
     public function __construct()
     {
         new PostTypes\Project();
+        new PostTypes\Challange();
         new Import\Setup();
         new Options();
         new UI\Theme();
 
         // Add view paths
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
+
+        add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
 
         add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
