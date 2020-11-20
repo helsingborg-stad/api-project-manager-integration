@@ -17,31 +17,47 @@ class Setup
         add_action('import_projects_daily', array($this, 'projectEventsCron'));
 
         /* WP WebHooks */
-        add_filter('wpwhpro/run/actions/custom_action/return_args', array($this, 'triggerImportProject'), 10, 3);
+        add_filter('wpwhpro/run/actions/custom_action/return_args', array($this, 'triggerImport'), 10, 3);
     }
 
-    public function triggerImportProject($response, $identifier, $payload)
+    public function triggerImport($response, $identifier, $payload)
     {
+        $avalibleImporters = [
+            'project'   => "\ProjectManagerIntegration\Import\Importer",
+            'challange' => "\ProjectManagerIntegration\Import\Challange",
+        ];
+
         if ($identifier !== 'importProject') {
             return $response;
         }
 
         if (!isset($payload['content']) || !isset($payload['content']->post)) {
-            $response['msg'] = 'Project data is missing';
+            $response['msg'] = 'PostType data is missing';
             return $response;
         }
 
-        if ($payload['content']->post->post_type !== 'project') {
-            $response['msg'] = 'Can only import posts with post type "project"';
+        if (!in_array($payload['content']->post->post_type, array_keys($avalibleImporters))) {
+            $response['msg'] = 'Can only import posts with post type: ' . implode(', ', array_keys($avalibleImporters));
             return $response;
         }
+
+        $postType = $payload['content']->post->post_type;
+        $ImporterClass = $avalibleImporters[$postType];
+
+        if (!class_exists($ImporterClass)) {
+            error_log(print_r('CLASS DOES NOT EXIST: ' . $ImporterClass, true));
+            die;
+            return;
+        }
+
+        $baseUrl = get_field('project_api_url', 'option');
+        $url = $baseUrl  . '/' . $postType;
         
-        $url = get_field('project_api_url', 'option') . self::urlProjectSufix;
-        $importer = new \ProjectManagerIntegration\Import\Importer($url, $payload['content']->post->ID);
+        $Importer = new $ImporterClass($url, $payload['content']->post->ID);
         
         $response['msg'] = 'Updated post ' . $payload['content']->post->ID;
 
-        if (empty($importer->addedPostsId)) {
+        if (empty($Importer->addedPostsId)) {
             $response['msg'] = 'Project ID does not exists' . $payload['content']->post->ID;
         }
 
