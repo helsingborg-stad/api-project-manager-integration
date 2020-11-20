@@ -14,7 +14,7 @@
             <div class="grid" id="readspeaker-read">
                 <div class="grid-sm-12">
                     {!! the_post() !!}
-                    @include('partials.blog.type.post-single-challange')
+                    @include('partials.blog.type.post-single-challenge')
                 </div>
             </div>
 

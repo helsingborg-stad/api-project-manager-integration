@@ -24,7 +24,7 @@ class Setup
     {
         $avalibleImporters = [
             'project'   => "\ProjectManagerIntegration\Import\Importer",
-            'challange' => "\ProjectManagerIntegration\Import\Challange",
+            'challenge' => "\ProjectManagerIntegration\Import\Challenge",
         ];
 
         if ($identifier !== 'importProject') {
@@ -68,7 +68,7 @@ class Setup
     {
         $avalibleImporters = [
             'project'   => "\ProjectManagerIntegration\Import\Importer",
-            'challange' => "\ProjectManagerIntegration\Import\Challange",
+            'challenge' => "\ProjectManagerIntegration\Import\Challenge",
         ];
 
         if (!isset($_GET['import_projects'])
@@ -97,7 +97,7 @@ class Setup
     public function addImportButton()
     {
         global $wp;
-        $allowedPostTypes = array('project', 'challange');
+        $allowedPostTypes = array('project', 'challenge');
 
         if (isset(get_current_screen()->post_type) && in_array(get_current_screen()->post_type, $allowedPostTypes)) {
             $queryArgs = array_merge($wp->query_vars, array('import_projects' => 'true'));

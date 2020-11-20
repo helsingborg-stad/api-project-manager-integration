@@ -9,7 +9,7 @@ class App
     public function __construct()
     {
         new PostTypes\Project();
-        new PostTypes\Challange();
+        new PostTypes\Challenge();
         new Import\Setup();
         new Options();
         new UI\Theme();

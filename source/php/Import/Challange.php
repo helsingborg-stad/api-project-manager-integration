@@ -2,9 +2,9 @@
 
 namespace ProjectManagerIntegration\Import;
 
-class Challange extends Importer
+class Challenge extends Importer
 {
-    public $postType = 'challange';
+    public $postType = 'challenge';
 
     public function mapTaxonomies($post)
     {
