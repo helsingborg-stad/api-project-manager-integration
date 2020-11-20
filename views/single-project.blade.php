@@ -62,7 +62,7 @@
                 @foreach ($project['impact_goals'] as $item)
                     <div class="box box-filled box-filled-1 box-project box-project-contact">
                         @if ($item['impact_goal_completed'])
-                            <h4 class="box-title"><small>Impact Goal - Completed</small><br>{{$item['impact_goal']}}</h4>
+                            <h4 class="box-title"><small>Impact Goal - Completed</small><br><strike>{{$item['impact_goal']}}</strike></h4>
                             @if (!empty($item['impact_goal_comment']))
                                 <div class="box-content">
                                     {{$item['impact_goal_comment']}}
