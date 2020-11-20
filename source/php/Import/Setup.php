@@ -4,8 +4,6 @@ namespace ProjectManagerIntegration\Import;
 
 class Setup
 {
-    public static $urlProjectSufix = '/project';
-
     public function __construct()
     {
         //Add manual import button(s)
@@ -20,40 +18,44 @@ class Setup
         add_filter('wpwhpro/run/actions/custom_action/return_args', array($this, 'triggerImport'), 10, 3);
     }
 
+    public function getImporterClassNameByPostType($postType)
+    {
+        $namespace = '\ProjectManagerIntegration\Import\\';
+        $className = apply_filters('ProjectManagerIntegration/Import/Setup::getImporterClassNameByPostType', $namespace . ucwords($postType), $postType);
+
+        if (class_exists($className)) {
+            return $className;
+        }
+
+        return false;
+    }
+
     public function triggerImport($response, $identifier, $payload)
     {
-        $avalibleImporters = [
-            'project'   => "\ProjectManagerIntegration\Import\Importer",
-            'challenge' => "\ProjectManagerIntegration\Import\Challenge",
-        ];
-
         if ($identifier !== 'importProject') {
             return $response;
         }
 
-        if (!isset($payload['content']) || !isset($payload['content']->post)) {
+        if (!isset($payload['content'])
+            || !isset($payload['content']->post)
+            || !isset($payload['content']->post->post_type)) {
             $response['msg'] = 'PostType data is missing';
             return $response;
         }
 
-        if (!in_array($payload['content']->post->post_type, array_keys($avalibleImporters))) {
-            $response['msg'] = 'Can only import posts with post type: ' . implode(', ', array_keys($avalibleImporters));
+        $importerClassName = $this->getImporterClassNameByPostType($payload['content']->post->post_type);
+
+        if (!$importerClassName) {
+            $response['msg'] = 'Importer Class does not exist: ' . $importerClassName;
             return $response;
         }
 
         $postType = $payload['content']->post->post_type;
-        $ImporterClass = $avalibleImporters[$postType];
-
-        if (!class_exists($ImporterClass)) {
-            error_log(print_r('CLASS DOES NOT EXIST: ' . $ImporterClass, true));
-            die;
-            return;
-        }
-
+        
         $baseUrl = get_field('project_api_url', 'option');
         $url = $baseUrl  . '/' . $postType;
         
-        $Importer = new $ImporterClass($url, $payload['content']->post->ID);
+        $Importer = new $importerClassName($url, $payload['content']->post->ID);
         
         $response['msg'] = 'Updated post ' . $payload['content']->post->ID;
 
@@ -66,20 +68,15 @@ class Setup
 
     public function importPosts()
     {
-        $avalibleImporters = [
-            'project'   => "\ProjectManagerIntegration\Import\Importer",
-            'challenge' => "\ProjectManagerIntegration\Import\Challenge",
-        ];
-
         if (!isset($_GET['import_projects'])
-            || empty($_GET['post_type'])
-            || !in_array($_GET['post_type'], array_keys($avalibleImporters))) {
+            || empty($_GET['post_type'])) {
             return;
         }
 
-        $ImporterClass = $avalibleImporters[$_GET['post_type']];
+        $ImporterClass = $this->getImporterClassNameByPostType($_GET['post_type']);
 
-        if (!class_exists($ImporterClass)) {
+        if (!$ImporterClass) {
+            var_dump($ImporterClass);
             die;
             return;
         }
@@ -97,12 +94,15 @@ class Setup
     public function addImportButton()
     {
         global $wp;
-        $allowedPostTypes = array('project', 'challenge');
 
-        if (isset(get_current_screen()->post_type) && in_array(get_current_screen()->post_type, $allowedPostTypes)) {
-            $queryArgs = array_merge($wp->query_vars, array('import_projects' => 'true'));
-            echo '<a href="' . add_query_arg('import_projects', 'true', $_SERVER['REQUEST_URI']) . '" class="button-primary extraspace" style="float: right; margin-right: 10px;">'. __("Import projects", PROJECTMANAGERINTEGRATION_TEXTDOMAIN) .'</a>';
+        $postType = get_current_screen()->post_type;
+
+        if (empty($postType) || !$this->getImporterClassNameByPostType($postType)) {
+            return;
         }
+
+        $queryArgs = array_merge($wp->query_vars, array('import_projects' => 'true'));
+        echo '<a href="' . add_query_arg('import_projects', 'true', $_SERVER['REQUEST_URI']) . '" class="button-primary extraspace" style="float: right; margin-right: 10px;">'. __("Import", PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . __(ucfirst(get_current_screen()->post_type), PROJECTMANAGERINTEGRATION_TEXTDOMAIN) .'</a>';
     }
 
     /**
@@ -111,9 +111,9 @@ class Setup
      */
     public function projectEventsCron()
     {
-        $url = get_field('project_api_url', 'option') . self::urlProjectSufix;
+        $url = get_field('project_api_url', 'option') . '/project';
 
-        new \ProjectManagerIntegration\Import\Importer($url);
+        new \ProjectManagerIntegration\Import\Project($url);
     }
 
     public static function addCronJob()
