@@ -16,7 +16,10 @@
 
         #areaMap {
           height: 400px;
+          max-height: 33vh;
         }
+
+
 
         @media only screen and (min-width: 1441px) {
           #areaMap {
