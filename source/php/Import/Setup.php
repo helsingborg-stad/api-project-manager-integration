@@ -4,7 +4,7 @@ namespace ProjectManagerIntegration\Import;
 
 class Setup
 {
-    const urlProjectSufix = '/project';
+    public static $urlProjectSufix = '/project';
 
     public function __construct()
     {
@@ -50,13 +50,28 @@ class Setup
 
     public function importPosts()
     {
-        if (!isset($_GET['import_projects'])) {
+        $avalibleImporters = [
+            'project'   => "\ProjectManagerIntegration\Import\Importer",
+            'challange' => "\ProjectManagerIntegration\Import\Challange",
+        ];
+
+        if (!isset($_GET['import_projects'])
+            || empty($_GET['post_type'])
+            || !in_array($_GET['post_type'], array_keys($avalibleImporters))) {
             return;
         }
 
-        $url = get_field('project_api_url', 'option') . self::urlProjectSufix;
+        $ImporterClass = $avalibleImporters[$_GET['post_type']];
 
-        new \ProjectManagerIntegration\Import\Importer($url);
+        if (!class_exists($ImporterClass)) {
+            die;
+            return;
+        }
+        
+        $baseUrl = get_field('project_api_url', 'option');
+        $url = $baseUrl . '/' . $_GET['post_type'];
+
+        new $ImporterClass($url);
     }
 
     /**
@@ -66,8 +81,9 @@ class Setup
     public function addImportButton()
     {
         global $wp;
+        $allowedPostTypes = array('project', 'challange');
 
-        if (isset(get_current_screen()->post_type) && get_current_screen()->post_type == "project") {
+        if (isset(get_current_screen()->post_type) && in_array(get_current_screen()->post_type, $allowedPostTypes)) {
             $queryArgs = array_merge($wp->query_vars, array('import_projects' => 'true'));
             echo '<a href="' . add_query_arg('import_projects', 'true', $_SERVER['REQUEST_URI']) . '" class="button-primary extraspace" style="float: right; margin-right: 10px;">'. __("Import projects", PROJECTMANAGERINTEGRATION_TEXTDOMAIN) .'</a>';
         }
