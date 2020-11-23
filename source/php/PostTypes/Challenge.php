@@ -40,6 +40,9 @@ class Challenge
             $restArgs
         );
 
+        // Enable archive modules
+        $postType->enableArchiveModules();
+
         // Global goals
         $postType->addTaxonomy(
             'project'. '_global_goal',
