@@ -206,4 +206,19 @@ class PostType
             }
         }
     }
+
+    public function enableArchiveModules()
+    {
+        add_filter('Modularity/Options/Archives/Modules::EnabledPostTypes', array($this, 'allowArchiveModulesForPostType'));
+    }
+
+
+    public function allowArchiveModulesForPostType($postTypes)
+    {
+        if (is_array($postTypes) && !in_array($this->postTypeName, $postTypes)) {
+            $postTypes[] = $this->postTypeName;
+        }
+
+        return $postTypes;
+    }
 }
