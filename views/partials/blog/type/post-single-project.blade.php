@@ -2,7 +2,6 @@
 <div class="grid">
     <div class="grid-xs-12">
         <div class="post post-single">
-
             <article class="u-mb-5 js-scroll-spy-section" id="article">
                 @if (post_password_required($post))
                     {!! get_the_password_form() !!}
