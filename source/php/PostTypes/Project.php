@@ -66,6 +66,21 @@ class Project
 
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
+            $statusValues = array(
+                'implementerat' => 100,
+                'skalas' => 75,
+                'testas' => 50,
+                'utforskas' => 25,
+            );
+
+            $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
+
+            $data['statusBar'] = array(
+                'label' => $statusTerm->name,
+                'value' => in_array($statusTerm->slug, array_keys($statusValues)) ? $statusValues[$statusTerm->slug] : 0,
+            );
+
+
             $data['project']['meta'][] = array(
                 'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
