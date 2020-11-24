@@ -21,7 +21,21 @@ class App
 
         add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
+        add_filter('language_attributes', array($this, 'wpBodyClasses'), 999);
     }
+
+    public function wpBodyClasses($output)
+    {
+        if (is_singular('project')) {
+            $output .= ' data-header-offset="158"';
+        } else {
+            $output .= ' data-header-offset="80"';
+        }
+
+
+        return $output;
+    }
+
 
     /**
      * Enqueue required style
