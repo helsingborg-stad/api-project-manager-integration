@@ -29,7 +29,12 @@ function expandSection(element) {
   
 
 export default function() {
-    document.querySelector('.js-collapsible-toggle').addEventListener('click', function(e) {
+    const collapseTarget = document.querySelector('.js-collapsible-toggle');
+    if (!collapseTarget) {
+        return;
+    }
+
+    collapseTarget.addEventListener('click', function(e) {
         const targetSelector = e.currentTarget.getAttribute('data-collapsible-target');
         const targetElement = document.querySelector(targetSelector);
         const isCollapsed = targetElement.getAttribute('data-collapsed') === 'true';
@@ -44,4 +49,5 @@ export default function() {
         }
     });
 }
+
 
