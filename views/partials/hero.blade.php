@@ -30,6 +30,19 @@
                         <div class="project-header__body">
                             <span class="project-header__meta">{{get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name}}</span>
                             <h1 class="project-header__title">{{ the_title() }}</h1>
+
+                            @if (!empty($statusBar) && $statusBar['value'] && $statusBar['label'])
+                            <div class="statusbar u-mt-3">
+                                <div class="statusbar__header u-mb-1">
+                                    <b>{{$statusBar['label']}}</b>
+                                </div>
+                                <div class="statusbar__content">
+                                    <div class="c-progressbar">
+                                        <div class="c-progressbar__value" style="width: {{$statusBar['value']}}%;"></div>                
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
