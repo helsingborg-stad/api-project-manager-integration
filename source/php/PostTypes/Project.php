@@ -34,8 +34,19 @@ class Project
 
         $data['project'] = array();
 
+        $data['scrollSpyMenuItems'] =  array();
+        $data['scrollSpyMenuItems'][] = array(
+            'label' => __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'anchor' => '#article',
+        );
+
         $impactGoalsMeta = get_post_meta(get_the_id(), 'impact_goals', true);
         if (!empty($impactGoalsMeta)) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('Impact goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#impactgoals',
+            );
+
             $data['project']['impact_goals'] = $impactGoalsMeta;
         }
     
@@ -146,6 +157,15 @@ class Project
             $postMeta = get_post_meta($objectId, $item, true);
             $data[$key]['content'] = !empty($postMeta) ? $postMeta : null;
         }, ['project_what', 'project_why', 'project_how']);
+
+
+        if (!empty($data['project']['meta'])) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('About', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#about',
+            );
+        }
+
 
         return $data;
     }

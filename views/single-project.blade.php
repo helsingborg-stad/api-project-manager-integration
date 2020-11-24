@@ -2,6 +2,24 @@
 
 @section('content')
 
+@if (!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1)
+    <div class="sticky-bar sticky-bar--content hidden-md hidden-lg hidden-xl u-mt-3 u-mb-2">
+        <div class="container">
+            <ul id="scroll-spy-menu" class="js-scroll-spy content-navbar">
+                @foreach($scrollSpyMenuItems as $item)
+                    <li class="content-navbar__item" data-spy-target="{{$item['anchor']}}">
+                        <a href="{{$item['anchor']}}">
+                            <span class="content-navbar__inner" tabindex="-1">
+                                {{$item['label']}}
+                            </span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+
 <div class="container main-container">
     <div class="grid grid--columns">
         <div class="grid-sm-12 grid-md-7 grid-lg-8">
@@ -60,7 +78,7 @@
             {{-- Impact goals --}}
             @if ($project && !empty($project['impact_goals']))
                 @foreach ($project['impact_goals'] as $item)
-                    <div class="box box-filled box-filled-1 box-project box-project-contact">
+                    <div id="impactgoals" class="box box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
                         @if ($item['impact_goal_completed'])
                             <h4 class="box-title"><small>Impact Goal - Completed</small><br><strike>{{$item['impact_goal']}}</strike></h4>
                             @if (!empty($item['impact_goal_comment']))
@@ -77,7 +95,7 @@
 
             {{-- Project meta --}}
             @if ($project && !empty($project['meta']))
-                <div class="box box-filled box-filled-1 box-project box-project-meta">
+                <div id="about" class="box box-filled box-filled-1 box-project box-project-meta js-scroll-spy-section">
                     <div class="box-content">
                         <ul class="box-project-meta__list">
                             @foreach ($project['meta'] as $meta)
