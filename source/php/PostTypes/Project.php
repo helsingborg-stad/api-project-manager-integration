@@ -47,7 +47,21 @@ class Project
                 'anchor' => '#impactgoals',
             );
 
-            $data['project']['impact_goals'] = $impactGoalsMeta;
+            // Order completed goals first
+            $impactGoalsMeta = array_reduce($impactGoalsMeta, function ($accumilator, $item) {
+                if ($item['impact_goal_completed']) {
+                    $accumilator['completed'][] = $item;
+                    return $accumilator;
+                }
+                
+                $accumilator['notCompleted'][] = $item;
+                return $accumilator;
+            }, array(
+                'completed' => array(),
+                'notCompleted' => array(),
+            ));
+
+            $data['project']['impact_goals'] = array_merge($impactGoalsMeta['completed'], $impactGoalsMeta['notCompleted']);
         }
     
         // Contacts
