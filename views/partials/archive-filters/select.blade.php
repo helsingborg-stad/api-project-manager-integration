@@ -6,7 +6,7 @@
         'hide_empty'        => false,
         'hierarchical'      => true,
         'name'              => 'filter[' . $taxKey . ']',
-        'show_option_none'  => $tax->label,
+        'show_option_none'  => ucwords($tax->label),
         'value_field'       => 'slug',
         'selected'          => $selected,
         'orderby'           => 'name'
