@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-09-30 14:51+0200\n"
-"PO-Revision-Date: 2020-09-30 14:51+0200\n"
+"POT-Creation-Date: 2020-11-25 02:39+0100\n"
+"PO-Revision-Date: 2020-11-25 02:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: project-manager-integration.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -36,59 +36,59 @@ msgstr "Organisationsfilter"
 msgid "Daily import"
 msgstr "Daglig import"
 
-#: source/php/Helper/PostType.php:66 source/php/Helper/PostType.php:67
-#: source/php/Helper/PostType.php:196
+#: source/php/Helper/PostType.php:42 source/php/Helper/PostType.php:43
+#: source/php/Helper/PostType.php:172
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:68 source/php/Helper/PostType.php:194
+#: source/php/Helper/PostType.php:44 source/php/Helper/PostType.php:170
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:69
+#: source/php/Helper/PostType.php:45
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:70
+#: source/php/Helper/PostType.php:46
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:71 source/php/Helper/PostType.php:190
+#: source/php/Helper/PostType.php:47 source/php/Helper/PostType.php:166
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:72
+#: source/php/Helper/PostType.php:48
 #, php-format
 msgid "No %s found"
 msgstr ""
 
-#: source/php/Helper/PostType.php:73
+#: source/php/Helper/PostType.php:49
 #, php-format
 msgid "No %s found in trash"
 msgstr ""
 
-#: source/php/Helper/PostType.php:74 source/php/Helper/PostType.php:192
-#: source/php/Helper/PostType.php:193
+#: source/php/Helper/PostType.php:50 source/php/Helper/PostType.php:168
+#: source/php/Helper/PostType.php:169
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: source/php/Helper/PostType.php:191
+#: source/php/Helper/PostType.php:167
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:195
+#: source/php/Helper/PostType.php:171
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:197
+#: source/php/Helper/PostType.php:173
 #, php-format
 msgid "New %s Name"
 msgstr ""
@@ -97,17 +97,17 @@ msgstr ""
 msgid "API request failed."
 msgstr "Begäran misslyckades."
 
-#: source/php/Import/Importer.php:297
+#: source/php/Import/Importer.php:299
 msgid "Could not create folder"
 msgstr "Kunde inte skapa mappen"
 
-#: source/php/Import/Importer.php:300
+#: source/php/Import/Importer.php:302
 msgid "please go ahead and create it manually and rerun the import."
 msgstr "vänligen skapa den manuellt och gör om importen."
 
-#: source/php/Import/Setup.php:72
-msgid "Import projects"
-msgstr "Importera projekt"
+#: source/php/Import/Setup.php:105
+msgid "Import"
+msgstr "Importera"
 
 #: source/php/Options.php:13
 msgctxt "ACF"
@@ -123,87 +123,117 @@ msgstr ""
 msgid "Import all organisations"
 msgstr "Importera alla organisationer"
 
-#: source/php/PostTypes/Project.php:28
-msgid "What?"
-msgstr "Vad?"
+#: source/php/PostTypes/Challenge.php:36
+msgid "Challenge"
+msgstr "Utmaning"
 
-#: source/php/PostTypes/Project.php:33
-msgid "Why?"
-msgstr "Varför?"
+#: source/php/PostTypes/Challenge.php:37
+msgid "Challenges"
+msgstr "Utmaningar"
 
-#: source/php/PostTypes/Project.php:38
-msgid "How?"
-msgstr "Hur?"
-
-#: source/php/PostTypes/Project.php:53
-msgid "We found no results for your search"
-msgstr "Vi hittade inga träffar på din sökning"
-
-#: source/php/PostTypes/Project.php:54
-msgid "Try to refine your search."
-msgstr "Prova ändra din sökning."
-
-#: source/php/PostTypes/Project.php:84 source/php/PostTypes/Project.php:191
-msgid "Organisation"
-msgstr "Organisation"
-
-#: source/php/PostTypes/Project.php:92 source/php/PostTypes/Project.php:216
-msgid "Partners"
-msgstr "Partners"
-
-#: source/php/PostTypes/Project.php:100 source/php/PostTypes/Project.php:167
-msgid "Status"
-msgstr "Status"
-
-#: source/php/PostTypes/Project.php:108 source/php/PostTypes/Project.php:183
-msgid "Sector"
-msgstr "Sektor"
-
-#: source/php/PostTypes/Project.php:116 source/php/PostTypes/Project.php:176
-msgid "Technologies"
-msgstr "Teknologier"
-
-#: source/php/PostTypes/Project.php:157
-msgid "Project"
-msgstr "Projekt"
-
-#: source/php/PostTypes/Project.php:158
-msgid "Projects"
-msgstr "Projekt"
-
-#: source/php/PostTypes/Project.php:168
-msgid "Statuses"
-msgstr "Status"
-
-#: source/php/PostTypes/Project.php:175
-msgid "Technology"
-msgstr "Teknologi"
-
-#: source/php/PostTypes/Project.php:184
-msgid "Sectors"
-msgstr "Sektorer"
-
-#: source/php/PostTypes/Project.php:192
-msgid "Organisations"
-msgstr "Organisationer"
-
-#: source/php/PostTypes/Project.php:199
+#: source/php/PostTypes/Challenge.php:49 source/php/PostTypes/Project.php:296
 msgid "Global goal"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:200
+#: source/php/PostTypes/Challenge.php:50 source/php/PostTypes/Project.php:297
 msgid "Global goals"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Project.php:207
+#: source/php/PostTypes/Challenge.php:56 source/php/PostTypes/Project.php:84
+#: source/php/PostTypes/Project.php:304 source/php/PostTypes/Project.php:319
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/PostTypes/Project.php:208
+#: source/php/PostTypes/Challenge.php:57 source/php/PostTypes/Project.php:305
+#: source/php/PostTypes/Project.php:320
 msgid "Categories"
 msgstr "kategorier"
 
-#: source/php/PostTypes/Project.php:215
+#: source/php/PostTypes/Project.php:23
+msgid "We found no results for your search"
+msgstr "Vi hittade inga träffar på din sökning"
+
+#: source/php/PostTypes/Project.php:24
+msgid "Try to refine your search."
+msgstr "Prova ändra din sökning."
+
+#: source/php/PostTypes/Project.php:39
+msgid "Background"
+msgstr "Bakgrund"
+
+#: source/php/PostTypes/Project.php:46
+msgid "Impact goals"
+msgstr "Effekmål"
+
+#: source/php/PostTypes/Project.php:108 source/php/PostTypes/Project.php:264
+msgid "Status"
+msgstr "Status"
+
+#: source/php/PostTypes/Project.php:116 source/php/PostTypes/Project.php:273
+msgid "Technologies"
+msgstr "Teknologier"
+
+#: source/php/PostTypes/Project.php:132
+msgid "hours"
+msgstr "timmar"
+
+#: source/php/PostTypes/Project.php:147
+msgid "Investment"
+msgstr "Investering"
+
+#: source/php/PostTypes/Project.php:156 source/php/PostTypes/Project.php:280
+msgid "Sector"
+msgstr "Sektor"
+
+#: source/php/PostTypes/Project.php:164 source/php/PostTypes/Project.php:288
+msgid "Organisation"
+msgstr "Organisation"
+
+#: source/php/PostTypes/Project.php:172 source/php/PostTypes/Project.php:313
+msgid "Partners"
+msgstr "Partners"
+
+#: source/php/PostTypes/Project.php:189
+msgid "What"
+msgstr "Vad"
+
+#: source/php/PostTypes/Project.php:194
+msgid "Why"
+msgstr "Varför"
+
+#: source/php/PostTypes/Project.php:199
+msgid "How"
+msgstr "Hur"
+
+#: source/php/PostTypes/Project.php:212
+msgid "About"
+msgstr "Om"
+
+#: source/php/PostTypes/Project.php:254
+msgid "Project"
+msgstr "Projekt"
+
+#: source/php/PostTypes/Project.php:255
+msgid "Projects"
+msgstr "Projekt"
+
+#: source/php/PostTypes/Project.php:265
+msgid "Statuses"
+msgstr "Status"
+
+#: source/php/PostTypes/Project.php:272
+msgid "Technology"
+msgstr "Teknologi"
+
+#: source/php/PostTypes/Project.php:281
+msgid "Sectors"
+msgstr "Sektorer"
+
+#: source/php/PostTypes/Project.php:289
+msgid "Organisations"
+msgstr "Organisationer"
+
+#: source/php/PostTypes/Project.php:312
 msgid "Partner"
 msgstr "Parnter"
 
@@ -258,7 +288,7 @@ msgstr "Till datum"
 msgid "Clear filters"
 msgstr "Återställ filter"
 
-#: views/partials/area/map.blade.php:219
+#: views/partials/area/map.blade.php:222
 msgid "Läs mer om "
 msgstr ""
 
@@ -281,3 +311,15 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "(#plugin_author_url#)"
 msgstr ""
+
+#~ msgid "Import projects"
+#~ msgstr "Importera projekt"
+
+#~ msgid "What?"
+#~ msgstr "Vad?"
+
+#~ msgid "Why?"
+#~ msgstr "Varför?"
+
+#~ msgid "How?"
+#~ msgstr "Hur?"
