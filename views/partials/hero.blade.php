@@ -34,7 +34,10 @@
                             @if (!empty($statusBar) && $statusBar['value'] && $statusBar['label'])
                             <div class="statusbar u-mt-3">
                                 <div class="statusbar__header u-mb-1">
-                                    <b>{{$statusBar['label']}}</b>
+                                    <b class="statusbar__title">{{$statusBar['label']}}</b>
+                                    <a href="#" class="statusbar__explainer">
+                                        <i class="pricon pricon-info-o"></i>
+                                    </a>
                                 </div>
                                 <div class="statusbar__content">
                                     <div class="c-progressbar">
