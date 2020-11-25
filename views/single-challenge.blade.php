@@ -2,9 +2,27 @@
 
 @section('content')
 
+
+<div class="c-cover c-cover--{{get_post_type()}} c-cover--overlay s-invert-section">
+    <div class="c-cover__container">
+        <img class="c-cover__image u-object-fit" src="{{ municipio_get_thumbnail_source(null, array(1440,416)) }}" alt="{{ the_title() }}">
+        <div class="container">
+            <div class="c-cover__content">
+                <header class="post-header">
+                    <span>{{__('Challenge', 'project-manager-integration')}}</span>
+                    <h1>{{ the_title() }}</h1>   
+                </header>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
 <div class="container main-container">
     <div class="grid grid--columns">
-        <div class="grid-sm-12 grid-md-7 grid-lg-8">
+        <div class="grid-sm-12">
             @if (is_single() && is_active_sidebar('content-area-top'))
                 <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
                     <?php dynamic_sidebar('content-area-top'); ?>
