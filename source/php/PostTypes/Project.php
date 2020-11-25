@@ -135,43 +135,27 @@ class Project
             );
         }
 
-        // Sector
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        // Technologies
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
         /**
-         * Add header based on project key name
+         * Content pieces
          */
-        $objectId = get_queried_object_id();
-        array_map(function ($item) use ($objectId, &$data) {
+        $contentPieces = array(
+            array(
+                'title' => __('What', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => get_post_meta(get_the_id(), 'project_what', true),
+            ),
+            array(
+                'title' => __('Why', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => get_post_meta(get_the_id(), 'project_what', true),
+            ),
+            array(
+                'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => get_post_meta(get_the_id(), 'project_what', true),
+            ),
+        );
 
-            // Split ie 'project_what' in two
-            $itemParts = explode('_', $item);
-
-            // Create header using last part in splitted array -> 'What'
-            $header = ucfirst($itemParts[1]);
-
-            // Create key - camelCase, using first part in splitted array -> projectWhat
-            $key = $itemParts[0] . $header;
-
-            // Array ie. 'projectWhat' used in blade template 'post-single-project.blade.php'
-            // Inject header translation and content body to the created projectWhat array
-            $data[$key]['header'] = __($header . '?', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
-            $postMeta = get_post_meta($objectId, $item, true);
-            $data[$key]['content'] = !empty($postMeta) ? $postMeta : null;
-        }, ['project_what', 'project_why', 'project_how']);
+        $data['project']['contentPieces'] = array_filter($contentPieces, function ($item) {
+            return !empty($item['content']);
+        });
 
 
         if (!empty($data['project']['meta'])) {

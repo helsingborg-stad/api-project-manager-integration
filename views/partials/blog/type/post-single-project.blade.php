@@ -6,19 +6,11 @@
                 @if (post_password_required($post))
                     {!! get_the_password_form() !!}
                 @else
-                    @if ($projectWhy['content'])
-                        <h2>{{ $projectWhy['header'] }}</h2>
-                        {!! $projectWhy['content'] !!}
-                    @endif
-
-                    @if ($projectWhat['content'])
-                        <h2>{{ $projectWhat['header'] }}</h2>
-                        {!! $projectWhat['content'] !!}
-                    @endif
-
-                    @if ($projectHow['content'])
-                        <h2>{{ $projectHow['header'] }}</h2>
-                        {!! $projectHow['content'] !!}
+                    @if (!empty($project['contentPieces']))
+                        @foreach ($project['contentPieces'] as $item)
+                            <h2>{{ $item['title'] }}</h2>
+                            {!! $item['content'] !!}
+                        @endforeach
                     @endif
                 @endif
             </article>
