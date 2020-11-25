@@ -79,16 +79,27 @@
             @if ($project && !empty($project['impact_goals']))
                 @foreach ($project['impact_goals'] as $item)
                     <div id="impactgoals" class="box box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
-                        @if ($item['impact_goal_completed'])
-                            <h4 class="box-title"><small>Impact Goal - Completed</small><br><strike>{{$item['impact_goal']}}</strike></h4>
-                            @if (!empty($item['impact_goal_comment']))
-                                <div class="box-content">
+                        <div class="box-content u-py-4">
+                            @if ($item['impact_goal_completed'])
+                                <h4>
+                                    <small>{{__('Impact goals', 'project-manager-integration')}}</small>
+                                </h4>
+                                <h4 class="box-title u-p-0">
+                                    <strike>{{$item['impact_goal']}}</strike>
+                                </h4>
+                                @if (!empty($item['impact_goal_comment']))
+                                    <h4 class="u-mt-2"><small>{{__('Results', 'project-manager-integration')}}</small></h4>
                                     {{$item['impact_goal_comment']}}
-                                </div>
+                                @endif
+                            @else
+                                <h4>
+                                    <small>{{__('Impact goals', 'project-manager-integration')}}</small>
+                                </h4>
+                                <h4 class="box-title u-p-0">
+                                    {{$item['impact_goal']}}
+                                </h4>
                             @endif
-                        @else
-                            <h4 class="box-title"><small>Impact Goal</small><br>{{$item['impact_goal']}}</h4>
-                        @endif
+                        </div>
                     </div>
                 @endforeach
             @endif
