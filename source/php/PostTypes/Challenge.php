@@ -9,6 +9,18 @@ class Challenge
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
+        add_filter('Municipio/theme/key', array($this, 'setThemeColorBasedOnMeta'));
+    }
+
+    public function setThemeColorBasedOnMeta($color)
+    {
+        if (is_singular('challenge')) {
+            $theme = get_post_meta(get_the_id(), 'theme_color', true);
+            $color = !empty($theme) ? $theme : 'purple';
+        }
+
+        return $color;
+    }
     }
 
     public function registerPostType()
