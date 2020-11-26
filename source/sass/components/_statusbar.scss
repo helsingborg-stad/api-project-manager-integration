@@ -1,0 +1,20 @@
+$statusbar-color-explainer: #A3A3A3;
+
+.statusbar {
+    .statusbar__header {
+        display: flex;
+        align-items: center;
+
+
+    }
+
+    .statusbar__title {}
+    .statusbar__explainer {
+        color: $statusbar-color-explainer;
+        margin-left: 8px;
+        i {
+            display: block;
+            font-size: 20px;
+        }
+    }
+}
