@@ -8,17 +8,8 @@
 
 <div class="grid">
     <div class="grid-xs-12">
-        <div class="post post-single">
-            <article class="u-mb-5" id="article">
-
-                <header class="post-header">
-                    @if ($category)
-                        <small>{{$category}}</small>
-                    @endif
-
-                    <h1>{{ the_title() }}</h1>   
-                </header>
-
+        <div class="post post-single post post-{{get_post_type()}} u-mx-auto">
+            <article id="article" class="article">
                 @if (get_field('post_single_show_featured_image') === true)
                     <img src="{{ municipio_get_thumbnail_source(null, array(700,700)) }}" alt="{{ the_title() }}">
                 @endif
