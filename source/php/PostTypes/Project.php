@@ -78,10 +78,19 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
+        // Category
+        if (!empty(get_the_terms(get_queried_object_id(), 'challenge_category'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => get_the_terms(get_queried_object_id(), 'challenge_category')[0]->name
+            );
+        }
+
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
             $statusValues = array(
                 'implementerat' => 100,
+                'anvands' => 100,
                 'skalas' => 75,
                 'testas' => 50,
                 'utforskas' => 25,
@@ -101,6 +110,14 @@ class Project
             );
         }
 
+        // Technologies
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
+            );
+        }
+
         // Investments
         $investmentTypes = get_post_meta(get_the_id(), 'investment_type', true);
         if (!empty($investmentTypes)) {
@@ -112,7 +129,7 @@ class Project
                 }
     
                 return array(
-                    'unit' => $type === 'amount' ? 'kr' : ' hours',
+                    'unit' => $type === 'amount' ? ' kr' : ' ' . __('hours', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'value' => $metaValue,
                     'type' => $type
                 );
@@ -127,10 +144,18 @@ class Project
                 }, $investments));
 
                 $data['project']['meta'][] = array(
-                    'title' => 'Investment',
+                    'title' => __('Investment', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'content' => $investmentString
                 );
             }
+        }
+
+        // Sector
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
+            );
         }
 
         // Organisation
@@ -171,14 +196,12 @@ class Project
             return !empty($item['content']);
         });
 
-
         if (!empty($data['project']['meta'])) {
             $data['scrollSpyMenuItems'][] = array(
                 'label' => __('About', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'anchor' => '#about',
             );
         }
-
 
         return $data;
     }
