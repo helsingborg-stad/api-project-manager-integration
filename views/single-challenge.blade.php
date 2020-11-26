@@ -10,126 +10,119 @@
             <div class="c-cover__content">
                 <header class="post-header">
                     <span>{{__('Challenge', 'project-manager-integration')}}</span>
-                    <h1>{{ the_title() }}</h1>   
+                    <h1 class="post-title post-title--{{get_post_type()}}">{{ the_title() }}</h1>   
                 </header>
             </div>
         </div>
     </div>
-
-</div>
-
-
-
-<div class="container main-container">
-    <div class="grid grid--columns">
-        <div class="grid-sm-12">
-            @if (is_single() && is_active_sidebar('content-area-top'))
-                <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
-                    <?php dynamic_sidebar('content-area-top'); ?>
-                </div>
-            @endif
-
-            <div class="grid" id="readspeaker-read">
-                <div class="grid-sm-12">
-                    {!! the_post() !!}
-                    @include('partials.blog.type.post-single-challenge')
-                </div>
-            </div>
-
-            @if (is_single() && comments_open() && get_option('comment_registration') == 0 || is_single() && comments_open() && is_user_logged_in())
-                @if(get_option('comment_order') == 'desc')
-                    <div class="grid">
-                        <div class="grid-sm-12">
-                            @include('partials.blog.comments-form')
-                        </div>
-                    </div>
-                    @if(isset($comments) && ! empty($comments))
-                        <div class="grid">
-                            <div class="grid-sm-12">
-                                @include('partials.blog.comments')
-                            </div>
-                        </div>
-                    @endif
-                @else
-                    @if(isset($comments) && ! empty($comments))
-                        <div class="grid">
-                            <div class="grid-sm-12">
-                                @include('partials.blog.comments')
-                            </div>
-                        </div>
-                    @endif
-                    <div class="grid">
-                        <div class="grid-sm-12">
-                            @include('partials.blog.comments-form')
-                        </div>
-                    </div>
-                @endif
-            @endif
-        </div>
-
-        <div class="grid-sm-12 grid-md-5 grid-lg-4">
-            {{-- Inline scoped styles --}}
-            <style scoped>
-                .box-project-meta .box-project-meta__list > li:not(:last-child) {
-                    margin-bottom: 16px;
-                }
-            </style>
-            
-            {{-- Impact goals --}}
-            @if ($project && !empty($project['impact_goals']))
-                @foreach ($project['impact_goals'] as $item)
-                    <div class="box box-filled box-filled-1 box-project box-project-contact">
-                        @if ($item['impact_goal_completed'])
-                            <h4 class="box-title"><small>Impact Goal - Completed</small><br><strike>{{$item['impact_goal']}}</strike></h4>
-                            @if (!empty($item['impact_goal_comment']))
-                                <div class="box-content">
-                                    {{$item['impact_goal_comment']}}
-                                </div>
-                            @endif
-                        @else
-                            <h4 class="box-title"><small>Impact Goal</small><br>{{$item['impact_goal']}}</h4>
-                        @endif
-                    </div>
-                @endforeach
-            @endif
-
-            {{-- Project meta --}}
-            @if ($project && !empty($project['meta']))
-                <div class="box box-filled box-filled-1 box-project box-project-meta">
-                    <div class="box-content">
-                        <ul class="box-project-meta__list">
-                            @foreach ($project['meta'] as $meta)
-                                <li>
-                                    <h4>{{$meta['title']}}</h4>
-                                    <p>{{$meta['content']}}</p>
-                                </li>
-                            @endforeach                            
-                        </ul>
-                    </div>
-                </div>
-            @endif
-            
-            {{-- Contacts --}}
-            @if ($project && !empty($project['contacts']))
-                {{-- TODO: Translate labels --}}
-                <div class="box box-filled box-filled-1 box-project box-project-contact">
-                    <h4 class="box-title">Kontakt</h4>
-                    <div class="box-content">
-                        @foreach ($project['contacts'] as $contact)
-                            <p><b>Namn:</b> {{$contact['name']}}
-                                @if($contact['email'])
-                                    </br> <b>E-post: </b><a href="mailto:{{$contact['email']}}">{{$contact['email']}}</a>
-                                @endif
-                            </p>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-
-        </div>
-        @include('partials.sidebar-right')
+    <div class="stripe stripe--right stripe--force-show stripe--offset">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 </div>
 
-@stop
 
+<div class="t-purple-section">
+    <div class="container main-container">
+        <div class="grid u-py-6 u-py-8@lg u-py-8@xl">
+            <div class="grid-sm-12">
+                @if (is_single() && is_active_sidebar('content-area-top'))
+                    <div class="grid grid--columns sidebar-content-area sidebar-content-area-top">
+                        <?php dynamic_sidebar('content-area-top'); ?>
+                    </div>
+                @endif
+
+                <div class="grid" id="readspeaker-read">
+                    <div class="grid-sm-12">
+                        {!! the_post() !!}
+                        @include('partials.blog.type.post-single-challenge')
+                    </div>
+                </div>
+
+                @if (is_single() && comments_open() && get_option('comment_registration') == 0 || is_single() && comments_open() && is_user_logged_in())
+                    @if(get_option('comment_order') == 'desc')
+                        <div class="grid">
+                            <div class="grid-sm-12">
+                                @include('partials.blog.comments-form')
+                            </div>
+                        </div>
+                        @if(isset($comments) && ! empty($comments))
+                            <div class="grid">
+                                <div class="grid-sm-12">
+                                    @include('partials.blog.comments')
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        @if(isset($comments) && ! empty($comments))
+                            <div class="grid">
+                                <div class="grid-sm-12">
+                                    @include('partials.blog.comments')
+                                </div>
+                            </div>
+                        @endif
+                        <div class="grid">
+                            <div class="grid-sm-12">
+                                @include('partials.blog.comments-form')
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+@php
+$relatedPosts = get_posts([
+    'post_type' => get_post_type(),
+    'posts_per_page' => 4,
+    'exclude' => array(get_queried_object_id()),
+    'orderby' => 'rand'
+]);
+
+$category = !empty(get_the_terms($post->ID, 'challenge_category')) 
+    ? get_the_terms($post->ID, 'challenge_category')[0]->name 
+    : false; 
+
+@endphp
+
+    @if (!empty($relatedPosts))
+        <div class="section  u-py-6 u-py-8@lg u-py-8@xl">
+            <div class="container">
+                <div class="grid u-mb-3">
+                    <div class="grid-xs-auto">
+                        <h2>Fler Utmaningar</h2>
+                    </div>
+                    <div class="grid-xs-fit-content">
+                        <a href="">Visa alla <i class="pricon pricon-right-fat-arrow u-ml-1"></i></a>
+                    </div>
+                </div>
+                <div>
+                </div>
+                <div class="grid">
+                    @foreach($relatedPosts as $post)
+                        <div class="grid-xs-12 grid-sm-6 grid-md-3">
+                            <a href="{{ get_permalink($post->ID) }}" class="box box--project">
+                                <div class="box__container" data-equal-item>
+                                    <div class="box__image ratio-12-16" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(636,846), '12:16') }}');">
+                                    </div>
+                                    <div class="box__content">
+                                        <div class="box__meta">
+                                            @if ($category)
+                                                <span class="box__organisation">{{$category}}</span>
+                                            @endif
+                                        </div>
+                                        <h3 class="box__title">{{ get_the_title($post->ID) }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
+@stop
