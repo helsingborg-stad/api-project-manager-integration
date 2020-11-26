@@ -24,9 +24,10 @@ class Challenge extends Importer
         extract($post);
 
         $data = array(
-          'uuid' => $id,
-          'last_modified' => $modified,
-          'contacts' => $contacts ?? null,
+            'uuid' => $id,
+            'last_modified' => $modified,
+            'contacts' => $contacts ?? null,
+            'theme_color' => $theme_color ?? null,
         );
 
         return $data;
