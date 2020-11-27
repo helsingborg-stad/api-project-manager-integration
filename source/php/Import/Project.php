@@ -6,6 +6,26 @@ class Project extends Importer
 {
     public $postType = 'project';
 
+    public function init()
+    {
+        add_filter('ProjectManagerIntegration/Import/Importer/metaKeys', array($this, 'setTermMetaKeys'), 10, 2);
+    }
+
+    public function setTermMetaKeys($metaKeys, $term)
+    {
+        extract($term);
+
+        if ($taxonomy === 'status') {
+            $statusMetaKeys = array(
+                'progress_value' => (int) $progress_value ?? null,
+            );
+
+            $metaKeys = array_merge($metaKeys, $statusMetaKeys);
+        }
+
+        return $metaKeys;
+    }
+
     public function mapTaxonomies($post)
     {
         extract($post);
@@ -29,6 +49,20 @@ class Project extends Importer
     {
         extract($post);
 
+        if (!empty($challenge) && isset($challenge['ID'])) {
+            $challengePostObject = $this->getPost(
+                array(
+                    'key' => 'uuid',
+                    'value' => $challenge['ID']
+                ),
+                'challenge'
+            );
+
+            if ($challengePostObject) {
+                $challenge = $challengePostObject->ID;
+            }
+        }
+
         $data = array(
           'uuid' => $id,
           'last_modified' => $modified,
@@ -41,9 +75,9 @@ class Project extends Importer
           'project_why' => $project_why ?? null,
           'project_how' => $project_how ?? null,
           'impact_goals' => $impact_goals ?? null,
-          'investment_type' => $investment_type ?? null,
-          'investment_amount' => $investment_amount ?? null,
-          'investment_hours' => $investment_hours ?? null,
+          'estimated_budget' => $estimated_budget ?? null,
+          'spent_so_far' => $spent_so_far ?? null,
+          'challenge' => $challenge ?? null,
         );
 
         return $data;
