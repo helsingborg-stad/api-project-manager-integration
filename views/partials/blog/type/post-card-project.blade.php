@@ -54,7 +54,9 @@
                     @endif
                 </div>
                 <h3 class="box__title">{{ the_title() }}</h3>
-                <span class="box__tags">{{$postTags}}</span>
+                @if ($postTags)
+                    <span class="box__tags">{{$postTags}}</span>
+                @endif
             </div>
         </div>
     </a>
