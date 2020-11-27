@@ -11,15 +11,20 @@ h1.post-title--challenge {
         font-size: 56px;
     }
 }
+.project-header {
+    [data-tooltip]::after {
+        white-space: break-spaces;
+        width: 8px * 20;
+    }
 
-
+}
 .post.post-single.post-challenge {
     max-width: 696px;
 }
 
 
 .single.single-challenge {
-    p {
+    p, .global-goals {
         max-width: 544px;
         margin-left: auto;
         margin-right: auto;
@@ -39,5 +44,38 @@ h1.post-title--challenge {
         p + p {
             margin-top: 32px;
         }
+    }
+}
+
+
+.related-posts {
+
+
+    .related-posts__archive_link {
+        color: black;
+        font-weight: bold;
+
+        i {
+            font-size: 19px;
+        }
+    }
+
+    .related-posts__archive_link:hover {
+        i {
+            text_decoration: none;
+        }
+    }
+}
+
+
+.global-goals {
+    margin-top: 40px;
+    .global-goals__logo {
+        height: auto;
+        max-width: 84px;
+    }
+
+    .global-goals__logo + .global-goals__logo {
+        margin-right: 8px;
     }
 }
