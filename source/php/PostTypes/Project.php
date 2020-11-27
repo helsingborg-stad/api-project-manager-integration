@@ -78,11 +78,27 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
+
+        // Challenge
+        $challengeId = get_post_meta(get_the_id(), 'challenge', true);
+        $challengeObject = !empty($challengeId) ? get_post($challengeId) : false;
+        if ($challengeObject && $challengeObject->post_type === 'challenge') {
+            $data['project']['meta'][] = array(
+                'title' => __('Challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => $challengeObject->post_title
+            );
+        }
+
         // Category
-        if (!empty(get_the_terms(get_queried_object_id(), 'challenge_category'))) {
+        $categories = get_the_terms(get_queried_object_id(), 'challenge_category');
+        if (!empty($categories)) {
+            $categories = array_map(function ($item) {
+                return $item->name;
+            }, $categories);
+
             $data['project']['meta'][] = array(
                 'title' => __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => get_the_terms(get_queried_object_id(), 'challenge_category')[0]->name
+                'content' => implode(', ', $categories),
             );
         }
 
