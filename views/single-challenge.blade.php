@@ -25,7 +25,7 @@
 </div>
 
 
-<div class="t-purple-section">
+<div class="t-{{$themeColor}}-section">
     <div class="container main-container">
         <div class="grid u-py-6 u-py-8@lg u-py-8@xl">
             <div class="grid-sm-12">

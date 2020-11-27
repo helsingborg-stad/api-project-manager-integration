@@ -22,11 +22,18 @@ class Challenge
 
         return $color;
     }
+
     public function singleViewController($data)
     {
         if (!is_singular('challenge')) {
             return $data;
         }
+
+        $theme = get_post_meta(get_the_id(), 'theme_color', true);
+
+        $data['themeColor'] = !empty($theme) ? $theme : 'purple';
+
+
         $globalGoals = get_the_terms(get_queried_object_id(), 'project_global_goal');
 
         if (!empty($globalGoals)) {
@@ -44,6 +51,8 @@ class Challenge
         }
 
         $data['globalGoals'] = !empty($globalGoals) ? $globalGoals : array();
+
+
         return $data;
     }
 
@@ -84,7 +93,7 @@ class Challenge
             'project'. '_global_goal',
             __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
+            array('hierarchical' => true, 'show_ui' => true)
         );
 
         $postType->addTaxonomy(
