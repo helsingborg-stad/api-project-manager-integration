@@ -102,8 +102,19 @@ class Project
             );
         }
 
+
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
+            $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
+            $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
+
+            $data['statusBar'] = array(
+                'label' => $statusTerm->name,
+                'value' => $statusMeta ?? 0,
+                'explainer' => $statusTerm->description ?? '',
+                'explainer_html' => term_description($statusTerm->term_id) ?? '',
+            );
+
             $data['project']['meta'][] = array(
                 'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
@@ -251,7 +262,7 @@ class Project
             $this->postType . '_status',
             __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => false, 'show_ui' => false)
+            array('hierarchical' => false, 'show_ui' => true)
         );
 
         // Technologies
