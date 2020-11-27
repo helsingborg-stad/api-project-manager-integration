@@ -75,39 +75,40 @@
         </div>
     </div>
 </div>
+
 @php
-$relatedPosts = get_posts([
-    'post_type' => get_post_type(),
-    'posts_per_page' => 4,
-    'exclude' => array(get_queried_object_id()),
-    'orderby' => 'rand'
-]);
-
-$category = !empty(get_the_terms($post->ID, 'challenge_category')) 
-    ? get_the_terms($post->ID, 'challenge_category')[0]->name 
-    : false; 
-
+    $relatedPosts = get_posts([
+        'post_type' => get_post_type(),
+        'posts_per_page' => 4,
+        'exclude' => array(get_queried_object_id()),
+        'orderby' => 'rand'
+    ]);
 @endphp
 
     @if (!empty($relatedPosts))
-        <div class="section  u-py-6 u-py-8@lg u-py-8@xl">
+        <div class="section related-posts u-py-6 u-py-8@lg u-py-8@xl">
             <div class="container">
-                <div class="grid u-mb-3">
+                <div class="grid u-align-items-center u-mb-3">
                     <div class="grid-xs-auto">
-                        <h2>Fler Utmaningar</h2>
+                        <h2 class="related-posts__title">Fler Utmaningar</h2>
                     </div>
                     <div class="grid-xs-fit-content">
-                        <a href="">Visa alla <i class="pricon pricon-right-fat-arrow u-ml-1"></i></a>
+                        <a class="related-posts__archive_link" href="{{get_post_type_archive_link(get_post_type())}}">Visa alla <i class="pricon pricon-right-fat-arrow u-ml-1"></i></a>
                     </div>
                 </div>
                 <div>
                 </div>
                 <div class="grid">
                     @foreach($relatedPosts as $post)
+                    @php
+                        $category = !empty(get_the_terms($post->ID, 'challenge_category')) 
+                            ? get_the_terms($post->ID, 'challenge_category')[0]->name 
+                            : false; 
+                    @endphp
                         <div class="grid-xs-12 grid-sm-6 grid-md-3">
                             <a href="{{ get_permalink($post->ID) }}" class="box box--project">
                                 <div class="box__container" data-equal-item>
-                                    <div class="box__image ratio-12-16" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(636,846), '12:16') }}');">
+                                    <div class="box__image ratio-12-16 u-radius-8" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(636,846), '12:16') }}');">
                                     </div>
                                     <div class="box__content">
                                         <div class="box__meta">
