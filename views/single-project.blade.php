@@ -85,7 +85,7 @@
                                     <small>{{__('Impact goals', 'project-manager-integration')}}</small>
                                 </h4>
                                 <h4 class="box-title u-p-0">
-                                    <strike>{{$item['impact_goal']}}</strike>
+                                    {{$item['impact_goal']}}
                                 </h4>
                                 @if (!empty($item['impact_goal_comment']))
                                     <h4 class="u-mt-2"><small>{{__('Results', 'project-manager-integration')}}</small></h4>
