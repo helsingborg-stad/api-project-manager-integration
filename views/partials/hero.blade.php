@@ -33,11 +33,16 @@
 
                             @if (!empty($statusBar) && $statusBar['value'] && $statusBar['label'])
                             <div class="statusbar u-mt-3">
-                                <div class="statusbar__header u-mb-1">
+                                <div class="statusbar__header u-mb-1 explain">
                                     <b class="statusbar__title">{{$statusBar['label']}}</b>
-                                    <a href="#" class="statusbar__explainer">
-                                        <i class="pricon pricon-info-o"></i>
-                                    </a>
+
+                                    @if (!empty($statusBar['explainer'])) 
+                                        <span class="statusbar__explainer">
+                                            <span data-tooltip="{{$statusBar['explainer']}}" data-tooltip-bottom>
+                                                <i class="pricon pricon-info-o"></i>
+                                            </span>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="statusbar__content">
                                     <div class="c-progressbar">
