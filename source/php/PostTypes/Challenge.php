@@ -10,6 +10,7 @@ class Challenge
     {
         add_action('init', array($this, 'registerPostType'), 9);
         add_filter('Municipio/theme/key', array($this, 'setThemeColorBasedOnMeta'));
+        add_filter('Municipio/viewData', array($this, 'singleViewController'));
     }
 
     public function setThemeColorBasedOnMeta($color)
@@ -21,6 +22,29 @@ class Challenge
 
         return $color;
     }
+    public function singleViewController($data)
+    {
+        if (!is_singular('challenge')) {
+            return $data;
+        }
+        $globalGoals = get_the_terms(get_queried_object_id(), 'project_global_goal');
+
+        if (!empty($globalGoals)) {
+            $globalGoals = array_map(function ($item) {
+                $item = (array) $item;
+                $featuredImage = get_term_meta($item['term_id'], 'featured_image', true);
+                $item['featuredImageUrl'] = !empty($featuredImage) ? $featuredImage : '';
+
+                return $item;
+            }, $globalGoals);
+
+            $globalGoals = array_filter($globalGoals, function ($item) {
+                return !empty($item);
+            });
+        }
+
+        $data['globalGoals'] = !empty($globalGoals) ? $globalGoals : array();
+        return $data;
     }
 
     public function registerPostType()

@@ -28,6 +28,16 @@
                         {!! apply_filters('the_content', $post->post_content) !!}
                     @endif
                 @endif
+
+                @if(!empty($globalGoals))
+                    <p>En del av de global hållbarshetsmålen för</p>
+                    <div class="global-goals">
+                        @foreach($globalGoals as $item)
+                            <img class="global-goals__logo" src="{{$item['featuredImageUrl']}}">
+                        @endforeach
+                    </div>
+                @endif
+            
             </article>
 
             @if (is_single() && is_active_sidebar('content-area'))
