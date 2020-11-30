@@ -39,6 +39,27 @@
         $permalink .= '?' . http_build_query($_GET);
     }
 
+    // Status
+    if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
+        $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
+        $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
+        $prevStatusMeta = get_post_meta(get_the_id(), 'previous_status_progress_value', true);
+        $isCancelled = false;
+
+        if (0 > (int) $statusMeta) {
+            $statusMeta = (int) $prevStatusMeta >= 0 ? $prevStatusMeta : 0;
+            $isCancelled = true;
+        }
+
+        $statusBar = array(
+            'label' => $statusTerm->name,
+            'value' => (int) $statusMeta ?? 0,
+            'explainer' => $statusTerm->description ?? '',
+            'explainer_html' => term_description($statusTerm->term_id) ?? '',
+            'isCancelled' => $isCancelled,
+        );
+    }
+
 @endphp
 
 <div class="{{ $grid_size }}">
@@ -49,9 +70,6 @@
             <div class="box__content">
                 <div class="box__meta">
                     <span class="box__organisation">{{$organisation}}</span>
-                    @if ($status)
-                        <span class="box__status box__status--{{sanitize_title($status)}}">{{$status}}</span>
-                    @endif
                 </div>
                 <h3 class="box__title">{{ the_title() }}</h3>
                 @if ($postTags)
@@ -59,5 +77,25 @@
                 @endif
             </div>
         </div>
+        @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
+            <div class="statusbar u-mt-3">
+                <div class="statusbar__header u-mb-1 explain">
+                    <b class="statusbar__title">{{$statusBar['label']}}</b>
+
+                    @if (!empty($statusBar['explainer'])) 
+                        <span class="statusbar__explainer">
+                            <span data-tooltip="{{$statusBar['explainer']}}" data-tooltip-bottom>
+                                <i class="pricon pricon-info-o"></i>
+                            </span>
+                        </span>
+                    @endif
+                </div>
+                <div class="statusbar__content">
+                <div class="c-progressbar">
+                        <div class="c-progressbar__value {{$statusBar['isCancelled'] ? 'is-disabled' : ''}}" style="width: {{$statusBar['value']}}%;"></div>                
+                    </div>
+                </div>
+            </div>
+        @endif
     </a>
 </div>

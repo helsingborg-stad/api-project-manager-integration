@@ -1,5 +1,9 @@
 
 .box.box--project {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     .box__image {
         background-size: contain;
         background-repeat: no-repeat;
