@@ -78,26 +78,32 @@
             {{-- Impact goals --}}
             @if ($project && !empty($project['impact_goals']))
                 @foreach ($project['impact_goals'] as $item)
-                    <div id="impactgoals" class="box box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
+                    <div id="impactgoals" class="box box--outline box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
                         <div class="box-content u-py-4">
                             @if ($item['impact_goal_completed'])
                                 <h4>
-                                    <small>{{__('Impact goals', 'project-manager-integration')}}</small>
+                                    <small class="secondary-color tiny">{{__('Impact goals', 'project-manager-integration')}}</small>
                                 </h4>
-                                <h4 class="box-title u-p-0">
-                                    {{$item['impact_goal']}}
-                                </h4>
+                                <p class="u-p-0">
+                                    <b>
+                                        {{$item['impact_goal']}}
+                                    </b>
+                                </p>
                                 @if (!empty($item['impact_goal_comment']))
-                                    <h4 class="u-mt-2"><small>{{__('Results', 'project-manager-integration')}}</small></h4>
-                                    {{$item['impact_goal_comment']}}
+                                    <h4 class="u-mt-2">
+                                        <small class="secondary-color tiny">{{__('Results', 'project-manager-integration')}}</small>
+                                    </h4>
+                                    <p>{{$item['impact_goal_comment']}}</p>
                                 @endif
                             @else
                                 <h4>
-                                    <small>{{__('Impact goals', 'project-manager-integration')}}</small>
+                                    <small class="secondary-color tiny">{{__('Impact goals', 'project-manager-integration')}}</small>
                                 </h4>
-                                <h4 class="box-title u-p-0">
-                                    {{$item['impact_goal']}}
-                                </h4>
+                                <p class="u-p-0">
+                                    <b>
+                                        {{$item['impact_goal']}}
+                                    </b>
+                                </p>
                             @endif
                         </div>
                     </div>
