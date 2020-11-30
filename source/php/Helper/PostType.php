@@ -13,7 +13,7 @@ class PostType
 
     public $taxonomies = array();
 
-    public static $registredTaxonomies = array();
+    protected static $_registredTaxonomies = array();
 
     /* Class constructor */
     public function __construct($postTypeName, $nameSingular, $namePlural, $args = array(), $labels = array(), $restArgs = array())
@@ -159,10 +159,10 @@ class PostType
             // Taxonomy properties
             $taxonomyLabels = $labels;
             $taxonomyArgs = $args;
-            $hasBeenRegistred = in_array($taxonomySlug, self::$registredTaxonomies);
+            $hasBeenRegistred = in_array($taxonomySlug, self::$_registredTaxonomies);
             
             if (!taxonomy_exists($taxonomySlug) && !$hasBeenRegistred) {
-                self::$registredTaxonomies[] = $taxonomySlug;
+                self::$_registredTaxonomies[] = $taxonomySlug;
 
                 // Default labels, overwrite them with the given labels.
                 $labels = array_merge(
