@@ -13,6 +13,11 @@
         display: block;
         margin-bottom: 8px;
     }
+
+    [data-tooltip]::after {
+        white-space: break-spaces;
+        width: 8px * 20;
+    }
 }
 
 // XS Specific

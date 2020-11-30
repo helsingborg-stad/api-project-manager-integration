@@ -11,13 +11,7 @@ h1.post-title--challenge {
         font-size: 56px;
     }
 }
-.project-header {
-    [data-tooltip]::after {
-        white-space: break-spaces;
-        width: 8px * 20;
-    }
 
-}
 .post.post-single.post-challenge {
     max-width: 696px;
 }
