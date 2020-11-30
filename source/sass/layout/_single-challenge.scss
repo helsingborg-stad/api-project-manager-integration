@@ -8,7 +8,7 @@ h1.post-title--challenge {
     }
     
     @media only screen and (min-width: 78em) {
-        font-size: 56px;
+        font-size: 64px;
     }
 }
 
@@ -28,6 +28,10 @@ h1.post-title--challenge {
         font-size: 24px;
         line-height: 1.3;
         max-width: 100%;
+        
+        @media only screen and (min-width: 78em) {
+            font-size: 34px;
+        }
     }
 
     article {
