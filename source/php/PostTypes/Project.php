@@ -137,6 +137,25 @@ class Project
             );
         }
 
+
+        // estimatedBudget
+        $estimatedBudget = get_post_meta(get_the_id(), 'estimated_budget', true);
+        if (!empty($estimatedBudget)) {
+            $data['project']['meta'][] = array(
+                'title' => __('Estimated Budget', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => $estimatedBudget . ' kr'
+            );
+        }
+
+        // spentSoFar
+        $costSoFar = get_post_meta(get_the_id(), 'cost_so_far', true);
+        if (!empty($costSoFar)) {
+            $data['project']['meta'][] = array(
+                'title' => __('Cost so far', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => $costSoFar . ' kr'
+            );
+        }
+
         // Investments
         $investmentTypes = get_post_meta(get_the_id(), 'investment_type', true);
         if (!empty($investmentTypes)) {
