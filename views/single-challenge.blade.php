@@ -92,7 +92,7 @@
 @if (!empty($projects))
 <div class="section u-pt-7">
     <div class="container">
-        <h2 class="u-mb-4">Innovations initiatv</h2>
+        <h2 class="u-mb-4">Innovationsintiativ kopplade till utmaningen</h2>
         <div class="grid grid--columns">
             @foreach ($projects as $post)
                 @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-4'))
@@ -112,7 +112,7 @@
 @endphp
 
     @if (!empty($relatedPosts))
-        <div class="section related-posts u-py-6 u-py-8@lg u-py-8@xl">
+        <div class="section related-posts u-py-6 u-py-8@lg u-py-8@xl t-section-gray">
             <div class="container">
                 <div class="grid u-align-items-center u-mb-3">
                     <div class="grid-xs-auto">
