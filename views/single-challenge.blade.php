@@ -2,9 +2,13 @@
 
 @section('content')
 
-
 <div class="c-cover c-cover--{{get_post_type()}} c-cover--overlay s-invert-section">
     <div class="c-cover__container">
+        <style scoped>
+            .u-object-fit {
+                object-position: {{$featuredImagePosition['x'] . ' ' . $featuredImagePosition['y']}};
+            }
+        </style>
         <img class="c-cover__image u-object-fit" src="{{ municipio_get_thumbnail_source(null, array(1440,416)) }}" alt="{{ the_title() }}">
         <div class="container">
             <div class="c-cover__content">

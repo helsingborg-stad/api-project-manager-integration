@@ -48,6 +48,8 @@ class Challenge extends Importer
             'last_modified' => $modified,
             'contacts' => $contacts ?? null,
             'theme_color' => $theme_color ?? null,
+            'featured_image_position_x' => $featured_image_position_x ?? null,
+            'featured_image_position_y' => $featured_image_position_y ?? null,
         );
 
         return $data;

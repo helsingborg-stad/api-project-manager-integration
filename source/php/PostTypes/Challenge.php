@@ -29,13 +29,17 @@ class Challenge
             return $data;
         }
 
-        $theme = get_post_meta(get_the_id(), 'theme_color', true);
+        $featuredImagePosX = get_post_meta(get_the_id(), 'featured_image_position_x', true);
+        $featuredImagePosY = get_post_meta(get_the_id(), 'featured_image_position_y', true);
+        $data['featuredImagePosition'] = array();
+        $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
+        $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
 
+
+        $theme = get_post_meta(get_the_id(), 'theme_color', true);
         $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
-
         $globalGoals = get_the_terms(get_queried_object_id(), 'project_global_goal');
-
         if (!empty($globalGoals)) {
             $globalGoals = array_map(function ($item) {
                 $item = (array) $item;
