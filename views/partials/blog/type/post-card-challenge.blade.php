@@ -1,6 +1,4 @@
 @php
-    global $post;
-
     // Category
     $category = !empty(get_the_terms($post->ID, 'challenge_category')) 
     ? get_the_terms($post->ID, 'challenge_category')[0]->name 
@@ -18,7 +16,7 @@
 <div class="grid-xs-12 {{ $grid_size }}">
     <a href="{{ $permalink }}" class="box box--project">
         <div class="box__container" data-equal-item>
-            <div class="box__image ratio-12-16 u-radius-8" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(636,846), '12:16') }}');">
+            <div class="box__image ratio-12-16 u-radius-8" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(636,846), '12:16') }}');">
             </div>
             <div class="box__content">
                 <div class="box__meta">
@@ -26,7 +24,7 @@
                         <span class="box__organisation">{{$category}}</span>
                     @endif
                 </div>
-                <h3 class="box__title">{{ the_title() }}</h3>
+                <h3 class="box__title">{{ $post->post_title }}</h3>
             </div>
         </div>
     </a>

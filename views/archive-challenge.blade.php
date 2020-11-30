@@ -81,7 +81,7 @@
                         @while(have_posts())
                             {!! the_post() !!}
 
-                            @include('partials.blog.type.post-card-challenge')
+                            @include('partials.blog.type.post-card-challenge', array('post' => get_post()))
 
                             <?php $postNum++; ?>
                         @endwhile
