@@ -107,12 +107,20 @@ class Project
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
             $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
             $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
+            $prevStatusMeta = get_post_meta(get_the_id(), 'previous_status_progress_value', true);
+            $isCancelled = false;
+
+            if (0 > (int) $statusMeta) {
+                $statusMeta = (int) $prevStatusMeta >= 0 ? $prevStatusMeta : 0;
+                $isCancelled = true;
+            }
 
             $data['statusBar'] = array(
                 'label' => $statusTerm->name,
-                'value' => $statusMeta ?? 0,
+                'value' => (int) $statusMeta ?? 0,
                 'explainer' => $statusTerm->description ?? '',
                 'explainer_html' => term_description($statusTerm->term_id) ?? '',
+                'isCancelled' => $isCancelled,
             );
 
             $data['project']['meta'][] = array(

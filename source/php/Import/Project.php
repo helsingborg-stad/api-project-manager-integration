@@ -78,6 +78,8 @@ class Project extends Importer
           'estimated_budget' => $estimated_budget ?? null,
           'spent_so_far' => $spent_so_far ?? null,
           'challenge' => $challenge ?? null,
+          'previous_status_progress_value' => $previous_status_progress_value ?? null,
+          'previous_status' => $previous_status ?? null,
         );
 
         return $data;

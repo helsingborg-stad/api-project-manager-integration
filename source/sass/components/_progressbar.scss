@@ -1,5 +1,5 @@
 $progressbar-color-value: #11A636;
-$progressbar-color-value-disabled: #11A636;
+$progressbar-color-value-disabled: #707070;
 $progressbar-color-background: #E5E5E5;
 $progressbar-border-radius: 8px;
 $progressbar-height: 10px;
@@ -17,7 +17,7 @@ $progressbar-height: 10px;
         display: block;
         background-color: $progressbar-color-value;
     }
-    .c-progressbar__value.c-progressbar__value--disabled {
+    .c-progressbar__value.is-disabled {
         background-color: $progressbar-color-value-disabled;
     }
 }
