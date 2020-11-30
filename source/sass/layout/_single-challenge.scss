@@ -64,12 +64,18 @@ h1.post-title--challenge {
 
 .global-goals {
     margin-top: 40px;
+
+    .global-goals__container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     .global-goals__logo {
         height: auto;
         max-width: 84px;
     }
 
-    .global-goals__logo + .global-goals__logo {
-        margin-right: 8px;
+    .global-goals__logo {
+        margin: 4px;
     }
 }

@@ -35,11 +35,13 @@
                 @endif
 
                 @if(!empty($globalGoals))
-                    <p>En del av de global hållbarshetsmålen för</p>
                     <div class="global-goals">
-                        @foreach($globalGoals as $item)
-                            <img class="global-goals__logo" src="{{$item['featuredImageUrl']}}">
-                        @endforeach
+                        <p>En del av de global hållbarshetsmålen för</p>
+                        <div class="global-goals__container u-mt-2">
+                            @foreach($globalGoals as $item)
+                                <img class="global-goals__logo" src="{{$item['featuredImageUrl']}}">
+                            @endforeach
+                        </div>
                     </div>
                 @endif
             
