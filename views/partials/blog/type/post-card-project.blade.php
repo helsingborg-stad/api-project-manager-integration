@@ -1,6 +1,4 @@
 @php
-    global $post;
-
     // Organisation
     $organisation = !empty(get_the_terms($post->ID, 'project_organisation')) 
     ? get_the_terms($post->ID, 'project_organisation')[0]->name 
@@ -12,13 +10,13 @@
     : false; 
 
     $postTags = array();
-
-    if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
-        $postTags = array_merge($postTags, get_the_terms(get_queried_object_id(), 'project_sector'));
+    
+    if (!empty(get_the_terms($post->ID, 'project_sector'))) {
+        $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_sector'));
     }
 
-    if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
-        $postTags = array_merge($postTags, get_the_terms(get_queried_object_id(), 'project_technology'));
+    if (!empty(get_the_terms($post->ID, 'project_technology'))) {
+        $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_technology'));
     }
 
     if (empty(!$postTags)) {
@@ -40,8 +38,8 @@
     }
 
     // Status
-    if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
-        $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
+    if (!empty(get_the_terms($post->ID, 'project_status'))) {
+        $statusTerm = get_the_terms($post->ID, 'project_status')[0];
         $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
         $prevStatusMeta = get_post_meta(get_the_id(), 'previous_status_progress_value', true);
         $isCancelled = false;
@@ -60,18 +58,18 @@
         );
     }
 
-@endphp
+@endphp 
 
 <div class="{{ $grid_size }}">
     <a href="{{ $permalink }}" class="box box--project">
         <div class="box__container" data-equal-item>
-            <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source(null,array(500,500), '1:1') }}');">
+            <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(500,500), '1:1') }}');">
             </div>
             <div class="box__content">
                 <div class="box__meta">
                     <span class="box__organisation">{{$organisation}}</span>
                 </div>
-                <h3 class="box__title">{{ the_title() }}</h3>
+                <h3 class="box__title">{{ $post->post_title }}</h3>
                 @if ($postTags)
                     <span class="box__tags">{{$postTags}}</span>
                 @endif
