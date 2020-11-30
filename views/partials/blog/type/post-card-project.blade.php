@@ -41,7 +41,7 @@
     if (!empty(get_the_terms($post->ID, 'project_status'))) {
         $statusTerm = get_the_terms($post->ID, 'project_status')[0];
         $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
-        $prevStatusMeta = get_post_meta(get_the_id(), 'previous_status_progress_value', true);
+        $prevStatusMeta = get_post_meta($post->ID, 'previous_status_progress_value', true);
         $isCancelled = false;
 
         if (0 > (int) $statusMeta) {
@@ -57,6 +57,7 @@
             'isCancelled' => $isCancelled,
         );
     }
+
 
 @endphp 
 
