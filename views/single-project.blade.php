@@ -154,5 +154,36 @@
     </div>
 </div>
 
+@php
+    $relatedPosts = get_posts([
+        'post_type' => get_post_type(),
+        'posts_per_page' => 3,
+        'exclude' => array(get_queried_object_id()),
+        'orderby' => 'rand'
+    ]);
+    $postTypeObject = get_post_type_object(get_post_type());
+@endphp
+
+    @if (!empty($relatedPosts))
+        <div class="section related-posts u-py-6 u-py-8@lg u-py-8@xl t-section-gray">
+            <div class="container">
+                <div class="grid u-align-items-center u-mb-3">
+                    <div class="grid-xs-auto">
+                    <h2 class="related-posts__title">Fler {{$postTypeObject->labels->all_items}}</h2>
+                    </div>
+                    <div class="grid-xs-fit-content">
+                        <a class="related-posts__archive_link" href="{{get_post_type_archive_link(get_post_type())}}">Visa alla <i class="pricon pricon-right-fat-arrow u-ml-1"></i></a>
+                    </div>
+                </div>
+                <div>
+                </div>
+                <div class="grid grid--columns">
+                    @foreach ($relatedPosts as $post)
+                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-4'))
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 @stop
 
