@@ -118,7 +118,13 @@
                             @foreach ($project['meta'] as $meta)
                                 <li>
                                     <h4>{{$meta['title']}}</h4>
-                                    <p>{{$meta['content']}}</p>
+                                    @if (!empty($meta['url']))
+                                        <a href="{{$meta['url']}}">
+                                            <p>{{$meta['content']}}</p>
+                                        </a>
+                                    @else
+                                        <p>{{$meta['content']}}</p> 
+                                    @endif
                                 </li>
                             @endforeach                            
                         </ul>

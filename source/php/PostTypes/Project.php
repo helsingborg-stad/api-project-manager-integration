@@ -85,8 +85,9 @@ class Project
         if ($challengeObject && $challengeObject->post_type === 'challenge') {
             $data['project']['meta'][] = array(
                 'title' => __('Challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => $challengeObject->post_title
-            );
+                'content' => $challengeObject->post_title,
+                'url'  => get_permalink($challengeObject->ID)
+             );
         }
 
         // Category
@@ -121,11 +122,6 @@ class Project
                 'explainer' => $statusTerm->description ?? '',
                 'explainer_html' => term_description($statusTerm->term_id) ?? '',
                 'isCancelled' => $isCancelled,
-            );
-
-            $data['project']['meta'][] = array(
-                'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
             );
         }
 
@@ -193,14 +189,6 @@ class Project
             $data['project']['meta'][] = array(
                 'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        // Organisation
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name
             );
         }
 
