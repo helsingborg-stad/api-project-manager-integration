@@ -50,6 +50,7 @@ class Challenge extends Importer
             'theme_color' => $theme_color ?? null,
             'featured_image_position_x' => $featured_image_position_x ?? null,
             'featured_image_position_y' => $featured_image_position_y ?? null,
+            'preamble' => $preamble ?? null,
         );
 
         return $data;

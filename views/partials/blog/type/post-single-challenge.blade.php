@@ -6,6 +6,7 @@
     : false; 
 ?>
 
+
 <div class="grid">
     <div class="grid-xs-12">
         <div class="post post-single post post-{{get_post_type()}} u-mx-auto">
@@ -25,6 +26,10 @@
                         {!! apply_filters('the_content', get_extended($post->post_content)['extended']) !!}
 
                     @else
+                        @if (!empty($preamble)) 
+                            <p class="lead">{{$preamble}}</p>
+                        @endif
+
                         {!! apply_filters('the_content', $post->post_content) !!}
                     @endif
                 @endif

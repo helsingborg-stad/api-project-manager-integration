@@ -29,6 +29,9 @@ class Challenge
             return $data;
         }
 
+
+        $data['preamble'] = get_post_meta(get_the_id(), 'preamble', true);
+
         $featuredImagePosX = get_post_meta(get_the_id(), 'featured_image_position_x', true);
         $featuredImagePosY = get_post_meta(get_the_id(), 'featured_image_position_y', true);
         $data['featuredImagePosition'] = array();
