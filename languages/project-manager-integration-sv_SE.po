@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2020-11-30 11:10+0100\n"
-"PO-Revision-Date: 2020-11-30 11:48+0100\n"
+"POT-Creation-Date: 2020-11-30 16:19+0100\n"
+"PO-Revision-Date: 2020-11-30 16:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -36,59 +36,59 @@ msgstr "Organisationsfilter"
 msgid "Daily import"
 msgstr "Daglig import"
 
-#: source/php/Helper/PostType.php:42 source/php/Helper/PostType.php:43
-#: source/php/Helper/PostType.php:172
+#: source/php/Helper/PostType.php:46 source/php/Helper/PostType.php:47
+#: source/php/Helper/PostType.php:179
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:44 source/php/Helper/PostType.php:170
+#: source/php/Helper/PostType.php:48 source/php/Helper/PostType.php:177
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:45
+#: source/php/Helper/PostType.php:49
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:46
+#: source/php/Helper/PostType.php:50
 #, php-format
 msgid "View %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:47 source/php/Helper/PostType.php:166
+#: source/php/Helper/PostType.php:51 source/php/Helper/PostType.php:173
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:48
+#: source/php/Helper/PostType.php:52
 #, php-format
 msgid "No %s found"
 msgstr ""
 
-#: source/php/Helper/PostType.php:49
+#: source/php/Helper/PostType.php:53
 #, php-format
 msgid "No %s found in trash"
 msgstr ""
 
-#: source/php/Helper/PostType.php:50 source/php/Helper/PostType.php:168
-#: source/php/Helper/PostType.php:169
+#: source/php/Helper/PostType.php:54 source/php/Helper/PostType.php:175
+#: source/php/Helper/PostType.php:176
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: source/php/Helper/PostType.php:167
+#: source/php/Helper/PostType.php:174
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:171
+#: source/php/Helper/PostType.php:178
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: source/php/Helper/PostType.php:173
+#: source/php/Helper/PostType.php:180
 #, php-format
 msgid "New %s Name"
 msgstr ""
@@ -131,23 +131,23 @@ msgstr "Utmaning"
 msgid "Challenges"
 msgstr "Utmaningar"
 
-#: source/php/PostTypes/Challenge.php:101 source/php/PostTypes/Project.php:322
+#: source/php/PostTypes/Challenge.php:101 source/php/PostTypes/Project.php:311
 msgid "Global goal"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Challenge.php:102 source/php/PostTypes/Project.php:323
+#: source/php/PostTypes/Challenge.php:102 source/php/PostTypes/Project.php:312
 msgid "Global goals"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Challenge.php:108 source/php/PostTypes/Project.php:100
-#: source/php/PostTypes/Project.php:330 source/php/PostTypes/Project.php:345
+#: source/php/PostTypes/Challenge.php:108 source/php/PostTypes/Project.php:101
+#: source/php/PostTypes/Project.php:319 source/php/PostTypes/Project.php:334
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/PostTypes/Challenge.php:109 source/php/PostTypes/Project.php:331
-#: source/php/PostTypes/Project.php:346
+#: source/php/PostTypes/Challenge.php:109 source/php/PostTypes/Project.php:320
+#: source/php/PostTypes/Project.php:335
 msgid "Categories"
-msgstr "kategorier"
+msgstr "Kategorier"
 
 #: source/php/PostTypes/Project.php:23
 msgid "We found no results for your search"
@@ -165,83 +165,83 @@ msgstr "Bakgrund"
 msgid "Impact goals"
 msgstr "Effekmål"
 
-#: source/php/PostTypes/Project.php:127 source/php/PostTypes/Project.php:290
-msgid "Status"
-msgstr "Status"
-
-#: source/php/PostTypes/Project.php:135 source/php/PostTypes/Project.php:299
+#: source/php/PostTypes/Project.php:131 source/php/PostTypes/Project.php:288
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/PostTypes/Project.php:145
+#: source/php/PostTypes/Project.php:141
 msgid "Estimated Budget"
 msgstr "Estimerad budget"
 
-#: source/php/PostTypes/Project.php:154
+#: source/php/PostTypes/Project.php:150
 msgid "Cost so far"
 msgstr "Kostnad hitintills"
 
-#: source/php/PostTypes/Project.php:170
+#: source/php/PostTypes/Project.php:166
 msgid "hours"
 msgstr "timmar"
 
-#: source/php/PostTypes/Project.php:185
+#: source/php/PostTypes/Project.php:181
 msgid "Investment"
 msgstr "Investering"
 
-#: source/php/PostTypes/Project.php:194 source/php/PostTypes/Project.php:306
+#: source/php/PostTypes/Project.php:190 source/php/PostTypes/Project.php:295
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/PostTypes/Project.php:202 source/php/PostTypes/Project.php:314
-msgid "Organisation"
-msgstr "Organisation"
-
-#: source/php/PostTypes/Project.php:210 source/php/PostTypes/Project.php:339
+#: source/php/PostTypes/Project.php:198 source/php/PostTypes/Project.php:328
 msgid "Partners"
 msgstr "Partners"
 
-#: source/php/PostTypes/Project.php:220
+#: source/php/PostTypes/Project.php:208
 msgid "What"
 msgstr "Vad"
 
-#: source/php/PostTypes/Project.php:224
+#: source/php/PostTypes/Project.php:212
 msgid "Why"
 msgstr "Varför"
 
-#: source/php/PostTypes/Project.php:228
+#: source/php/PostTypes/Project.php:216
 msgid "How"
 msgstr "Hur"
 
-#: source/php/PostTypes/Project.php:239
+#: source/php/PostTypes/Project.php:228
 msgid "About"
 msgstr "Om"
 
-#: source/php/PostTypes/Project.php:280
+#: source/php/PostTypes/Project.php:269
 msgid "Project"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:281
+#: source/php/PostTypes/Project.php:270
 msgid "Projects"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:291
+#: source/php/PostTypes/Project.php:279
+msgid "Status"
+msgstr "Status"
+
+#: source/php/PostTypes/Project.php:280
 msgid "Statuses"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:298
+#: source/php/PostTypes/Project.php:287
 msgid "Technology"
 msgstr "Teknologi"
 
-#: source/php/PostTypes/Project.php:307
+#: source/php/PostTypes/Project.php:296
 msgid "Sectors"
 msgstr "Sektorer"
 
-#: source/php/PostTypes/Project.php:315
+#: source/php/PostTypes/Project.php:303
+msgid "Organisation"
+msgstr "Organisation"
+
+#: source/php/PostTypes/Project.php:304
 msgid "Organisations"
 msgstr "Organisationer"
 
-#: source/php/PostTypes/Project.php:338
+#: source/php/PostTypes/Project.php:327
 msgid "Partner"
 msgstr "Parnter"
 
