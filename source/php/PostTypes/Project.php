@@ -210,13 +210,14 @@ class Project
             ),
             array(
                 'title' => __('Why', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
-                'content' => get_post_meta(get_the_id(), 'project_what', true),
+                'content' => get_post_meta(get_the_id(), 'project_why', true),
             ),
             array(
                 'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
-                'content' => get_post_meta(get_the_id(), 'project_what', true),
+                'content' => get_post_meta(get_the_id(), 'project_how', true),
             ),
         );
+        
 
         $data['project']['contentPieces'] = array_filter($contentPieces, function ($item) {
             return !empty($item['content']);
