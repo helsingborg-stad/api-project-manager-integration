@@ -70,6 +70,10 @@ class Algolia
      */
     public function doAlgoliaQuery($query)
     {
+        if (!class_exists('\AlgoliaIndex\Helper\Index')) {
+            return;
+        }
+
         if (!is_admin() && $query->is_main_query() && self::isSearchPage()) {
             //Check if backend search should run or not
             if (self::backendSearchActive()) {
