@@ -12,6 +12,7 @@ class App
         new Import\Setup();
         new Options();
         new UI\Theme();
+        new Vendor\Algolia();
 
         // Add view paths
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
