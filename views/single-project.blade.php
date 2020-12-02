@@ -179,7 +179,7 @@
                 </div>
                 <div class="grid grid--columns">
                     @foreach ($relatedPosts as $post)
-                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-4'))
+                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))
                     @endforeach
                 </div>
             </div>
