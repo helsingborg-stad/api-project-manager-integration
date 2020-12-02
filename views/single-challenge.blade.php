@@ -92,7 +92,7 @@
 @if (!empty($projects))
 <div class="section u-pt-7">
     <div class="container">
-        <h2 class="u-mb-4">Innovationsintiativ kopplade till utmaningen</h2>
+        <h2 class="u-mb-4">Innovationsinitiativ kopplade till utmaningen</h2>
         <div class="grid grid--columns">
             @foreach ($projects as $post)
                 @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))

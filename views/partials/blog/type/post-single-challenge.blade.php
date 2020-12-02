@@ -44,7 +44,7 @@
 
                 @if(!empty($globalGoals))
                     <div class="global-goals">
-                        <p>Denna utmaning är en del av de globala hållbarhetsmålen för: </p>
+                        <p>Denna utmaning är en del av de globala hållbarhetsmålen för:</p>
                         <div class="global-goals__container u-mt-2">
                             @foreach($globalGoals as $item)
                                 <img class="global-goals__logo" src="{{$item['featuredImageUrl']}}">
