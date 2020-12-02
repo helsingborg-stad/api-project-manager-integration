@@ -74,7 +74,7 @@ class Algolia
             return;
         }
 
-        if (!is_admin() && $query->is_main_query() && self::isSearchPage()) {
+        if (!is_admin() && $query->is_main_query() && self::isSearchPage() && is_post_type_archive('project')) {
             //Check if backend search should run or not
             if (self::backendSearchActive()) {
                 $query->query_vars['post__in'] = self::getPostIdArray(
