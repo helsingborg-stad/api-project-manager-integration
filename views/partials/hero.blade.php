@@ -30,6 +30,27 @@
                         <div class="project-header__body">
                             <span class="project-header__meta">{{get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name}}</span>
                             <h1 class="project-header__title">{{ the_title() }}</h1>
+
+                            @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
+                            <div class="statusbar u-mt-3">
+                                <div class="statusbar__header u-mb-1 explain">
+                                    <b class="statusbar__title">{{$statusBar['label']}}</b>
+
+                                    @if (!empty($statusBar['explainer'])) 
+                                        <span class="statusbar__explainer">
+                                            <span data-tooltip="{{$statusBar['explainer']}}" data-tooltip-bottom>
+                                                <i class="pricon pricon-info-o"></i>
+                                            </span>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="statusbar__content">
+                                <div class="c-progressbar">
+                                        <div class="c-progressbar__value {{$statusBar['isCancelled'] ? 'is-disabled' : ''}}" style="width: {{$statusBar['value']}}%;"></div>                
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

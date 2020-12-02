@@ -18,6 +18,10 @@ class Importer
 
         $this->url = $url;
 
+        if (method_exists($this, 'init')) {
+            $this->init();
+        }
+
         if ($postId) {
             $this->importPost($postId);
         } else {
@@ -101,10 +105,12 @@ class Importer
 
         if (!empty($termsToRemove)) {
             foreach ($termsToRemove as $term) {
-                $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
-                
-                if (is_wp_error($deletedTerm)) {
-                    error_log(print_r($deletedTerm, true));
+                if ($term->count === 0) {
+                    $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
+                    
+                    if (is_wp_error($deletedTerm)) {
+                        error_log(print_r($deletedTerm, true));
+                    }
                 }
             }
         }
@@ -118,7 +124,7 @@ class Importer
                 'numberposts' => -1,
                 'hide_empty' => false,
                 'exclude' => $this->addedPostsId,
-                'post_type' => 'project'
+                'post_type' => $this->postType
             ));
 
             foreach ($entriesToRemove as $entry) {
@@ -342,7 +348,44 @@ class Importer
 
         set_post_thumbnail($id, $attachmentId);
     }
-    
+
+    public function mapTermMetaKeys($term)
+    {
+        extract($term);
+
+
+
+        $data = apply_filters('ProjectManagerIntegration/Import/Importer/metaKeys', array(), $term);
+
+        return $data;
+    }
+
+    /**
+     *  Update post meta
+     * @param $postId
+     * @param $dataObject
+     * @return bool
+     */
+    public function updateTermMeta($termId, $dataObject)
+    {
+        if (is_array($dataObject) && !empty($dataObject)) {
+            foreach ($dataObject as $metaKey => $metaValue) {
+                if ($metaKey == "") {
+                    continue;
+                }
+
+                if ($metaValue !== update_term_meta($termId, $metaKey, true)) {
+                    update_term_meta($termId, $metaKey, $metaValue);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+
     public function updateTaxonomies($postId, $taxonomies)
     {
         foreach ($taxonomies as $taxonomyKey => $taxonomy) {
@@ -359,6 +402,8 @@ class Importer
                 // Check if term exist
                 $localTerm = term_exists($term['slug'], $taxonomyKey);
 
+                $metaKeys = $this->mapTermMetaKeys($term);
+
                 if ($localTerm) {
                     $localTermObject = get_term($localTerm['term_id'], $taxonomyKey);
 
@@ -372,6 +417,17 @@ class Importer
                             )
                         );
                     }
+                
+                    // Check if taxonomy description needs to be updated.
+                    if ($term['description'] !== $localTermObject->description) {
+                        wp_update_term(
+                            $localTermObject->term_id,
+                            $localTermObject->taxonomy,
+                            array(
+                                'description' => $term['description']
+                            )
+                        );
+                    }
                 } elseif (!$localTerm) {
                     // Create term if not exist
                     $localTerm = wp_insert_term(
@@ -380,9 +436,13 @@ class Importer
                         array(
                             'description' => $term['description'],
                             'slug' => $term['slug'],
-                            'parent' => $this->getParentByRemoteId($term['parent'], $term['taxonomy'])
+                            'parent' => !empty($term['parent']) ? $this->getParentByRemoteId($term['parent'], $term['taxonomy']) : 0,
                         )
                     );
+                }
+
+                if (!empty($metaKeys) && !empty($localTerm['term_id'])) {
+                    $this->updateTermMeta($localTerm['term_id'], $metaKeys);
                 }
 
                 if (is_array($localTerm) && isset($localTerm['term_id'])) {
@@ -449,7 +509,7 @@ class Importer
                         );
 
                         if (isset($term['parent'])) {
-                            $wpInsertUpdateArgs['parent'] = $this->getParentByRemoteId($term['parent'], $term['taxonomy']);
+                            $wpInsertUpdateArgs['parent'] = !empty($term['parent']) ? $this->getParentByRemoteId($term['parent'], $term['taxonomy']) : 0;
                         }
     
                         if (!$localTerm) {
@@ -496,13 +556,25 @@ class Importer
         }
     }
 
+    public function getRemoteTerm($remoteTermId, $remoteTaxonomy)
+    {
+        error_log(print_r($remoteTermId, true));
+        error_log(print_r($remoteTaxonomy, true));
+        $url = str_replace($this->postType, $remoteTaxonomy, $this->url) . '/' . $remoteTermId;
+        $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
+
+        error_log(print_r($url, true));
+
+        return $requestResponse['body'];
+    }
+
     public function getParentByRemoteId($remoteId, $remoteTaxonomy)
     {
         if ($remoteId === 0) {
             return $remoteId;
         }
 
-        $url = str_replace('project', $remoteTaxonomy, $this->url) . '/' . $remoteId;
+        $url = str_replace($this->postType, $remoteTaxonomy, $this->url) . '/' . $remoteId;
         $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
         $remoteParentTerm = $requestResponse['body'];
         $localParentTerm = get_term_by('slug', $remoteParentTerm['slug'], 'project_' . $remoteTaxonomy, ARRAY_A);
@@ -532,7 +604,8 @@ class Importer
           $this->postType . '_sector' => $sector,
           $this->postType . '_organisation' => $organisation,
           $this->postType . '_global_goal' => $global_goal,
-          $this->postType . '_partner' => $partner
+          $this->postType . '_partner' => $partner,
+                            'challenge_category' => $challenge_category
         );
 
         $this->taxonomies = array_keys($data);
@@ -554,7 +627,11 @@ class Importer
           'map' => $map ?? null,
           'project_what' => $project_what ?? null,
           'project_why' => $project_why ?? null,
-          'project_how' => $project_how ?? null
+          'project_how' => $project_how ?? null,
+          'impact_goals' => $impact_goals ?? null,
+          'investment_type' => $investment_type ?? null,
+          'investment_amount' => $investment_amount ?? null,
+          'investment_hours' => $investment_hours ?? null,
         );
 
         return $data;
@@ -565,7 +642,7 @@ class Importer
      * @param $search
      * @return mixed|null
      */
-    public function getPost($search)
+    public function getPost($search, $postType = '')
     {
         $post = get_posts(
             array(
@@ -575,7 +652,7 @@ class Importer
                         'value' => $search['value']
                     )
                 ),
-                'post_type' => $this->postType,
+                'post_type' => !empty($postType) ? $postType : $this->postType,
                 'posts_per_page' => 50,
                 'post_status' => 'all'
             )

@@ -1,0 +1,63 @@
+.s-invert-section {
+    h1, h2, h3, h4, h5, h6, & {
+        color: white;
+    }
+}
+
+
+.t-purple-section,
+.t-blue-section,
+.t-green-section,
+.t-red-section {
+    h1, h2, h3, h4, h5, h6, p, & {
+        color: white;
+    }
+
+}
+
+
+.t-purple-section {
+    h1, h2, h3, h4, h5, h6, .lead  {
+        color: #A84C98;
+    }
+
+    p {
+        color: #000000;
+    }
+
+    background-color: #F6EDF3;
+}
+
+.t-green-section {
+    h1, h2, h3, h4, h5, h6, .lead  {
+        color: #11A636;
+    }
+
+    p {
+        color: #000000;
+    }
+    background-color:  #F2F6EE;
+}
+
+.t-red-section {
+    h1, h2, h3, h4, h5, h6, .lead  {
+        color: #ae0b05;
+    }
+
+    p {
+        color: #000000;
+    }
+    background-color:  #FAEEEC;
+}
+
+.t-blue-section {
+    h1, h2, h3, h4, h5, h6, .lead  {
+        color: #0069b4;
+    }
+
+    p {
+        color: #000000;
+    }
+    background-color:  #EEF3F6;
+}
+

@@ -33,6 +33,10 @@
 
     $permalink = get_permalink($post->ID);
 
+    if (isset($_GET) && !empty($_GET)) {
+        $permalink .= '?' . http_build_query($_GET);
+    }
+
     // Status
     if (!empty(get_the_terms($post->ID, 'project_status'))) {
         $statusTerm = get_the_terms($post->ID, 'project_status')[0];
@@ -58,11 +62,11 @@
 @endphp 
 
 <div class="{{ $grid_size }}">
-    <a href="{{ get_the_permalink($post->ID) }}" class="box box--project">
+    <a href="{{ $permalink }}" class="box box--vertical box--project">
         <div class="box__container" data-equal-item>
             <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(500,500), '1:1') }}');">
             </div>
-            <div class="box__content">
+            <div class="box__content u-pt-0">
                 <div class="box__meta">
                     <span class="box__organisation">{{$organisation}}</span>
                 </div>
@@ -72,7 +76,7 @@
                 @endif
             </div>
         </div>
-        @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
+        {{-- @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
             <div class="statusbar u-mt-3">
                 <div class="statusbar__header u-mb-1 explain">
                     <b class="statusbar__title">{{$statusBar['label']}}</b>
@@ -91,6 +95,6 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif --}}
     </a>
 </div>

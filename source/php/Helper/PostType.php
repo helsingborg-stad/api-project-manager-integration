@@ -11,6 +11,10 @@ class PostType
     public $postTypeRestArgs;
     public $postTypeLabels;
 
+    public $taxonomies = array();
+
+    protected static $_registredTaxonomies = array();
+
     /* Class constructor */
     public function __construct($postTypeName, $nameSingular, $namePlural, $args = array(), $labels = array(), $restArgs = array())
     {
@@ -151,12 +155,15 @@ class PostType
         if (!empty($nameSingular)) {
             // We need to know the post type name, so the new taxonomy can be attached to it.
             $postTypeName = $this->postTypeName;
-
+            
             // Taxonomy properties
             $taxonomyLabels = $labels;
             $taxonomyArgs = $args;
+            $hasBeenRegistred = in_array($taxonomySlug, self::$_registredTaxonomies);
+            
+            if (!taxonomy_exists($taxonomySlug) && !$hasBeenRegistred) {
+                self::$_registredTaxonomies[] = $taxonomySlug;
 
-            if (!taxonomy_exists($taxonomySlug)) {
                 // Default labels, overwrite them with the given labels.
                 $labels = array_merge(
                     // Default
@@ -205,5 +212,20 @@ class PostType
                 );
             }
         }
+    }
+
+    public function enableArchiveModules()
+    {
+        add_filter('Modularity/Options/Archives/Modules::EnabledPostTypes', array($this, 'allowArchiveModulesForPostType'));
+    }
+
+
+    public function allowArchiveModulesForPostType($postTypes)
+    {
+        if (is_array($postTypes) && !in_array($this->postTypeName, $postTypes)) {
+            $postTypes[] = $this->postTypeName;
+        }
+
+        return $postTypes;
     }
 }

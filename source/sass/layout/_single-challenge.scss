@@ -1,0 +1,85 @@
+
+h1.post-title--challenge {
+    font-size: 32px;
+    line-height: 1.1;
+    
+    @media only screen and (min-width: 32.5em) {
+        font-size: 48px;
+    }
+    
+    @media only screen and (min-width: 78em) {
+        font-size: 64px;
+    }
+}
+
+.post.post-single.post-challenge {
+    max-width: 696px;
+}
+
+
+.single.single-challenge {
+    p, .global-goals {
+        max-width: 544px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .lead {
+        font-size: 24px;
+        line-height: 1.3;
+        max-width: 100%;
+        
+        @media only screen and (min-width: 78em) {
+            font-size: 34px;
+        }
+    }
+
+    article {
+        & > *:first-child {
+            margin-top: 0;
+        }
+
+        p + p {
+            margin-top: 32px;
+        }
+    }
+}
+
+
+.related-posts {
+
+
+    .related-posts__archive_link {
+        color: black;
+        font-weight: bold;
+
+        i {
+            font-size: 19px;
+        }
+    }
+
+    .related-posts__archive_link:hover {
+        i {
+            text_decoration: none;
+        }
+    }
+}
+
+
+.global-goals {
+    margin-top: 40px;
+
+    .global-goals__container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .global-goals__logo {
+        height: auto;
+        max-width: 84px;
+    }
+
+    .global-goals__logo {
+        margin: 4px;
+    }
+}

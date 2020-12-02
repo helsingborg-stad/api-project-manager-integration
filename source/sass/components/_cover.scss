@@ -1,0 +1,53 @@
+.c-cover {
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    .c-cover__container {
+        width: 100%;
+    }
+    img {
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: -2;
+    }
+}
+
+.c-cover.c-cover--challenge {
+    height: 440px;
+
+    @media only screen and (min-width: 78em) {
+        height: 656px;
+        max-height: 72vh;
+    }
+
+    @media only screen and (min-width: 78em) {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .c-cover__content {
+        max-width: 696px;
+    }
+
+    .post-header .post-header__meta {
+        font-size: 18px;
+    }
+}
+
+.c-cover.c-cover--overlay::before {
+    // background-color: black;
+    // opacity: 0.1;
+    top: 0;
+    left: 0;
+    width: 100%;   
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    content: '';
+    background: linear-gradient(255.13deg, rgba(255, 255, 255, 0) 0.61%, rgba(0, 0, 0, 0.52) 100.8%);
+}

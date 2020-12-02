@@ -34,6 +34,36 @@ class Project
 
         $data['project'] = array();
 
+        $data['scrollSpyMenuItems'] =  array();
+        $data['scrollSpyMenuItems'][] = array(
+            'label' => __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'anchor' => '#article',
+        );
+
+        $impactGoalsMeta = get_post_meta(get_the_id(), 'impact_goals', true);
+        if (!empty($impactGoalsMeta)) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('Impact goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#impactgoals',
+            );
+
+            // Order completed goals first
+            $impactGoalsMeta = array_reduce($impactGoalsMeta, function ($accumilator, $item) {
+                if ($item['impact_goal_completed']) {
+                    $accumilator['completed'][] = $item;
+                    return $accumilator;
+                }
+                
+                $accumilator['notCompleted'][] = $item;
+                return $accumilator;
+            }, array(
+                'completed' => array(),
+                'notCompleted' => array(),
+            ));
+
+            $data['project']['impact_goals'] = array_merge($impactGoalsMeta['completed'], $impactGoalsMeta['notCompleted']);
+        }
+    
         // Contacts
         $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
         if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
@@ -48,35 +78,50 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
-        // Organisation
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
+
+        // Challenge
+        $challengeId = get_post_meta(get_the_id(), 'challenge', true);
+        $challengeObject = !empty($challengeId) ? get_post($challengeId) : false;
+        if ($challengeObject && $challengeObject->post_type === 'challenge') {
             $data['project']['meta'][] = array(
-                'title' => __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name
+                'title' => __('Challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => $challengeObject->post_title,
+                'url'  => get_permalink($challengeObject->ID)
+             );
+        }
+
+        // Category
+        $categories = get_the_terms(get_queried_object_id(), 'challenge_category');
+        if (!empty($categories)) {
+            $categories = array_map(function ($item) {
+                return $item->name;
+            }, $categories);
+
+            $data['project']['meta'][] = array(
+                'title' => __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => implode(', ', $categories),
             );
         }
 
-        // Partners
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '')
-            );
-        }
 
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => get_the_terms(get_queried_object_id(), 'project_status')[0]->name
-            );
-        }
+            $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
+            $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
+            $prevStatusMeta = get_post_meta(get_the_id(), 'previous_status_progress_value', true);
+            $isCancelled = false;
 
-        // Sector
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
+            if (0 > (int) $statusMeta) {
+                $statusMeta = (int) $prevStatusMeta >= 0 ? $prevStatusMeta : 0;
+                $isCancelled = true;
+            }
+
+            $data['statusBar'] = array(
+                'label' => $statusTerm->name,
+                'value' => (int) $statusMeta ?? 0,
+                'explainer' => $statusTerm->description ?? '',
+                'explainer_html' => term_description($statusTerm->term_id) ?? '',
+                'isCancelled' => $isCancelled,
             );
         }
 
@@ -88,27 +133,102 @@ class Project
             );
         }
 
+
+        // estimatedBudget
+        $estimatedBudget = get_post_meta(get_the_id(), 'estimated_budget', true);
+        if (!empty($estimatedBudget)) {
+            $data['project']['meta'][] = array(
+                'title' => __('Estimated Budget', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => $estimatedBudget . ' kr'
+            );
+        }
+
+        // spentSoFar
+        $costSoFar = get_post_meta(get_the_id(), 'cost_so_far', true);
+        if (!empty($costSoFar)) {
+            $data['project']['meta'][] = array(
+                'title' => __('Cost so far', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => $costSoFar . ' kr'
+            );
+        }
+
+        // Investments
+        $investmentTypes = get_post_meta(get_the_id(), 'investment_type', true);
+        if (!empty($investmentTypes)) {
+            $investments = array_filter(array_map(function ($type) {
+                $metaValue = get_post_meta(get_the_id(), 'investment_' . $type, true);
+    
+                if (!is_numeric($metaValue)) {
+                    return false;
+                }
+    
+                return array(
+                    'unit' => $type === 'amount' ? ' kr' : ' ' . __('hours', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'value' => $metaValue,
+                    'type' => $type
+                );
+            }, $investmentTypes), function ($item) {
+                return $item;
+            });
+            $data['project']['investments'] = $investments;
+
+            if (!empty($investments)) {
+                $investmentString = implode(', ', array_map(function ($investment) {
+                    return $investment['value'] . $investment['unit'];
+                }, $investments));
+
+                $data['project']['meta'][] = array(
+                    'title' => __('Investment', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content' => $investmentString
+                );
+            }
+        }
+
+        // Sector
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
+            );
+        }
+
+        // Partners
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '')
+            );
+        }
+
         /**
-         * Add header based on project key name
+         * Content pieces
          */
-        $objectId = get_queried_object_id();
-        array_map(function($item) use ($objectId, &$data) {
+        $contentPieces = array(
+            array(
+                'title' => __('What', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => get_post_meta(get_the_id(), 'project_what', true),
+            ),
+            array(
+                'title' => __('Why', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => get_post_meta(get_the_id(), 'project_why', true),
+            ),
+            array(
+                'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => get_post_meta(get_the_id(), 'project_how', true),
+            ),
+        );
+        
 
-            // Split ie 'project_what' in two
-            $itemParts = explode('_', $item);
+        $data['project']['contentPieces'] = array_filter($contentPieces, function ($item) {
+            return !empty($item['content']);
+        });
 
-            // Create header using last part in splitted array -> 'What'
-            $header = ucfirst($itemParts[1]);
-
-            // Create key - camelCase, using first part in splitted array -> projectWhat
-            $key = $itemParts[0] . $header;
-
-            // Array ie. 'projectWhat' used in blade template 'post-single-project.blade.php'
-            // Inject header translation and content body to the created projectWhat array
-            $data[$key]['header'] = __($header . '?', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
-            $postMeta = get_post_meta($objectId, $item, true);
-            $data[$key]['content'] = !empty($postMeta) ? $postMeta : null;
-        }, ['project_what', 'project_why', 'project_how']);
+        if (!empty($data['project']['meta'])) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('About', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#about',
+            );
+        }
 
         return $data;
     }
@@ -158,7 +278,7 @@ class Project
             $this->postType . '_status',
             __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => false, 'show_ui' => false)
+            array('hierarchical' => false, 'show_ui' => true)
         );
 
         // Technologies
@@ -207,6 +327,16 @@ class Project
             __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array('hierarchical' => true, 'show_ui' => false)
+        );
+
+        $postType->addTaxonomy(
+            'challenge_category',
+            __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array(
+              'hierarchical' => false,
+              'show_ui' => true,
+            )
         );
     }
 }

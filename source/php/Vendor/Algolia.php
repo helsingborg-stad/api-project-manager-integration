@@ -22,6 +22,7 @@ class Algolia
     {
         $taxonomiesToIndex = array(
             'project_organisation',
+            'challenge_category',
             'project_technology',
             'project_sector',
         );
@@ -69,17 +70,11 @@ class Algolia
      */
     public function doAlgoliaQuery($query)
     {
-        $postTypes = array('project');
-
         if (!class_exists('\AlgoliaIndex\Helper\Index')) {
             return;
         }
 
-        if (!is_admin()
-            && $query->is_main_query()
-            && self::isSearchPage()
-            && !empty($query->query_vars['post_type'])
-            && in_array($query->query_vars['post_type'], $postTypes)) {
+        if (!is_admin() && $query->is_main_query() && self::isSearchPage() && is_post_type_archive('project')) {
             //Check if backend search should run or not
             if (self::backendSearchActive()) {
                 $query->query_vars['post__in'] = self::getPostIdArray(

@@ -140,36 +140,36 @@ module.exports = {
         typeof process.env.BROWSER_SYNC_PROXY_URL !== 'undefined' ? new BrowserSyncPlugin(
             // BrowserSync options
             {
-              // browse to http://localhost:3000/ during development
-              host: 'localhost',
-              port: process.env.BROWSER_SYNC_PORT ? process.env.BROWSER_SYNC_PORT : 3000,
-              // proxy the Webpack Dev Server endpoint
-              // (which should be serving on http://localhost:3100/)
-              // through BrowserSync
-              proxy: process.env.BROWSER_SYNC_PROXY_URL,
-              injectCss: true,
-              injectChanges: true,
-              files: [{
-                // Reload page
-                match: ['**/*.php', 'dist/**/*.js'],
-                fn: function(event, file) {
-                  if (event === "change") {
-                    const bs = require('browser-sync').get('bs-webpack-plugin');
-                    bs.reload();
+                // browse to http://localhost:3000/ during development
+                host: 'localhost',
+                port: process.env.BROWSER_SYNC_PORT ? process.env.BROWSER_SYNC_PORT : 3000,
+                // proxy the Webpack Dev Server endpoint
+                // (which should be serving on http://localhost:3100/)
+                // through BrowserSync
+                proxy: process.env.BROWSER_SYNC_PROXY_URL,
+                injectCss: true,
+                injectChanges: true,
+                files: [{
+                  // Reload page
+                  match: ['views/**/*.blade.php', '**/*.php', 'dist/**/*.js'],
+                  fn: function(event, file) {
+                    if (event === "change") {
+                      const bs = require('browser-sync').get('bs-webpack-plugin');
+                      bs.reload();
+                    }
                   }
-                }
+                },
+                {
+                  // Inject CSS
+                  match: ['dist/**/*.css'],
+                  fn: function(event, file) {
+                    if (event === "change") {
+                      const bs = require('browser-sync').get('bs-webpack-plugin');
+                      bs.reload("*.css");
+                    }
+                  }
+                }],
               },
-              {
-                // Inject CSS
-                match: ['dist/**/*.css'],
-                fn: function(event, file) {
-                  if (event === "change") {
-                    const bs = require('browser-sync').get('bs-webpack-plugin');
-                    bs.reload("*.css");
-                  }
-                }
-              }],
-            },
             // plugin options
             {
               // prevent BrowserSync from reloading the page
@@ -247,6 +247,6 @@ module.exports = {
             },
         }))
     ]).filter(Boolean),
-    devtool: ifProduction('source-map', 'eval-source-map'),
+    devtool: ifProduction('none', 'eval-source-map'),
     stats: { children: false }
 };

@@ -30,6 +30,7 @@
     "gsap": "^1.20.3",
     "object-fit-images": "^3.2.4",
     "object-fit-videos": "^1.0.4",
+    "scroll-spy": "^1.0.3",
     "smoothscroll-polyfill": "^0.4.4"
   },
   "devDependencies": {

@@ -1,7 +1,21 @@
 @import './components/box';
+@import './components/cover';
+@import './components/progressbar';
+@import './components/statusbar';
 @import './components/filterbar';
+@import './components/stickybar';
+@import './components/stripe';
+@import './components/content-navbar';
+
+
 @import './layout/project-hero';
 @import './layout/project-header';
+@import './layout/single-challenge';
+
+@import './utils/object-fit';
+@import './utils/ratio';
+@import './utils/theme';
+
 
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
     padding-top: 24px;
@@ -22,3 +36,34 @@
 
 // Large and up
 // @media only screen and (min-width: 78em) {}
+
+
+
+
+// @media only screen and (min-width: 32.5em) {}
+// @media only screen and (min-width: 56em) {}
+// @media only screen and (min-width: 78em) {}
+// @media only screen and (min-width: 100em) {}
+
+
+.u-radius-8 {
+    border-radius: 8px !important;
+}
+
+
+.tiny {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.secondary-color {
+    color: #565656;
+}
+
+.box.box--outline {
+    border: 1px solid #D0D0D0;
+    background-color: transparent !important;
+}
+
+
+

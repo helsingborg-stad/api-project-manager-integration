@@ -2,6 +2,24 @@
 
 @section('content')
 
+@if (!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1)
+    <div class="sticky-bar sticky-bar--content hidden-md hidden-lg hidden-xl u-mt-3 u-mb-2">
+        <div class="container">
+            <ul id="scroll-spy-menu" class="js-scroll-spy content-navbar">
+                @foreach($scrollSpyMenuItems as $item)
+                    <li class="content-navbar__item" data-spy-target="{{$item['anchor']}}">
+                        <a href="{{$item['anchor']}}">
+                            <span class="content-navbar__inner" tabindex="-1">
+                                {{$item['label']}}
+                            </span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+
 <div class="container main-container">
     <div class="grid grid--columns">
         <div class="grid-sm-12 grid-md-7 grid-lg-8">
@@ -57,15 +75,56 @@
                 }
             </style>
             
+            {{-- Impact goals --}}
+            @if ($project && !empty($project['impact_goals']))
+                @foreach ($project['impact_goals'] as $item)
+                    <div id="impactgoals" class="box box--outline box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
+                        <div class="box-content u-py-4">
+                            @if ($item['impact_goal_completed'])
+                                <h4>
+                                    <small class="secondary-color tiny">{{__('Impact goals', 'project-manager-integration')}}</small>
+                                </h4>
+                                <p class="u-p-0">
+                                    <b>
+                                        {{$item['impact_goal']}}
+                                    </b>
+                                </p>
+                                @if (!empty($item['impact_goal_comment']))
+                                    <h4 class="u-mt-2">
+                                        <small class="secondary-color tiny">{{__('Results', 'project-manager-integration')}}</small>
+                                    </h4>
+                                    <p>{{$item['impact_goal_comment']}}</p>
+                                @endif
+                            @else
+                                <h4>
+                                    <small class="secondary-color tiny">{{__('Impact goals', 'project-manager-integration')}}</small>
+                                </h4>
+                                <p class="u-p-0">
+                                    <b>
+                                        {{$item['impact_goal']}}
+                                    </b>
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
             {{-- Project meta --}}
             @if ($project && !empty($project['meta']))
-                <div class="box box-filled box-filled-1 box-project box-project-meta">
+                <div id="about" class="box box-filled box-filled-1 box-project box-project-meta js-scroll-spy-section">
                     <div class="box-content">
                         <ul class="box-project-meta__list">
                             @foreach ($project['meta'] as $meta)
                                 <li>
                                     <h4>{{$meta['title']}}</h4>
-                                    <p>{{$meta['content']}}</p>
+                                    @if (!empty($meta['url']))
+                                        <a href="{{$meta['url']}}">
+                                            <p>{{$meta['content']}}</p>
+                                        </a>
+                                    @else
+                                        <p>{{$meta['content']}}</p> 
+                                    @endif
                                 </li>
                             @endforeach                            
                         </ul>
@@ -95,5 +154,41 @@
     </div>
 </div>
 
+@php
+    $relatedPosts = get_posts([
+        'post_type' => get_post_type(),
+        'posts_per_page' => 3,
+        'exclude' => array(get_queried_object_id()),
+        'orderby' => 'rand'
+    ]);
+    $postTypeObject = get_post_type_object(get_post_type());
+
+    $gridSize = get_field('archive_' . sanitize_title(get_post_type()) . '_grid_columns', 'option');
+@endphp
+
+    @if (!empty($relatedPosts))
+        <div class="section related-posts u-py-6 u-py-8@lg u-py-8@xl t-section-gray">
+            <div class="container">
+                <div class="grid u-align-items-center u-mb-3">
+                    <div class="grid-xs-auto">
+                    <h2 class="related-posts__title">Fler {{$postTypeObject->labels->all_items}}</h2>
+                    </div>
+                    <div class="grid-xs-fit-content">
+                        <a class="related-posts__archive_link" href="{{get_post_type_archive_link(get_post_type())}}">Visa alla <i class="pricon pricon-right-fat-arrow u-ml-1"></i></a>
+                    </div>
+                </div>
+                <div>
+                </div>
+                <div class="grid grid--columns">
+                    @foreach ($relatedPosts as $post)
+                        @include('partials.blog.type.post-card-project', array(
+                                'post' => $post,
+                                'grid_size' => !empty($gridSize) ? $gridSize : 'grid-xs-12 grid-md-4'
+                            ))
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 @stop
 
