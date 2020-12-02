@@ -30,6 +30,7 @@ class Challenge extends Importer
         extract($post);
 
         $data = array(
+            'contacts' => $contacts ?? null,
             'challenge_category' => $challenge_category ?? null,
             'project_global_goal' => $global_goal ?? null,
         );

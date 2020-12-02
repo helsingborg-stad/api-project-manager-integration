@@ -30,6 +30,8 @@ class Challenge
         }
 
 
+        $data['contacts'] = get_post_meta(get_the_id(), 'contacts', true);
+
         $data['preamble'] = get_post_meta(get_the_id(), 'preamble', true);
 
         $featuredImagePosX = get_post_meta(get_the_id(), 'featured_image_position_x', true);
