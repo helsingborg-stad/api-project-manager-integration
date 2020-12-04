@@ -36,7 +36,7 @@
 
                 @if (!empty($contacts) && isset($contacts[0]['name']))
                     @if($contacts[0]['name']['email'])
-                        <p>Kontakt: {{$contacts[0]['name']}} {{$contacts[0]['email']}}</p>
+                        <p>Kontakt: {{$contacts[0]['name']}} <a href="mailto: {{$contacts[0]['email']}}">{{$contacts[0]['email']}}</a></p>
                     @else
                         <p>Kontakt: {{$contacts[0]['name']}}</p>
                     @endif
