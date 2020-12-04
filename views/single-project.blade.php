@@ -157,7 +157,7 @@
 @php
     $relatedPosts = get_posts([
         'post_type' => get_post_type(),
-        'posts_per_page' => 3,
+        'posts_per_page' => 4,
         'exclude' => array(get_queried_object_id()),
         'orderby' => 'rand'
     ]);
