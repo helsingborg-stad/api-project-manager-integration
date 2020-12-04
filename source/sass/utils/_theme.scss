@@ -17,8 +17,18 @@
 
 
 .t-purple-section {
-    h1, h2, h3, h4, h5, h6, .lead  {
+    h1, h2, h3, h4, h5, h6, .lead, a  {
         color: #A84C98;
+    }
+
+    article a,
+    a {
+        color: #A84C98;
+        text-decoration-color: rgba(#A84C98, 0.2);
+        &:hover {
+            color: #A84C98;
+            text-decoration-color: #A84C98;
+        }
     }
 
     p {
@@ -29,8 +39,18 @@
 }
 
 .t-green-section {
-    h1, h2, h3, h4, h5, h6, .lead  {
+    h1, h2, h3, h4, h5, h6, .lead, a  {
         color: #11A636;
+    }
+
+    article a,
+    a {
+        color: #11A636;
+        text-decoration-color: rgba(#11A636, 0.2);
+        &:hover {
+            color: #11A636;
+            text-decoration-color: #11A636;
+        }
     }
 
     p {
@@ -40,8 +60,18 @@
 }
 
 .t-red-section {
-    h1, h2, h3, h4, h5, h6, .lead  {
+    h1, h2, h3, h4, h5, h6, .lead, a  {
         color: #ae0b05;
+    }
+
+    article a,
+    a {
+        color: #ae0b05;
+        text-decoration-color: rgba(#ae0b05, 0.2);
+        &:hover {
+            color: #ae0b05;
+            text-decoration-color: #ae0b05;
+        }
     }
 
     p {
@@ -51,8 +81,18 @@
 }
 
 .t-blue-section {
-    h1, h2, h3, h4, h5, h6, .lead  {
+    h1, h2, h3, h4, h5, h6, .lead, a  {
         color: #0069b4;
+    }
+
+    article a,
+    a {
+        color: #0069b4;
+        text-decoration-color: rgba(#0069b4, 0.2);
+        &:hover {
+            color: #0069b4;
+            text-decoration-color: #0069b4;
+        }
     }
 
     p {
