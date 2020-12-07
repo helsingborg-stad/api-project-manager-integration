@@ -182,7 +182,8 @@ class Importer
               'post_date' => $date ?? '',
               'post_date_gmt' => $date_gmt ?? '',
               'post_modified' => $modified ?? '',
-              'post_date_modified' => $modified_gmt ?? ''
+              'post_date_modified' => $modified_gmt ?? '',
+              'menu_order' => $menu_order ?? 0,
             );
             $postId = wp_insert_post($postData);
 
@@ -197,8 +198,8 @@ class Importer
 
             $this->addedPostsId[] = $postId;
 
-            if (!($modified === get_post_meta($postId, 'last_modified', true))) {
-                $remotePost = array(
+
+            $remotePost = array(
                     'ID' => $postId,
                     'post_title' => $title['rendered'] ?? '',
                     'post_content' => $content['rendered'] ?? '',
@@ -206,10 +207,11 @@ class Importer
                     'post_date' => $date ?? '',
                     'post_date_gmt' => $date_gmt ?? '',
                     'post_modified' => $modified ?? '',
-                    'post_date_modified' => $modified_gmt ?? ''
+                    'post_date_modified' => $modified_gmt ?? '',
+                    'menu_order' => $menu_order ?? 0,
                 );
 
-                $localPost = array(
+            $localPost = array(
                     'ID' => $postId,
                     'post_title' => $postObject->post_title,
                     'post_content' => $postObject->post_content,
@@ -217,12 +219,13 @@ class Importer
                     'post_date' => $postObject->date ?? '',
                     'post_date_gmt' => $postObject->date_gmt ?? '',
                     'post_modified' => $postObject->modified ?? '',
-                    'post_date_modified' => $postObject->modified_gmt ?? ''
+                    'post_date_modified' => $postObject->modified_gmt ?? '',
+                    'menu_order' => $postObject->menu_order ?? 0,
                 );
-                // Update if post object is modified
-                if ($localPost !== $remotePost) {
-                    wp_update_post($remotePost);
-                }
+
+            // Update if post object is modified
+            if ($localPost !== $remotePost) {
+                wp_update_post($remotePost);
             }
         }
 
@@ -231,7 +234,9 @@ class Importer
         // Update taxonomies
         $this->updateTaxonomies($postId, $postTaxonomies);
 
-        $this->updateFeatureImage($post, $postId);
+        if (!($modified === get_post_meta($postId, 'last_modified', true))) {
+            $this->updateFeatureImage($post, $postId);
+        }
     }
 
     /**
