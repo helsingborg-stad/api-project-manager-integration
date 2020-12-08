@@ -229,14 +229,14 @@ class Importer
             }
         }
 
+        if (!($modified === get_post_meta($postId, 'last_modified', true))) {
+            $this->updateFeatureImage($post, $postId);
+        }
+
         // Update post meta data
         $this->updatePostMeta($postId, $postMeta);
         // Update taxonomies
         $this->updateTaxonomies($postId, $postTaxonomies);
-
-        if (!($modified === get_post_meta($postId, 'last_modified', true))) {
-            $this->updateFeatureImage($post, $postId);
-        }
     }
 
     /**
