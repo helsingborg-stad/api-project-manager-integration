@@ -60,7 +60,7 @@
 <div class="{{ $grid_size }}">
     <a href="{{ get_the_permalink($post->ID) }}" class="box box--project">
         <div class="box__container" data-equal-item>
-            <div class="box__image ratio-1-1" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(500,500), '1:1') }}');">
+            <div class="box__image ratio-3-2" style="background-image:url('{{ municipio_get_thumbnail_source($post->ID,array(504,336), '3:2') }}');">
             </div>
             <div class="box__content">
                 <div class="box__meta">
