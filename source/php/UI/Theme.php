@@ -15,7 +15,7 @@ class Theme
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
 
         // TODO: Should not be running mapPlotData action during loop_start
-        add_action('municipio/view/before_hero', array($this, 'mapPlotData'));
+        add_action('municipio/view/after_hero', array($this, 'mapPlotData'));
         add_action('loop_start', array($this, 'outputQueryInfo'));
     }
 
