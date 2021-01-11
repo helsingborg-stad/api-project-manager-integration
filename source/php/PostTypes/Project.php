@@ -40,7 +40,11 @@ class Project
             'anchor' => '#article',
         );
 
-        $impactGoalsMeta = get_post_meta(get_the_id(), 'impact_goals', true);
+        $impactGoalsMeta = array_filter(get_post_meta(get_the_id(), 'impact_goals', true), function ($item) {
+            return !empty($item['impact_goal']);
+        });
+
+
         if (!empty($impactGoalsMeta)) {
             $data['scrollSpyMenuItems'][] = array(
                 'label' => __('Impact goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
