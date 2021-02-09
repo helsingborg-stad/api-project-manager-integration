@@ -110,6 +110,25 @@
                 @endforeach
             @endif
 
+            
+            {{-- Resident Involvement --}}
+            @if ($project && !empty($project['resident_involvement']))
+                @foreach ($project['resident_involvement'] as $item)
+                    <div id="residentInvolvement" class="box box--outline box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
+                        <div class="box-content u-py-4">
+                                <h4>
+                                    <small class="secondary-color tiny">{{__('Resident involvement', 'project-manager-integration')}}</small>
+                                </h4>
+                                <p class="u-p-0">
+                                    <b>
+                                        {{$item}}
+                                    </b>
+                                </p>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
             {{-- Project meta --}}
             @if ($project && !empty($project['meta']))
                 <div id="about" class="box box-filled box-filled-1 box-project box-project-meta js-scroll-spy-section">

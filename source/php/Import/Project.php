@@ -80,6 +80,7 @@ class Project extends Importer
           'challenge' => $challenge ?? null,
           'previous_status_progress_value' => $previous_status_progress_value ?? null,
           'previous_status' => $previous_status ?? null,
+          'resident_involvement' => $resident_involvement ?? null,
         );
 
         return $data;

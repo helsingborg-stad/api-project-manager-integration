@@ -67,7 +67,13 @@ class Project
 
             $data['project']['impact_goals'] = array_merge($impactGoalsMeta['completed'], $impactGoalsMeta['notCompleted']);
         }
-    
+
+
+        // Resident Involvement
+        $data['project']['resident_involvement'] = array_map(function ($item) {
+            return $item['description'];
+        }, get_post_meta(get_the_id(), 'resident_involvement', true) ?? []);
+
         // Contacts
         $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
         if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
