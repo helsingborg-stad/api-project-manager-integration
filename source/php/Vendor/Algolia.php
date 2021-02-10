@@ -9,6 +9,18 @@ class Algolia
     public $taxRecords = array();
     public $postMetaRecords = array();
 
+    public static $taxonomiesToIndex = array(
+            'project_organisation',
+            'challenge_category',
+            'project_technology',
+            'project_partner'
+    );
+
+    public static $postMetaKeysToIndex = array(
+            'project_what',
+            'project_why',
+            'project_how'
+    );
 
     public function __construct()
     {
@@ -20,16 +32,8 @@ class Algolia
 
     public function addTaxRecords($result, $postId)
     {
-        $taxonomiesToIndex = array(
-            'project_organisation',
-            'challenge_category',
-            'project_technology',
-            'project_partner'
-        );
-
-        if (!empty($taxonomiesToIndex)) {
-            foreach ($taxonomiesToIndex as $tax) {
-                $this->taxRecords[] = $tax;
+        if (!empty(self::$taxonomiesToIndex)) {
+            foreach (self::$taxonomiesToIndex as $tax) {
                 $result[$tax] = array_map(function (\WP_Term $term) {
                     return $term->name;
                 }, wp_get_post_terms($postId, $tax));
@@ -41,15 +45,8 @@ class Algolia
 
     public function addMetaRecords($result, $postId)
     {
-        $postMetaKeysToIndex = array(
-            'project_what',
-            'project_why',
-            'project_how'
-        );
-
-        if (!empty($postMetaKeysToIndex)) {
-            foreach ($postMetaKeysToIndex as $metaKey) {
-                $this->postMetaRecords[] = $metaKey;
+        if (!empty(self::$postMetaKeysToIndex)) {
+            foreach (self::$postMetaKeysToIndex as $metaKey) {
                 $result[$metaKey] = strip_tags(apply_filters('the_content', get_post_meta($postId, $metaKey, true)));
             }
         }
@@ -59,7 +56,7 @@ class Algolia
     
     public function addSearchableAttributes($searchableAttributes)
     {
-        return array_merge($searchableAttributes, $this->postMetaRecords, $this->taxRecords);
+        return array_merge($searchableAttributes, self::$postMetaKeysToIndex, self::$taxonomiesToIndex);
     }
 
     /**
