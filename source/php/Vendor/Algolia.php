@@ -24,7 +24,7 @@ class Algolia
             'project_organisation',
             'challenge_category',
             'project_technology',
-            'project_sector',
+            'project_partner'
         );
 
         if (!empty($taxonomiesToIndex)) {
