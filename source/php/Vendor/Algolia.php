@@ -6,20 +6,17 @@ use \AlgoliaIndex\Helper\Index as Instance;
 
 class Algolia
 {
-    public $taxRecords = array();
-    public $postMetaRecords = array();
-
     public static $taxonomiesToIndex = array(
-            'project_organisation',
-            'challenge_category',
-            'project_technology',
-            'project_partner'
+        'project_organisation',
+        'challenge_category',
+        'project_technology',
+        'project_partner'
     );
 
     public static $postMetaKeysToIndex = array(
-            'project_what',
-            'project_why',
-            'project_how'
+        'project_what',
+        'project_why',
+        'project_how'
     );
 
     public function __construct()
