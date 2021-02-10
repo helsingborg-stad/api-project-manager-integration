@@ -107,7 +107,7 @@ class Theme
             }
 
             // Get center of all points
-            if (is_array($result) && !empty($result)) {
+            if (!empty($result) && is_array($result)) {
                 $lat = (float) 0;
                 $lng = (float) 0;
 
@@ -126,6 +126,6 @@ class Theme
         }
 
         $blade = new Blade(PROJECTMANAGERINTEGRATION_VIEW_PATH, $this->CACHE_PATH);
-        echo $blade->view()->make('partials.area.map', array('data' => $result, 'center' => $center))->render();
+        echo $blade->view()->make('partials.area.map', array('data' => $result ?? array(), 'center' => $center))->render();
     }
 }

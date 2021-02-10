@@ -77,11 +77,13 @@ class Algolia
         if (!is_admin() && $query->is_main_query() && self::isSearchPage() && is_post_type_archive('project')) {
             //Check if backend search should run or not
             if (self::backendSearchActive()) {
-                $query->query_vars['post__in'] = self::getPostIdArray(
+                $foundPosts = self::getPostIdArray(
                     Instance::getIndex()->search(
                         $query->query['s']
                     )['hits']
                 );
+
+                $query->query_vars['post__in'] = !empty($foundPosts) ? $foundPosts : array(0);
 
                 //Disable local search
                 $query->query_vars['s'] = false;
