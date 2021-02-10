@@ -74,6 +74,14 @@ class Project
             return $item['description'];
         }, get_post_meta(get_the_id(), 'resident_involvement', true) ?? []);
 
+        // Resident Involvement - add to scrollspy menu
+        if (!empty($data['project']['resident_involvement'])) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('Resident involvement', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#residentInvolvement',
+            );
+        }
+
         // Contacts
         $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
         if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
