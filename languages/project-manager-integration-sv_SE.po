@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
 "POT-Creation-Date: 2021-02-09 15:50+0100\n"
-"PO-Revision-Date: 2021-02-09 15:50+0100\n"
+"PO-Revision-Date: 2021-02-11 13:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -178,7 +178,7 @@ msgstr "Bakgrund"
 
 #: source/php/PostTypes/Project.php:50
 msgid "Impact goals"
-msgstr "Effekmål"
+msgstr "Effektmål"
 
 #: source/php/PostTypes/Project.php:68
 msgid "Resident involvement"
