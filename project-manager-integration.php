@@ -43,6 +43,8 @@ add_action('plugins_loaded', function () {
     $acfExportManager->setExportFolder(PROJECTMANAGERINTEGRATION_PATH . 'source/php/AcfFields/');
     $acfExportManager->autoExport(array(
         'project_settings' => 'group_5e8c4a83e611a',
+        'challenge_content_focal_point' => 'group_6038c0857dab1',
+        'challenge_content_global_goal' => 'group_6038da79bc9c4',
     ));
     $acfExportManager->import();
 });
