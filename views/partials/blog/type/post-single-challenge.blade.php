@@ -64,9 +64,9 @@
                     <p>Denna utmaning är en del av de globala hållbarhetsmålen för:</p>
                     <div class="global-goals">
                     <div class="global-goals__container">
-                            @foreach($globalGoals as $item)
-                                <img class="global-goals__logo" src="{{$item['featuredImageUrl']}}">
-                            @endforeach
+                        @foreach($globalGoals as $item)
+                            <img class="global-goals__logo" src="{{$item['featured_image']}}">
+                        @endforeach
                         </div>
                     </div>
                 @endif
