@@ -34,18 +34,36 @@
                     @endif
                 @endif
 
-                @if (!empty($contacts) && isset($contacts[0]['name']))
-                    @if($contacts[0]['name']['email'])
-                        <p>Kontakt: {{$contacts[0]['name']}} <a href="mailto: {{$contacts[0]['email']}}">{{$contacts[0]['email']}}</a></p>
+                @if (!empty($contacts) && !empty($contacts[0]['name']))                   
+                        <p>Kontakt: 
+                            @if(!empty($contacts[0]['email']))
+                                <a href="mailto: {{$contacts[0]['email']}}">{{$contacts[0]['email']}}</a>
+                            @else
+                            {{$contacts[0]['name']}} 
+                            @endif
+                        </p>
                     @else
-                        <p>Kontakt: {{$contacts[0]['name']}}</p>
+                @endif
+
+                @if(!empty($focalPoints))
+                    <h3 class="content-width">Brännpunkter</h3>
+                    <ul>
+                        @foreach($focalPoints as $item)
+                        <li>
+                            <a target="_blank" href="{{$item['url']}}">{{$item['name']}}</a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @if (!empty($focalPointDescription))
+                        {!!$focalPointDescription!!}
                     @endif
                 @endif
 
                 @if(!empty($globalGoals))
+                    <h3 class="content-width">Globala Mål</h3>
+                    <p>Denna utmaning är en del av de globala hållbarhetsmålen för:</p>
                     <div class="global-goals">
-                        <p>Denna utmaning är en del av de globala hållbarhetsmålen för:</p>
-                        <div class="global-goals__container u-mt-2">
+                    <div class="global-goals__container">
                             @foreach($globalGoals as $item)
                                 <img class="global-goals__logo" src="{{$item['featuredImageUrl']}}">
                             @endforeach
