@@ -46,7 +46,10 @@
                 @endif
 
                 @if(!empty($focalPoints))
-                    <h3 class="content-width">Brännpunkter</h3>
+                    <h3 class="content-width">{{$focalPointTitle}}</h3>
+                    @if (!empty($focalPointDescription))
+                        {!!$focalPointDescription!!}
+                    @endif
                     <ul>
                         @foreach($focalPoints as $item)
                         <li>
@@ -54,14 +57,14 @@
                         </li>
                         @endforeach
                     </ul>
-                    @if (!empty($focalPointDescription))
-                        {!!$focalPointDescription!!}
-                    @endif
+
                 @endif
 
                 @if(!empty($globalGoals))
-                    <h3 class="content-width">Globala Mål</h3>
-                    <p>Denna utmaning är en del av de globala hållbarhetsmålen för:</p>
+                    <h3 class="content-width">{{$globalGoalsTitle}}</h3>
+                    @if (!empty($globalGoalsDescription))
+                        {!!$globalGoalsDescription!!}
+                    @endif
                     <div class="global-goals">
                     <div class="global-goals__container">
                         @foreach($globalGoals as $item)

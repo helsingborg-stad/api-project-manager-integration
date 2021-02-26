@@ -48,12 +48,13 @@ class Challenge
         $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
 
+        $data['globalGoalsTitle'] = get_field('global_goal_title', 'options') ?? __('Global Goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['globalGoalsDescription'] = get_field('global_goal_description', 'options');
         $data['globalGoals'] = $this->mapTerms('project_global_goal', ['featured_image'], ['featured_image']);
-        $data['globalGoalsTitle'] = __('Global Goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
 
-        $data['focalPoints'] = $this->mapTerms('challenge_focal_point', ['url'], ['url']);
-        $data['focalPointTitle'] = __('Focal Points', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['focalPointTitle'] = get_field('focal_point_title', 'options') ?? __('Focal Points', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
         $data['focalPointDescription'] = get_field('focal_point_description', 'options');
+        $data['focalPoints'] = $this->mapTerms('challenge_focal_point', ['url'], ['url']);
 
         return $data;
     }
@@ -63,7 +64,7 @@ class Challenge
     {
         $terms = get_the_terms(get_queried_object_id(), $taxonomy);
 
-        if (empty($terms)) {
+        if (empty($terms) || !is_array($terms)) {
             return array();
         }
 
