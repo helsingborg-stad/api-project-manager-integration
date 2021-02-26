@@ -8,10 +8,10 @@ class Challenge extends Importer
 
     public function init()
     {
-        add_filter('ProjectManagerIntegration/Import/Importer/metaKeys', array($this, 'mapTermMetaKeys'), 10, 2);
+        add_filter('ProjectManagerIntegration/Import/Importer/metaKeys', array($this, 'mapTermMeta'), 10, 2);
     }
 
-    public function mapTermMetaKeys($metaKeys, $term)
+    public function mapTermMeta($metaKeys, $term)
     {
         extract($term);
         switch ($taxonomy) {
@@ -33,7 +33,7 @@ class Challenge extends Importer
 
         return $metaKeys;
     }
-    
+
     public function mapTaxonomies($post)
     {
         extract($post);
