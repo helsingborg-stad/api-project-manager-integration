@@ -1,0 +1,62 @@
+[{
+    "key": "group_6038da79bc9c4",
+    "title": "Global Goal Content",
+    "fields": [
+        {
+            "key": "field_6038da79bddb7",
+            "label": "Global Goal Title",
+            "name": "global_goal_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Globala M\u00e5l",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_6038da79bddcd",
+            "label": "Global Goal Description",
+            "name": "global_goal_description",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Denna utmaning \u00e4r en del av de globala h\u00e5llbarhetsm\u00e5len f\u00f6r:",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "challenge-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
