@@ -44,11 +44,10 @@ class Challenge
         $data['featuredImagePosition'] = array();
         $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
         $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
-
-
         $theme = get_post_meta(get_the_id(), 'theme_color', true);
         $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
+        // Term - Global Goals
         $globalGoals = get_the_terms(get_queried_object_id(), 'project_global_goal');
         if (!empty($globalGoals)) {
             $globalGoals = array_map(function ($item) {
@@ -65,7 +64,27 @@ class Challenge
         }
 
         $data['globalGoals'] = !empty($globalGoals) ? $globalGoals : array();
+        $data['globalGoalsTitle'] = __('Global Goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        
+        // Term - Focal Points
+        $focalPoints = get_the_terms(get_queried_object_id(), 'challenge_focal_point');
+        if (!empty($focalPoints)) {
+            $focalPoints = array_map(function ($item) {
+                $item = (array) $item;
+                $url = get_term_meta($item['term_id'], 'url', true);
+                $item['url'] = !empty($url) ? $url : '';
 
+                return $item;
+            }, $focalPoints);
+        
+            $data['focalPoints'] = !empty($focalPoints) ? $focalPoints : array();
+            $focalPoints = array_filter($focalPoints, function ($item) {
+                return !empty($item['url']);
+            });
+        }
+        $data['focalPoints'] = !empty($focalPoints) ? $focalPoints : array();
+        $data['focalPointTitle'] = __('Focal Points', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['focalPointDescription'] = get_field('focal_point_description', 'options');
 
         return $data;
     }
@@ -114,6 +133,16 @@ class Challenge
             'challenge_category',
             __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array(
+              'hierarchical' => false,
+              'show_ui' => true,
+            )
+        );
+
+        $postType->addTaxonomy(
+            'challenge_focal_point',
+            __('Focal Point', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Focal Points', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array(
               'hierarchical' => false,
               'show_ui' => true,
