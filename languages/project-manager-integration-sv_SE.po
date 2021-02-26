@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2021-02-09 15:50+0100\n"
-"PO-Revision-Date: 2021-02-11 13:04+0100\n"
+"POT-Creation-Date: 2021-02-26 12:45+0100\n"
+"PO-Revision-Date: 2021-02-26 12:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -15,10 +15,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/AcfFields/php/challenge_content_focal_point.php:6
+msgid "Focal Point Content"
+msgstr "Brännpunkts innehåll"
+
+#: source/php/AcfFields/php/challenge_content_focal_point.php:10
+msgid "Focal Point Title"
+msgstr "Brännpunkts rubrik"
+
+#: source/php/AcfFields/php/challenge_content_focal_point.php:29
+msgid "Focal Point Description"
+msgstr "Brännpunkts beskrivning"
+
+#: source/php/AcfFields/php/challenge_content_global_goal.php:6
+msgid "Global Goal Content"
+msgstr "Global Mål innehåll"
+
+#: source/php/AcfFields/php/challenge_content_global_goal.php:10
+msgid "Global Goal Title"
+msgstr "Globala Mål Rubrik"
+
+#: source/php/AcfFields/php/challenge_content_global_goal.php:29
+msgid "Global Goal Description"
+msgstr "Globala Mål beskrivning"
 
 #: source/php/AcfFields/php/project_settings.php:6
 msgid "project settings"
@@ -134,35 +158,57 @@ msgctxt "Project Manager Integration settings"
 msgid "Options"
 msgstr ""
 
-#: source/php/Options.php:69
+#: source/php/Options.php:21
+msgctxt "ACF"
+msgid "Challenge options"
+msgstr ""
+
+#: source/php/Options.php:22
+msgctxt "Project Manager Integration settings"
+msgid "Challenge options"
+msgstr ""
+
+#: source/php/Options.php:77
 msgid "Import all organisations"
 msgstr "Importera alla organisationer"
 
-#: source/php/PostTypes/Challenge.php:95 source/php/PostTypes/Project.php:98
+#: source/php/PostTypes/Challenge.php:51
+msgid "Global Goals"
+msgstr "Globala Mål"
+
+#: source/php/PostTypes/Challenge.php:55 source/php/PostTypes/Challenge.php:151
+msgid "Focal Points"
+msgstr "Brännpunkter"
+
+#: source/php/PostTypes/Challenge.php:120 source/php/PostTypes/Project.php:105
 msgid "Challenge"
 msgstr "Utmaning"
 
-#: source/php/PostTypes/Challenge.php:96
+#: source/php/PostTypes/Challenge.php:121
 msgid "Challenges"
 msgstr "Utmaningar"
 
-#: source/php/PostTypes/Challenge.php:108 source/php/PostTypes/Project.php:322
+#: source/php/PostTypes/Challenge.php:133 source/php/PostTypes/Project.php:329
 msgid "Global goal"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Challenge.php:109 source/php/PostTypes/Project.php:323
+#: source/php/PostTypes/Challenge.php:134 source/php/PostTypes/Project.php:330
 msgid "Global goals"
 msgstr "Globala mål"
 
-#: source/php/PostTypes/Challenge.php:115 source/php/PostTypes/Project.php:112
-#: source/php/PostTypes/Project.php:330 source/php/PostTypes/Project.php:345
+#: source/php/PostTypes/Challenge.php:140 source/php/PostTypes/Project.php:119
+#: source/php/PostTypes/Project.php:337 source/php/PostTypes/Project.php:352
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/PostTypes/Challenge.php:116 source/php/PostTypes/Project.php:331
-#: source/php/PostTypes/Project.php:346
+#: source/php/PostTypes/Challenge.php:141 source/php/PostTypes/Project.php:338
+#: source/php/PostTypes/Project.php:353
 msgid "Categories"
 msgstr "Kategorier"
+
+#: source/php/PostTypes/Challenge.php:150
+msgid "Focal Point"
+msgstr "Brännpunkt"
 
 #: source/php/PostTypes/Project.php:23
 msgid "We found no results for your search"
@@ -180,87 +226,87 @@ msgstr "Bakgrund"
 msgid "Impact goals"
 msgstr "Effektmål"
 
-#: source/php/PostTypes/Project.php:68
+#: source/php/PostTypes/Project.php:80
 msgid "Resident involvement"
 msgstr "Invånarinvolvering"
 
-#: source/php/PostTypes/Project.php:142 source/php/PostTypes/Project.php:299
+#: source/php/PostTypes/Project.php:149 source/php/PostTypes/Project.php:306
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/PostTypes/Project.php:152
+#: source/php/PostTypes/Project.php:159
 msgid "Estimated Budget"
 msgstr "Estimerad budget"
 
-#: source/php/PostTypes/Project.php:161
+#: source/php/PostTypes/Project.php:168
 msgid "Cost so far"
 msgstr "Kostnad hitintills"
 
-#: source/php/PostTypes/Project.php:177
+#: source/php/PostTypes/Project.php:184
 msgid "hours"
 msgstr "timmar"
 
-#: source/php/PostTypes/Project.php:192
+#: source/php/PostTypes/Project.php:199
 msgid "Investment"
 msgstr "Investering"
 
-#: source/php/PostTypes/Project.php:201 source/php/PostTypes/Project.php:306
+#: source/php/PostTypes/Project.php:208 source/php/PostTypes/Project.php:313
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/PostTypes/Project.php:209 source/php/PostTypes/Project.php:339
+#: source/php/PostTypes/Project.php:216 source/php/PostTypes/Project.php:346
 msgid "Partners"
 msgstr "Partners"
 
-#: source/php/PostTypes/Project.php:219
+#: source/php/PostTypes/Project.php:226
 msgid "What"
 msgstr "Vad"
 
-#: source/php/PostTypes/Project.php:223
+#: source/php/PostTypes/Project.php:230
 msgid "Why"
 msgstr "Varför"
 
-#: source/php/PostTypes/Project.php:227
+#: source/php/PostTypes/Project.php:234
 msgid "How"
 msgstr "Hur"
 
-#: source/php/PostTypes/Project.php:239
+#: source/php/PostTypes/Project.php:246
 msgid "About"
 msgstr "Om"
 
-#: source/php/PostTypes/Project.php:280
+#: source/php/PostTypes/Project.php:287
 msgid "Project"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:281
+#: source/php/PostTypes/Project.php:288
 msgid "Projects"
 msgstr "Projekt"
 
-#: source/php/PostTypes/Project.php:290
+#: source/php/PostTypes/Project.php:297
 msgid "Status"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:291
+#: source/php/PostTypes/Project.php:298
 msgid "Statuses"
 msgstr "Status"
 
-#: source/php/PostTypes/Project.php:298
+#: source/php/PostTypes/Project.php:305
 msgid "Technology"
 msgstr "Teknologi"
 
-#: source/php/PostTypes/Project.php:307
+#: source/php/PostTypes/Project.php:314
 msgid "Sectors"
 msgstr "Sektorer"
 
-#: source/php/PostTypes/Project.php:314
+#: source/php/PostTypes/Project.php:321
 msgid "Organisation"
 msgstr "Organisation"
 
-#: source/php/PostTypes/Project.php:315
+#: source/php/PostTypes/Project.php:322
 msgid "Organisations"
 msgstr "Organisationer"
 
-#: source/php/PostTypes/Project.php:338
+#: source/php/PostTypes/Project.php:345
 msgid "Partner"
 msgstr "Parnter"
 
