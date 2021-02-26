@@ -8,31 +8,40 @@ class Challenge extends Importer
 
     public function init()
     {
-        add_filter('ProjectManagerIntegration/Import/Importer/metaKeys', array($this, 'setTermMetaKeys'), 10, 2);
+        add_filter('ProjectManagerIntegration/Import/Importer/metaKeys', array($this, 'mapTermMetaKeys'), 10, 2);
     }
 
-    public function setTermMetaKeys($metaKeys, $term)
+    public function mapTermMetaKeys($metaKeys, $term)
     {
         extract($term);
+        switch ($taxonomy) {
+            case 'global_goal':
+                $globalGoalMetaKeys = array(
+                    'featured_image' => $featured_image ?? '',
+                );
+                $metaKeys = array_merge($metaKeys, $globalGoalMetaKeys);
 
-        if ($taxonomy === 'global_goal') {
-            $statusMetaKeys = array(
-                'featured_image' => $featured_image ?? '',
-            );
+                break;
+            case 'focal_point':
+                $focalPointMetaKeys = array(
+                    'url' => $url ?? '',
+                );
+                $metaKeys = array_merge($metaKeys, $focalPointMetaKeys);
 
-            $metaKeys = array_merge($metaKeys, $statusMetaKeys);
+                break;
         }
 
         return $metaKeys;
     }
+    
     public function mapTaxonomies($post)
     {
         extract($post);
 
         $data = array(
-            'contacts' => $contacts ?? null,
             'challenge_category' => $challenge_category ?? null,
             'project_global_goal' => $global_goal ?? null,
+            'challenge_focal_point' => $focal_point ?? null,
         );
 
         $this->taxonomies = array_keys($data);
