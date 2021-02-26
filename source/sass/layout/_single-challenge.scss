@@ -18,7 +18,7 @@ h1.post-title--challenge {
 
 
 .single.single-challenge {
-    p, .global-goals {
+    p, .global-goals, ul, .content-width {
         max-width: 544px;
         margin-left: auto;
         margin-right: auto;
@@ -67,7 +67,7 @@ h1.post-title--challenge {
 
 
 .global-goals {
-    margin-top: 40px;
+    margin-top: 24px;
 
     .global-goals__container {
         display: flex;
