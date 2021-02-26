@@ -47,46 +47,51 @@ class Challenge
         $theme = get_post_meta(get_the_id(), 'theme_color', true);
         $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
-        // Term - Global Goals
-        $globalGoals = get_the_terms(get_queried_object_id(), 'project_global_goal');
-        if (!empty($globalGoals)) {
-            $globalGoals = array_map(function ($item) {
-                $item = (array) $item;
-                $featuredImage = get_term_meta($item['term_id'], 'featured_image', true);
-                $item['featuredImageUrl'] = !empty($featuredImage) ? $featuredImage : '';
 
-                return $item;
-            }, $globalGoals);
-
-            $globalGoals = array_filter($globalGoals, function ($item) {
-                return !empty($item);
-            });
-        }
-
-        $data['globalGoals'] = !empty($globalGoals) ? $globalGoals : array();
+        $data['globalGoals'] = $this->mapTerms('project_global_goal', ['featured_image'], ['featured_image']);
         $data['globalGoalsTitle'] = __('Global Goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
-        
-        // Term - Focal Points
-        $focalPoints = get_the_terms(get_queried_object_id(), 'challenge_focal_point');
-        if (!empty($focalPoints)) {
-            $focalPoints = array_map(function ($item) {
-                $item = (array) $item;
-                $url = get_term_meta($item['term_id'], 'url', true);
-                $item['url'] = !empty($url) ? $url : '';
 
-                return $item;
-            }, $focalPoints);
-        
-            $data['focalPoints'] = !empty($focalPoints) ? $focalPoints : array();
-            $focalPoints = array_filter($focalPoints, function ($item) {
-                return !empty($item['url']);
-            });
-        }
-        $data['focalPoints'] = !empty($focalPoints) ? $focalPoints : array();
+        $data['focalPoints'] = $this->mapTerms('challenge_focal_point', ['url'], ['url']);
         $data['focalPointTitle'] = __('Focal Points', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
         $data['focalPointDescription'] = get_field('focal_point_description', 'options');
 
         return $data;
+    }
+
+
+    public function mapTerms(string $taxonomy, array $termMetaKeys, array $requiredTermMetaKeys)
+    {
+        $terms = get_the_terms(get_queried_object_id(), $taxonomy);
+
+        if (empty($terms)) {
+            return array();
+        }
+
+        $terms = array_map(function ($term) use ($termMetaKeys, $requiredTermMetaKeys) {
+            $term = (array) $term;
+
+            if (!empty($termMetaKeys)) {
+                foreach ($termMetaKeys as $key) {
+                    $meta = get_term_meta($term['term_id'], $key, true);
+                    if ($meta) {
+                        $term[$key] = $meta;
+                    }
+                }
+            }
+
+            return $term;
+        }, $terms);
+
+        
+        if (!empty($requiredTermMetaKeys) && is_array($requiredTermMetaKeys)) {
+            foreach ($requiredTermMetaKeys as $requiredKey) {
+                $terms = array_filter($terms, function ($term) use ($requiredKey) {
+                    return !empty($term[$requiredKey]);
+                });
+            }
+        }
+
+        return !empty($terms) ? $terms : array();
     }
 
     public function registerPostType()
