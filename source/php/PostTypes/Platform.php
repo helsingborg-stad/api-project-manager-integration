@@ -37,6 +37,10 @@ class Platform
         $theme = get_post_meta(get_the_id(), 'theme_color', true);
         $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
+        // Files
+
+        $data['files'] = get_post_meta(get_the_id(), 'files');
+
         return $data;
     }
 

@@ -33,6 +33,7 @@ class Platform extends Importer
 
         $data = array(
           $this->postType . '_status' => $status ?? null,
+          $this->postType . '_files' => $files ?? null,
         );
 
         $this->taxonomies = array_keys($data);
@@ -44,38 +45,10 @@ class Platform extends Importer
     {
         extract($post);
 
-        if (!empty($challenge) && isset($challenge['ID'])) {
-            $challengePostObject = $this->getPost(
-                array(
-                    'key' => 'uuid',
-                    'value' => $challenge['ID']
-                ),
-                'challenge'
-            );
-
-            if ($challengePostObject) {
-                $challenge = $challengePostObject->ID;
-            }
-        }
-
         $data = array(
           'uuid' => $id,
           'last_modified' => $modified,
-          'internal_project' => $internal_project ?? null,
-          'address' => $address ?? null,
-          'contacts' => $contacts ?? null,
-          'links' => $links ?? null,
-          'map' => $map ?? null,
-          'project_what' => $project_what ?? null,
-          'project_why' => $project_why ?? null,
-          'project_how' => $project_how ?? null,
-          'impact_goals' => $impact_goals ?? null,
-          'estimated_budget' => $estimated_budget ?? null,
-          'cost_so_far' => $cost_so_far ?? null,
-          'challenge' => $challenge ?? null,
-          'previous_status_progress_value' => $previous_status_progress_value ?? null,
-          'previous_status' => $previous_status ?? null,
-          'resident_involvement' => $resident_involvement ?? null,
+          'files' => $files
         );
 
         return $data;
