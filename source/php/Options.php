@@ -24,6 +24,14 @@ class Options
                 'parent_slug' => 'edit.php?post_type=challenge',
                 'capability' => 'manage_options'
             ));
+
+            acf_add_options_sub_page(array(
+                'page_title' => _x('Platform options', 'ACF', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'menu_title' => _x('Platform options', 'Project Manager Integration settings', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'menu_slug' => 'platform-options',
+                'parent_slug' => 'edit.php?post_type=platform',
+                'capability' => 'manage_options'
+            ));
         }
 
         add_filter('acf/update_value/name=project_daily_import', array($this, 'registerCronjob'), 10, 1);

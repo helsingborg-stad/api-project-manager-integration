@@ -45,6 +45,7 @@ add_action('plugins_loaded', function () {
         'project_settings' => 'group_5e8c4a83e611a',
         'challenge_content_focal_point' => 'group_6038c0857dab1',
         'challenge_content_global_goal' => 'group_6038da79bc9c4',
+        'platform_settings' => 'group_c7e040ca43',
     ));
     $acfExportManager->import();
 });

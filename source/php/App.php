@@ -10,6 +10,7 @@ class App
     {
         new PostTypes\Project();
         new PostTypes\Challenge();
+        new PostTypes\Platform();
         new Import\Setup();
         new Options();
         new UI\Theme();
@@ -103,6 +104,11 @@ class App
                 'singular' => __('Utmaning', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'plural' => __('Utmaningar', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'slug' => 'utmaningar'
+            ],
+            'platform' => [
+                'singular' => __('Plattform', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural' => __('Plattformar', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'slug' => 'plattformar'
             ]
         ];
 
