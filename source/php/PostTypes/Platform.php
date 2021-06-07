@@ -25,6 +25,8 @@ class Platform
 
     public function singleViewController($data)
     {
+        error_log(print_r(get_post_meta(get_the_id()), true));
+
         if (!is_singular('platform')) {
             return $data;
         }

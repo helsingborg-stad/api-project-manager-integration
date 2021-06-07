@@ -33,7 +33,6 @@ class Platform extends Importer
 
         $data = array(
           $this->postType . '_status' => $status ?? null,
-          $this->postType . '_files' => $files ?? null,
         );
 
         $this->taxonomies = array_keys($data);
@@ -48,7 +47,8 @@ class Platform extends Importer
         $data = array(
           'uuid' => $id,
           'last_modified' => $modified,
-          'files' => $files
+          'files' => $files,
+          'contacts' => $contacts ?? null,
         );
 
         return $data;
