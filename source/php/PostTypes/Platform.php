@@ -27,9 +27,15 @@ class Platform
     {
         error_log(print_r(get_post_meta(get_the_id()), true));
 
+        error_log('====[DATA]====');
+
+        error_log(print_r($data, true));
+
         if (!is_singular('platform')) {
             return $data;
         }
+
+        $data['platform'] = array();
 
         $featuredImagePosX = get_post_meta(get_the_id(), 'featured_image_position_x', true);
         $featuredImagePosY = get_post_meta(get_the_id(), 'featured_image_position_y', true);
@@ -53,13 +59,38 @@ class Platform
 
         $data['platform']['links'] = get_post_meta(get_the_id(), 'links');
 
+        //Meta
+        $data['platform']['meta'] = array();
+
+        // Partners
+        if (!empty(get_the_terms(get_queried_object_id(), 'platform_partner'))) {
+            $data['platform']['meta'][] = array(
+                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'platform_partner'), array($this, 'reduceTermsToString'), '')
+            );
+        }
+
         return $data;
+    }
+    
+    public static function reduceTermsToString($accumilator, $item)
+    {
+        if (empty($accumilator)) {
+            $accumilator = $item->name;
+        } else {
+            $accumilator .= ', ' . $item->name;
+        }
+
+        return $accumilator;
     }
 
 
     public function mapTerms(string $taxonomy, array $termMetaKeys, array $requiredTermMetaKeys)
     {
+        error_log(get_queried_object_id());
         $terms = get_the_terms(get_queried_object_id(), $taxonomy);
+        
+        error_log($terms);
 
         if (empty($terms) || !is_array($terms)) {
             return array();
@@ -119,6 +150,14 @@ class Platform
             $args,
             array(),
             $restArgs
+        );
+
+        // Partners
+        $postType->addTaxonomy(
+            $this->postType . '_partner',
+            __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            array('hierarchical' => true, 'show_ui' => false)
         );
 
         // Enable archive modules

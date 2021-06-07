@@ -29,10 +29,13 @@ class Platform extends Importer
 
     public function mapTaxonomies($post)
     {
+        error_log("====[ Map Tax ]====");
+        error_log(print_r($post, true));
         extract($post);
 
         $data = array(
           $this->postType . '_status' => $status ?? null,
+          $this->postType . '_partner' => $partner ?? null,
         );
 
         $this->taxonomies = array_keys($data);
