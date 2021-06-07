@@ -13,6 +13,7 @@ class Platform extends Importer
 
     public function setTermMetaKeys($metaKeys, $term)
     {
+        error_log(var_dump($term));
         extract($term);
 
         if ($taxonomy === 'status') {
@@ -30,17 +31,11 @@ class Platform extends Importer
     {
         extract($post);
 
-        // $data = array(
-        //   $this->postType . '_status' => $status ?? null,
-        //   $this->postType . '_technology' => $technology ?? null,
-        //   $this->postType . '_sector' => $sector ?? null,
-        //   $this->postType . '_organisation' => $organisation ?? null,
-        //   $this->postType . '_global_goal' => $global_goal ?? null,
-        //   $this->postType . '_partner' => $partner ?? null,
-        //                     'challenge_category' => $challenge_category ?? null
-        // );
+        $data = array(
+          $this->postType . '_status' => $status ?? null,
+        );
 
-        // $this->taxonomies = array_keys($data);
+        $this->taxonomies = array_keys($data);
 
         return $data;
     }
