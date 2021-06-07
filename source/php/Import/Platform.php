@@ -47,8 +47,9 @@ class Platform extends Importer
         $data = array(
           'uuid' => $id,
           'last_modified' => $modified,
-          'files' => $files,
+          'files' => $files ?? null,
           'contacts' => $contacts ?? null,
+          'links' => $links ?? null,
         );
 
         return $data;

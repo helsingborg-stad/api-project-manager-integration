@@ -41,7 +41,17 @@ class Platform
 
         // Files
 
-        $data['files'] = get_post_meta(get_the_id(), 'files');
+        $data['platform']['files'] = get_post_meta(get_the_id(), 'files');
+
+        // Contacts
+        $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
+        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
+            $data['platform']['contacts'] = $contactsMeta[0];
+        }
+
+        // Links
+
+        $data['platform']['links'] = get_post_meta(get_the_id(), 'links');
 
         return $data;
     }
