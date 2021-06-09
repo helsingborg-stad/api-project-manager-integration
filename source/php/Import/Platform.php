@@ -13,29 +13,29 @@ class Platform extends Importer
 
     public function setTermMetaKeys($metaKeys, $term)
     {
-        error_log(var_dump($term));
+        // error_log(var_dump($term));
         extract($term);
 
-        if ($taxonomy === 'status') {
-            $statusMetaKeys = array(
-                'progress_value' => (int) $progress_value ?? null,
-            );
+        // if ($taxonomy === 'status') {
+        //     $statusMetaKeys = array(
+        //         'progress_value' => (int) $progress_value ?? null,
+        //     );
 
-            $metaKeys = array_merge($metaKeys, $statusMetaKeys);
-        }
+        //     $metaKeys = array_merge($metaKeys, $statusMetaKeys);
+        // }
 
         return $metaKeys;
     }
 
     public function mapTaxonomies($post)
     {
-        error_log("====[ Map Tax ]====");
-        error_log(print_r($post, true));
+        // error_log("====[ Map Tax ]====");
+        // error_log(print_r($post, true));
         extract($post);
 
         $data = array(
-          $this->postType . '_status' => $status ?? null,
-          $this->postType . '_partner' => $partner ?? null,
+        //   $this->postType . '_status' => $status ?? null,
+        //   $this->postType . '_partner' => $partner ?? null,
         );
 
         $this->taxonomies = array_keys($data);
