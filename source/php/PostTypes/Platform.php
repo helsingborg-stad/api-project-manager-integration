@@ -26,8 +26,8 @@ class Platform
 
         $data['platform'] = array();
 
-        $featuredImagePosX = get_post_meta(get_the_id(), 'featured_image_position_x', true);
-        $featuredImagePosY = get_post_meta(get_the_id(), 'featured_image_position_y', true);
+        $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
+        $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
         $data['featuredImagePosition'] = array();
         $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
         $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
@@ -36,7 +36,10 @@ class Platform
 
         // Files
 
-        $data['platform']['files'] = get_post_meta(get_the_id(), 'files');
+        $data['platform']['files'] = get_post_meta(get_the_id(), 'files')[0] ?? [];
+        $data['platform']['roadmap'] = get_post_meta(get_the_id(), 'platform_roadmap')[0] ?? [];
+        $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features')[0] ?? [];
+        $data['platform']['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
 
         // Contacts
         $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
@@ -46,7 +49,7 @@ class Platform
 
         // Links
 
-        $data['platform']['links'] = get_post_meta(get_the_id(), 'links');
+        $data['platform']['links'] = get_post_meta(get_the_id(), 'links')[0] ?? [];
 
         //Meta
         $data['platform']['meta'] = array();
@@ -143,7 +146,7 @@ class Platform
 
         // Partners
         $postType->addTaxonomy(
-            $this->postType . '_partner',
+            'project_partner',
             __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array('hierarchical' => true, 'show_ui' => false)

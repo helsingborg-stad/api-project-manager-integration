@@ -29,8 +29,11 @@
 </div>
 
 
+
 <div class="t-{{$themeColor}}-section">
     <div class="container main-container">
+
+
         <div class="grid u-py-6 u-py-8@lg u-py-8@xl">
             <div class="grid-sm-12">
                 @if (is_single() && is_active_sidebar('content-area-top'))
@@ -40,9 +43,104 @@
                 @endif
 
                 <div class="grid" id="readspeaker-read">
-                    <div class="grid-sm-12">
+                    <div class="grid-sm-12  u-mb-2">
                         {!! the_post() !!}
                         @include('partials.blog.type.post-single-challenge')
+                    </div>
+                    {{-- Links --}}
+                    <div class="grid-xs-12 u-mb-2">
+                        <h2>Links</h2>
+                        @if (!empty($platform['links']))
+                            <ul>
+                                @foreach($platform['links'] as $link)
+                                    <li>
+                                        <a target="_blank" href="{{$link['url']}}">{{$link['title']}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    {{-- Files --}}
+                    <div class="grid-xs-12 u-mb-2">
+                        <h2>Files</h2>
+                        @if (!empty($platform['files']))
+                            <ul>
+                                @foreach($platform['files'] as $file)
+                                    <li>
+                                        <a target="_blank" href="{{$file['attachment']}}">{{$file['title']}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    {{-- Contacts --}}
+                    <div class="grid-xs-12 u-mb-2">
+                        <h2>Contacts</h2>
+                        @if (!empty($platform['contacts']))
+                            <ul>
+                                @foreach($platform['contacts'] as $contact)
+                                    <li>
+                                        <h4>
+                                            {{$contact['name']}} 
+                                            @if (!empty($contact['role']))
+                                                <br><small>{{$contact['role']}}</small>
+                                            @endif
+                                        </h4>
+                                        <a href="mailto: {{$contact['mail']}}">{{$contact['mail']}}</a>
+                                        <br>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    {{-- Roadmap --}}
+                    <div class="grid-xs-12 u-mb-2">
+                        <h2>Roadmap</h2>
+                        @if (!empty($platform['roadmap']))
+                            <ul>
+                                @foreach($platform['roadmap'] as $roadmapItem)
+                                    <li>
+                                            <h4>
+                                                {{$roadmapItem['title']}} 
+                                                @if (!empty($roadmapItem['category']))
+                                                    <br><small>{{$roadmapItem['category']}}</small>
+                                                @endif
+                                            </h4>
+                                            <p>{{$roadmapItem['date']}}</p>
+                                            <p>{{$roadmapItem['content']}}</p>
+                                        <br>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    {{-- Features --}}
+                    <div class="grid-xs-12 u-mb-2">
+                        <h2>Features</h2>
+                        @if (!empty($platform['features']))
+                            <ul>
+                                @foreach($platform['features'] as $feature)
+                                    <li>
+                                            <h4>
+                                                {{$feature['title']}} 
+                                                @if (!empty($feature['category']))
+                                                    <br><small>{{$feature['category']}}</small>
+                                                @endif
+                                            </h4>
+                                            <p>{{$feature['content']}}</p>
+                                        <br>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    {{-- Video --}}
+                    <div class="grid-xs-12 u-mb-2">
+                        <h2>Video</h2>
+                        @if (!empty($platform['videoUrl']))
+                        <a target="_blank" href="{{$platform['videoUrl']}}">{{$platform['videoUrl']}}</a>
+                
+                        @endif
                     </div>
                 </div>
 
