@@ -53,6 +53,12 @@ class Platform extends Importer
           'files' => $files ?? null,
           'contacts' => $contacts ?? null,
           'links' => $links ?? null,
+          'video_url' => $video_url ?? null,
+          'platform_features' => $platform_features ?? null,
+          'platform_roadmap' => $platform_roadmap ?? null,
+          'cover_image' => $cover_image ?? null,
+          'cover_image_position_x' => $cover_image_position_x ?? null,
+          'cover_image_position_y' => $cover_image_position_y ?? null,
         );
 
         return $data;
