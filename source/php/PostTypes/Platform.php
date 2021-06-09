@@ -9,27 +9,16 @@ class Platform
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
-        add_filter('Municipio/theme/key', array($this, 'setThemeColorBasedOnMeta'));
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
-    }
-
-    public function setThemeColorBasedOnMeta($color)
-    {
-        if (is_singular('platform')) {
-            $theme = get_post_meta(get_the_id(), 'theme_color', true);
-            $color = !empty($theme) ? $theme : 'purple';
-        }
-
-        return $color;
     }
 
     public function singleViewController($data)
     {
-        error_log(print_r(get_post_meta(get_the_id()), true));
+        // error_log(print_r(get_post_meta(get_the_id()), true));
 
-        error_log('====[DATA]====');
+        // error_log('====[DATA]====');
 
-        error_log(print_r($data, true));
+        // error_log(print_r($data, true));
 
         if (!is_singular('platform')) {
             return $data;
