@@ -1,4 +1,5 @@
 .c-cover {
+    height: 440px;
     padding-top: 24px;
     padding-bottom: 24px;
 
@@ -17,7 +18,7 @@
     }
 }
 
-.c-cover.c-cover--challenge {
+.c-cover {
     height: 440px;
 
     @media only screen and (min-width: 78em) {
