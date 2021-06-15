@@ -35,12 +35,28 @@ class Platform
         $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
         // Files
-
         $data['platform']['files'] = get_post_meta(get_the_id(), 'files')[0] ?? [];
         $data['platform']['roadmap'] = get_post_meta(get_the_id(), 'platform_roadmap')[0] ?? [];
         $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features')[0] ?? [];
         $data['platform']['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
-
+        
+        // Sort roadmap items based on date
+        if (!empty($data['platform']['roadmap'])) {
+            $data['platform']['roadmap'] = array_map(function ($item) {
+                $item['timestamp'] = strtotime($item['date']);
+                $item['past'] =  time() > $item['timestamp'];
+                return $item;
+            }, $data['platform']['roadmap']);
+    
+            uasort($data['platform']['roadmap'], function ($a, $b) {
+                if ($a['timestamp'] == $b['timestamp']) {
+                    return 0;
+                }
+                
+                return ($a['timestamp'] < $b['timestamp']) ? -1 : 1;
+            });
+        }
+        
         // Contacts
         $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
         if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
