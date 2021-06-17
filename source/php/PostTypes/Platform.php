@@ -12,14 +12,73 @@ class Platform
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
     }
 
+    public function buildRoadmap($items)
+    {
+        $itemsPerRow = 3;
+        $flickityOptions = array(
+            'groupCells' => true,
+            'cellAlign' => 'left',
+            'draggable' => true,
+            'wrapAround' => false,
+            "pageDots" => false,
+            'prevNextButtons' => false,
+            'contain' => false,
+            'adaptiveHeight' => false,
+            'freeScroll' => true,
+            'initialIndex' => '.is-initial-select'
+        );
+
+        $roadmap = [
+            'items' => [],
+            'pastCount' => 0,
+            'totalCount' => count($items),
+            'hasInitialSelect' => false,
+            'itemsPerRow' => $itemsPerRow,
+            'flickityOptions' => $flickityOptions,
+            'gridClasses' => [
+                3 => array('grid-xs-12', 'grid-md-4'),
+                4 => array('grid-xs-12', 'grid-md-3'),
+            ][$itemsPerRow],
+        ];
+
+        if (empty($items)) {
+            return $roadmap;
+        };
+        
+        // Sort roadmap items based on date
+        uasort($items, function ($a, $b) {
+            if (strtotime($a['date']) == strtotime($b['date'])) {
+                return 0;
+            }
+            
+            return (strtotime($a['date']) < strtotime($b['date'])) ? -1 : 1;
+        });
+
+        // Build roadmap and add logic for inital offset based on date
+        return array_reduce($items, function ($acc, $item) {
+            $item['past'] =  time() > strtotime($item['date']);
+            $item['classes'] = array_merge([], $acc['gridClasses']);
+            
+            $pastCount = $item['past']
+                ? $acc['pastCount'] + 1
+                : $acc['pastCount'];
+
+            if ($pastCount >= $acc['itemsPerRow']
+                && $acc['totalCount'] >= $acc['itemsPerRow'] * 2
+                && !$item['past']
+                && !$acc['hasInitialSelect']) {
+                $item['classes'][] = 'is-initial-select';
+            }
+
+            $acc['items'][] = $item;
+            $acc['pastCount'] = $pastCount;
+            $acc['hasInitialSelect'] = $acc['hasInitialSelect'] || in_array('is-initial-select', $item['classes']) ?? false;
+            return $acc;
+        }, $roadmap);
+    }
+
     public function singleViewController($data)
     {
-        // error_log(print_r(get_post_meta(get_the_id()), true));
-
-        // error_log('====[DATA]====');
-
-        // error_log(print_r($data, true));
-
         if (!is_singular('platform')) {
             return $data;
         }
