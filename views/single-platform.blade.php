@@ -69,22 +69,20 @@
                         @if (!empty($platform['roadmap']['items']))
                         <div class="js-post-slider u-w-100">
                             <div id="flickity-mod-posts-platform" class="grid post-slider__flickity js-post-slider__flickity" data-flickity-options='{!! json_encode($platform['roadmap']['flickityOptions'])!!}'  data-equal-container>
-                                @foreach($platform['roadmap']['items'] as $roadmapItem)
-                                <div class="post-slider__item flickity-item u-flex u-align-items-center {{implode(' ', $roadmapItem['classes'])}} @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif">
+                                @foreach($platform['roadmap']['items'] as $item)
+                                <div class="post-slider__item flickity-item u-flex u-align-items-center {{implode(' ', $item['classes'])}} @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif">
                                     <div class="box box-filled box--outline">
                                         <div class="box-content">
-                                            @if (!empty($roadmapItem['category']))
-                                            <span>{{$roadmapItem['category']}}</span>
+                                            @if (!empty($item['category']))
+                                                <span>{{$item['category']}}</span>
                                             @endif
 
                                             <h3 class="u-mb-2">
-                                                {{$roadmapItem['title']}} 
+                                                {{$item['title']}} 
                                             </h3>
-                                            <p>{{$roadmapItem['content']}}</p>
 
-
-                                            <p>{{$roadmapItem['date']}}</p>
-                                            
+                                            <p>{{$item['content']}}</p>
+                                            <p>{{$item['date']}}</p>
                                         </div>
                                     </div>
                                 </div>
