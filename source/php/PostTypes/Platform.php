@@ -72,8 +72,8 @@ class Platform
             'itemsPerRow' => $itemsPerRow,
             'flickityOptions' => $flickityOptions,
             'gridClasses' => [
-                3 => array('grid-xs-12', 'grid-md-4'),
-                4 => array('grid-xs-12', 'grid-md-3'),
+                3 => array('grid-xs-8','grid-md-5', 'grid-lg-4'),
+                4 => array('grid-xs-8','grid-md-5', 'grid-lg-3'),
             ][$itemsPerRow],
         ];
 
@@ -129,10 +129,7 @@ class Platform
 
     public function mapTerms(string $taxonomy, array $termMetaKeys, array $requiredTermMetaKeys)
     {
-        error_log(get_queried_object_id());
         $terms = get_the_terms(get_queried_object_id(), $taxonomy);
-        
-        error_log($terms);
 
         if (empty($terms) || !is_array($terms)) {
             return array();
