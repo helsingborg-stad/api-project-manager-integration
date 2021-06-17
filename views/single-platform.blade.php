@@ -36,7 +36,7 @@
                         <ul class="grid">
                             @foreach($platform['features'] as $feature)
                                 <li class="grid-md-4 u-mb-4">
-                                    <div class="box box-filled box-project">
+                                    <div class="box box-filled box-project u-h-100">
                                         <div class="box-content">
                                             <h4 class="u-mb-2">
                                                 {{$feature['title']}} 
