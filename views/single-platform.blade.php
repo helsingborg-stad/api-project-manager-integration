@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="c-cover__content">
                     <header class="post-header">
-                        <span class="post-header__meta">{{$category ?? __('Challenge', 'project-manager-integration')}}</span>
+                        <span class="post-header__meta">{{get_post_type_object(get_post_type())->labels->singular_name}}</span>
                         <h1 class="post-title post-title--{{get_post_type()}}">{{ the_title() }}</h1>   
                     </header>
                 </div>
