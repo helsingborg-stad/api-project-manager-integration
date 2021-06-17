@@ -90,41 +90,13 @@ class Platform
         $data['featuredImagePosition'] = array();
         $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
         $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
-        $theme = get_post_meta(get_the_id(), 'theme_color', true);
-        $data['themeColor'] = !empty($theme) ? $theme : 'purple';
 
-        // Files
-        $data['platform']['files'] = get_post_meta(get_the_id(), 'files')[0] ?? [];
-        $data['platform']['roadmap'] = get_post_meta(get_the_id(), 'platform_roadmap')[0] ?? [];
-        $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features')[0] ?? [];
+        $data['platform']['files'] = get_post_meta(get_the_id(), 'files', true) ?? [];
         $data['platform']['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
-        
-        // Sort roadmap items based on date
-        if (!empty($data['platform']['roadmap'])) {
-            $data['platform']['roadmap'] = array_map(function ($item) {
-                $item['timestamp'] = strtotime($item['date']);
-                $item['past'] =  time() > $item['timestamp'];
-                return $item;
-            }, $data['platform']['roadmap']);
-    
-            uasort($data['platform']['roadmap'], function ($a, $b) {
-                if ($a['timestamp'] == $b['timestamp']) {
-                    return 0;
-                }
-                
-                return ($a['timestamp'] < $b['timestamp']) ? -1 : 1;
-            });
-        }
-        
-        // Contacts
-        $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
-        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
-            $data['platform']['contacts'] = $contactsMeta[0];
-        }
-
-        // Links
-
-        $data['platform']['links'] = get_post_meta(get_the_id(), 'links')[0] ?? [];
+        $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
+        $data['platform']['roadmap'] = $this->buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
+        $data['platform']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
+        $data['platform']['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
 
         //Meta
         $data['platform']['meta'] = array();
