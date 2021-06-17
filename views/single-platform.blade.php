@@ -32,7 +32,6 @@
             <div class="grid">
                 {{-- Features --}}
                 <div class="grid-xs-12">
-                    {{-- <h2>Features</h2> --}}
                     @if (!empty($platform['features']))
                         <ul class="grid">
                             @foreach($platform['features'] as $feature)
@@ -47,7 +46,6 @@
                                             </h4>
                                             <p>{{$feature['content']}}</p>
                                         </div>
-                                    <br>
                                     </div>
                                 </li>
                             @endforeach
@@ -60,29 +58,34 @@
 
 
     @if (!empty($platform['roadmap']) && !empty($platform['roadmap']['items']))
-        <div class="section u-p-7 t-section-gray">
+        <div class="section u-py-7 t-section-gray">
             <div class="container">
                 <div class="grid">
-                    <div class="grid-xs-12 u-mb-2">
+                    <div class="grid-xs-12 u-mb-4">
                         <h2>Roadmap</h2>
                     </div>
                     {{-- Roadmap --}}
                     <div class="grid-xs-12 u-mb-2">
                         @if (!empty($platform['roadmap']['items']))
-                        <div class="js-post-slider">
+                        <div class="js-post-slider u-w-100">
                             <div id="flickity-mod-posts-platform" class="grid post-slider__flickity js-post-slider__flickity" data-flickity-options='{!! json_encode($platform['roadmap']['flickityOptions'])!!}'  data-equal-container>
                                 @foreach($platform['roadmap']['items'] as $roadmapItem)
-                                <div class="post-slider__item {{implode(' ', $roadmapItem['classes'])}} @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif">
-                                    <div>
-                                        <h4>
-                                            {{$roadmapItem['title']}} 
+                                <div class="post-slider__item flickity-item u-flex u-align-items-center {{implode(' ', $roadmapItem['classes'])}} @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif">
+                                    <div class="box box-filled box--outline">
+                                        <div class="box-content">
                                             @if (!empty($roadmapItem['category']))
-                                            <br><small>{{$roadmapItem['category']}}</small>
+                                            <span>{{$roadmapItem['category']}}</span>
                                             @endif
-                                        </h4>
-                                        <p>{{$roadmapItem['date']}}</p>
-                                        <p>{{$roadmapItem['content']}}</p>
-                                        <br>
+
+                                            <h3 class="u-mb-2">
+                                                {{$roadmapItem['title']}} 
+                                            </h3>
+                                            <p>{{$roadmapItem['content']}}</p>
+
+
+                                            <p>{{$roadmapItem['date']}}</p>
+                                            
+                                        </div>
                                     </div>
                                 </div>
                                 @endforeach
