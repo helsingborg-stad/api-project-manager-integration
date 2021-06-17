@@ -58,6 +58,22 @@
         </div>
     </div>
 
+    @php
+        $flickityOptions = json_encode(array(
+            'groupCells' => true,
+            'cellAlign' => 'left',
+            'draggable' => true,
+            'wrapAround' => false,
+            "pageDots" => false,
+            'prevNextButtons' => false,
+            'contain' => false,
+            'adaptiveHeight' => false,
+            'freeScroll' => true
+        ));
+    
+    @endphp
+
+    @if (!empty($platform['roadmap']))
     <div class="section u-p-7 t-section-gray">
         <div class="container">
             <div class="grid">
@@ -67,36 +83,41 @@
                 {{-- Roadmap --}}
                 <div class="grid-xs-12 u-mb-2">
                     @if (!empty($platform['roadmap']))
-                        <ul class="grid">
+                    <div class="js-post-slider">
+                        <div id="flickity-mod-posts-platform" class="grid post-slider__flickity js-post-slider__flickity" data-flickity-options='{!! $flickityOptions!!}'  data-equal-container>
                             @foreach($platform['roadmap'] as $roadmapItem)
-                                <li class="grid-xs-4">
-                                        <h4>
-                                            {{$roadmapItem['title']}} 
-                                            @if (!empty($roadmapItem['category']))
-                                                <br><small>{{$roadmapItem['category']}}</small>
-                                            @endif
-                                        </h4>
-                                        <p>{{$roadmapItem['date']}}</p>
-                                        <p>{{$roadmapItem['content']}}</p>
+                            <div class="post-slider__item @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif grid-xs-12 grid-md-4">
+                                <div>
+                                    <h4>
+                                        {{$roadmapItem['title']}} 
+                                        @if (!empty($roadmapItem['category']))
+                                        <br><small>{{$roadmapItem['category']}}</small>
+                                        @endif
+                                    </h4>
+                                    <p>{{$roadmapItem['date']}}</p>
+                                    <p>{{$roadmapItem['content']}}</p>
                                     <br>
-                                </li>
+                                </div>
+                            </div>
                             @endforeach
-                        </ul>
+                        </div>
+                    </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
+    @endif
 
-    @if (!empty($platform['files']) && !empty($platform['links']))
+    @if (!empty($platform['files']) || !empty($platform['links']))
         <div class="section u-p-5">
             <div class="container">
                 <div class="grid">
                     {{-- Files --}}
-                    <div class="grid-xs-12 grid-md-auto">
-                        <div class="box box--outline box-filled">
-                            <h3>Documents</h3>
-                            @if (!empty($platform['files']))
+                    @if (!empty($platform['files']))
+                        <div class="grid-xs-12 grid-md-auto">
+                            <div class="box box--outline box-filled">
+                                <h3>Documents</h3>
                                 <ul class="u-pt-2">
                                     @foreach($platform['files'] as $file)
                                         <li>
@@ -104,15 +125,15 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                            @endif
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     {{-- Links --}}
-                    <div class="grid-xs-12 grid-md-auto u-mb-4">
-                        <div class="box box--outline box-filled">
-                            <h3>Links</h3>
-                            @if (!empty($platform['links']))
+                    @if (!empty($platform['links']))
+                        <div class="grid-xs-12 grid-md-auto u-mb-4">
+                            <div class="box box--outline box-filled">
+                                <h3>Links</h3>
                                 <ul class="u-pt-2">
                                     @foreach($platform['links'] as $link)
                                         <li>
@@ -120,9 +141,9 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                            @endif
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
