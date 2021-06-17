@@ -92,7 +92,9 @@ class Platform
 
         // Build roadmap and add logic for inital offset based on date
         return array_reduce($items, function ($acc, $item) {
-            $item['past'] =  time() > strtotime($item['date']);
+            $item['timestamp'] =  strtotime($item['date']);
+            $item['date'] = ucfirst(date_i18n('F Y', $item['timestamp']));
+            $item['past'] =  time() > $item['timestamp'];
             $item['classes'] = array_merge([], $acc['gridClasses']);
             
             $pastCount = $item['past']
