@@ -50,7 +50,7 @@ class Platform
 
     public static function buildRoadmap($items)
     {
-        $itemsPerRow = 3;
+        $itemsPerRow = count($items) > (4 * 2) ? 4 : 3;
         $flickityOptions = array(
             'groupCells' => true,
             'cellAlign' => 'left',
