@@ -75,6 +75,11 @@ class Platform
                 3 => array('grid-xs-8','grid-md-5', 'grid-lg-4'),
                 4 => array('grid-xs-8','grid-md-5', 'grid-lg-3'),
             ][$itemsPerRow],
+            'statusColors' => [
+                'not-started' => '#ffe200',
+                'in-progress' => '#1992a6',
+                'done' => '#19a636',
+            ]
         ];
 
         if (empty($items)) {

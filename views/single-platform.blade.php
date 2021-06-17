@@ -58,6 +58,15 @@
 
 
     @if (!empty($platform['roadmap']) && !empty($platform['roadmap']['items']))
+        <style>
+            .c-status-dot {
+                border-radius: 100%; 
+                display: block; 
+                height: 16px; 
+                width: 16px;
+            }
+        </style>
+    
         <div class="section u-py-7 t-section-gray">
             <div class="container">
                 <div class="grid">
@@ -82,7 +91,20 @@
                                             </h3>
 
                                             <p>{{$item['content']}}</p>
-                                            <p>{{$item['date']}}</p>
+
+                                            <div class="grid u-mt-3 u-align-items-center">
+                                                    @if (!empty($item['status']) 
+                                                            && !empty($platform['roadmap']['statusColors']) 
+                                                            && isset($platform['roadmap']['statusColors'][$item['status']]))
+                                                        <div class="grid-xs-1">
+                                                            <span class="c-status-dot u-display-inline-block" style="background-color:{{$platform['roadmap']['statusColors'][$item['status']]}};"></span>
+                                                        </div>
+                                                    @endif
+                                                <div class="grid-xs-auto">
+                                                    <p><b>{{$item['date']}}</b></p>
+                                                </div>
+                                            </div>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
