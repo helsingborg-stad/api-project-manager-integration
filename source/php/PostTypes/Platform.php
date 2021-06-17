@@ -12,7 +12,43 @@ class Platform
         add_filter('Municipio/viewData', array($this, 'singleViewController'));
     }
 
-    public function buildRoadmap($items)
+    public function singleViewController($data)
+    {
+        if (!is_singular('platform')) {
+            return $data;
+        }
+
+        $data['platform'] = array();
+
+        $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
+        $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
+        $data['featuredImagePosition'] = array();
+        $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
+        $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
+
+        $data['platform']['files'] = get_post_meta(get_the_id(), 'files', true) ?? [];
+        $data['platform']['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
+        $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
+        $data['platform']['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
+        $data['platform']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
+        $data['platform']['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
+
+        //Meta
+        $data['platform']['meta'] = array();
+
+        // Partners
+        if (!empty(get_the_terms(get_queried_object_id(), 'platform_partner'))) {
+            $data['platform']['meta'][] = array(
+                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'platform_partner'), array($this, 'reduceTermsToString'), '')
+            );
+        }
+
+        return $data;
+    }
+
+
+    public static function buildRoadmap($items)
     {
         $itemsPerRow = 3;
         $flickityOptions = array(
@@ -75,41 +111,6 @@ class Platform
             $acc['hasInitialSelect'] = $acc['hasInitialSelect'] || in_array('is-initial-select', $item['classes']) ?? false;
             return $acc;
         }, $roadmap);
-    }
-
-    public function singleViewController($data)
-    {
-        if (!is_singular('platform')) {
-            return $data;
-        }
-
-        $data['platform'] = array();
-
-        $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
-        $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
-        $data['featuredImagePosition'] = array();
-        $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
-        $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
-
-        $data['platform']['files'] = get_post_meta(get_the_id(), 'files', true) ?? [];
-        $data['platform']['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
-        $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
-        $data['platform']['roadmap'] = $this->buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
-        $data['platform']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
-        $data['platform']['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
-
-        //Meta
-        $data['platform']['meta'] = array();
-
-        // Partners
-        if (!empty(get_the_terms(get_queried_object_id(), 'platform_partner'))) {
-            $data['platform']['meta'][] = array(
-                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'platform_partner'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        return $data;
     }
     
     public static function reduceTermsToString($accumilator, $item)
