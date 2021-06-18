@@ -22,9 +22,9 @@
     if (empty(!$postTags)) {
         $postTags = array_reduce($postTags, function($accumilator, $term) {
             if (empty($accumilator)) {
-                $accumilator = $term->name;
+                $accumilator = '<span>' . $term->name . '</span>';
             } else {
-                $accumilator .= ' / ' . $term->name;
+                $accumilator .= ' / ' . '<span>'  . $term->name . '</span>';
             }
 
             return $accumilator;
@@ -68,7 +68,7 @@
                 </div>
                 <h3 class="box__title">{{ $post->post_title }}</h3>
                 @if ($postTags)
-                    <span class="box__tags">{{$postTags}}</span>
+                    <span class="box__tags">{!!$postTags!!}</span>
                 @endif
             </div>
         </div>

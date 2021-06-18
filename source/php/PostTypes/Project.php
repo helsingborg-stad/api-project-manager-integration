@@ -44,7 +44,6 @@ class Project
             return !empty($item['impact_goal']);
         });
 
-
         if (!empty($impactGoalsMeta)) {
             $data['scrollSpyMenuItems'][] = array(
                 'label' => __('Impact goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -67,7 +66,6 @@ class Project
 
             $data['project']['impact_goals'] = array_merge($impactGoalsMeta['completed'], $impactGoalsMeta['notCompleted']);
         }
-
 
         // Resident Involvement
         $data['project']['resident_involvement'] = array_map(function ($item) {
@@ -121,7 +119,6 @@ class Project
             );
         }
 
-
         // Status
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
             $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
@@ -150,7 +147,6 @@ class Project
                 'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
             );
         }
-
 
         // estimatedBudget
         $estimatedBudget = get_post_meta(get_the_id(), 'estimated_budget', true);
@@ -254,9 +250,9 @@ class Project
     public static function reduceTermsToString($accumilator, $item)
     {
         if (empty($accumilator)) {
-            $accumilator = $item->name;
+            $accumilator = '<span>' .$item->name. '</span>';
         } else {
-            $accumilator .= ', ' . $item->name;
+            $accumilator .= ', ' . '<span>' . $item->name . '</span>';
         }
 
         return $accumilator;
