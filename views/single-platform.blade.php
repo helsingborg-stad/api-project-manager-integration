@@ -120,14 +120,14 @@
     @if (!empty($platform['files']) || !empty($platform['links']))
         <div class="section u-py-7">
             <div class="container">
-                <div class="grid">
+                <div class="grid grid--columns">
                     {{-- Contacts --}}
                     @if (!empty($platform['contacts']))
-                        <div class="grid-xs-12 grid-md-auto u-mb-4">
+                        <div class="grid-xs-12 grid-md-auto">
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                     <h3>Contacts</h3>
-                                    <ul class="u-pt-2 unordered-list">
+                                    <ul class="unordered-list">
                                         @foreach($platform['contacts'] as $contact)
                                             <li>
                                                 <h4>
@@ -151,9 +151,9 @@
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                     <h3>Documents</h3>
-                                    <ul class="u-pt-2 c-unordered-list unordered-list">
+                                    <ul class="unordered-list">
                                         @foreach($platform['files'] as $file)
-                                        <li class="c-unordered-list__item c-unordered-list__item--file c-unordered-list__item--{{pathinfo($file['attachment'])['extension']}}">
+                                        <li class="unordered-list__item unordered-list__item--file unordered-list__item--{{pathinfo($file['attachment'])['extension']}}">
                                             <a target="_blank" href="{{$file['attachment']}}">{{$file['title']}}</a>
                                         </li>
                                         @endforeach
@@ -169,7 +169,7 @@
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                 <h3>Links</h3>
-                                <ul class="u-pt-2 unordered-list">
+                                <ul class="unordered-list">
                                     @foreach($platform['links'] as $link)
                                         <li>
                                             <a target="_blank" href="{{$link['url']}}">{{$link['title']}}</a>
