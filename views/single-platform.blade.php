@@ -32,9 +32,9 @@
             <div class="grid">
                 {{-- Features --}}
                 <div class="grid-xs-12">
-                    @if (!empty($platform['features']))
+                    @if (!empty($features))
                         <ul class="grid">
-                            @foreach($platform['features'] as $feature)
+                            @foreach($features as $feature)
                                 <li class="grid-md-4 u-mb-4">
                                     <div class="box box-filled box-project u-h-100">
                                         <div class="box-content">
@@ -57,7 +57,7 @@
     </div>
 
 
-    @if (!empty($platform['roadmap']) && !empty($platform['roadmap']['items']))
+    @if (!empty($roadmap) && !empty($roadmap['items']))
         <style>
             .c-status-dot {
                 border-radius: 100%; 
@@ -75,10 +75,10 @@
                     </div>
                     {{-- Roadmap --}}
                     <div class="grid-xs-12 u-mb-2">
-                        @if (!empty($platform['roadmap']['items']))
+                        @if (!empty($roadmap['items']))
                         <div class="js-post-slider u-w-100">
-                            <div id="flickity-mod-posts-platform" class="grid post-slider__flickity js-post-slider__flickity" data-flickity-options='{!! json_encode($platform['roadmap']['flickityOptions'])!!}'  data-equal-container>
-                                @foreach($platform['roadmap']['items'] as $item)
+                            <div id="flickity-mod-posts-platform" class="grid post-slider__flickity js-post-slider__flickity" data-flickity-options='{!! json_encode($roadmap['flickityOptions'])!!}'  data-equal-container>
+                                @foreach($roadmap['items'] as $item)
                                 <div class="post-slider__item flickity-item u-flex u-align-items-center {{implode(' ', $item['classes'])}} @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif">
                                     <div class="box box-filled box--outline">
                                         <div class="box-content">
@@ -94,10 +94,10 @@
 
                                             <div class="grid u-mt-3 u-align-items-center">
                                                     @if (!empty($item['status']) 
-                                                            && !empty($platform['roadmap']['statusColors']) 
-                                                            && isset($platform['roadmap']['statusColors'][$item['status']]))
+                                                            && !empty($roadmap['statusColors']) 
+                                                            && isset($roadmap['statusColors'][$item['status']]))
                                                         <div class="grid-xs-1">
-                                                            <span class="c-status-dot u-display-inline-block" style="background-color:{{$platform['roadmap']['statusColors'][$item['status']]}};"></span>
+                                                            <span class="c-status-dot u-display-inline-block" style="background-color:{{$roadmap['statusColors'][$item['status']]}};"></span>
                                                         </div>
                                                     @endif
                                                 <div class="grid-xs-auto">
@@ -130,18 +130,18 @@
         </div>
     @endif  
 
-    @if (!empty($platform['files']) || !empty($platform['links']))
+    @if (!empty($files) || !empty($links))
         <div class="section u-py-7">
             <div class="container">
                 <div class="grid grid--columns">
                     {{-- Contacts --}}
-                    @if (!empty($platform['contacts']))
+                    @if (!empty($contacts))
                         <div class="grid-xs-12 grid-md-auto">
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                     <h3>Contacts</h3>
                                     <ul class="unordered-list">
-                                        @foreach($platform['contacts'] as $contact)
+                                        @foreach($contacts as $contact)
                                             <li>
                                                 <h4>
                                                     {{$contact['name']}} 
@@ -159,13 +159,13 @@
                     @endif
 
                     {{-- Files --}}
-                    @if (!empty($platform['files']))
+                    @if (!empty($files))
                         <div class="grid-xs-12 grid-md-auto">
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                     <h3>Documents</h3>
                                     <ul class="unordered-list">
-                                        @foreach($platform['files'] as $file)
+                                        @foreach($files as $file)
                                         <li class="unordered-list__item unordered-list__item--file unordered-list__item--{{pathinfo($file['attachment'])['extension']}}">
                                             <a target="_blank" href="{{$file['attachment']}}">{{$file['title']}}</a>
                                         </li>
@@ -177,13 +177,13 @@
                     @endif
 
                     {{-- Links --}}
-                    @if (!empty($platform['links']))
+                    @if (!empty($links))
                         <div class="grid-xs-12 grid-md-auto u-mb-4">
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                 <h3>Links</h3>
                                 <ul class="unordered-list">
-                                    @foreach($platform['links'] as $link)
+                                    @foreach($links as $link)
                                         <li>
                                             <a target="_blank" href="{{$link['url']}}">{{$link['title']}}</a>
                                         </li>
@@ -205,9 +205,9 @@
                 {{-- Contacts --}}
                 <div class="grid-xs-12 u-mb-2">
                     <h2 class="u-mb-2">Contacts</h2>
-                    @if (!empty($platform['contacts']))
+                    @if (!empty($contacts))
                         <ul class="grid">
-                            @foreach($platform['contacts'] as $contact)
+                            @foreach($contacts as $contact)
                                 <li class="grid-xs-4">
                                     <h4>
                                         {{$contact['name']}} 

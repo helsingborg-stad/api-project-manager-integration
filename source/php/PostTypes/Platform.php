@@ -18,39 +18,29 @@ class Platform
             return $data;
         }
 
-        $data['platform'] = array();
+        $data = is_array($data) ? $data : [];
 
         $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
         $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
+        
         $data['featuredImagePosition'] = array();
         $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
         $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
 
-        $data['platform']['files'] = get_post_meta(get_the_id(), 'files', true) ?? [];
-        $data['platform']['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
-        $data['platform']['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
-        $data['platform']['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
-        $data['platform']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
-        $data['platform']['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
+        $data['files'] = get_post_meta(get_the_id(), 'files', true) ?? [];
+        $data['videoUrl'] = get_post_meta(get_the_id(), 'video_url', true) ?? '';
+        $data['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
+        $data['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
+        $data['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
+        $data['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
 
         $data['projects'] = get_posts([
             'post_type' => 'project',
             'posts_per_page' => -1,
             'meta_key' => 'platforms',
-            'meta_value' => get_post_meta(get_queried_object_id(),'uuid', true),
+            'meta_value' => get_post_meta(get_queried_object_id(), 'uuid', true),
             'meta_compare' => 'LIKE'
         ]);
-
-        //Meta
-        $data['platform']['meta'] = array();
-
-        // Partners
-        if (!empty(get_the_terms(get_queried_object_id(), 'platform_partner'))) {
-            $data['platform']['meta'][] = array(
-                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'platform_partner'), array($this, 'reduceTermsToString'), '')
-            );
-        }
 
         return $data;
     }
