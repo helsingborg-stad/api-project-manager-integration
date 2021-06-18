@@ -33,6 +33,14 @@ class Platform
         $data['platform']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
         $data['platform']['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
 
+        $data['projects'] = get_posts([
+            'post_type' => 'project',
+            'posts_per_page' => -1,
+            'meta_key' => 'platforms',
+            'meta_value' => get_post_meta(get_queried_object_id(),'uuid', true),
+            'meta_compare' => 'LIKE'
+        ]);
+
         //Meta
         $data['platform']['meta'] = array();
 

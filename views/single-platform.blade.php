@@ -117,6 +117,19 @@
         </div>
     @endif
 
+    @if (!empty($projects))
+        <div class="section u-pt-7">
+            <div class="container">
+                <h2 class="u-mb-4">Några innovationsinnatitiv relaterade till plattformen</h2>
+                <div class="grid grid--columns">
+                    @foreach ($projects as $post)
+                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif  
+
     @if (!empty($platform['files']) || !empty($platform['links']))
         <div class="section u-py-7">
             <div class="container">
@@ -184,28 +197,7 @@
             </div>
         </div>
     @endif
-    
-    @php
-        $projects = get_posts([
-            'post_type' => 'project',
-            'posts_per_page' => -1,
-            'meta_key' => 'platform',
-            'meta_value' => get_queried_object_id()
-        ]);
-    @endphp
-
-    @if (!empty($projects))
-        <div class="section u-pt-7">
-            <div class="container">
-                <h2 class="u-mb-4">Några innovationsinnatitiv relaterade till plattformen</h2>
-                <div class="grid grid--columns">
-                    @foreach ($projects as $post)
-                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    @endif  
+  
 
     <div class="section u-py-7 t-blue-section hidden">
         <div class="container">
