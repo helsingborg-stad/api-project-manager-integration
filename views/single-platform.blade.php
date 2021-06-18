@@ -104,7 +104,6 @@
                                                     <p><b>{{$item['date']}}</b></p>
                                                 </div>
                                             </div>
-                                            </p>
                                         </div>
                                     </div>
                                 </div>
