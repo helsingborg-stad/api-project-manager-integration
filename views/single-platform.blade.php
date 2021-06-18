@@ -27,7 +27,7 @@
 
 
 @section('content-bottom')
-    <div class="section u-p-5">
+    <div class="section u-py-5">
         <div class="container">
             <div class="grid">
                 {{-- Features --}}
@@ -38,12 +38,12 @@
                                 <li class="grid-md-4 u-mb-4">
                                     <div class="box box-filled box-project u-h-100">
                                         <div class="box-content">
-                                            <h4 class="u-mb-2">
+                                            <h3 class="u-mb-2">
                                                 {{$feature['title']}} 
                                                 @if (!empty($feature['category']))
                                                     <br><small>{{$feature['category']}}</small><br>
                                                 @endif
-                                            </h4>
+                                            </h3>
                                             <p>{{$feature['content']}}</p>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
             }
         </style>
     
-        <div class="section u-py-7 t-section-gray">
+        <div class="section u-py-7 t-blue-section">
             <div class="container">
                 <div class="grid">
                     <div class="grid-xs-12 u-mb-4">
@@ -118,21 +118,47 @@
     @endif
 
     @if (!empty($platform['files']) || !empty($platform['links']))
-        <div class="section u-p-5">
+        <div class="section u-py-7">
             <div class="container">
                 <div class="grid">
+                    {{-- Contacts --}}
+                    @if (!empty($platform['contacts']))
+                        <div class="grid-xs-12 grid-md-auto u-mb-4">
+                            <div class="box box--outline box-filled">
+                                <div class="box-content">
+                                    <h3>Contacts</h3>
+                                    <ul class="u-pt-2 unordered-list">
+                                        @foreach($platform['contacts'] as $contact)
+                                            <li>
+                                                <h4>
+                                                    {{$contact['name']}} 
+                                                    @if (!empty($contact['role']))
+                                                        <br><small>{{$contact['role']}}</small>
+                                                    @endif
+                                                </h4>
+                                                <a href="mailto: {{$contact['mail']}}">{{$contact['mail']}}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     {{-- Files --}}
                     @if (!empty($platform['files']))
                         <div class="grid-xs-12 grid-md-auto">
                             <div class="box box--outline box-filled">
-                                <h3>Documents</h3>
-                                <ul class="u-pt-2">
-                                    @foreach($platform['files'] as $file)
-                                        <li>
+                                <div class="box-content">
+                                    <h3>Documents</h3>
+                                    <ul class="u-pt-2 c-unordered-list unordered-list">
+                                        @foreach($platform['files'] as $file)
+                                        <li class="c-unordered-list__item c-unordered-list__item--file c-unordered-list__item--{{pathinfo($file['attachment'])['extension']}}">
                                             <a target="_blank" href="{{$file['attachment']}}">{{$file['title']}}</a>
                                         </li>
-                                    @endforeach
-                                </ul>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -141,14 +167,16 @@
                     @if (!empty($platform['links']))
                         <div class="grid-xs-12 grid-md-auto u-mb-4">
                             <div class="box box--outline box-filled">
+                                <div class="box-content">
                                 <h3>Links</h3>
-                                <ul class="u-pt-2">
+                                <ul class="u-pt-2 unordered-list">
                                     @foreach($platform['links'] as $link)
                                         <li>
                                             <a target="_blank" href="{{$link['url']}}">{{$link['title']}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -179,7 +207,7 @@
         </div>
     @endif  
 
-    <div class="section u-p-7 t-blue-section">
+    <div class="section u-py-7 t-blue-section hidden">
         <div class="container">
             <div class="grid">
                 {{-- Contacts --}}
@@ -196,7 +224,6 @@
                                         @endif
                                     </h4>
                                     <a href="mailto: {{$contact['mail']}}">{{$contact['mail']}}</a>
-                                    <br>
                                 </li>
                             @endforeach
                         </ul>
