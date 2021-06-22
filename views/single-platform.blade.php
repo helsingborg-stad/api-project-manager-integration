@@ -24,16 +24,18 @@
 @section('after-article')
     @if ($youtubeUrl)
         <div class="u-mt-7">
-            <iframe 
-                frameborder="0" 
-                scrolling="no" 
-                marginheight="0" 
-                marginwidth="0" 
-                width="788.54" 
-                height="443" 
-                type="text/html"
-                src="{{$youtubeUrl}}">
-            </iframe>
+            <div class="u-yt-wrapper">
+                <iframe 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    width="788.54" 
+                    height="443" 
+                    type="text/html"
+                    src="{{$youtubeUrl}}">
+                </iframe>
+            </div>
         </div>
     @endif
 @stop
