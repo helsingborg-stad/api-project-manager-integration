@@ -80,9 +80,16 @@
     background-color:  #FAEEEC;
 }
 
-.t-blue-section {
+.is-child-theme .t-blue-section {
     h1, h2, h3, h4, h5, h6, .lead, a  {
         color: #0069b4;
+    }
+
+    .box.box-filled {
+        h3, p, span {
+            color: white;
+        }
+        background-color: #0069b4;
     }
 
     article a,
@@ -99,5 +106,9 @@
         color: #000000;
     }
     background-color:  #EEF3F6;
+}
+
+.is-child-theme .box.box-filled.box--lightblue {
+    background-color: #EEF3F6;
 }
 
