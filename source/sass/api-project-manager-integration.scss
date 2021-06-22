@@ -17,6 +17,22 @@
 @import './utils/theme';
 
 
+.u-yt-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.27198%;
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
 .main-container > .grid:not(.breadcrumbs-wrapper):not(.no-margin-top):first-child {
     padding-top: 24px;
 
