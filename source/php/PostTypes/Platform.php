@@ -33,7 +33,7 @@ class Platform
         $data['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
 
         $data['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
-        $data['youtubeUrl'] = self::buildYoutubeURL(get_post_meta(get_the_id(), 'video_url', true) ?? '');
+        $data['youtubeUrl'] = \build_youtube_url(get_post_meta(get_the_id(), 'video_url', true) ?? '');
         
 
         $data['projects'] = get_posts([
@@ -45,30 +45,6 @@ class Platform
         ]);
 
         return $data;
-    }
-
-    public static function buildYoutubeURL($videoUrl)
-    {
-        if (empty($videoUrl)) {
-            return false;
-        }
-
-        parse_str(parse_url($videoUrl, PHP_URL_QUERY), $parsedUrl);
-        $videoID = $parsedUrl['v'] ?? false;
-            
-        if (!$videoID) {
-            return false;
-        }
-
-        $youtubeParams = [
-            'iv_load_policy' => '3',
-            'rel' => '0',
-            'modestbranding' => '1',
-            'controls' => '0',
-            'origin' => get_home_url(),
-        ];
-            
-        return 'https://www.youtube.com/embed/' . $videoID . '?' . build_query($youtubeParams);
     }
 
     public static function buildRoadmap($items)
