@@ -36,7 +36,7 @@
                         <ul class="grid">
                             @foreach($features as $feature)
                                 <li class="grid-md-4 u-mb-4">
-                                    <div class="box box-filled box-project u-h-100">
+                                    <div class="box box-filled box--lightblue box-project u-h-100">
                                         <div class="box-content">
                                             <h3 class="u-mb-2">
                                                 {{$feature['title']}} 
@@ -80,7 +80,7 @@
                             <div id="flickity-mod-posts-platform" class="grid post-slider__flickity js-post-slider__flickity" data-flickity-options='{!! json_encode($roadmap['flickityOptions'])!!}'  data-equal-container>
                                 @foreach($roadmap['items'] as $item)
                                 <div class="post-slider__item flickity-item u-flex u-align-items-center {{implode(' ', $item['classes'])}} @if (isset($columnsPerRow) && $loop->iteration > $columnsPerRow) u-flickity-init-hidden @endif">
-                                    <div class="box box-filled box--outline">
+                                    <div class="box box-filled">
                                         <div class="box-content">
                                             @if (!empty($item['category']))
                                                 <span>{{$item['category']}}</span>
