@@ -19,6 +19,31 @@
             </div>
         </div>
     </div>
+
+
+    @if (!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1)
+        <div class="sticky-bar sticky-bar--content u-mb-2">
+            <div class="container">
+                <ul id="scroll-spy-menu" class="js-scroll-spy content-navbar">
+                    @foreach($scrollSpyMenuItems as $item)
+                        <li class="content-navbar__item" data-spy-target="{{$item['anchor']}}">
+                            <a href="{{$item['anchor']}}">
+                                <span class="content-navbar__inner" tabindex="-1">
+                                    {{$item['label']}}
+                                </span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+@stop
+
+
+
+@section('before-article')
+    <div id="background" class="js-scroll-spy-section"></div>
 @stop
 
 @section('after-article')
@@ -41,35 +66,51 @@
 @stop
 
 @section('content-bottom')
-    <div class="section u-py-5">
-        <div class="container">
-            <div class="grid">
-                {{-- Features --}}
-                <div class="grid-xs-12">
-                    @if (!empty($features))
+    @if (!empty($features))
+        <div id="features" class="section u-py-5 js-scroll-spy-section">
+            <div class="container">
+                <div class="grid">
+                    {{-- Features --}}
+                    <div class="grid-xs-12">
+                        @if (!empty($features))
                         <ul class="grid">
                             @foreach($features as $feature)
-                                <li class="grid-md-4 u-mb-4">
-                                    <div class="box box-filled box--lightblue box-project u-h-100">
-                                        <div class="box-content">
-                                            <h3 class="u-mb-2">
-                                                {{$feature['title']}} 
-                                                @if (!empty($feature['category']))
-                                                    <br><small>{{$feature['category']}}</small><br>
-                                                @endif
-                                            </h3>
-                                            <p>{{$feature['content']}}</p>
-                                        </div>
+                            <li class="grid-md-4 u-mb-4">
+                                <div class="box box-filled box--lightblue box-project u-h-100">
+                                    <div class="box-content">
+                                        <h3 class="u-mb-2">
+                                            {{$feature['title']}} 
+                                            @if (!empty($feature['category']))
+                                            <br><small>{{$feature['category']}}</small><br>
+                                            @endif
+                                        </h3>
+                                        <p>{{$feature['content']}}</p>
                                     </div>
-                                </li>
+                                </div>
+                            </li>
                             @endforeach
                         </ul>
-                    @endif
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
+    @if (!empty($getStartedContent))
+        <div id="get-started" class="section u-py-5 js-scroll-spy-section">
+            <div class="container">
+                <div class="grid">
+                    <div class="grid-xs-12">
+                        <article id="article" class="c-article clearfix full u-mb-4">
+                            <h2>{{$getStartedHeading}}</h2>
+                            {!! $getStartedContent !!}
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     @if (!empty($roadmap) && !empty($roadmap['items']))
         <style>
@@ -81,7 +122,7 @@
             }
         </style>
     
-        <div class="section u-py-7 t-blue-section">
+        <div id="roadmap" class="section u-py-7 t-blue-section js-scroll-spy-section">
             <div class="container">
                 <div class="grid">
                     <div class="grid-xs-12 u-mb-4">
@@ -131,27 +172,15 @@
         </div>
     @endif
 
-    @if (!empty($projects))
-        <div class="section u-pt-7">
-            <div class="container">
-                <h2 class="u-mb-4">Några innovationsinnatitiv relaterade till plattformen</h2>
-                <div class="grid grid--columns">
-                    @foreach ($projects as $post)
-                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    @endif  
 
     @if (!empty($files) || !empty($links))
-        <div class="section u-py-7">
+        <div class="section u-py-7 u-bt-1">
             <div class="container">
                 <div class="grid grid--columns">
                     {{-- Contacts --}}
                     @if (!empty($contacts))
                         <div class="grid-xs-12 grid-md-auto">
-                            <div class="box box--outline box-filled">
+                            <div class="box box-filled box--lightblue">
                                 <div class="box-content">
                                     <h3>Contacts</h3>
                                     <ul class="unordered-list">
@@ -211,31 +240,17 @@
             </div>
         </div>
     @endif
-  
 
-    <div class="section u-py-7 t-blue-section hidden">
-        <div class="container">
-            <div class="grid">
-                {{-- Contacts --}}
-                <div class="grid-xs-12 u-mb-2">
-                    <h2 class="u-mb-2">Contacts</h2>
-                    @if (!empty($contacts))
-                        <ul class="grid">
-                            @foreach($contacts as $contact)
-                                <li class="grid-xs-4">
-                                    <h4>
-                                        {{$contact['name']}} 
-                                        @if (!empty($contact['role']))
-                                            <br><small>{{$contact['role']}}</small>
-                                        @endif
-                                    </h4>
-                                    <a href="mailto: {{$contact['mail']}}">{{$contact['mail']}}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div> 
+    @if (!empty($projects))
+        <div class="section u-pt-7 u-bt-1">
+            <div class="container">
+                <h2 class="u-mb-4">Några innovationsinnatitiv relaterade till plattformen</h2>
+                <div class="grid grid--columns">
+                    @foreach ($projects as $post)
+                        @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
+    @endif  
 @stop
