@@ -29,7 +29,7 @@ class App
 
     public function wpBodyClasses($output)
     {
-        if (is_singular('project')) {
+        if (is_singular('project') || is_singular('platform')) {
             $output .= ' data-header-offset="158"';
         } else {
             $output .= ' data-header-offset="80"';
