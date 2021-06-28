@@ -22,6 +22,14 @@ class Platform
         
         $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
         $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
+
+        $data['labels'] = [
+            'contacts' => __('Contacts', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'documents' => __('Documents', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'links' => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'relatedProjects' => __('Initiatives related to the platform', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'roadmap' => __('Roadmap', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        ];
         
         $data['featuredImagePosition'] = array();
         $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
@@ -45,8 +53,6 @@ class Platform
             'meta_value' => get_post_meta(get_queried_object_id(), 'uuid', true),
             'meta_compare' => 'LIKE'
         ]);
-
-
 
         $data['scrollSpyMenuItems'] =  array();
         $data['scrollSpyMenuItems'][] = array(

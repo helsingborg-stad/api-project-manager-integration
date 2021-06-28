@@ -126,7 +126,7 @@
             <div class="container">
                 <div class="grid">
                     <div class="grid-xs-12 u-mb-4">
-                        <h2>Roadmap</h2>
+                        <h2>{{$labels['roadmap']}}</h2>
                     </div>
                     {{-- Roadmap --}}
                     <div class="grid-xs-12 u-mb-2">
@@ -182,7 +182,7 @@
                         <div class="grid-xs-12 grid-md-auto">
                             <div class="box box-filled box--lightblue">
                                 <div class="box-content">
-                                    <h3>Contacts</h3>
+                                    <h3>{{$labels['contacts']}}</h3>
                                     <ul class="unordered-list">
                                         @foreach($contacts as $contact)
                                             <li>
@@ -206,7 +206,7 @@
                         <div class="grid-xs-12 grid-md-auto">
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
-                                    <h3>Documents</h3>
+                                    <h3>{{$labels['documents']}}</h3>
                                     <ul class="pricon-list">
                                         @foreach($files as $file)
                                         <li class="pricon-list__item {{implode(' ', $file['classNames'])}}">
@@ -224,7 +224,7 @@
                         <div class="grid-xs-12 grid-md-auto u-mb-4">
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
-                                <h3>Links</h3>
+                                <h3>{{$labels['links']}}</h3>
                                 <ul class="pricon-list">
                                     @foreach($links as $link)
                                         <li class="pricon-list__item pricon pricon-external-link">
@@ -244,7 +244,7 @@
     @if (!empty($projects))
         <div class="section u-pt-7 u-bt-1">
             <div class="container">
-                <h2 class="u-mb-4">Några innovationsinnatitiv relaterade till plattformen</h2>
+                <h2 class="u-mb-4">{{$labels['relatedProjects']}}</h2>
                 <div class="grid grid--columns">
                     @foreach ($projects as $post)
                         @include('partials.blog.type.post-card-project', array('post' => $post, 'grid_size' => 'grid-xs-12 grid-sm-6 grid-md-3'))
