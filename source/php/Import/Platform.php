@@ -59,6 +59,8 @@ class Platform extends Importer
           'cover_image' => $cover_image ?? null,
           'cover_image_position_x' => $cover_image_position_x ?? null,
           'cover_image_position_y' => $cover_image_position_y ?? null,
+          'get_started_heading' => $get_started_heading ?? null,
+          'get_started_content' => $get_started_content ?? null,
         );
 
         return $data;
