@@ -28,13 +28,12 @@ class Platform
         $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
 
         $data['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
-        $data['files'] = get_post_meta(get_the_id(), 'files', true) ?? [];
         $data['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
         $data['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
-
+        
+        $data['files'] = self::buildFiles(get_post_meta(get_the_id(), 'files', true) ?? []);
         $data['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
         $data['youtubeUrl'] = \build_youtube_url(get_post_meta(get_the_id(), 'video_url', true) ?? '');
-        
 
         $data['projects'] = get_posts([
             'post_type' => 'project',
@@ -46,6 +45,90 @@ class Platform
 
         return $data;
     }
+
+    public static function buildFiles($items)
+    {
+        if (empty($items)) {
+            return $items;
+        }
+
+        $fileClasses = [
+            'image' => 'pricon-file-image',
+            'video' => 'pricon-file-video',
+            'audio' => 'pricon-file-audio',
+            'pdf' => 'pricon-file-pdf',
+            'text' => 'pricon-file-text',
+            'presentation' => 'pricon-presentation',
+            'archive' => 'pricon-file-archive',
+            'file' => 'pricon-file',
+        ];
+
+        $fileTypes = [
+            'image' => [
+                'png',
+                'tif',
+                'tiff',
+                'bmp',
+                'eps',
+                'jpg',
+                'jpeg',
+                'gif',
+            ],
+            'video' => [
+                'mp4',
+                'mov',
+                'wmv',
+                'avi',
+                'flv',
+            ],
+            'audio' => [
+                'mp3',
+                'wav',
+            ],
+            'pdf' => [
+                'pdf'
+            ],
+            'text' => [
+                'docx',
+                'txt',
+                'md',
+                'avi',
+                'flv',
+            ],
+            'presentation' => [
+                'pptx',
+                'ppfm',
+                'ppt',
+            ],
+            'archive' => [
+                'zip',
+                'rar',
+                'gz',
+            ],
+        ];
+
+        return array_map(function ($item) use ($fileTypes, $fileClasses) {
+            $item['classNames'] = [];
+            $pathParts = pathinfo($item['attachment']);
+            if ($pathParts && $pathParts['extension']) {
+                $fileType = array_filter($fileTypes, function ($item) use ($pathParts) {
+                    return in_array(strtolower($pathParts['extension']), $item);
+                });
+
+                $fileType = count($fileType) === 1 ? array_keys($fileType)[0] : false;
+            }
+
+            $fileType = $fileType ?? 'file';
+
+            $item['classNames'][] = 'pricon';
+            $item['classNames'][] = $fileClasses[$fileType];
+            
+            return $item;
+        }, $items);
+    }
+
+    
+
 
     public static function buildRoadmap($items)
     {
