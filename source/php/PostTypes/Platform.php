@@ -19,7 +19,7 @@ class Platform
         }
 
         $data = is_array($data) ? $data : [];
-
+        
         $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
         $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
         
@@ -35,6 +35,9 @@ class Platform
         $data['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
         $data['youtubeUrl'] = \build_youtube_url(get_post_meta(get_the_id(), 'video_url', true) ?? '');
 
+        $data['getStartedHeading'] = get_post_meta(get_the_id(), 'get_started_heading', true) ?? __('Get started', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['getStartedContent'] = get_post_meta(get_the_id(), 'get_started_content', true) ?? '';
+
         $data['projects'] = get_posts([
             'post_type' => 'project',
             'posts_per_page' => -1,
@@ -42,6 +45,36 @@ class Platform
             'meta_value' => get_post_meta(get_queried_object_id(), 'uuid', true),
             'meta_compare' => 'LIKE'
         ]);
+
+
+
+        $data['scrollSpyMenuItems'] =  array();
+        $data['scrollSpyMenuItems'][] = array(
+            'label' => __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'anchor' => '#background',
+        );
+
+        if (!empty($data['features'])) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('Features', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#features',
+            );
+        }
+
+        if (!empty($data['getStartedContent'])) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('Get started', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#get-started',
+            );
+        }
+
+        if (!empty($data['roadmap']) && !empty($data['roadmap']['items'])) {
+            $data['scrollSpyMenuItems'][] = array(
+                'label' => __('Roadmap', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'anchor' => '#roadmap',
+            );
+        }
+
 
         return $data;
     }
