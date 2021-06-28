@@ -178,9 +178,9 @@
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                     <h3>Documents</h3>
-                                    <ul class="unordered-list">
+                                    <ul class="pricon-list">
                                         @foreach($files as $file)
-                                        <li class="unordered-list__item unordered-list__item--file unordered-list__item--{{pathinfo($file['attachment'])['extension']}}">
+                                        <li class="pricon-list__item {{implode(' ', $file['classNames'])}}">
                                             <a target="_blank" href="{{$file['attachment']}}">{{$file['title']}}</a>
                                         </li>
                                         @endforeach
@@ -196,9 +196,9 @@
                             <div class="box box--outline box-filled">
                                 <div class="box-content">
                                 <h3>Links</h3>
-                                <ul class="unordered-list">
+                                <ul class="pricon-list">
                                     @foreach($links as $link)
-                                        <li>
+                                        <li class="pricon-list__item pricon pricon-external-link">
                                             <a target="_blank" href="{{$link['url']}}">{{$link['title']}}</a>
                                         </li>
                                     @endforeach
