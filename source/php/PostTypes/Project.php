@@ -56,7 +56,7 @@ class Project
                     $accumilator['completed'][] = $item;
                     return $accumilator;
                 }
-                
+
                 $accumilator['notCompleted'][] = $item;
                 return $accumilator;
             }, array(
@@ -94,6 +94,13 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
+        // Powered by
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Powered by', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_organisation'), array($this, 'reduceTermsToString'), '')
+            );
+        }
 
         // Challenge
         $challengeId = get_post_meta(get_the_id(), 'challenge', true);
@@ -171,11 +178,11 @@ class Project
         if (!empty($investmentTypes)) {
             $investments = array_filter(array_map(function ($type) {
                 $metaValue = get_post_meta(get_the_id(), 'investment_' . $type, true);
-    
+
                 if (!is_numeric($metaValue)) {
                     return false;
                 }
-    
+
                 return array(
                     'unit' => $type === 'amount' ? ' kr' : ' ' . __('hours', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'value' => $metaValue,
@@ -231,7 +238,6 @@ class Project
                 'content' => get_post_meta(get_the_id(), 'project_how', true),
             ),
         );
-        
 
         $data['project']['contentPieces'] = array_filter($contentPieces, function ($item) {
             return !empty($item['content']);
@@ -250,7 +256,7 @@ class Project
     public static function reduceTermsToString($accumilator, $item)
     {
         if (empty($accumilator)) {
-            $accumilator = '<span>' .$item->name. '</span>';
+            $accumilator = '<span>' . $item->name . '</span>';
         } else {
             $accumilator .= ', ' . '<span>' . $item->name . '</span>';
         }
