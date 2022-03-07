@@ -34,7 +34,7 @@ class Project extends Importer
           $this->postType . '_status' => $status ?? null,
           $this->postType . '_technology' => $technology ?? null,
           $this->postType . '_sector' => $sector ?? null,
-          $this->postType . '_organisation' => $organisation ?? null,
+          $this->postType . '_organisation' => array_merge($organisation ?? [], $participants ?? []) ?? null,
           $this->postType . '_global_goal' => $global_goal ?? null,
           $this->postType . '_partner' => $partner ?? null,
                             'challenge_category' => $challenge_category ?? null
