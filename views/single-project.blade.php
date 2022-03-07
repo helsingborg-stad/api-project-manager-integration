@@ -156,7 +156,7 @@
                 {{-- TODO: Translate labels --}}
                 <div class="box box-filled box-filled-1 box-project box-project-contact">
                     <h4 class="box-title">Kontakt</h4>
-                    <div class="box-content">
+                    <div class="box-content u-pt-1">
                         @foreach ($project['contacts'] as $contact)
                             <p><b>Namn:</b> {{$contact['name']}}
                                 @if($contact['email'])
@@ -164,6 +164,40 @@
                                 @endif
                             </p>
                         @endforeach
+                    </div>
+                </div>
+            @endif
+
+            {{-- Files --}}
+            @if ($project && !empty($project['files']))
+                {{-- TODO: Translate labels --}}
+                <div class="box box-filled box-filled-1 box-project box-project-contact">
+                    <h4 class="box-title">Filer</h4>
+                    <div class="box-content u-pt-1">
+                        <ul>              
+                            @foreach ($project['files'] as $file)
+                                <li>
+                                    <a href="{{$file['file']['url']}}">{{$file['title']}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
+            {{-- Links --}}
+            @if ($project && !empty($project['links']))
+                {{-- TODO: Translate labels --}}
+                <div class="box box-filled box-filled-1 box-project box-project-contact">
+                    <h4 class="box-title">Länkar</h4>
+                    <div class="box-content u-pt-1">
+                        <ul>              
+                            @foreach ($project['links'] as $link)
+                                <li>
+                                    <a href="{{$link['url']}}">{{$link['title']}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             @endif
