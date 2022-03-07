@@ -81,10 +81,12 @@ class Project
         }
 
         // Contacts
-        $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
-        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
-            $data['project']['contacts'] = $contactsMeta[0];
-        }
+        $data['project']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? null;
+
+        // Media
+        $data['project']['files'] = get_post_meta(get_the_id(), 'files', true) ?? null;
+        $data['project']['links'] = get_post_meta(get_the_id(), 'links', true) ?? null;
+        $data['project']['video'] = get_post_meta(get_the_id(), 'video', true) ?? null;
 
         // Global Goals
         if (!empty(get_the_terms(get_queried_object_id(), 'project_global_goal'))) {
