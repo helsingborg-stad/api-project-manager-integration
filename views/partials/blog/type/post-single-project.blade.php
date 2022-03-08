@@ -13,7 +13,7 @@
                         @endforeach
                     @endif
                 @endif
-                
+
                 @if(
                     !empty($project['video']) 
                     && function_exists('build_youtube_url') 
@@ -32,6 +32,10 @@
                     </div>
                 @endif
             </article>
+
+            <aside>
+                @include('partials.timestamps')
+            </aside>
 
             @if (is_single() && is_active_sidebar('content-area'))
                 <div class="grid grid--columns sidebar-content-area sidebar-content-area-bottom">
