@@ -167,8 +167,12 @@ class Project
         }
 
         // spentSoFar
-        $costSoFar = get_post_meta(get_the_id(), 'cost_so_far', true);
-        if (!empty($costSoFar)) {
+        $fundsUsed = get_post_meta(get_the_id(), 'funds_used', true);
+        if (!empty($fundsUsed)) {
+            $costSoFar = array_reduce($fundsUsed, function ($total, $item) {
+                return $total + (int)$item['amount'];
+            }, 0);
+
             $data['project']['meta'][] = array(
                 'title' => __('Cost so far', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => $costSoFar . ' kr'
