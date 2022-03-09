@@ -80,6 +80,7 @@ class Project extends Importer
           'impact_goals' => $impact_goals ?? null,
           'estimated_budget' => $estimated_budget ?? null,
           'cost_so_far' => $cost_so_far ?? null,
+          'funds_used' => $funds_used ?? null,
           'challenge' => $challenge ?? null,
           'previous_status_progress_value' => $previous_status_progress_value ?? null,
           'previous_status' => $previous_status ?? null,
