@@ -13,7 +13,29 @@
                         @endforeach
                     @endif
                 @endif
+
+                @if(
+                    !empty($project['video']) 
+                    && function_exists('build_youtube_url') 
+                    && $youtubeUrl = build_youtube_url($project['video'][0]['url'])
+                )
+                    <div class="u-yt-wrapper">
+                        <iframe 
+                            frameborder="0" 
+                            scrolling="no" 
+                            marginheight="0" 
+                            marginwidth="0" 
+
+                            type="text/html"
+                            src="{{$youtubeUrl}}">
+                        </iframe>
+                    </div>
+                @endif
             </article>
+
+            <aside>
+                @include('partials.timestamps')
+            </aside>
 
             @if (is_single() && is_active_sidebar('content-area'))
                 <div class="grid grid--columns sidebar-content-area sidebar-content-area-bottom">

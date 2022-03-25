@@ -56,7 +56,7 @@ class Project
                     $accumilator['completed'][] = $item;
                     return $accumilator;
                 }
-                
+
                 $accumilator['notCompleted'][] = $item;
                 return $accumilator;
             }, array(
@@ -81,10 +81,12 @@ class Project
         }
 
         // Contacts
-        $contactsMeta = get_post_meta(get_the_id(), 'contacts', false);
-        if (!empty($contactsMeta) && !empty($contactsMeta[0])) {
-            $data['project']['contacts'] = $contactsMeta[0];
-        }
+        $data['project']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? null;
+
+        // Media
+        $data['project']['files'] = get_post_meta(get_the_id(), 'files', true) ?? null;
+        $data['project']['links'] = get_post_meta(get_the_id(), 'links', true) ?? null;
+        $data['project']['video'] = get_post_meta(get_the_id(), 'video', true) ?? null;
 
         // Global Goals
         if (!empty(get_the_terms(get_queried_object_id(), 'project_global_goal'))) {
@@ -94,6 +96,13 @@ class Project
         //Meta
         $data['project']['meta'] = array();
 
+        // Powered by
+        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
+            $data['project']['meta'][] = array(
+                'title' => __('Powered by', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_organisation'), array($this, 'reduceTermsToString'), '')
+            );
+        }
 
         // Challenge
         $challengeId = get_post_meta(get_the_id(), 'challenge', true);
@@ -158,8 +167,12 @@ class Project
         }
 
         // spentSoFar
-        $costSoFar = get_post_meta(get_the_id(), 'cost_so_far', true);
-        if (!empty($costSoFar)) {
+        $fundsUsed = get_post_meta(get_the_id(), 'funds_used', true);
+        if (!empty($fundsUsed)) {
+            $costSoFar = array_reduce($fundsUsed, function ($total, $item) {
+                return $total + (int)$item['amount'];
+            }, 0);
+
             $data['project']['meta'][] = array(
                 'title' => __('Cost so far', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => $costSoFar . ' kr'
@@ -171,11 +184,11 @@ class Project
         if (!empty($investmentTypes)) {
             $investments = array_filter(array_map(function ($type) {
                 $metaValue = get_post_meta(get_the_id(), 'investment_' . $type, true);
-    
+
                 if (!is_numeric($metaValue)) {
                     return false;
                 }
-    
+
                 return array(
                     'unit' => $type === 'amount' ? ' kr' : ' ' . __('hours', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'value' => $metaValue,
@@ -231,7 +244,6 @@ class Project
                 'content' => get_post_meta(get_the_id(), 'project_how', true),
             ),
         );
-        
 
         $data['project']['contentPieces'] = array_filter($contentPieces, function ($item) {
             return !empty($item['content']);
@@ -250,7 +262,7 @@ class Project
     public static function reduceTermsToString($accumilator, $item)
     {
         if (empty($accumilator)) {
-            $accumilator = '<span>' .$item->name. '</span>';
+            $accumilator = '<span>' . $item->name . '</span>';
         } else {
             $accumilator .= ', ' . '<span>' . $item->name . '</span>';
         }

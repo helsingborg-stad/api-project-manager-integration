@@ -1,4 +1,9 @@
 @php
+    // Category
+    $category = !empty(get_the_terms($post->ID, 'challenge_category')) 
+    ? get_the_terms($post->ID, 'challenge_category')[0]->name 
+    : false; 
+
     // Organisation
     $organisation = !empty(get_the_terms($post->ID, 'project_organisation')) 
     ? get_the_terms($post->ID, 'project_organisation')[0]->name 
@@ -64,7 +69,7 @@
             </div>
             <div class="box__content">
                 <div class="box__meta">
-                    <span class="box__organisation">{{$organisation}}</span>
+                    <span class="box__organisation">{{$category}}</span>
                 </div>
                 <h3 class="box__title">{{ $post->post_title }}</h3>
                 @if ($postTags)

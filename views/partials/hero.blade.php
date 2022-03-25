@@ -28,7 +28,9 @@
                     </div>
                     <div class="grid-md-6 project-header__column project-header__column--content">
                         <div class="project-header__body">
-                            <span class="project-header__meta">{{get_the_terms(get_queried_object_id(), 'project_organisation')[0]->name}}</span>
+                            @if (!empty(get_the_terms(get_queried_object_id(), 'challenge_category')))
+                                <span class="project-header__meta">{{get_the_terms(get_queried_object_id(), 'challenge_category')[0]->name}}</span>
+                            @endif
                             <h1 class="project-header__title">{{ the_title() }}</h1>
 
                             @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
