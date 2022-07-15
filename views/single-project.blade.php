@@ -194,7 +194,7 @@
                         <ul>              
                             @foreach ($project['links'] as $link)
                                 <li>
-                                    <a href="{{$link['url']}}">{{$link['title']}}</a>
+                                    <a target="_blank" href="{{$link['url']}}">{{$link['title']}}</a>
                                 </li>
                             @endforeach
                         </ul>
