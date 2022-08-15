@@ -4,131 +4,250 @@ namespace ProjectManagerIntegration\PostTypes;
 
 class Project
 {
-    public $postType = 'project';
+    public static $postType = 'project';
 
     public function __construct()
     {
         add_action('init', array($this, 'registerPostType'), 9);
-        add_filter('Municipio/viewData', array($this, 'singleViewController'));
-        add_filter('Municipio/viewData', array($this, 'archiveViewController'));
+        add_filter('Municipio/viewData', array($this, 'viewController'));
     }
 
-    public function archiveViewController($data)
+    public function viewController($data)
     {
         global $wp_query;
-        if (!is_archive() || $wp_query->query['post_type'] !== 'project') {
-            return $data;
+
+        if (is_singular(self::$postType)) {
+            return $this->singleViewController($data);
         }
 
-        $data['noResultLabels'][0] = __('We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
-        $data['noResultLabels'][1] = __('Try to refine your search.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        if (is_archive() && $wp_query->query['post_type'] === self::$postType) {
+            return $this->archiveViewController($data);
+        }
 
         return $data;
     }
 
     public function singleViewController($data)
     {
-        if (!is_singular('project')) {
-            return $data;
-        }
-
-        $data['project'] = array();
-
-        $data['scrollSpyMenuItems'] =  array();
-        $data['scrollSpyMenuItems'][] = array(
-            'label' => __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'anchor' => '#article',
+        $data['project'] = array_merge(
+            self::getPostMeta(),
+            [
+                'contentPieces'     =>  $this->contentPieces(),
+                'meta'              =>  $this->meta(),
+                'statusBar'         =>  $this->statusBar(),
+                'files'             =>  self::getPostmeta('files', []),
+                'contacts'          =>  self::getPostmeta('contacts', []),
+                'links'             =>  self::getPostmeta('links', []),
+                'address'           =>  self::getPostmeta('address', []),
+            ]
         );
 
-        $impactGoalsMeta = array_filter(get_post_meta(get_the_id(), 'impact_goals', true), function ($item) {
-            return !empty($item['impact_goal']);
-        });
+        $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
 
-        if (!empty($impactGoalsMeta)) {
-            $data['scrollSpyMenuItems'][] = array(
-                'label' => __('Impact goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'anchor' => '#impactgoals',
-            );
+        return $data;
+    }
 
-            // Order completed goals first
-            $impactGoalsMeta = array_reduce($impactGoalsMeta, function ($accumilator, $item) {
-                if ($item['impact_goal_completed']) {
-                    $accumilator['completed'][] = $item;
-                    return $accumilator;
-                }
+    public function archiveViewController($data)
+    {
+        $data['noResultLabels'][0] = __('We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['noResultLabels'][1] = __('Try to refine your search.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
 
-                $accumilator['notCompleted'][] = $item;
-                return $accumilator;
-            }, array(
-                'completed' => array(),
-                'notCompleted' => array(),
-            ));
+        return $data;
+    }
 
-            $data['project']['impact_goals'] = array_merge($impactGoalsMeta['completed'], $impactGoalsMeta['notCompleted']);
-        }
+    public function registerPostType()
+    {
+        $customPostType = new \ProjectManagerIntegration\Helper\PostType(
+            self::$postType,
+            __('Project', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            __('Projects', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            [
+                'menu_icon'          => 'dashicons-portfolio',
+                'public'             => true,
+                'publicly_queryable' => true,
+                'show_ui'            => true,
+                'show_in_menu'       => true,
+                'query_var'          => true,
+                'capability_type'    => 'post',
+                'has_archive'        => true,
+                'hierarchical'       => false,
+                'supports'           => ['title', 'editor', 'thumbnail'],
+                'show_in_rest'       => true,
+            ],
+            [],
+            ['exclude_keys' => ['author', 'acf', 'guid', 'link', 'template', 'meta', 'taxonomy', 'menu_order']]
+        );
 
-        // Resident Involvement
-        $data['project']['resident_involvement'] = array_map(function ($item) {
-            return $item['description'];
-        }, get_post_meta(get_the_id(), 'resident_involvement', true) ?? []);
-
-        // Resident Involvement - add to scrollspy menu
-        if (!empty($data['project']['resident_involvement'])) {
-            $data['scrollSpyMenuItems'][] = array(
-                'label' => __('Resident involvement', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'anchor' => '#residentInvolvement',
-            );
-        }
-
-        // Contacts
-        $data['project']['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? null;
-
-        // Media
-        $data['project']['files'] = get_post_meta(get_the_id(), 'files', true) ?? null;
-        $data['project']['links'] = get_post_meta(get_the_id(), 'links', true) ?? null;
-        $data['project']['video'] = get_post_meta(get_the_id(), 'video', true) ?? null;
-
-        // Global Goals
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_global_goal'))) {
-            $data['project']['globalGoals'] = get_the_terms(get_queried_object_id(), 'project_global_goal');
-        }
-
-        //Meta
-        $data['project']['meta'] = array();
-
-        // Powered by
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_organisation'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Powered by', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_organisation'), array($this, 'reduceTermsToString'), '')
+        foreach (self::taxonomies() as $taxonomy) {
+            $customPostType->addTaxonomy(
+                $taxonomy['slug'],
+                $taxonomy['singular'],
+                $taxonomy['plural'],
+                $taxonomy['args'],
             );
         }
+    }
 
-        // Challenge
-        $challengeId = get_post_meta(get_the_id(), 'challenge', true);
-        $challengeObject = !empty($challengeId) ? get_post($challengeId) : false;
-        if ($challengeObject && $challengeObject->post_type === 'challenge') {
-            $data['project']['meta'][] = array(
-                'title' => __('Challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => $challengeObject->post_title,
-                'url'  => get_permalink($challengeObject->ID)
-             );
-        }
+    private static function taxonomies()
+    {
+        return [
+            [
+                'slug'      =>  'project_status',
+                'singular'  =>  __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => false, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'project_technology',
+                'singular'  =>  __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => true, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'project_sector',
+                'singular'  =>  __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => true, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'project_organisation',
+                'singular'  =>  __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => true, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'project_global_goal',
+                'singular'  =>  __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => true, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'project_category',
+                'singular'  =>  __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => true, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'project_partner',
+                'singular'  =>  __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  ['hierarchical' => true, 'show_ui' => false]
+            ],
+            [
+                'slug'      =>  'challenge_category',
+                'singular'  =>  __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'plural'    =>  __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'args'      =>  [ 'hierarchical' => false, 'show_ui' => true]
+            ],
+        ];
+    }
 
-        // Category
-        $categories = get_the_terms(get_queried_object_id(), 'challenge_category');
-        if (!empty($categories)) {
-            $categories = array_map(function ($item) {
-                return $item->name;
-            }, $categories);
+    private function contentPieces(): array
+    {
+        return array_filter(
+            [
+                [
+                    'title' => __('What', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                    'content' => self::getPostMeta('project_what', null),
+                ],
+                [
+                    'title' => __('Why', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                    'content' => self::getPostMeta('project_why', null),
+                ],
+                [
+                    'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                    'content' => self::getPostMeta('project_how', null),
+                ]
+            ],
+            fn ($i) => !empty($i['content'])
+        );
+    }
 
-            $data['project']['meta'][] = array(
-                'title' => __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => implode(', ', $categories),
-            );
-        }
+    private function meta(): array
+    {
+        return array_filter(
+            [
+                [
+                    'title'     => __('Powered by', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => array_reduce(self::getPostTerms('project_organisation'), array($this, 'reduceTermsToString'), '') ?? null,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => self::getPostMeta('challenge', false) ? get_the_title(self::getPostMeta('challenge')) : null,
+                    'url'       => self::getPostMeta('challenge', false) ? get_permalink(self::getPostMeta('challenge')) : null,
+                ],
+                [
+                    'title'     => __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => array_reduce(self::getPostTerms('challenge_category'), array($this, 'reduceTermsToString'), '') ?? null,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => array_reduce(self::getPostTerms('project_technology'), array($this, 'reduceTermsToString'), '') ?? null,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Estimated Budget', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => self::getPostMeta('estimated_budget', false) ? self::getPostMeta('estimated_budget') . ' kr' : null,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Cost so far', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => self::getPostMeta('funds_used', false) ? array_reduce(self::getPostMeta('funds_used', false), fn ($a, $i) => $a + (int) $i['amount'], 0) . ' kr' : null,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Investment', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => $investmentString,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'   => array_reduce(self::getPostTerms('project_sector'), array($this, 'reduceTermsToString'), '') ?? null,
+                    'url'       => null,
+                ],
+                [
+                    'title'     => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'content'    => array_reduce(self::getPostTerms('project_partner'), array($this, 'reduceTermsToString'), '') ?? null,
+                    'url'       => null,
+                ],
+            ],
+            fn ($i) => !empty($i['content']) && !empty($i['title'])
+        );
+    }
 
-        // Status
+    private function scrollSpyMenuItems($data): array
+    {
+        return array_filter(
+            [
+                [
+                    'label'     =>  __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'anchor'    => '#article',
+                    'disabled'  =>  false,
+                ],
+                [
+                    'label'     => __('Impact goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'anchor'    => '#impactgoals',
+                    'disabled'  =>  empty(self::getPostMeta('impact_goals', [])),
+                ],
+                [
+                    'label'     => __('Resident involvement', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'anchor'    => '#residentInvolvement',
+                    'disabled'  =>  empty(self::getPostMeta('resident_involvement', null)),
+                ],
+                [
+                    'label'     => __('About', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'anchor'    => '#about',
+                    'disabled'  =>  empty($data['project']['meta']),
+                ],
+            ],
+            fn ($i) => empty($i['disabled'])
+        );
+    }
+
+    private function statusBar()
+    {
         if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
             $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
             $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
@@ -140,7 +259,7 @@ class Project
                 $isCancelled = true;
             }
 
-            $data['statusBar'] = array(
+            return array(
                 'label' => $statusTerm->name,
                 'value' => (int) $statusMeta ?? 0,
                 'explainer' => $statusTerm->description ?? '',
@@ -149,117 +268,65 @@ class Project
             );
         }
 
-        // Technologies
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_technology'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_technology'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        // estimatedBudget
-        $estimatedBudget = get_post_meta(get_the_id(), 'estimated_budget', true);
-        if (!empty($estimatedBudget)) {
-            $data['project']['meta'][] = array(
-                'title' => __('Estimated Budget', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => $estimatedBudget . ' kr'
-            );
-        }
-
-        // spentSoFar
-        $fundsUsed = get_post_meta(get_the_id(), 'funds_used', true);
-        if (!empty($fundsUsed)) {
-            $costSoFar = array_reduce($fundsUsed, function ($total, $item) {
-                return $total + (int)$item['amount'];
-            }, 0);
-
-            $data['project']['meta'][] = array(
-                'title' => __('Cost so far', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => $costSoFar . ' kr'
-            );
-        }
-
-        // Investments
-        $investmentTypes = get_post_meta(get_the_id(), 'investment_type', true);
-        if (!empty($investmentTypes)) {
-            $investments = array_filter(array_map(function ($type) {
-                $metaValue = get_post_meta(get_the_id(), 'investment_' . $type, true);
-
-                if (!is_numeric($metaValue)) {
-                    return false;
-                }
-
-                return array(
-                    'unit' => $type === 'amount' ? ' kr' : ' ' . __('hours', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'value' => $metaValue,
-                    'type' => $type
-                );
-            }, $investmentTypes), function ($item) {
-                return $item;
-            });
-            $data['project']['investments'] = $investments;
-
-            if (!empty($investments)) {
-                $investmentString = implode(', ', array_map(function ($investment) {
-                    return $investment['value'] . $investment['unit'];
-                }, $investments));
-
-                $data['project']['meta'][] = array(
-                    'title' => __('Investment', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'content' => $investmentString
-                );
-            }
-        }
-
-        // Sector
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_sector'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_sector'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        // Partners
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_partner'))) {
-            $data['project']['meta'][] = array(
-                'title' => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content' => array_reduce(get_the_terms(get_queried_object_id(), 'project_partner'), array($this, 'reduceTermsToString'), '')
-            );
-        }
-
-        /**
-         * Content pieces
-         */
-        $contentPieces = array(
-            array(
-                'title' => __('What', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
-                'content' => get_post_meta(get_the_id(), 'project_what', true),
-            ),
-            array(
-                'title' => __('Why', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
-                'content' => get_post_meta(get_the_id(), 'project_why', true),
-            ),
-            array(
-                'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
-                'content' => get_post_meta(get_the_id(), 'project_how', true),
-            ),
-        );
-
-        $data['project']['contentPieces'] = array_filter($contentPieces, function ($item) {
-            return !empty($item['content']);
-        });
-
-        if (!empty($data['project']['meta'])) {
-            $data['scrollSpyMenuItems'][] = array(
-                'label' => __('About', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'anchor' => '#about',
-            );
-        }
-
-        return $data;
+        return null;
     }
 
-    public static function reduceTermsToString($accumilator, $item)
+    private static function getPostTerms(string $taxonomy, int $postId = 0): array
+    {
+        $terms = get_the_terms(
+            $postId > 0 ? $postId : get_queried_object_id(),
+            $taxonomy
+        );
+
+        return !empty($terms) && !is_wp_error($terms) ? $terms : [];
+    }
+
+    private static function getPostMeta(string $metaKey = '', $defaultValue = null, int $postId = 0)
+    {
+        return !empty($metaKey)
+                ? in_array($metaKey, array_keys(self::queryPostMeta($postId))) && self::queryPostMeta($postId)[$metaKey] !== null
+                    ? is_string(self::queryPostMeta($postId)[$metaKey]) && empty(self::queryPostMeta($postId)[$metaKey])
+                        ? $defaultValue
+                        : (is_array(self::queryPostMeta($postId)[$metaKey]) && empty(self::queryPostMeta($postId)[$metaKey])
+                            ? $defaultValue
+                            : (self::queryPostMeta($postId)[$metaKey]))
+                    : ($defaultValue)
+                : (self::queryPostMeta($postId));
+    }
+
+    private static function queryPostMeta(int $postId = 0): array
+    {
+        return array_merge(
+            array_map(
+                [__CLASS__, 'mapRemoveNullVaulesFromArrays'],
+                array_map(
+                    [__CLASS__, 'mapUnserializePostMetaValue'],
+                    array_map(
+                        [__CLASS__, 'mapFlattenPostMetaValue'],
+                        get_post_meta($postId > 0 ? $postId : get_queried_object_id()) ?? []
+                    )
+                )
+            ),
+            []
+        );
+    }
+
+    private static function mapRemoveNullVaulesFromArrays($metaValue)
+    {
+        return is_array($metaValue) ? array_filter($metaValue, fn ($i) => $i !== null) : $metaValue;
+    }
+
+    private static function mapFlattenPostMetaValue(array $metaValue)
+    {
+        return $metaValue[0] ?? $metaValue;
+    }
+
+    private static function mapUnserializePostMetaValue($metaValue)
+    {
+        return maybe_unserialize($metaValue);
+    }
+
+    private static function reduceTermsToString($accumilator, $item)
     {
         if (empty($accumilator)) {
             $accumilator = '<span>' . $item->name . '</span>';
@@ -268,101 +335,5 @@ class Project
         }
 
         return $accumilator;
-    }
-
-    public function registerPostType()
-    {
-        $args = array(
-            'menu_icon'          => 'dashicons-portfolio',
-            'public'             => true,
-            'publicly_queryable' => true,
-            'show_ui'            => true,
-            'show_in_menu'       => true,
-            'query_var'          => true,
-            'capability_type'    => 'post',
-            'has_archive'        => true,
-            'hierarchical'       => false,
-            'supports'           => array('title', 'editor', 'thumbnail'),
-            'show_in_rest'       => true,
-        );
-
-        $restArgs = array(
-          'exclude_keys' => array('author', 'acf', 'guid', 'link', 'template', 'meta', 'taxonomy', 'menu_order')
-        );
-
-        $postType = new \ProjectManagerIntegration\Helper\PostType(
-            $this->postType,
-            __('Project', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Projects', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            $args,
-            array(),
-            $restArgs
-        );
-
-        // Statuses
-        $postType->addTaxonomy(
-            $this->postType . '_status',
-            __('Status', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Statuses', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => false, 'show_ui' => true)
-        );
-
-        // Technologies
-        $postType->addTaxonomy(
-            $this->postType . '_technology',
-            __('Technology', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
-        );
-
-        // Sectors
-        $postType->addTaxonomy(
-            $this->postType . '_sector',
-            __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Sectors', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
-        );
-
-        // Organisations
-        $postType->addTaxonomy(
-            $this->postType . '_organisation',
-            __('Organisation', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
-        );
-
-        // Global goals
-        $postType->addTaxonomy(
-            $this->postType . '_global_goal',
-            __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
-        );
-
-        // Categories
-        $postType->addTaxonomy(
-            $this->postType . '_category',
-            __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
-        );
-
-        // Partners
-        $postType->addTaxonomy(
-            $this->postType . '_partner',
-            __('Partner', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array('hierarchical' => true, 'show_ui' => false)
-        );
-
-        $postType->addTaxonomy(
-            'challenge_category',
-            __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            array(
-              'hierarchical' => false,
-              'show_ui' => true,
-            )
-        );
     }
 }
