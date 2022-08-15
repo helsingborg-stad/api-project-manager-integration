@@ -113,7 +113,7 @@
             
             {{-- Resident Involvement --}}
             @if ($project && !empty($project['resident_involvement']))
-                @foreach ($project['resident_involvement'] as $item)
+                @foreach ($project['resident_involvement'] as $residentInvolement)
                     <div id="residentInvolvement" class="box box--outline box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
                         <div class="box-content u-py-4">
                                 <h4>
@@ -121,7 +121,7 @@
                                 </h4>
                                 <p class="u-p-0">
                                     <b>
-                                        {{$item}}
+                                        {{$residentInvolement['description']}}
                                     </b>
                                 </p>
                         </div>

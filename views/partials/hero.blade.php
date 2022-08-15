@@ -33,14 +33,14 @@
                             @endif
                             <h1 class="project-header__title">{{ the_title() }}</h1>
 
-                            @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
+                            @if (!empty($project) && !empty($project['statusBar']) && $project['statusBar']['value'] > -1 && $project['statusBar']['label'])
                             <div class="statusbar u-mt-3">
                                 <div class="statusbar__header u-mb-1 explain">
-                                    <b class="statusbar__title">{{$statusBar['label']}}</b>
+                                    <b class="statusbar__title">{{$project['statusBar']['label']}}</b>
 
-                                    @if (!empty($statusBar['explainer'])) 
+                                    @if (!empty($project['statusBar']['explainer'])) 
                                         <span class="statusbar__explainer">
-                                            <span data-tooltip="{{$statusBar['explainer']}}" data-tooltip-bottom>
+                                            <span data-tooltip="{{$project['statusBar']['explainer']}}" data-tooltip-bottom>
                                                 <i class="pricon pricon-info-o"></i>
                                             </span>
                                         </span>
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="statusbar__content">
                                 <div class="c-progressbar">
-                                        <div class="c-progressbar__value {{$statusBar['isCancelled'] ? 'is-disabled' : ''}}" style="width: {{$statusBar['value']}}%;"></div>                
+                                        <div class="c-progressbar__value {{$project['statusBar']['isCancelled'] ? 'is-disabled' : ''}}" style="width: {{$project['statusBar']['value']}}%;"></div>                
                                     </div>
                                 </div>
                             </div>
