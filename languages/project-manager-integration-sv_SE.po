@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
 "POT-Creation-Date: 2022-03-07 15:42+0100\n"
-"PO-Revision-Date: 2022-03-07 15:43+0100\n"
+"PO-Revision-Date: 2022-09-22 12:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -248,7 +248,7 @@ msgstr "Länkar"
 
 #: source/php/PostTypes/Platform.php:30
 msgid "Initiatives related to the platform"
-msgstr "Några innovationsinnatitiv relaterade till plattformen"
+msgstr "Några innovationsinitiativ relaterade till plattformen"
 
 #: source/php/PostTypes/Platform.php:31 source/php/PostTypes/Platform.php:79
 msgid "Roadmap"
