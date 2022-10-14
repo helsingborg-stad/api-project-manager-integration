@@ -76,8 +76,8 @@
             </style>
             
             {{-- Impact goals --}}
-            @if ($project && !empty($project['impact_goals']))
-                @foreach ($project['impact_goals'] as $item)
+            @if ($project && !empty($project['impactGoals']))
+                @foreach ($project['impactGoals'] as $item)
                     <div id="impactgoals" class="box box--outline box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
                         <div class="box-content u-py-4">
                             @if ($item['impact_goal_completed'])
@@ -112,8 +112,8 @@
 
             
             {{-- Resident Involvement --}}
-            @if ($project && !empty($project['resident_involvement']))
-                @foreach ($project['resident_involvement'] as $residentInvolement)
+            @if ($project && !empty($project['residentInvolvement']))
+                @foreach ($project['residentInvolvement'] as $residentInvolement)
                     <div id="residentInvolvement" class="box box--outline box-filled box-filled-1 box-project box-project-contact js-scroll-spy-section">
                         <div class="box-content u-py-4">
                                 <h4>
