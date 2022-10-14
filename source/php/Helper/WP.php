@@ -8,7 +8,7 @@ class WP
     {
         $createString = fn ($term) => '<span>' . $term->name . '</span>';
         return array_reduce(
-            WP::getPostTerms($taxonomy, $postId),
+            self::getPostTerms($taxonomy, $postId),
             fn ($accumilator, $term) => empty($accumilator)
                 ? $createString($term)
                 : $accumilator . ', ' . $createString($term),
@@ -43,33 +43,25 @@ class WP
 
     private static function queryPostMeta(int $postId = 0): array
     {
+        $post = $postId > 0 ? $postId : get_queried_object_id();
+
+        $removeNullValues = fn ($arr) => array_filter($arr, fn ($i) => $i !== null);
+        $removeNullVaulesFromArrays = fn ($meta) => is_array($meta) ? $removeNullValues($meta) : $meta;
+        $unserializeMetaValue = fn ($meta) => maybe_unserialize($meta);
+        $flattenMetaValue = fn ($meta) => $meta[0] ?? $meta;
+
         return array_merge(
             array_map(
-                [__CLASS__, 'mapRemoveNullVaulesFromArrays'],
+                $removeNullVaulesFromArrays,
                 array_map(
-                    [__CLASS__, 'mapUnserializePostMetaValue'],
+                    $unserializeMetaValue,
                     array_map(
-                        [__CLASS__, 'mapFlattenPostMetaValue'],
-                        get_post_meta($postId > 0 ? $postId : get_queried_object_id()) ?? []
+                        $flattenMetaValue,
+                        get_post_meta($post) ?? []
                     )
                 )
             ),
             []
         );
-    }
-
-    private static function mapRemoveNullVaulesFromArrays($metaValue)
-    {
-        return is_array($metaValue) ? array_filter($metaValue, fn ($i) => $i !== null) : $metaValue;
-    }
-
-    private static function mapFlattenPostMetaValue(array $metaValue)
-    {
-        return $metaValue[0] ?? $metaValue;
-    }
-
-    private static function mapUnserializePostMetaValue($metaValue)
-    {
-        return maybe_unserialize($metaValue);
     }
 }

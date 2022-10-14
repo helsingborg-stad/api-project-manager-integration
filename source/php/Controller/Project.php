@@ -37,7 +37,6 @@ class Project
                 'files'                 =>  WP::getPostMeta('files', []),
                 'contacts'              =>  WP::getPostMeta('contacts', []),
                 'links'                 =>  WP::getPostMeta('links', []),
-                'address'               =>  WP::getPostMeta('address', []),
                 'residentInvolvement'   =>  WP::getPostMeta('resident_involvement', []),
                 'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
             ]
