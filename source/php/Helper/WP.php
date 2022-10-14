@@ -32,15 +32,17 @@ class WP
 
     public static function getPostMeta(string $metaKey = '', $defaultValue = null, int $postId = 0)
     {
-        return !empty($metaKey)
-                ? in_array($metaKey, array_keys(self::queryPostMeta($postId))) && self::queryPostMeta($postId)[$metaKey] !== null
-                    ? is_string(self::queryPostMeta($postId)[$metaKey]) && empty(self::queryPostMeta($postId)[$metaKey])
-                        ? $defaultValue
-                        : (is_array(self::queryPostMeta($postId)[$metaKey]) && empty(self::queryPostMeta($postId)[$metaKey])
-                            ? $defaultValue
-                            : (self::queryPostMeta($postId)[$metaKey]))
-                    : ($defaultValue)
-                : (self::queryPostMeta($postId));
+        $postMeta = self::queryPostMeta($postId);
+
+        $isNull = fn () => !in_array($metaKey, array_keys($postMeta)) || $postMeta[$metaKey] === null;
+        $isEmptyString = fn () => is_string($postMeta[$metaKey]) && empty($postMeta[$metaKey]);
+        $isEmptyArray = fn () => is_array($postMeta[$metaKey]) && empty($postMeta[$metaKey]);
+
+        $caseEmptyArray = fn () => $isEmptyArray() ? $defaultValue : $postMeta[$metaKey];
+        $caseEmptyString = fn () => $isEmptyString() ? $defaultValue : $caseEmptyArray();
+        $caseNull = fn () => $isNull() ? $defaultValue : $caseEmptyString();
+
+        return !empty($metaKey) ? $caseNull() : $postMeta;
     }
 
     private static function queryPostMeta(int $postId = 0): array
