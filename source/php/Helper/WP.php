@@ -6,7 +6,14 @@ class WP
 {
     public static function getPostTermsJoined(string $taxonomy, int $postId = 0): string
     {
-        return array_reduce(WP::getPostTerms($taxonomy, $postId), array(__CLASS__, 'reduceTermsToString'), '');
+        $createString = fn ($term) => '<span>' . $term->name . '</span>';
+        return array_reduce(
+            WP::getPostTerms($taxonomy, $postId),
+            fn ($accumilator, $term) => empty($accumilator)
+                ? $createString($term)
+                : $accumilator . ', ' . $createString($term),
+            ''
+        );
     }
 
     public static function getPostTerms(string $taxonomy, int $postId = 0): array
@@ -17,17 +24,6 @@ class WP
         );
 
         return !empty($terms) && !is_wp_error($terms) ? $terms : [];
-    }
-
-    private static function reduceTermsToString($accumilator, $item)
-    {
-        if (empty($accumilator)) {
-            $accumilator = '<span>' . $item->name . '</span>';
-        } else {
-            $accumilator .= ', ' . '<span>' . $item->name . '</span>';
-        }
-
-        return $accumilator;
     }
 
     public static function getPostMeta(string $metaKey = '', $defaultValue = null, int $postId = 0)
