@@ -43,8 +43,6 @@ class Project
             ]
         );
 
-        // var_dump($data['project']['resident_involvement']);
-        // var_dump($data['project']['residentInvolvement']);
         $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
 
         return $data;
