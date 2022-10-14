@@ -115,11 +115,6 @@ class Project
                 'url'       => null,
             ],
             [
-                'title'     => __('Investment', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content'   => '$investmentString',
-                'url'       => null,
-            ],
-            [
                 'title'     => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content'   => WP::getPostTermsJoined('project_sector') ?? null,
                 'url'       => null,
