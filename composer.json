@@ -20,5 +20,13 @@
   "require": {
     "composer/installers": "~1.0",
     "helsingborg-stad/acf-export-manager": ">=1.0.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "autoload": {
+    "psr-4": {"ProjectManagerIntegration\\": "source/php/"}
   }
 }
