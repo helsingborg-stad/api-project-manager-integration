@@ -134,15 +134,42 @@ class App
             $args['labels'] = array(
                 'name'              => $postTypesToModify[$postType]['plural'],
                 'singular_name'     => $postTypesToModify[$postType]['singular'],
-                'add_new'             => sprintf(__('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['singular'])),
-                'add_new_item'        => sprintf(__('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['singular'])),
-                'edit_item'           => sprintf(__('Edit %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['singular'])),
-                'new_item'            => sprintf(__('New %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['singular'])),
-                'view_item'           => sprintf(__('View %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['singular'])),
-                'search_items'        => sprintf(__('Search %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['plural'])),
-                'not_found'           => sprintf(__('No %s found', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['plural'])),
-                'not_found_in_trash'  => sprintf(__('No %s found in trash', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['plural'])),
-                'parent_item_colon'   => sprintf(__('Parent %s:', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($postTypesToModify[$postType]['singular'])),
+                'add_new'             => sprintf(
+                    __('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['singular'])
+                ),
+                'add_new_item'        => sprintf(
+                    __('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['singular'])
+                ),
+                'edit_item'           => sprintf(
+                    __('Edit %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['singular'])
+                ),
+                'new_item'            => sprintf(
+                    __('New %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['singular'])
+                ),
+                'view_item'           => sprintf(
+                    __('View %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['singular'])
+                ),
+                'search_items'        => sprintf(
+                    __('Search %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['plural'])
+                ),
+                'not_found'           => sprintf(
+                    __('No %s found', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['plural'])
+                ),
+                'not_found_in_trash'  => sprintf(
+                    __('No %s found in trash', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['plural'])
+                ),
+                'parent_item_colon'   => sprintf(
+                    __('Parent %s:', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    strtolower($postTypesToModify[$postType]['singular'])
+                ),
                 'menu_name'           => $postTypesToModify[$postType]['plural'],
             );
         }
