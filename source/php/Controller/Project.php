@@ -9,6 +9,7 @@ class Project
     public function __construct()
     {
         add_filter('Municipio/viewData', array($this, 'viewController'));
+        add_filter('the_content', array($this, 'replaceContentWithContentPieces'), 10, 1);
     }
 
     public function viewController($data)
@@ -174,5 +175,22 @@ class Project
         }
 
         return null;
+    }
+
+    public function replaceContentWithContentPieces($content)
+    {
+        if (!is_singular('project')) {
+            return $content;
+        }
+
+        $controlledContent = implode(
+            PHP_EOL,
+            array_map(
+                fn ($piece) => "<h2>{$piece['title']}</h2>" . PHP_EOL . $piece['content'],
+                apply_filters('Municipio/viewData', [])['project']['contentPieces'] ?? []
+            )
+        );
+
+        return "<div>{$controlledContent}</div>";
     }
 }
