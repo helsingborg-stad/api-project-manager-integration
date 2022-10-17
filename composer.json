@@ -1,8 +1,13 @@
 {
-  "name": "helsingborg-stad/api-project-manager-integration",
-  "description": "Manage projects",
+  "name": "helsingborg-stad/project-manager-integration",
+  "description": "Imports and displays projects from Project Manager API.",
   "type": "wordpress-plugin",
   "license": "MIT",
+  "scripts": {
+      "test": "./vendor/bin/phpunit --testdox",
+      "coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --testdox",
+      "minimal": "./vendor/bin/phpunit"
+  },
   "authors": [
     {
       "name": "Jonatan Hanson",
@@ -17,16 +22,22 @@
       "email": "ehsan.zilaei@helsingborg.se"
     }
   ],
+  "autoload": {
+      "psr-4": {"ProjectManagerIntegration\\": "source/php/"}
+  },
+  "minimum-stability": "stable",
   "require": {
-    "composer/installers": "~1.0",
-    "helsingborg-stad/acf-export-manager": ">=1.0.0"
+    "helsingborg-stad/acf-export-manager": ">=1.0.0",
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+      "brain/monkey": "^2.6",
+      "codedungeon/phpunit-result-printer": "^0.31.0",
+      "phpunit/phpunit": "^9.5"
   },
   "config": {
     "allow-plugins": {
       "composer/installers": true
     }
-  },
-  "autoload": {
-    "psr-4": {"ProjectManagerIntegration\\": "source/php/"}
   }
 }
