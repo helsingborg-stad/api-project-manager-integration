@@ -2,6 +2,8 @@
 
 namespace ProjectManagerIntegration\Controller;
 
+use ProjectManagerIntegration\Helper\WP;
+
 class Platform
 {
     public $postType = 'platform';
@@ -19,9 +21,6 @@ class Platform
 
         $data = is_array($data) ? $data : [];
 
-        $featuredImagePosX = get_post_meta(get_the_id(), 'cover_image_position_x', true);
-        $featuredImagePosY = get_post_meta(get_the_id(), 'cover_image_position_y', true);
-
         $data['labels'] = [
             'contacts' => __('Contacts', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             'documents' => __('Documents', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -31,28 +30,31 @@ class Platform
         ];
 
         $data['featuredImagePosition'] = array();
-        $data['featuredImagePosition']['x'] = !empty($featuredImagePosX) ? $featuredImagePosX : 'center';
-        $data['featuredImagePosition']['y'] = !empty($featuredImagePosY) ? $featuredImagePosY : 'center';
+        $data['featuredImagePosition']['x'] = WP::getPostMeta('cover_image_position_x', 'center');
+        $data['featuredImagePosition']['y'] = WP::getPostMeta('cover_image_position_y', 'center');
 
-        $data['features'] = get_post_meta(get_the_id(), 'platform_features', true) ?? [];
-        $data['links'] = get_post_meta(get_the_id(), 'links', true) ?? [];
-        $data['contacts'] = get_post_meta(get_the_id(), 'contacts', true) ?? [];
+        $data['features'] = WP::getPostMeta('platform_features', []);
+        $data['links'] = WP::getPostMeta('links', []);
+        $data['contacts'] = get_post_meta(WP::getPostMeta('contacts', []));
 
-        $data['files'] = self::buildFiles(get_post_meta(get_the_id(), 'files', true) ?? []);
-        $data['roadmap'] = self::buildRoadmap(get_post_meta(get_the_id(), 'platform_roadmap', true) ?? []);
-        $data['youtubeUrl'] = \build_youtube_url(get_post_meta(get_the_id(), 'video_url', true) ?? '');
+        $data['files'] = self::buildFiles(WP::getPostMeta('files', []));
+        $data['roadmap'] = self::buildRoadmap(WP::getPostMeta('platform_roadmap', []));
+        $data['youtubeUrl'] = \build_youtube_url(WP::getPostMeta('video_url', ''));
 
-        $data['getStartedHeading'] = get_post_meta(get_the_id(), 'get_started_heading', true) ?? __('Get started', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
-        $data['getStartedContent'] = get_post_meta(get_the_id(), 'get_started_content', true) ?? '';
+        $data['getStartedHeading'] = WP::getPostMeta(
+            'get_started_heading',
+            __('Get started', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
+        );
+        $data['getStartedContent'] = WP::getPostMeta('get_started_content', '');
 
         $data['projects'] = get_posts([
             'post_type' => 'project',
             'posts_per_page' => -1,
             'meta_key' => 'platforms',
-            'meta_value' => get_post_meta(get_queried_object_id(), 'uuid', true),
+            'meta_value' => WP::getPostMeta('uuid', 0),
             'meta_compare' => 'LIKE'
         ]);
-
+        
         $data['scrollSpyMenuItems'] =  array();
         $data['scrollSpyMenuItems'][] = array(
             'label' => __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
