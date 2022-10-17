@@ -3,6 +3,7 @@
 namespace ProjectManagerIntegration\Controller;
 
 use ProjectManagerIntegration\Helper\WP;
+use ProjectManagerIntegration\UI\ProjectStatus;
 
 class Project
 {
@@ -34,7 +35,7 @@ class Project
             [
                 'contentPieces'         =>  $this->contentPieces(),
                 'meta'                  =>  $this->meta(),
-                'statusBar'             =>  $this->statusBar(),
+                'statusBar'             =>  ProjectStatus::create(),
                 'files'                 =>  WP::getPostMeta('files', []),
                 'contacts'              =>  WP::getPostMeta('contacts', []),
                 'links'                 =>  WP::getPostMeta('links', []),
@@ -151,30 +152,6 @@ class Project
                 'disabled'  =>  empty($data['project']['meta']),
             ],
         ]);
-    }
-
-    private function statusBar()
-    {
-        if (!empty(get_the_terms(get_queried_object_id(), 'project_status'))) {
-            $statusTerm = get_the_terms(get_queried_object_id(), 'project_status')[0];
-            $statusMeta = get_term_meta($statusTerm->term_id, 'progress_value', true);
-            $prevStatusMeta = get_post_meta(get_the_id(), 'previous_status_progress_value', true);
-            $isCancelled = 0 > (int) $statusMeta;
-
-            if ($isCancelled) {
-                $statusMeta = (int) $prevStatusMeta >= 0 ? $prevStatusMeta : 0;
-            }
-
-            return array(
-                'label' => $statusTerm->name,
-                'value' => (int) $statusMeta ?? 0,
-                'explainer' => $statusTerm->description ?? '',
-                'explainer_html' => term_description($statusTerm->term_id) ?? '',
-                'isCancelled' => $isCancelled,
-            );
-        }
-
-        return null;
     }
 
     public function replaceContentWithContentPieces($content)
