@@ -6,7 +6,7 @@
  * Description:       Imports and displays projects from Project Manager API.
  * Version:           1.0.0
  * Author:            Jonatan Hanson
- * Author URI:        (#plugin_author_url#)
+ * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       project-manager-integration
@@ -26,15 +26,12 @@ define('PROJECTMANAGERINTEGRATION_TEXTDOMAIN', 'project-manager-integration');
 define('PROJECTMANAGERINTEGRATION_VIEW_PATH', PROJECTMANAGERINTEGRATION_PATH . 'views/');
 define('PROJECTMANAGERINTEGRATION_CACHE_DIR', trailingslashit(wp_upload_dir()['basedir']) . 'cache/blade-cache/');
 
-
 load_plugin_textdomain('project-manager-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once PROJECTMANAGERINTEGRATION_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once PROJECTMANAGERINTEGRATION_PATH . 'Public.php';
 
-if (file_exists(PROJECTMANAGERINTEGRATION_PATH . 'vendor/autoload.php')) {
-    require_once PROJECTMANAGERINTEGRATION_PATH . 'vendor/autoload.php';
-}
+// Register the autoloader
+require __DIR__ . '/vendor/autoload.php';
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {
@@ -50,12 +47,6 @@ add_action('plugins_loaded', function () {
     ));
     $acfExportManager->import();
 });
-
-// Instantiate and register the autoloader
-$loader = new ProjectManagerIntegration\Vendor\Psr4ClassLoader();
-$loader->addPrefix('ProjectManagerIntegration', PROJECTMANAGERINTEGRATION_PATH);
-$loader->addPrefix('ProjectManagerIntegration', PROJECTMANAGERINTEGRATION_PATH . 'source/php/');
-$loader->register();
 
 register_deactivation_hook(plugin_basename(__FILE__), '\ProjectManagerIntegration\Import\Setup::removeCronJob');
 
