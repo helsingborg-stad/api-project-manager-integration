@@ -6,10 +6,7 @@
 node_modules/
 
 # ignore composer vendor directory
-
-
-# ignore composer lock file
-composer.lock
+/vendor
 
 # ignore jekyll build directory
 /_site
@@ -49,6 +46,7 @@ Thumbs.db
 # ignore dist temp folder
 dist/temp
 dist/.temp
+dist
 
 # -------------------------
 # BEGIN Whitelisted Files
@@ -57,4 +55,4 @@ dist/.temp
 # track these files, if they exist
 !.gitignore
 !.editorconfig
-!.example-env
+!.github
