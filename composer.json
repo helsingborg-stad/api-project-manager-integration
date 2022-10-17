@@ -1,5 +1,5 @@
 {
-  "name": "helsingborg-stad/project-manager-integration",
+  "name": "helsingborg-stad/api-project-manager-integration",
   "description": "Imports and displays projects from Project Manager API.",
   "type": "wordpress-plugin",
   "license": "MIT",
