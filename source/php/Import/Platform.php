@@ -34,8 +34,8 @@ class Platform extends Importer
         extract($post);
 
         $data = array(
-        //   $this->postType . '_status' => $status ?? null,
-        //   $this->postType . '_partner' => $partner ?? null,
+            //   $this->postType . '_status' => $status ?? null,
+            //   $this->postType . '_partner' => $partner ?? null,
         );
 
         $this->taxonomies = array_keys($data);
@@ -48,19 +48,19 @@ class Platform extends Importer
         extract($post);
 
         $data = array(
-          'uuid' => $id,
-          'last_modified' => $modified,
-          'files' => $files ?? null,
-          'contacts' => $contacts ?? null,
-          'links' => $links ?? null,
-          'video_url' => $video_url ?? null,
-          'platform_features' => $platform_features ?? null,
-          'platform_roadmap' => $platform_roadmap ?? null,
-          'cover_image' => $cover_image ?? null,
-          'cover_image_position_x' => $cover_image_position_x ?? null,
-          'cover_image_position_y' => $cover_image_position_y ?? null,
-          'get_started_heading' => $get_started_heading ?? null,
-          'get_started_content' => $get_started_content ?? null,
+            'uuid' => $id,
+            'last_modified' => $modified,
+            'files' => $files ?? null,
+            'contacts' => $contacts ?? null,
+            'links' => $links ?? null,
+            'video_url' => $video_url ?? null,
+            'platform_features' => $platform_features ?? null,
+            'platform_roadmap' => $platform_roadmap ?? null,
+            'cover_image' => $cover_image ?? null,
+            'cover_image_position_x' => $cover_image_position_x ?? null,
+            'cover_image_position_y' => $cover_image_position_y ?? null,
+            'get_started_heading' => $get_started_heading ?? null,
+            'get_started_content' => $get_started_content ?? null,
         );
 
         return $data;

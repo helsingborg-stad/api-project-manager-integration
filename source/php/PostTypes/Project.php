@@ -95,7 +95,7 @@ class Project
                 'slug'      =>  'challenge_category',
                 'singular'  =>  __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'plural'    =>  __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'args'      =>  [ 'hierarchical' => false, 'show_ui' => true]
+                'args'      =>  ['hierarchical' => false, 'show_ui' => true]
             ],
         ];
     }

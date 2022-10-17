@@ -54,7 +54,7 @@ class Platform
             'meta_value' => WP::getPostMeta('uuid', 0),
             'meta_compare' => 'LIKE'
         ]);
-        
+
         $data['scrollSpyMenuItems'] =  array();
         $data['scrollSpyMenuItems'][] = array(
             'label' => __('Background', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -191,8 +191,8 @@ class Platform
             'itemsPerRow' => $itemsPerRow,
             'flickityOptions' => $flickityOptions,
             'gridClasses' => [
-                3 => array('grid-xs-8','grid-md-5', 'grid-lg-4'),
-                4 => array('grid-xs-8','grid-md-5', 'grid-lg-3'),
+                3 => array('grid-xs-8', 'grid-md-5', 'grid-lg-4'),
+                4 => array('grid-xs-8', 'grid-md-5', 'grid-lg-3'),
             ][$itemsPerRow],
             'statusColors' => [
                 'not-started' => '#ffe200',
@@ -225,10 +225,12 @@ class Platform
                 ? $acc['pastCount'] + 1
                 : $acc['pastCount'];
 
-            if ($pastCount >= $acc['itemsPerRow']
+            if (
+                $pastCount >= $acc['itemsPerRow']
                 && $acc['totalCount'] >= $acc['itemsPerRow'] * 2
                 && !$item['past']
-                && !$acc['hasInitialSelect']) {
+                && !$acc['hasInitialSelect']
+            ) {
                 $item['classes'][] = 'is-initial-select';
             }
 

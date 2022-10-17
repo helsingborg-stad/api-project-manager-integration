@@ -16,7 +16,7 @@ class Options
                 'parent_slug' => 'edit.php?post_type=project',
                 'capability' => 'manage_options'
             ));
-            
+
             acf_add_options_sub_page(array(
                 'page_title' => _x('Challenge options', 'ACF', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'menu_title' => _x('Challenge options', 'Project Manager Integration settings', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -80,10 +80,10 @@ class Options
 
         // Associated sort, retain keys.
         asort($fieldValues, SORT_STRING);
-        
+
         $field['choices'] = array(
-                0 => __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
-            ) + $fieldValues;
+            0 => __('Import all organisations', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
+        ) + $fieldValues;
 
         return $field;
     }

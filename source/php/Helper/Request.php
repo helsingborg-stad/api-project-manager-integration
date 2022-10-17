@@ -33,8 +33,8 @@ class Request
         }
 
         $returnData = array(
-          'body' => $body,
-          'headers' => $headers,
+            'body' => $body,
+            'headers' => $headers,
         );
 
         return $returnData;

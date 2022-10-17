@@ -9,7 +9,7 @@ class Theme
     private $VIEWS_PATHS;
     // private $CONTROLLER_PATH;
     private $CACHE_PATH;
-    
+
     public function __construct()
     {
         $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
@@ -36,9 +36,9 @@ class Theme
 
         // If no posts.
         // TODO: Will not post any output but placeholder exists for feature improvements.
-//        if (!isset($postCount) || !$postCount || $postCount == 0) {
-//            $output = __('Could not find any', 'import_projects');
-//        }‚
+        //        if (!isset($postCount) || !$postCount || $postCount == 0) {
+        //            $output = __('Could not find any', 'import_projects');
+        //        }‚
 
         // If posts.
         if (isset($postCount) && !$postCount || $postCount > 0) {
@@ -119,8 +119,8 @@ class Theme
 
                 //Calc center position
                 $center = array(
-                    'lat' => $lat/count($result),
-                    'lng' => $lng/count($result)
+                    'lat' => $lat / count($result),
+                    'lng' => $lng / count($result)
                 );
             }
         }

@@ -36,9 +36,11 @@ class Setup
             return $response;
         }
 
-        if (!isset($payload['content'])
+        if (
+            !isset($payload['content'])
             || !isset($payload['content']->post)
-            || !isset($payload['content']->post->post_type)) {
+            || !isset($payload['content']->post->post_type)
+        ) {
             $response['msg'] = 'PostType data is missing';
             return $response;
         }
@@ -51,12 +53,12 @@ class Setup
         }
 
         $postType = $payload['content']->post->post_type;
-        
+
         $baseUrl = get_field('project_api_url', 'option');
         $url = $baseUrl  . '/' . $postType;
-        
+
         $Importer = new $importerClassName($url, $payload['content']->post->ID);
-        
+
         $response['msg'] = 'Updated post ' . $payload['content']->post->ID;
 
         if (empty($Importer->addedPostsId)) {
@@ -68,8 +70,10 @@ class Setup
 
     public function importPosts()
     {
-        if (!isset($_GET['import_projects'])
-            || empty($_GET['post_type'])) {
+        if (
+            !isset($_GET['import_projects'])
+            || empty($_GET['post_type'])
+        ) {
             return;
         }
 
@@ -80,7 +84,7 @@ class Setup
             die;
             return;
         }
-        
+
         $baseUrl = get_field('project_api_url', 'option');
         $url = $baseUrl . '/' . $_GET['post_type'];
 
@@ -88,9 +92,9 @@ class Setup
     }
 
     /**
-    * Add manual import button
-    * @return bool|null
-    */
+     * Add manual import button
+     * @return bool|null
+     */
     public function addImportButton()
     {
         global $wp;
@@ -102,7 +106,7 @@ class Setup
         }
 
         $queryArgs = array_merge($wp->query_vars, array('import_projects' => 'true'));
-        echo '<a href="' . add_query_arg('import_projects', 'true', $_SERVER['REQUEST_URI']) . '" class="button-primary extraspace" style="float: right; margin-right: 10px;">'. __("Import", PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . __(ucfirst(get_current_screen()->post_type), PROJECTMANAGERINTEGRATION_TEXTDOMAIN) .'</a>';
+        echo '<a href="' . add_query_arg('import_projects', 'true', $_SERVER['REQUEST_URI']) . '" class="button-primary extraspace" style="float: right; margin-right: 10px;">' . __("Import", PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . __(ucfirst(get_current_screen()->post_type), PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '</a>';
     }
 
     /**

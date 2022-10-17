@@ -50,7 +50,7 @@ class Algolia
 
         return $result;
     }
-    
+
     public function addSearchableAttributes($searchableAttributes)
     {
         return array_merge($searchableAttributes, self::$postMetaKeysToIndex, self::$taxonomiesToIndex);
@@ -126,7 +126,7 @@ class Algolia
         if (is_search()) {
             return true;
         }
-        
+
         return false;
     }
 

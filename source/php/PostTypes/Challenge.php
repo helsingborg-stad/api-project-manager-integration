@@ -28,7 +28,7 @@ class Challenge
         );
 
         $restArgs = array(
-          'exclude_keys' => array('author', 'acf', 'guid', 'link', 'template', 'meta', 'taxonomy', 'menu_order')
+            'exclude_keys' => array('author', 'acf', 'guid', 'link', 'template', 'meta', 'taxonomy', 'menu_order')
         );
 
         $postType = new \ProjectManagerIntegration\Helper\PostType(
@@ -45,7 +45,7 @@ class Challenge
 
         // Global goals
         $postType->addTaxonomy(
-            'project'. '_global_goal',
+            'project' . '_global_goal',
             __('Global goal', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Global goals', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array('hierarchical' => true, 'show_ui' => true)
@@ -56,8 +56,8 @@ class Challenge
             __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Categories', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array(
-              'hierarchical' => false,
-              'show_ui' => true,
+                'hierarchical' => false,
+                'show_ui' => true,
             )
         );
 
@@ -66,8 +66,8 @@ class Challenge
             __('Focal Point', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Focal Points', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             array(
-              'hierarchical' => false,
-              'show_ui' => true,
+                'hierarchical' => false,
+                'show_ui' => true,
             )
         );
     }

@@ -52,8 +52,8 @@ class App
         wp_enqueue_style(
             'project-manager-integration-css',
             PROJECTMANAGERINTEGRATION_URL .
-                        '/dist/' .
-                        CacheBust::name('css/project-manager-integration.css'),
+                '/dist/' .
+                CacheBust::name('css/project-manager-integration.css'),
             array(),
             ''
         );
@@ -68,8 +68,8 @@ class App
         wp_register_script(
             'project-manager-integration-js',
             PROJECTMANAGERINTEGRATION_URL .
-                                '/dist/' .
-                                CacheBust::name('js/project-manager-integration.js'),
+                '/dist/' .
+                CacheBust::name('js/project-manager-integration.js'),
             array('jquery'),
             false,
             true
@@ -127,8 +127,10 @@ class App
         }
 
         // Alter labels
-        if (!empty($postTypesToModify[$postType]['plural'])
-        && !empty($postTypesToModify[$postType]['singular'])) {
+        if (
+            !empty($postTypesToModify[$postType]['plural'])
+            && !empty($postTypesToModify[$postType]['singular'])
+        ) {
             $args['labels'] = array(
                 'name'              => $postTypesToModify[$postType]['plural'],
                 'singular_name'     => $postTypesToModify[$postType]['singular'],

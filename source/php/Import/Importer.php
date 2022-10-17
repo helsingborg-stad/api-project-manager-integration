@@ -38,13 +38,13 @@ class Importer
         $url = $this->url . '/' . $postId;
 
         $requestResponse = \ProjectManagerIntegration\Helper\Request::get($url);
-        
+
         if (is_wp_error($requestResponse)) {
             error_log(print_r($url, true));
             error_log(print_r($requestResponse, true));
             return;
         }
-        
+
         $this->savePost($requestResponse['body']);
     }
 
@@ -53,7 +53,7 @@ class Importer
         if (function_exists('kses_remove_filters')) {
             kses_remove_filters();
         }
-        
+
         $filterQueryArgs = array();
 
         $organisationFilter = get_field('organisation_filter', 'option');
@@ -107,7 +107,7 @@ class Importer
             foreach ($termsToRemove as $term) {
                 if ($term->count === 0) {
                     $deletedTerm = wp_delete_term($term->term_id, $term->taxonomy);
-                    
+
                     if (is_wp_error($deletedTerm)) {
                         error_log(print_r($deletedTerm, true));
                     }
@@ -161,8 +161,8 @@ class Importer
         //Get matching post
         $postObject = $this->getPost(
             array(
-              'key' => 'uuid',
-              'value' => $id
+                'key' => 'uuid',
+                'value' => $id
             )
         );
 
@@ -174,16 +174,16 @@ class Importer
         // Not existing, create new
         if (!isset($postObject->ID)) {
             $postData = array(
-              'post_title' => $title['rendered'] ?? '',
-              'post_content' => $content['rendered'] ?? '',
-              'post_name' => $slug,
-              'post_type' => $this->postType,
-              'post_status' => 'publish',
-              'post_date' => $date ?? '',
-              'post_date_gmt' => $date_gmt ?? '',
-              'post_modified' => $modified ?? '',
-              'post_date_modified' => $modified_gmt ?? '',
-              'menu_order' => $menu_order ?? 0,
+                'post_title' => $title['rendered'] ?? '',
+                'post_content' => $content['rendered'] ?? '',
+                'post_name' => $slug,
+                'post_type' => $this->postType,
+                'post_status' => 'publish',
+                'post_date' => $date ?? '',
+                'post_date_gmt' => $date_gmt ?? '',
+                'post_modified' => $modified ?? '',
+                'post_date_modified' => $modified_gmt ?? '',
+                'menu_order' => $menu_order ?? 0,
             );
             $postId = wp_insert_post($postData);
 
@@ -200,28 +200,28 @@ class Importer
 
 
             $remotePost = array(
-                    'ID' => $postId,
-                    'post_title' => $title['rendered'] ?? '',
-                    'post_content' => $content['rendered'] ?? '',
-                    'post_name' => $slug,
-                    'post_date' => $date ?? '',
-                    'post_date_gmt' => $date_gmt ?? '',
-                    'post_modified' => $modified ?? '',
-                    'post_date_modified' => $modified_gmt ?? '',
-                    'menu_order' => $menu_order ?? 0,
-                );
+                'ID' => $postId,
+                'post_title' => $title['rendered'] ?? '',
+                'post_content' => $content['rendered'] ?? '',
+                'post_name' => $slug,
+                'post_date' => $date ?? '',
+                'post_date_gmt' => $date_gmt ?? '',
+                'post_modified' => $modified ?? '',
+                'post_date_modified' => $modified_gmt ?? '',
+                'menu_order' => $menu_order ?? 0,
+            );
 
             $localPost = array(
-                    'ID' => $postId,
-                    'post_title' => $postObject->post_title,
-                    'post_content' => $postObject->post_content,
-                    'post_name' => $postObject->post_name,
-                    'post_date' => $postObject->date ?? '',
-                    'post_date_gmt' => $postObject->date_gmt ?? '',
-                    'post_modified' => $postObject->modified ?? '',
-                    'post_date_modified' => $postObject->modified_gmt ?? '',
-                    'menu_order' => $postObject->menu_order ?? 0,
-                );
+                'ID' => $postId,
+                'post_title' => $postObject->post_title,
+                'post_content' => $postObject->post_content,
+                'post_name' => $postObject->post_name,
+                'post_date' => $postObject->date ?? '',
+                'post_date_gmt' => $postObject->date_gmt ?? '',
+                'post_modified' => $postObject->modified ?? '',
+                'post_date_modified' => $postObject->modified_gmt ?? '',
+                'menu_order' => $postObject->menu_order ?? 0,
+            );
 
             // Update if post object is modified
             if ($localPost !== $remotePost) {
@@ -245,12 +245,14 @@ class Importer
     public function updateFeatureImage($post, $idOfCopyPost)
     {
         extract($post);
-        
+
         // TODO: Fix naive fetching of JSON elemetns.
-        if (!isset($_links['wp:featuredmedia'])
+        if (
+            !isset($_links['wp:featuredmedia'])
             || !is_array($_links['wp:featuredmedia'])
             || !isset($_links['wp:featuredmedia'][0])
-            || !isset($_links['wp:featuredmedia'][0]['href'])) {
+            || !isset($_links['wp:featuredmedia'][0]['href'])
+        ) {
             return;
         }
 
@@ -315,7 +317,7 @@ class Importer
         }
 
         $filename = sanitize_file_name(basename($url));
-        
+
         if (stripos(basename($url), '.aspx')) {
             $filename = md5($filename) . '.jpg';
         }
@@ -422,7 +424,7 @@ class Importer
                             )
                         );
                     }
-                
+
                     // Check if taxonomy description needs to be updated.
                     if ($term['description'] !== $localTermObject->description) {
                         wp_update_term(
@@ -495,15 +497,15 @@ class Importer
                 if (!$requestResponse['body']) {
                     return;
                 }
-    
+
                 // Start import of taxonomies.
                 $terms = $requestResponse['body'];
-    
+
                 // Crate term if it does not exist or update existing
                 if (!empty($terms)) {
                     foreach ($terms as $term) {
                         $localTerm = term_exists($term['slug'], 'project_' . $term['taxonomy']);
-    
+
                         // Keep track of newly inserted and updated querys. Will be used to delte old entries.
                         $wpInsertUpdateResp = null;
 
@@ -516,25 +518,25 @@ class Importer
                         if (isset($term['parent'])) {
                             $wpInsertUpdateArgs['parent'] = !empty($term['parent']) ? $this->getParentByRemoteId($term['parent'], $term['taxonomy']) : 0;
                         }
-    
+
                         if (!$localTerm) {
                             // Crate term, could not find any existing.
                             $wpInsertUpdateResp = wp_insert_term($term['name'], 'project_' . $term['taxonomy'], $wpInsertUpdateArgs);
-                            
+
                             if (!is_wp_error($wpInsertUpdateResp)) {
                                 $insertAndUpdateId[] = $wpInsertUpdateResp['term_id'];
                             } else {
                                 error_log(print_r($wpInsertUpdateResp, true));
                             }
-    
+
                             continue;
                         }
 
                         $wpInsertUpdateArgs['name'] = $term['name'];
-    
+
                         // Update term, did find existing.
                         $wpInsertUpdateResp = wp_update_term($localTerm['term_id'], 'project_' . $term['taxonomy'], $wpInsertUpdateArgs);
-    
+
                         if (!is_wp_error($wpInsertUpdateResp)) {
                             $insertAndUpdateId[] = $wpInsertUpdateResp['term_id'];
                         } else {
@@ -549,14 +551,14 @@ class Importer
             'hide_empty' => false,
             'exclude' => $insertAndUpdateId
         ));
-        
+
 
         foreach ($removeEntries as $entries) {
             // TODO: Should we skip root antry?
             if ($entries->term_id === 1 && $entries->taxonomy === 'category') {
                 continue;
             }
-            
+
             wp_delete_term($entries->term_id, $entries->taxonomy);
         }
     }
@@ -604,13 +606,13 @@ class Importer
         extract($post);
 
         $data = array(
-          $this->postType . '_status' => $status,
-          $this->postType . '_technology' => $technology,
-          $this->postType . '_sector' => $sector,
-          $this->postType . '_organisation' => $organisation,
-          $this->postType . '_global_goal' => $global_goal,
-          $this->postType . '_partner' => $partner,
-                            'challenge_category' => $challenge_category
+            $this->postType . '_status' => $status,
+            $this->postType . '_technology' => $technology,
+            $this->postType . '_sector' => $sector,
+            $this->postType . '_organisation' => $organisation,
+            $this->postType . '_global_goal' => $global_goal,
+            $this->postType . '_partner' => $partner,
+            'challenge_category' => $challenge_category
         );
 
         $this->taxonomies = array_keys($data);
@@ -623,20 +625,20 @@ class Importer
         extract($post);
 
         $data = array(
-          'uuid' => $id,
-          'last_modified' => $modified,
-          'internal_project' => $internal_project ?? null,
-          'address' => $address ?? null,
-          'contacts' => $contacts ?? null,
-          'links' => $links ?? null,
-          'map' => $map ?? null,
-          'project_what' => $project_what ?? null,
-          'project_why' => $project_why ?? null,
-          'project_how' => $project_how ?? null,
-          'impact_goals' => $impact_goals ?? null,
-          'investment_type' => $investment_type ?? null,
-          'investment_amount' => $investment_amount ?? null,
-          'investment_hours' => $investment_hours ?? null,
+            'uuid' => $id,
+            'last_modified' => $modified,
+            'internal_project' => $internal_project ?? null,
+            'address' => $address ?? null,
+            'contacts' => $contacts ?? null,
+            'links' => $links ?? null,
+            'map' => $map ?? null,
+            'project_what' => $project_what ?? null,
+            'project_why' => $project_why ?? null,
+            'project_how' => $project_how ?? null,
+            'impact_goals' => $impact_goals ?? null,
+            'investment_type' => $investment_type ?? null,
+            'investment_amount' => $investment_amount ?? null,
+            'investment_hours' => $investment_hours ?? null,
         );
 
         return $data;

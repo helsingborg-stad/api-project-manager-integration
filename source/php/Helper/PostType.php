@@ -41,18 +41,18 @@ class PostType
         $labels = array_merge(
             // Default
             array(
-              'name'              => $this->namePlural,
-              'singular_name'     => $this->nameSingular,
-              'add_new'             => sprintf(__('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
-              'add_new_item'        => sprintf(__('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
-              'edit_item'           => sprintf(__('Edit %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
-              'new_item'            => sprintf(__('New %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
-              'view_item'           => sprintf(__('View %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
-              'search_items'        => sprintf(__('Search %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->namePlural)),
-              'not_found'           => sprintf(__('No %s found', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->namePlural)),
-              'not_found_in_trash'  => sprintf(__('No %s found in trash', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->namePlural)),
-              'parent_item_colon'   => sprintf(__('Parent %s:', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
-              'menu_name'           => $this->namePlural,
+                'name'              => $this->namePlural,
+                'singular_name'     => $this->nameSingular,
+                'add_new'             => sprintf(__('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
+                'add_new_item'        => sprintf(__('Add new %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
+                'edit_item'           => sprintf(__('Edit %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
+                'new_item'            => sprintf(__('New %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
+                'view_item'           => sprintf(__('View %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
+                'search_items'        => sprintf(__('Search %s', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->namePlural)),
+                'not_found'           => sprintf(__('No %s found', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->namePlural)),
+                'not_found_in_trash'  => sprintf(__('No %s found in trash', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->namePlural)),
+                'parent_item_colon'   => sprintf(__('Parent %s:', PROJECTMANAGERINTEGRATION_TEXTDOMAIN), strtolower($this->nameSingular)),
+                'menu_name'           => $this->namePlural,
             ),
             // Given labels
             $this->postTypeLabels
@@ -108,8 +108,8 @@ class PostType
                     $this->postTypeName,
                     $field['name'],
                     array(
-                      'get_callback' => array($this, 'getCallback'),
-                      'schema' => null,
+                        'get_callback' => array($this, 'getCallback'),
+                        'schema' => null,
                     )
                 );
             }
@@ -123,14 +123,14 @@ class PostType
             $type = $fieldObj['type'] ?? 'text';
             // Return different values based on field type
             switch ($type) {
-              case 'true_false':
-                $value = get_field($fieldName, $object['id']);
-                break;
+                case 'true_false':
+                    $value = get_field($fieldName, $object['id']);
+                    break;
 
-              default:
-                // Return null if value is empty
-                $value = !empty(get_field($fieldName, $object['id'])) ? get_field($fieldName, $object['id']) : null;
-                break;
+                default:
+                    // Return null if value is empty
+                    $value = !empty(get_field($fieldName, $object['id'])) ? get_field($fieldName, $object['id']) : null;
+                    break;
             }
 
             return $value;
@@ -155,12 +155,12 @@ class PostType
         if (!empty($nameSingular)) {
             // We need to know the post type name, so the new taxonomy can be attached to it.
             $postTypeName = $this->postTypeName;
-            
+
             // Taxonomy properties
             $taxonomyLabels = $labels;
             $taxonomyArgs = $args;
             $hasBeenRegistred = in_array($taxonomySlug, self::$_registredTaxonomies);
-            
+
             if (!taxonomy_exists($taxonomySlug) && !$hasBeenRegistred) {
                 self::$_registredTaxonomies[] = $taxonomySlug;
 
@@ -187,13 +187,13 @@ class PostType
                 // Default arguments, overwitten with the given arguments
                 $args = array_merge(
                     array(
-                      'label'                 => $namePlural,
-                      'labels'                => $labels,
-                      'public'                => true,
-                      'show_ui'               => true,
-                      'show_in_nav_menus'     => true,
-                      '_builtin'              => false,
-                      ),
+                        'label'                 => $namePlural,
+                        'labels'                => $labels,
+                        'public'                => true,
+                        'show_ui'               => true,
+                        'show_in_nav_menus'     => true,
+                        '_builtin'              => false,
+                    ),
                     $taxonomyArgs
                 );
                 // Add the taxonomy to the post type
