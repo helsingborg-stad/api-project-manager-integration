@@ -24,7 +24,6 @@ define('PROJECTMANAGERINTEGRATION_TEMPLATE_PATH', PROJECTMANAGERINTEGRATION_PATH
 define('PROJECTMANAGERINTEGRATION_TEXTDOMAIN', 'project-manager-integration');
 
 define('PROJECTMANAGERINTEGRATION_VIEW_PATH', PROJECTMANAGERINTEGRATION_PATH . 'views/');
-define('PROJECTMANAGERINTEGRATION_CACHE_DIR', trailingslashit(wp_upload_dir()['basedir']) . 'cache/blade-cache/');
 
 load_plugin_textdomain('project-manager-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 

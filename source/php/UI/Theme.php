@@ -2,16 +2,12 @@
 
 namespace ProjectManagerIntegration\UI;
 
-use Philo\Blade\Blade as Blade;
+use ProjectManagerIntegration\Helper\Blade;
 
 class Theme
 {
-    private $CACHE_PATH;
-
     public function __construct()
     {
-        $this->CACHE_PATH = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
-
         // TODO: Should not be running mapPlotData action during loop_start
         add_action('municipio/view/after_hero', array($this, 'mapPlotData'));
         add_action('loop_start', array($this, 'outputQueryInfo'));
@@ -130,12 +126,6 @@ class Theme
             }
         }
 
-        $blade = new Blade(PROJECTMANAGERINTEGRATION_VIEW_PATH, $this->CACHE_PATH);
-        echo $blade->view()->make(
-            'partials.area.map',
-            array(
-                'data' => $result ?? array(), 'center' => $center
-            )
-        )->render();
+        echo Blade::render('partials.area.map', ['data' => $result ?? array(), 'center' => $center]);
     }
 }
