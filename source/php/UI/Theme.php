@@ -6,8 +6,6 @@ use Philo\Blade\Blade as Blade;
 
 class Theme
 {
-    private $VIEWS_PATHS;
-    // private $CONTROLLER_PATH;
     private $CACHE_PATH;
 
     public function __construct()
@@ -42,7 +40,14 @@ class Theme
 
         // If posts.
         if (isset($postCount) && !$postCount || $postCount > 0) {
-            $output = __('Showing', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . ' ' . $postCount . ' ' . strtolower(__('Of', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)) . ' ' . $postTotal . ' ' . strtolower(__('Results', PROJECTMANAGERINTEGRATION_TEXTDOMAIN));
+            $output = __(
+                'Showing',
+                PROJECTMANAGERINTEGRATION_TEXTDOMAIN
+            ) . ' ' . $postCount . ' ' . strtolower(
+                __('Of', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
+            ) . ' ' . $postTotal . ' ' . strtolower(
+                __('Results', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
+            );
         }
 
         // Return if no output could be crated.
@@ -126,6 +131,11 @@ class Theme
         }
 
         $blade = new Blade(PROJECTMANAGERINTEGRATION_VIEW_PATH, $this->CACHE_PATH);
-        echo $blade->view()->make('partials.area.map', array('data' => $result ?? array(), 'center' => $center))->render();
+        echo $blade->view()->make(
+            'partials.area.map',
+            array(
+                'data' => $result ?? array(), 'center' => $center
+            )
+        )->render();
     }
 }
