@@ -61,15 +61,14 @@
                             <div>
                                 @typography([
                                     'element' => 'span',
-                                    'variant' => 'h6',
-                                    'classList' => ['u-margin__bottom--2']
+                                    'variant' => 'meta'
                                 ])
                                     {!! $category !!}
                                 @endtypography
                                 @typography([
                                     'element' => 'h3',
-                                    'variant' => 'h2',
-                                    'classList' => ['c-card__heading', 'u-margin__y--05']
+                                    'variant' => 'h3',
+                                    'classList' => ['c-card__heading', 'u-margin__top--05', 'u-margin__bottom--2']
                                 ])
                                     {!! $post->postTitle !!}
                                 @endtypography
