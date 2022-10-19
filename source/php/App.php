@@ -18,8 +18,8 @@ class App
         new Options();
         new UI\Theme();
         new Vendor\Algolia();
-        new ShortCodes\ExtendedQuote\ExtendedQuote();
-        new ShortCodes\PostTypeLink\PostTypeLink();
+        new Shortcodes\ExtendedQuote\ExtendedQuote();
+        new Shortcodes\PostTypeLink\PostTypeLink();
 
         // Add view paths
         add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
