@@ -32,7 +32,7 @@ class RelatedPosts
         $mapPostDataForMunicipio = fn ($p) => (object) array_merge(
             (array) FormatObject::camelCase($p),
             [
-                'permalink' => $p->guid,
+                'permalink' => get_permalink($p->ID),
                 'thumbnail' => Post::getFeaturedImage($p->ID, [800, 800]),
             ]
         );
