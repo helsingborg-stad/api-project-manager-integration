@@ -3,16 +3,16 @@
         @foreach ($posts as $post)
             @php
                 // Category
-                $category = !empty(get_the_terms($post->ID, 'challenge_category')) ? get_the_terms($post->ID, 'challenge_category')[0]->name : false;
+                $category = !empty(get_the_terms($post->id, 'challenge_category')) ? get_the_terms($post->id, 'challenge_category')[0]->name : false;
                 
                 $postTags = [];
                 
-                if (!empty(get_the_terms($post->ID, 'project_sector'))) {
-                    $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_sector'));
+                if (!empty(get_the_terms($post->id, 'project_sector'))) {
+                    $postTags = array_merge($postTags, get_the_terms($post->id, 'project_sector'));
                 }
                 
-                if (!empty(get_the_terms($post->ID, 'project_technology'))) {
-                    $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_technology'));
+                if (!empty(get_the_terms($post->id, 'project_technology'))) {
+                    $postTags = array_merge($postTags, get_the_terms($post->id, 'project_technology'));
                 }
                 
                 if (empty(!$postTags)) {
