@@ -4,6 +4,7 @@ namespace ProjectManagerIntegration\Controller;
 
 use ProjectManagerIntegration\Helper\WP;
 use ProjectManagerIntegration\UI\ProjectStatus;
+use ProjectManagerIntegration\UI\RelatedPosts;
 
 class Project
 {
@@ -41,6 +42,7 @@ class Project
                 'links'                 =>  WP::getPostMeta('links', []),
                 'residentInvolvement'   =>  WP::getPostMeta('resident_involvement', []),
                 'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
+                'relatedPosts'          =>  RelatedPosts::create(),
             ]
         );
 

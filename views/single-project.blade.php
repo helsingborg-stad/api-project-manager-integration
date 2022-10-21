@@ -94,7 +94,7 @@
             <div class="o-grid-12">
                 {{-- TODO: Translate labels --}}
                 @card
-                    <div class="c-card__body u-pt-1">
+                    <div class="c-card__body">
                         <h4>Kontakt</h4>
                         @foreach ($project['contacts'] as $contact)
                             <p><b>Namn:</b> {{ $contact['name'] }}
@@ -145,6 +145,24 @@
                 @endcard
             </div>
         @endif
-
     </div>
+@stop
+
+@section('below')
+    @if (!empty($project['relatedPosts']['posts']))
+        <div class="u-margin__bottom--6">
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2',
+                'classList' => ['u-margin__bottom--3']
+            ])
+                {{ $project['relatedPosts']['title'] }}
+            @endtypography
+
+            @include('partials.post.project-cards', [
+                'posts' => $project['relatedPosts']['posts'],
+                'gridColumnClass' => !empty($gridSize) ? $gridSize : 'grid-xs-12 grid-md-3',
+            ])
+        </div>
+    @endif
 @stop
