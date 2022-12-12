@@ -73,6 +73,10 @@ class Project
             [
                 'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
                 'content' => WP::getPostMeta('project_how', null),
+            ],
+            [
+                'title' => __('Lessons learned', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'content' => WP::getPostMeta('project_lessons_learned', null),
             ]
         ]);
     }
