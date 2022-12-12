@@ -6,6 +6,7 @@
             "key": "field_5e8c4ad58b110",
             "label": "API URL",
             "name": "project_api_url",
+            "aria-label": "",
             "type": "url",
             "instructions": "",
             "required": 1,
@@ -22,6 +23,7 @@
             "key": "field_5ece6ba2ad592",
             "label": "Organisation filter",
             "name": "organisation_filter",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -31,19 +33,25 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
-            "default_value": [],
+            "choices": {
+                "0": "Importera alla organisationer",
+                "20": "Organisation 1 (2)"
+            },
+            "default_value": false,
             "allow_null": 0,
             "multiple": 0,
             "ui": 0,
             "return_format": "value",
             "ajax": 0,
-            "placeholder": ""
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
         },
         {
             "key": "field_5e8c514c89ee4",
             "label": "Daily import",
             "name": "project_daily_import",
+            "aria-label": "",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -76,6 +84,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": false
 }]
 
