@@ -55,6 +55,34 @@ class Challenge
         $data['focalPointDescription'] = get_field('focal_point_description', 'options');
         $data['focalPoints'] = $this->mapTerms('challenge_focal_point', ['url'], ['url']);
 
+        $data['relatedPosts'] = get_posts([
+            'post_type' => get_post_type(),
+            'posts_per_page' => 4,
+            'exclude' => array(get_queried_object_id()),
+            'orderby' => 'rand'
+        ]);
+
+        if(!empty($data['relatedPosts'])) {
+            foreach($data['relatedPosts'] as $post) {
+
+                $post->category = !empty(get_the_terms($post->ID, 'challenge_category')) 
+                ? get_the_terms($post->ID, 'challenge_category')[0]->name 
+                : false; 
+
+                $post->thumbnail = municipio_get_thumbnail_source($post->ID,array(634,846), '12:16');
+
+                $post->url = get_permalink( $post->ID);
+            }
+        };
+
+        $data['postTypeObject'] = get_post_type_object(get_post_type());
+        $data['archive'] = get_post_type_archive_link(get_post_type());
+
+        $data['lang'] = [
+            'more' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'showAll' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        ];
+
         return $data;
     }
 
