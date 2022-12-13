@@ -1,22 +1,4 @@
 
-.single-challenge {
-    .challenge__related {
-        &-heading {
-            color:black;
-        }
-
-        &-link {
-            color: black;
-            text-decoration: none;
-
-            &:hover {
-                color: black;
-                text-decoration: underline;
-            }
-        }
-    }
-}
-
 h1.post-title--challenge {
     font-size: 32px;
     line-height: 1.1;
@@ -78,7 +60,7 @@ h1.post-title--challenge {
 
     .related-posts__archive_link:hover {
         i {
-            text-decoration: none;
+            text_decoration: none;
         }
     }
 }
