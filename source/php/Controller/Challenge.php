@@ -55,12 +55,63 @@ class Challenge
         $data['focalPointDescription'] = get_field('focal_point_description', 'options');
         $data['focalPoints'] = $this->mapTerms('challenge_focal_point', ['url'], ['url']);
 
+
+
+        $data['relatedProjects'] = get_posts([
+            'post_type' => 'project',
+            'posts_per_page' => -1,
+            'meta_key' => 'challenge',
+            'meta_value' => get_queried_object_id()
+
+        ]);
+
         $data['relatedPosts'] = get_posts([
             'post_type' => get_post_type(),
             'posts_per_page' => 4,
             'exclude' => array(get_queried_object_id()),
             'orderby' => 'rand'
         ]);
+
+        if(!empty($data['relatedProjects'])) {
+            foreach($data['relatedProjects'] as $post) {
+
+                $post->category = !empty(get_the_terms($post->ID, 'challenge_category')) 
+                ? get_the_terms($post->ID, 'challenge_category')[0]->name 
+                : false; 
+
+                $post->thumbnail = municipio_get_thumbnail_source($post->ID,array(634,846), '12:16');
+
+                $post->url = get_permalink( $post->ID);
+
+                $postTags = [];
+                
+                if (!empty(get_the_terms($post->ID, 'project_sector'))) {
+                    $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_sector'));
+                }
+                
+                if (!empty(get_the_terms($post->ID, 'project_technology'))) {
+                    $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_technology'));
+                }
+                
+                if (empty(!$postTags)) {
+                    $postTags = array_reduce(
+                        $postTags,
+                        function ($accumilator, $term) {
+                            if (empty($accumilator)) {
+                                $accumilator = '<span>' . $term->name . '</span>';
+                            } else {
+                                $accumilator .= ' / ' . '<span>' . $term->name . '</span>';
+                            }
+                
+                            return $accumilator;
+                        },
+                        '',
+                    );
+                }
+
+                $post->taxonomies = $postTags;
+            }
+        };
 
         if(!empty($data['relatedPosts'])) {
             foreach($data['relatedPosts'] as $post) {
@@ -79,8 +130,9 @@ class Challenge
         $data['archive'] = get_post_type_archive_link(get_post_type());
 
         $data['lang'] = [
-            'more' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'moreChallenges' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             'showAll' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'relatedProjects' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
         ];
 
         return $data;
