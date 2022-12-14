@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2022-12-12 14:08+0100\n"
-"PO-Revision-Date: 2022-12-12 14:11+0100\n"
+"POT-Creation-Date: 2022-12-14 11:17+0100\n"
+"PO-Revision-Date: 2022-12-14 11:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: project-manager-integration.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -46,23 +46,23 @@ msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:6
 msgid "Page Header"
-msgstr "Sidhuvud"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:10
 msgid "Select template"
-msgstr "Välj mall"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:22
 msgid "Center"
-msgstr "Centrerat"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:23
 msgid "Two Column"
-msgstr "Två kolumner"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:24
 msgid "None (disable)"
-msgstr "Ingen (inaktivera)"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:27
 msgid "center"
@@ -70,15 +70,15 @@ msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:38
 msgid "Content (optional)"
-msgstr "Innehåll (valfritt)"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:65
 msgid "Meta (optional)"
-msgstr "Meya (valfritt)"
+msgstr ""
 
 #: source/php/AcfFields/php/page_header.php:92
 msgid "Video URL (optional)"
-msgstr "Video URL (valfritt)"
+msgstr ""
 
 #: source/php/AcfFields/php/platform_settings.php:7
 msgid "platform settings"
@@ -171,13 +171,25 @@ msgstr "Förälder %s:"
 msgid "Global Goals"
 msgstr ""
 
+#: source/php/Controller/Challenge.php:50
+msgid "Global Goals"
+msgstr "Globala Mål"
+
 #: source/php/Controller/Challenge.php:54 source/php/PostTypes/Challenge.php:67
 msgid "Focal Points"
-msgstr ""
+msgstr "Brännpunkter"
+
+#: source/php/Controller/Challenge.php:82
+msgid "More Challenges"
+msgstr "Fler Utmaningar"
+
+#: source/php/Controller/Challenge.php:83
+msgid "Show all"
+msgstr "Visa alla"
 
 #: source/php/Controller/Platform.php:25
 msgid "Contacts"
-msgstr "Kontakter"
+msgstr "Kontakt"
 
 #: source/php/Controller/Platform.php:26
 msgid "Documents"
@@ -189,7 +201,7 @@ msgstr "Länkar"
 
 #: source/php/Controller/Platform.php:28
 msgid "Initiatives related to the platform"
-msgstr "Några initiativ relaterade till plattformen"
+msgstr "Några innovationsinnatitiv relaterade till plattformen"
 
 #: source/php/Controller/Platform.php:29 source/php/Controller/Platform.php:80
 msgid "Roadmap"
@@ -199,7 +211,7 @@ msgstr "Roadmap"
 msgid "Get started"
 msgstr "Kom igång"
 
-#: source/php/Controller/Platform.php:60 source/php/Controller/Project.php:141
+#: source/php/Controller/Platform.php:60 source/php/Controller/Project.php:137
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -227,53 +239,49 @@ msgstr "Varför"
 msgid "How"
 msgstr "Hur"
 
-#: source/php/Controller/Project.php:78
-msgid "Lessons learned"
-msgstr "Lärdomar"
-
-#: source/php/Controller/Project.php:88
+#: source/php/Controller/Project.php:84
 msgid "Powered by"
 msgstr "Drivs av"
 
-#: source/php/Controller/Project.php:93 source/php/PostTypes/Challenge.php:36
+#: source/php/Controller/Project.php:89 source/php/PostTypes/Challenge.php:36
 msgid "Challenge"
 msgstr "Utmaning"
 
-#: source/php/Controller/Project.php:98 source/php/PostTypes/Challenge.php:56
+#: source/php/Controller/Project.php:94 source/php/PostTypes/Challenge.php:56
 #: source/php/PostTypes/Project.php:84 source/php/PostTypes/Project.php:96
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/Controller/Project.php:103 source/php/PostTypes/Project.php:61
+#: source/php/Controller/Project.php:99 source/php/PostTypes/Project.php:61
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/Controller/Project.php:108
+#: source/php/Controller/Project.php:104
 msgid "Estimated Budget"
 msgstr "Estimerad budget"
 
-#: source/php/Controller/Project.php:114
+#: source/php/Controller/Project.php:110
 msgid "Cost so far"
 msgstr "Kostnad hitintills"
 
-#: source/php/Controller/Project.php:125 source/php/PostTypes/Project.php:66
+#: source/php/Controller/Project.php:121 source/php/PostTypes/Project.php:66
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/Controller/Project.php:130 source/php/PostTypes/Platform.php:47
+#: source/php/Controller/Project.php:126 source/php/PostTypes/Platform.php:47
 #: source/php/PostTypes/Project.php:91
 msgid "Partners"
 msgstr "Partners"
 
-#: source/php/Controller/Project.php:146
+#: source/php/Controller/Project.php:142
 msgid "Impact goals"
 msgstr "Effektmål"
 
-#: source/php/Controller/Project.php:151
+#: source/php/Controller/Project.php:147
 msgid "Resident involvement"
 msgstr "Invånarinvolvering"
 
-#: source/php/Controller/Project.php:156
+#: source/php/Controller/Project.php:152
 msgid "About"
 msgstr "Om"
 
@@ -409,7 +417,7 @@ msgstr "Organisationer"
 
 #: source/php/Shortcodes/PostTypeLink/PostTypeLink.php:34
 msgid "Öppna"
-msgstr "Öppna"
+msgstr ""
 
 #: source/php/Shortcodes/PostTypeLink/PostTypeLink.php:43
 msgid "Please define a valid post id or overrride fields"
@@ -417,7 +425,7 @@ msgstr ""
 
 #: source/php/UI/RelatedPosts.php:28
 msgid "Fler"
-msgstr "Fler"
+msgstr ""
 
 #: source/php/UI/Theme.php:40
 msgid "Showing"
@@ -439,6 +447,26 @@ msgstr ""
 #, php-format
 msgid "Exported %d fieldgroup(s)."
 msgstr "Exporterade %d fältgrupper."
+
+#. Plugin Name of the plugin/theme
+msgid "Project Manager Integration"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "(#plugin_url#)"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Imports and displays projects from Project Manager API."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Jonatan Hanson"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad"
+msgstr ""
 
 #~ msgid "hours"
 #~ msgstr "timmar"
