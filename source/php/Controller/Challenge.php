@@ -74,20 +74,14 @@ class Challenge
 
         if(!empty($data['relatedProjects'])) {
             foreach($data['relatedProjects'] as $post) {
+                \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->ID);
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
         };
 
         if(!empty($data['relatedPosts'])) {
             foreach($data['relatedPosts'] as $post) {
-
-                $post->category = !empty(get_the_terms($post->ID, 'challenge_category')) 
-                ? get_the_terms($post->ID, 'challenge_category')[0]->name 
-                : false; 
-
-                $post->thumbnail = municipio_get_thumbnail_source($post->ID,array(634,846), '12:16');
-
-                $post->url = get_permalink( $post->ID);
+                \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
         };
 
