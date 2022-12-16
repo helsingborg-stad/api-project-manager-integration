@@ -1,23 +1,42 @@
 @if (!empty($title) && !empty($url) && !empty($buttonText))
-    <section class="featured-post">
-        @if (!empty($imageUrl))
-            <div class="featured-post__image">
-                <img src="{{ $imageUrl }}">
-            </div>
-        @endif
-        <div class="featured-post__content">
-            @if (!empty($meta))
-                <span class="featured-post__meta">
-                    {{ $meta }}
-                </span>
+@collection([])
+    @collection__item([
+        'action' => [
+            'link' => $url,
+            'style' => 'filled',
+            'text' => $buttonText,
+            'target' => !empty($blank) ? '_blank' : '_top'
+        ]
+    ])
+        @group([
+            'direction' => 'row',
+            'classList' => ['u-flex--gridgap']
+        ])
+            @if (!empty($imageUrl))
+            @image([
+                'src' => $imageUrl,
+            ])
+            @endimage
             @endif
-            <h4 class="featured-post__title h3">
+
+            @group([
+                'direction' => 'vertical',
+            ])
+                @if (!empty($meta))
+                @typography([
+                    'element' => 'span',
+                ])
+                {{ $meta }}            
+                @endtypography
+                @endif
+                @typography([
+                    'element' => 'h4',
+                    'variant' => 'h3',
+                ])
                 {{ $title }}
-            </h4>
-        </div>
-        <div class="featured-post__action">
-            <a class="btn btn-light" href="{{ $url }}"
-                @if (!empty($blank)) target="_blank" @endif>{{ $buttonText }}</a>
-        </div>
-    </section>
+                @endtypography
+            @endgroup
+        @endgroup
+    @endcollection__item
+@endcollection    
 @endif

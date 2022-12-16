@@ -31,7 +31,7 @@ class PostTypeLink
                 'meta' => get_post_type_object($post->post_type)->labels->singular_name,
                 'url' => get_permalink($post->ID),
                 'imageUrl' => municipio_get_thumbnail_source($post->ID, array(75, 56), '3:2'),
-                'buttonText' => __('Öppna', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'buttonText' => __('Open', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'blank' => 0
             ), $atts);
 
