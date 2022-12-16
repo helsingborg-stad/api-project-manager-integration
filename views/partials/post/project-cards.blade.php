@@ -2,13 +2,13 @@
     <div class="o-grid">
         @foreach ($posts as $key => $post)
             @php
-                $post = \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->id);
+                $post = \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->id);
             @endphp
 
             <div class="o-grid-3@md u-margin__bottom--8">
                 @card([
-                    'image' => $post->thumbnail,
-                    'link' => $post->url,
+                    'image' => $post->thumbnail['src'],
+                    'link' => $post->permalink,
                     'heading' => $post->postTitle,
                     'content' => $post->taxonomies,
                     'meta' => $post->category,
