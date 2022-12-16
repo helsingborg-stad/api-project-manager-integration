@@ -15,11 +15,11 @@
             'link' => $item->url,
             'image' => $item->thumbnail,
             'progressBar' => true,
-            'classList' => ['u-display--grid', 'u-height--100'],
+            'classList' => ['u-height--100'],
             'attributeList' => ['style' => 'z-index:' . (999-$key) . ';',],
         ])
             @slot('afterContent')
-            <div class="u-align-self--end">
+            <div class="u-align-self--end u-width--100">
                 @tooltip([
                     'label' => $item->statusBar['label'],
                     'placement' => 'bottom',
