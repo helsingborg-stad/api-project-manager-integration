@@ -1,36 +1,6 @@
-<div class="o-grid u-padding__top--8">
-    @typography([
-        'variant' => 'h2',
-        'element' => 'h3',
-    ])
-    {{$lang['relatedProjects']}}
-    @endtypography
-@foreach($relatedProjects as $item)
-    <div class="o-grid-3@md">
-        @group([
-            'display' => 'grid',
-            'classList' => ['u-height--100']
-        ])
-            @card([
-                'heading' => $item->post_title,
-                'meta' => $item->category,
-                'metaFirst' => true,
-                'content' => $item->taxonomies,
-                'link' => $item->url,
-                'image' => $item->thumbnail,
-                'progressBar' => true,
-            ])
-            @endcard
-            @progress([
-                'classList' => ['u-display--flex', 'u-align-items--end']
+@segment([
 
-            ])
-            @endprogress
-        @endgroup
-    </div>
-@endforeach
-</div>
-
+])
 <div class="u-padding__y--6 u-padding__y--8@lg u-padding__y--8@xl t-section-gray">
 @group([
     'justifyContent' => 'space-between',
@@ -76,3 +46,4 @@
     @endforeach
 </div> 
 </div>
+@endsegment
