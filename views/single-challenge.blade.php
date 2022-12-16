@@ -7,9 +7,11 @@
 @stop
 
 @section('article.content.after')
+    @includeWhen(!empty($contacts), 'partials.challenge.contacts')
     @includeWhen(!empty($globalGoals), 'partials.challenge.global-goals')
 @stop
 
 @section('below')
+    @includeWhen($relatedProjects, 'partials.challenge.related-projects')
     @includeWhen($relatedPosts, 'partials.challenge.related-posts')
 @stop
