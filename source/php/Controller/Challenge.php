@@ -74,43 +74,7 @@ class Challenge
 
         if(!empty($data['relatedProjects'])) {
             foreach($data['relatedProjects'] as $post) {
-
-                $post->category = !empty(get_the_terms($post->ID, 'challenge_category')) 
-                ? get_the_terms($post->ID, 'challenge_category')[0]->name 
-                : false; 
-
-                $post->thumbnail = municipio_get_thumbnail_source($post->ID,array(634,846), '12:16');
-
-                $post->url = get_permalink( $post->ID);
-
-                $postTags = [];
-                
-                if (!empty(get_the_terms($post->ID, 'project_sector'))) {
-                    $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_sector'));
-                }
-                
-                if (!empty(get_the_terms($post->ID, 'project_technology'))) {
-                    $postTags = array_merge($postTags, get_the_terms($post->ID, 'project_technology'));
-                }
-                
-                if (empty(!$postTags)) {
-                    $postTags = array_reduce(
-                        $postTags,
-                        function ($accumilator, $term) {
-                            if (empty($accumilator)) {
-                                $accumilator = '<span>' . $term->name . '</span>';
-                            } else {
-                                $accumilator .= ' / ' . '<span>' . $term->name . '</span>';
-                            }
-                
-                            return $accumilator;
-                        },
-                        '',
-                    );
-                }
-                $post->statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->ID);
-
-                $post->taxonomies = $postTags;
+                \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
         };
 

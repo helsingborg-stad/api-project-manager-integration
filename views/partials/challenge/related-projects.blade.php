@@ -14,7 +14,6 @@
             'content' => $item->taxonomies,
             'link' => $item->url,
             'image' => $item->thumbnail,
-            'progressBar' => true,
             'classList' => ['u-height--100'],
             'attributeList' => ['style' => 'z-index:' . (999-$key) . ';',],
         ])
