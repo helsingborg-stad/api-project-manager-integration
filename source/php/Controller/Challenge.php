@@ -108,6 +108,7 @@ class Challenge
                         '',
                     );
                 }
+                $post->statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->ID);
 
                 $post->taxonomies = $postTags;
             }
@@ -133,6 +134,7 @@ class Challenge
             'moreChallenges' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             'showAll' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             'relatedProjects' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'contact' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
         ];
 
         return $data;

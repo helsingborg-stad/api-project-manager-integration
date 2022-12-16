@@ -6,7 +6,7 @@
     {{$lang['relatedProjects']}}
     @endtypography
 @foreach($relatedProjects as $key => $item)
-    <div class="o-grid-3@md">
+    <div class="o-grid-3@md u-margin__bottom--8">
         @card([
             'heading' => $item->post_title,
             'meta' => $item->category,
