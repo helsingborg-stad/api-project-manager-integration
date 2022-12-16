@@ -1,7 +1,10 @@
 @segment([
-
+    'stretch' => true,
+    'paddingTop' => false,
+    'paddingBottom' => false,
+    'background' => 'lighter',
 ])
-<div class="u-padding__y--6 u-padding__y--8@lg u-padding__y--8@xl t-section-gray">
+<div class="u-padding__bottom--8">
 @group([
     'justifyContent' => 'space-between',
     'classList' => ['challenge__related', 'u-margin__bottom--3']
