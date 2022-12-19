@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
-"POT-Creation-Date: 2022-12-14 11:17+0100\n"
-"PO-Revision-Date: 2022-12-14 11:18+0100\n"
+"POT-Creation-Date: 2022-12-19 11:59+0100\n"
+"PO-Revision-Date: 2022-12-19 12:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -179,13 +179,21 @@ msgstr "Globala Mål"
 msgid "Focal Points"
 msgstr "Brännpunkter"
 
-#: source/php/Controller/Challenge.php:82
+#: source/php/Controller/Challenge.php:92
 msgid "More Challenges"
 msgstr "Fler Utmaningar"
 
-#: source/php/Controller/Challenge.php:83
+#: source/php/Controller/Challenge.php:93
 msgid "Show all"
 msgstr "Visa alla"
+
+#: source/php/Controller/Challenge.php:94
+msgid "Innovation initiatives linked to the challenge"
+msgstr ""
+
+#: source/php/Controller/Challenge.php:95 source/php/Controller/Project.php:50
+msgid "Contact"
+msgstr "Kontakt"
 
 #: source/php/Controller/Platform.php:25
 msgid "Contacts"
@@ -195,7 +203,7 @@ msgstr "Kontakt"
 msgid "Documents"
 msgstr "Dokument"
 
-#: source/php/Controller/Platform.php:27
+#: source/php/Controller/Platform.php:27 source/php/Controller/Project.php:54
 msgid "Links"
 msgstr "Länkar"
 
@@ -211,7 +219,7 @@ msgstr "Roadmap"
 msgid "Get started"
 msgstr "Kom igång"
 
-#: source/php/Controller/Platform.php:60 source/php/Controller/Project.php:137
+#: source/php/Controller/Platform.php:60 source/php/Controller/Project.php:145
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -219,69 +227,81 @@ msgstr "Bakgrund"
 msgid "Features"
 msgstr "Funktioner"
 
-#: source/php/Controller/Project.php:56
+#: source/php/Controller/Project.php:51
+msgid "E-mail"
+msgstr "E-post"
+
+#: source/php/Controller/Project.php:52
+msgid "Name"
+msgstr "Namn"
+
+#: source/php/Controller/Project.php:53
+msgid "Files"
+msgstr "Filer"
+
+#: source/php/Controller/Project.php:64
 msgid "We found no results for your search"
 msgstr "Vi hittade inga träffar på din sökning"
 
-#: source/php/Controller/Project.php:57
+#: source/php/Controller/Project.php:65
 msgid "Try to refine your search."
 msgstr "Prova ändra din sökning."
 
-#: source/php/Controller/Project.php:66
+#: source/php/Controller/Project.php:74
 msgid "What"
 msgstr "Vad"
 
-#: source/php/Controller/Project.php:70
+#: source/php/Controller/Project.php:78
 msgid "Why"
 msgstr "Varför"
 
-#: source/php/Controller/Project.php:74
+#: source/php/Controller/Project.php:82
 msgid "How"
 msgstr "Hur"
 
-#: source/php/Controller/Project.php:84
+#: source/php/Controller/Project.php:92
 msgid "Powered by"
 msgstr "Drivs av"
 
-#: source/php/Controller/Project.php:89 source/php/PostTypes/Challenge.php:36
+#: source/php/Controller/Project.php:97 source/php/PostTypes/Challenge.php:36
 msgid "Challenge"
 msgstr "Utmaning"
 
-#: source/php/Controller/Project.php:94 source/php/PostTypes/Challenge.php:56
+#: source/php/Controller/Project.php:102 source/php/PostTypes/Challenge.php:56
 #: source/php/PostTypes/Project.php:84 source/php/PostTypes/Project.php:96
 msgid "Category"
 msgstr "Kategori"
 
-#: source/php/Controller/Project.php:99 source/php/PostTypes/Project.php:61
+#: source/php/Controller/Project.php:107 source/php/PostTypes/Project.php:61
 msgid "Technologies"
 msgstr "Teknologier"
 
-#: source/php/Controller/Project.php:104
+#: source/php/Controller/Project.php:112
 msgid "Estimated Budget"
 msgstr "Estimerad budget"
 
-#: source/php/Controller/Project.php:110
+#: source/php/Controller/Project.php:118
 msgid "Cost so far"
 msgstr "Kostnad hitintills"
 
-#: source/php/Controller/Project.php:121 source/php/PostTypes/Project.php:66
+#: source/php/Controller/Project.php:129 source/php/PostTypes/Project.php:66
 msgid "Sector"
 msgstr "Sektor"
 
-#: source/php/Controller/Project.php:126 source/php/PostTypes/Platform.php:47
+#: source/php/Controller/Project.php:134 source/php/PostTypes/Platform.php:47
 #: source/php/PostTypes/Project.php:91
 msgid "Partners"
 msgstr "Partners"
 
-#: source/php/Controller/Project.php:142
+#: source/php/Controller/Project.php:150
 msgid "Impact goals"
 msgstr "Effektmål"
 
-#: source/php/Controller/Project.php:147
+#: source/php/Controller/Project.php:155
 msgid "Resident involvement"
 msgstr "Invånarinvolvering"
 
-#: source/php/Controller/Project.php:152
+#: source/php/Controller/Project.php:160
 msgid "About"
 msgstr "Om"
 
