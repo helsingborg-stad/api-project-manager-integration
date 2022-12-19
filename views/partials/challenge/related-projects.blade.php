@@ -3,7 +3,7 @@
         'variant' => 'h2',
         'element' => 'h3',
     ])
-    {{$lang['relatedProjects']}}
+    {{$lang['relatedProjectsLabel']}}
     @endtypography
 @foreach($relatedProjects as $key => $item)
     <div class="o-grid-3@md u-margin__bottom--8">
@@ -12,7 +12,7 @@
             'meta' => $item->category,
             'metaFirst' => true,
             'content' => $item->taxonomies,
-            'link' => $item->url,
+            'link' => $item->permalink,
             'image' => $item->thumbnail,
             'classList' => ['u-height--100'],
             'attributeList' => ['style' => 'z-index:' . (999-$key) . ';',],

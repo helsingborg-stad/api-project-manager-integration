@@ -14,7 +14,7 @@
         'element' => 'h3',
         'classList' => ['challenge__related-heading'],
     ])
-        {{$lang['moreChallenges']}} 
+        {{$lang['moreChallengesLabel']}} 
     @endtypography
     @link([
         'href' => $archive,
@@ -23,7 +23,7 @@
         @group([
             'alignItems' => 'center',
         ])
-            {{$lang['showAll']}}
+            {{$lang['showAllLabel']}}
             @icon([
                 'icon' => 'arrow_forward',
                 'classList' => ['challenge__related-icon'],
@@ -42,7 +42,7 @@
             'meta' => $item->category,
             'ratio' => '12:16',
             'image' => ['src' => $item->thumbnail, 'alt' => $item->post_title],
-            'link' => $item->url
+            'link' => $item->permalink
                 ])
         @endblock
     </div>

@@ -46,6 +46,14 @@ class Project
             ]
         );
 
+        $data['lang'] = [
+            'contactsLabel' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'email' => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'name' => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'filesLabel' => __('Files', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'linksLabel' => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+        ];
+
         $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
 
         return $data;

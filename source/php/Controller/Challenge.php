@@ -89,10 +89,10 @@ class Challenge
         $data['archive'] = get_post_type_archive_link(get_post_type());
 
         $data['lang'] = [
-            'moreChallenges' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'showAll' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'relatedProjects' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'contact' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'moreChallengesLabel' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'showAllLabel' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'relatedProjectsLabel' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            'contactsLabel' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
         ];
 
         return $data;
