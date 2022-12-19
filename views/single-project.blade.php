@@ -1,5 +1,68 @@
 @extends('templates.single')
 
+@section('article.title.before')
+    <div class="u-display--none">
+    @stop
+    @section('article.title.after')
+    </div>
+@stop
+
+@php
+    $statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->id);
+@endphp
+
+@section('sidebar.top-sidebar.after')
+    <header class="page-header page-header--{{ get_post_type() }}">
+        <div class="o-container page-header__container">
+            <div
+                class="o-grid u-flex-direction--row--reverse@sm u-flex-direction--row--reverse@md u-flex-direction--row--reverse@lg u-flex-direction--row--reverse@xl">
+                <div class="grid-xs-12 grid-sm-6 order-2 page-header__image u-mb-2@xs">
+                    @if (municipio_get_thumbnail_source($post->ID, [456, 342], '4:3'))
+                        <img class="u-max-width-header-image"
+                            src="{{ municipio_get_thumbnail_source($post->ID, [456, 342], '4:3') }}">
+                    @endif
+                </div>
+                <div class="grid-xs-12 grid-sm-6 page-header__body">
+                    <div class="page-header__content u-max-width-header-content u-ml-auto">
+                        @if (get_field('page_header_meta', $post->ID) || !empty(get_the_terms($post->id, 'challenge_category')))
+                            <span
+                                class="page-header__meta">{{ get_the_terms($post->id, 'challenge_category')[0]->name }}</span>
+                        @endif
+                        <h1 class="page-header__title u-margin__top--0">{{ get_the_title() }}</h1>
+
+
+
+                        @if (get_field('page_header_content', $post->ID) || !empty($statusBar))
+                            @if (!empty($statusBar) && $statusBar['value'] > -1 && $statusBar['label'])
+                                <div class="statusbar u-margin__top--2">
+                                    <div class="statusbar__header u-mb-1 explain">
+                                        <b class="statusbar__title">{{ $statusBar['label'] }}</b>
+
+                                        @if (!empty($statusBar['explainer']))
+                                            <span class="statusbar__explainer">
+                                                <span data-tooltip="{{ $statusBar['explainer'] }}" data-tooltip-bottom>
+                                                    <i class="pricon pricon-info-o"></i>
+                                                </span>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="statusbar__content">
+                                        <div class="c-progressbar">
+                                            <div class="c-progressbar__value {{ $statusBar['isCancelled'] ? 'is-disabled' : '' }}"
+                                                style="width: {{ $statusBar['value'] }}%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+@stop
+
+
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
         @if ($project && !empty($project['impactGoals']))
