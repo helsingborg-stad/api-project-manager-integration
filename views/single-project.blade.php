@@ -1,4 +1,19 @@
 @extends('templates.single')
+@section('article.title.before')
+    <div class="u-display--none">
+@stop
+@section('article.title.after')
+    </div>
+@stop
+
+@php
+    $statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->id);
+@endphp
+
+@section('sidebar.top-sidebar.after')
+    @include('partials.project.hero')
+@stop
+
 
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
