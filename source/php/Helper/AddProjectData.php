@@ -47,7 +47,7 @@ class AddProjectData
         }
 
         if(!$post->permalink) {
-            $post->url = get_permalink( $postId);
+            $post->permalink = get_permalink( $postId);
         }
 
         return $post;

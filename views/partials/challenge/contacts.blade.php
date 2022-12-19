@@ -1,7 +1,7 @@
 @foreach($contacts as $contact)
 @typography([
 ])
-    {{$lang['contact']}}: 
+    {{$lang['contactsLabel']}}: 
     @link([
         'href' => 'mailto:' . $contact['email'],
     ])
