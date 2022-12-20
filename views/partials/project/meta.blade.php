@@ -1,4 +1,4 @@
-<div class="o-grid-12">
+<div class="o-grid-12" id="about">
     @card
         <div class="c-card__body">
             <ul class="box-project-meta__list">

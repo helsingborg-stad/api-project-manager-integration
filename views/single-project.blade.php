@@ -1,5 +1,11 @@
 @extends('templates.single')
+
+@section('sidebar.top-sidebar.after')
+    @include('partials.project.hero')
+@stop
+
 @section('article.title.before')
+    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
     <div class="u-display--none">
 @stop
 @section('article.title.after')
@@ -9,11 +15,6 @@
 @php
     $statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->id);
 @endphp
-
-@section('sidebar.top-sidebar.after')
-    @include('partials.project.hero')
-@stop
-
 
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
