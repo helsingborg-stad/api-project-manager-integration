@@ -1,5 +1,5 @@
 @foreach ($project['impactGoals'] as $item)
-    <div class="o-grid-12">
+    <div class="o-grid-12" id="impactgoals">
         @card
             @if ($item['impact_goal'])
                 <div class="c-card__body">
