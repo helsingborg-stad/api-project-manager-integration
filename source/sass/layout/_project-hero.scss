@@ -15,6 +15,10 @@
         background-color: white;
     }
 
+    .project-hero__content {
+        padding: 0;
+    }
+
     @media only screen and (min-width: 56em) {
         padding-top: 128px;
         .project-hero__image-container {
@@ -40,6 +44,9 @@
             filter:blur(30px);
             top:0;
             }
+        }
+        .project-hero__content {
+            padding: 48px;
         }
     }
 }
