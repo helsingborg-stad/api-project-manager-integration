@@ -20,7 +20,7 @@
                 @group([
                     'justifyContent' => 'center',
                     'direction' => 'vertical',
-                    'classList' => ['project-hero__content', 'o-grid-12@sm', 'o-grid-6@md u-padding__y--6', 'u-padding__x--6']
+                    'classList' => ['project-hero__content', 'o-grid-12@sm', 'o-grid-6@md']
                 ])
                 @if (get_field('page_header_meta', $post->id) || !empty(get_the_terms($post->id, 'challenge_category')))
                 @typography([
