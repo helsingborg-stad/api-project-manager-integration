@@ -1,12 +1,14 @@
 @extends('templates.single')
 
+@php
+    $statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->id);
+@endphp
+
 @section('sidebar.top-sidebar.after')
     @include('partials.project.hero')
     {{-- Might wanna change location. Can not be placed within o-container since it has  --}}
     @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
 @stop
-
-
 
 @section('article.title.before')
     <div class="u-display--none">
@@ -14,10 +16,6 @@
 @section('article.title.after')
     </div>
 @stop
-
-@php
-    $statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->id);
-@endphp
 
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
