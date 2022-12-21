@@ -2,10 +2,13 @@
 
 @section('sidebar.top-sidebar.after')
     @include('partials.project.hero')
+    {{-- Might wanna change location. Can not be placed within o-container since it has  --}}
+    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
 @stop
 
+
+
 @section('article.title.before')
-    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
     <div class="u-display--none">
 @stop
 @section('article.title.after')
