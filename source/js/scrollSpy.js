@@ -58,17 +58,13 @@ const setSectionElementPositions = (sectionElements) => {
     });
 } */
 
-const handleScroll = (scrollItems, sectionElements) => {
+const handleScroll = (scrollItems) => {
     //let reversedArr = sectionElementPositions.reverse()
     let i = 0;
     sectionElementPositions.forEach(item => {
-        if(i = 0 && window.scrollY < item.position) {
-            scrollItems[i].classList.add('is-active');
-        }
-        else if(i = (sectionElementPositions.length - 1) && window.scrollY > item.position.position) {
-            scrollItems[i].classList.add('is-active');
-        }
-        else if(window.scrollY > item.position && (item.position + item.height) > window.scrollY) {
+        console.log(i);
+        if(window.scrollY > item.position && (item.position + item.height) > window.scrollY) {
+            console.log(scrollItems[i], i);
             scrollItems[i].classList.add('is-active');
         } else {
             scrollItems[i].classList.remove('is-active');
