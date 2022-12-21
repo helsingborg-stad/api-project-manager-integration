@@ -77,13 +77,13 @@ class Challenge
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->ID);
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
-        };
+        }
 
         if(!empty($data['relatedPosts'])) {
             foreach($data['relatedPosts'] as $post) {
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
-        };
+        }
 
         $data['postTypeObject'] = get_post_type_object(get_post_type());
         $data['archive'] = get_post_type_archive_link(get_post_type());

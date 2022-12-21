@@ -5,27 +5,36 @@
             @if ($item['impact_goal'])
                 <div class="c-card__body">
                     @if ($item['impact_goal_completed'])
-                        <h4>
+                        @typography([
+                            'element' => 'h2',
+                            'variant' => 'h4',
+                        ])
                             <small
                                 class="secondary-color tiny">{{ __('Impact goals', 'project-manager-integration') }}</small>
-                        </h4>
+                        @endtypography
                         <p class="u-p-0">
                             <strong>
                                 {{ $item['impact_goal'] }}
                             </strong>
                         </p>
                         @if (!empty($item['impact_goal_comment']))
-                            <h4 class="u-mt-2">
-                                <small
-                                    class="secondary-color tiny">{{ __('Results', 'project-manager-integration') }}</small>
-                            </h4>
+                        @typography([
+                            'element' => 'h2',
+                            'variant' => 'h4',
+                            'classList' => ['u-margin__top--2']
+                        ])
+                            <small class="secondary-color tiny">{{ __('Results', 'project-manager-integration') }}
+                            </small>
+                        @endtypography
                             <p>{{ $item['impact_goal_comment'] }}</p>
                         @endif
                     @else
-                        <h4>
-                            <small
-                                class="secondary-color tiny">{{ __('Impact goals', 'project-manager-integration') }}</small>
-                        </h4>
+                        @typography([
+                            'element' => 'h2',
+                            'variant' => 'h4',
+                        ])
+                            <small class="secondary-color tiny">{{ __('Impact goals', 'project-manager-integration') }}</small>
+                        @endtypography
                         <p class="u-p-0">
                             <strong>
                                 {{ $item['impact_goal'] }}

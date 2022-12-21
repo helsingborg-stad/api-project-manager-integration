@@ -1,7 +1,12 @@
 <div class="o-grid-12">
     @card
         <div class="c-card__body">
-            <h4>{{$lang['contactsLabel']}}</h4>
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h4'
+            ])
+            {{$lang['contactsLabel']}}
+            @endtypography
             @foreach ($project['contacts'] as $contact)
                 <p><strong>{{$lang['name']}}:</strong> {{ $contact['name'] }}
                     @if ($contact['email'])

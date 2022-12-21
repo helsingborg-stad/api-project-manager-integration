@@ -1,4 +1,10 @@
-<h3 class="content-width">{{$globalGoalsTitle}}</h3>
+@typography([
+    'element' => 'h2',
+    'variant' => 'h3',
+    'classList' => ['content-width']
+])
+{{$globalGoalsTitle}}
+@endtypography
     @if (!empty($globalGoalsDescription))
         {!!$globalGoalsDescription!!}
     @endif

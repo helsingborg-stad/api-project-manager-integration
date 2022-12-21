@@ -4,7 +4,12 @@
             <ul class="box-project-meta__list">
                 @foreach ($project['meta'] as $meta)
                     <li>
-                        <h4>{{ $meta['title'] }}</h4>
+                        @typography([
+                            'element' => 'h2',
+                            'variant' => 'h4',
+                        ])
+                            {{ $meta['title'] }}
+                        @endtypography
                         @if (!empty($meta['url']))
                             <a href="{{ $meta['url'] }}">
                                 <p>{!! $meta['content'] !!}</p>
