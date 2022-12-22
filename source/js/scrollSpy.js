@@ -7,7 +7,11 @@ const setListeners = () => {
 
     scrollItems.forEach(item => {
         if (item.getAttribute('href') && item.getAttribute('href').startsWith('#')) {
-            sectionElements.push(document.querySelector(item.getAttribute('href')));
+            if (document.querySelector(item.getAttribute('href'))) {
+                sectionElements.push(document.querySelector(item.getAttribute('href')));
+            } else {
+                item.remove();
+            }
         }
     });
 
