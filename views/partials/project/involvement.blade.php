@@ -1,3 +1,4 @@
+<div id="residentInvolvement">
 @foreach ($project['residentInvolvement'] as $residentInvolement)
     <div class="o-grid-12">
         @card
@@ -17,3 +18,4 @@
         @endcard
     </div>
 @endforeach
+</div>
