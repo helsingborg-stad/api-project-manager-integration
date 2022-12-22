@@ -53,7 +53,7 @@ const setSectionElementPositions = (sectionElements) => {
 const handleScroll = (scrollItems) => {
     let i = 0;
     sectionElementPositions.forEach(item => {
-        if(window.scrollY > item.position && (item.position + item.height) > window.scrollY) {
+        if(window.scrollY > item.position - 80 && (item.position + item.height - 80) > window.scrollY) {
             scrollItems[i].classList.add('is-active');
         } else {
             scrollItems[i].classList.remove('is-active');
