@@ -21,8 +21,8 @@ const setListeners = () => {
         let currentScroll = 0;
         window.addEventListener('scroll', () => {
             let scrollTop = window.scrollY;
-            if(Math.abs(currentScroll - scrollTop > 50 || currentScroll - scrollTop < -50)) {
-                handleScroll(scrollItems, sectionElements);
+            if(Math.abs(currentScroll - scrollTop > 30 || currentScroll - scrollTop < -30)) {
+                handleScroll(scrollItems);
                 currentScroll = scrollTop;
             }
         });
