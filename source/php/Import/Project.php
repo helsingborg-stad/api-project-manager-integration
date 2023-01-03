@@ -77,6 +77,7 @@ class Project extends Importer
             'project_what' => $project_what ?? null,
             'project_why' => $project_why ?? null,
             'project_how' => $project_how ?? null,
+            'project_lessons_learned' => $project_lessons_learned ?? null,
             'impact_goals' => $impact_goals ?? null,
             'estimated_budget' => $estimated_budget ?? null,
             'cost_so_far' => $cost_so_far ?? null,
