@@ -5,7 +5,9 @@
         @if ($project && !empty($project['impactGoals']))
             @foreach ($project['impactGoals'] as $item)
                 <div class="o-grid-12">
-                    @card
+                    @card([
+                        'classList' => ['single-project__goal']
+                    ])
                         @if ($item['impact_goal'])
                             <div class="c-card__body">
                                 @if ($item['impact_goal_completed'])
@@ -46,7 +48,7 @@
         {{-- Resident Involvement --}}
         @if ($project && !empty($project['residentInvolvement']))
             @foreach ($project['residentInvolvement'] as $residentInvolement)
-                <div class="o-grid-12">
+                <div class="o-grid-12 single-project__goal">
                     @card
                         <div class="c-card__body">
                             <h4>
@@ -68,9 +70,11 @@
         {{-- Project meta --}}
         @if ($project && !empty($project['meta']))
             <div class="o-grid-12">
-                @card
+                @card([
+                    'classList' => ['single-project__meta-list'],
+                ])
                     <div class="c-card__body">
-                        <ul class="box-project-meta__list">
+                        <ul>
                             @foreach ($project['meta'] as $meta)
                                 <li>
                                     <h4>{{ $meta['title'] }}</h4>
@@ -93,13 +97,15 @@
         @if ($project && !empty($project['contacts']))
             <div class="o-grid-12">
                 {{-- TODO: Translate labels --}}
-                @card
+                @card([
+                    'classList' => ['single-project__contacts'],
+                ])
                     <div class="c-card__body">
                         <h4>Kontakt</h4>
                         @foreach ($project['contacts'] as $contact)
                             <p><b>Namn:</b> {{ $contact['name'] }}
                                 @if ($contact['email'])
-                                    </br> <b>E-post: </b><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a>
+                                    <br> <b>E-post: </b><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a>
                                 @endif
                             </p>
                         @endforeach
