@@ -40,7 +40,7 @@ class WP
 
         return !empty($metaKey) ? $caseNull() : $postMeta;
     }
-    
+
     private static function queryPostMeta(int $postId = 0): array
     {
         $post = $postId > 0 ? $postId : get_queried_object_id();
@@ -64,12 +64,12 @@ class WP
             []
         );
     }
-    public static function embed(string $url = '') {
+    public static function embed(string $url = '')
+    {
         if (filter_var($url, FILTER_VALIDATE_URL)) {
             return $GLOBALS['wp_embed']->run_shortcode("[embed]{$url}[/embed]");
         }
-        
+
         return false;
     }
-
 }
