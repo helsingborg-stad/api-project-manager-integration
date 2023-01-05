@@ -1,42 +1,42 @@
 @if (!empty($title) && !empty($url) && !empty($buttonText))
-@collection([])
-    @collection__item([
-        'action' => [
-            'link' => $url,
-            'style' => 'filled',
-            'text' => $buttonText,
-            'target' => !empty($blank) ? '_blank' : '_top'
-        ]
-    ])
-        @group([
-            'direction' => 'row',
-            'classList' => ['u-flex--gridgap']
+    @collection([])
+        @collection__item([
+            'action' => [
+                'link' => $url,
+                'style' => 'filled',
+                'text' => $buttonText,
+                'target' => !empty($blank) ? '_blank' : '_top'
+            ]
         ])
-            @if (!empty($imageUrl))
-            @image([
-                'src' => $imageUrl,
-            ])
-            @endimage
-            @endif
-
             @group([
-                'direction' => 'vertical',
+                'direction' => 'row',
+                'classList' => ['u-flex--gridgap']
             ])
-                @if (!empty($meta))
-                @typography([
-                    'element' => 'span',
-                ])
-                {{ $meta }}            
-                @endtypography
+                @if (!empty($imageUrl))
+                    @image([
+                        'src' => $imageUrl
+                    ])
+                    @endimage
                 @endif
-                @typography([
-                    'element' => 'h4',
-                    'variant' => 'h3',
+
+                @group([
+                    'direction' => 'vertical'
                 ])
-                {{ $title }}
-                @endtypography
+                    @if (!empty($meta))
+                        @typography([
+                            'element' => 'span'
+                        ])
+                            {{ $meta }}
+                        @endtypography
+                    @endif
+                    @typography([
+                        'element' => 'h4',
+                        'variant' => 'h3'
+                    ])
+                        {{ $title }}
+                    @endtypography
+                @endgroup
             @endgroup
-        @endgroup
-    @endcollection__item
-@endcollection    
+        @endcollection__item
+    @endcollection
 @endif
