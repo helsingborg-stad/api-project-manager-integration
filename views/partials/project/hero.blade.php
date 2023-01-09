@@ -1,7 +1,7 @@
 @hero([
     'heroView' => 'initiative',
     'customHeroData' => [
-        'image' => municipio_get_thumbnail_source($post->ID, [456, 342], '4:3'),
+        'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
         'background' => 'orange',
         'modifiers' => ['overflow']
     ]
