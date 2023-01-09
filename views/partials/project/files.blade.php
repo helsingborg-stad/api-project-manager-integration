@@ -5,7 +5,7 @@
                 'element' => 'h2',
                 'variant' => 'h4'
             ])
-                {{ $project['labels']['filesLabel'] }}
+                {{ $project['labels']['files'] }}
             @endtypography
             <ul>
                 @foreach ($project['files'] as $file)

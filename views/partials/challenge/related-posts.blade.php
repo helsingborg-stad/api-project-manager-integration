@@ -14,7 +14,7 @@
                 'element' => 'h3',
                 'classList' => ['challenge__related-heading']
             ])
-                {{ $challenge['labels']['moreChallengesLabel'] }}
+                {{ $challenge['labels']['moreChallenges'] }}
             @endtypography
             @link([
                 'href' => $archive,
@@ -23,7 +23,7 @@
                 @group([
                     'alignItems' => 'center'
                 ])
-                    {{ $challenge['labels']['showAllLabel'] }}
+                    {{ $challenge['labels']['showAll'] }}
                     @icon([
                         'icon' => 'arrow_forward',
                         'classList' => ['challenge__related-icon'],
