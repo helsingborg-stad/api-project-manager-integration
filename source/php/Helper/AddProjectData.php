@@ -4,7 +4,7 @@ namespace ProjectManagerIntegration\Helper;
 
 class AddProjectData
 {
-    public function addPostTags($post, $postId) {
+    public static function addPostTags($post, $postId) {
 
         $postTags = [];
                 
@@ -38,7 +38,7 @@ class AddProjectData
         return $post;
     }
 
-    public function addPostData($post, $postId) {
+    public static function addPostData($post, $postId) {
         $post->category = !empty(get_the_terms($postId, 'challenge_category')) 
         ? get_the_terms($postId, 'challenge_category')[0]->name : false; 
 
