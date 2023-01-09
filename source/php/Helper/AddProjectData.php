@@ -33,7 +33,7 @@ class AddProjectData
         }
         $post->statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($postId);
 
-        $post->taxonomies = $postTags;        
+        $post->taxonomies = $postTags;   
 
         return $post;
     }
@@ -41,7 +41,7 @@ class AddProjectData
     public static function addPostData($post, $postId) {
         $post->category = !empty(get_the_terms($postId, 'challenge_category')) 
         ? get_the_terms($postId, 'challenge_category')[0]->name : false; 
-
+        
         if(!$post->thumbnail){
             $post->thumbnail = municipio_get_thumbnail_source($postId, "sm", '12:16');
         }

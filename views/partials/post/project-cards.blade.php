@@ -2,7 +2,8 @@
     <div class="o-grid">
         @foreach ($posts as $key => $post)
             @php
-                $post = \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->id);
+                \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->id);
+                \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->id);
             @endphp
 
             <div class="o-grid-3@md u-margin__bottom--8">
@@ -15,7 +16,7 @@
                     'metaFirst' => true,
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
-                    'hasPlaceholder' => $anyPostHasImage && !isset($post->thumbnail),
+                    'hasPlaceholder' => !isset($post->thumbnail),
                     'attributeList' => ['style' => 'z-index:' . (999-$key) . ';',],
                     'classList' => ['u-height--100'],
 

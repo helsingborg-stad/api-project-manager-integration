@@ -38,7 +38,6 @@ class Challenge
         ];
 
         $category = get_the_terms(get_queried_object_id(), 'challenge_category');
-
         if (!empty($category)) {
             $data['category'] = $category[0]->name;
         }
