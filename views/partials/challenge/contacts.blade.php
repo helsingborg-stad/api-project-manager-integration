@@ -1,6 +1,6 @@
 @foreach ($contacts as $contact)
     @typography([])
-        {{ $challenge['labels']['contactsLabel'] }}:
+        {{ $challenge['labels']['contact'] }}:
         @link([
             'href' => 'mailto:' . $contact['email']
         ])

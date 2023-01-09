@@ -5,7 +5,7 @@
                 'element' => 'h2',
                 'variant' => 'h4'
             ])
-                {{ $project['labels']['contactsLabel'] }}
+                {{ $project['labels']['contact'] }}
             @endtypography
             @foreach ($project['contacts'] as $contact)
                 <p><strong>{{ $project['labels']['name'] }}:</strong> {{ $contact['name'] }}

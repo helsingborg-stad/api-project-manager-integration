@@ -3,7 +3,7 @@
         'variant' => 'h2',
         'element' => 'h3'
     ])
-        {{ $challenge['labels']['relatedProjectsLabel'] }}
+        {{ $challenge['labels']['relatedProjects'] }}
     @endtypography
     @foreach ($relatedProjects as $key => $item)
         <div class="o-grid-3@md u-margin__bottom--8">
