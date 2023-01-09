@@ -5,12 +5,13 @@
                 'element' => 'h2',
                 'variant' => 'h4'
             ])
-            {{$lang['contactsLabel']}}
+                {{ $project['labels']['contactsLabel'] }}
             @endtypography
             @foreach ($project['contacts'] as $contact)
-                <p><strong>{{$lang['name']}}:</strong> {{ $contact['name'] }}
+                <p><strong>{{ $project['labels']['name'] }}:</strong> {{ $contact['name'] }}
                     @if ($contact['email'])
-                        <br> <strong>{{$lang['email']}}: </strong><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a>
+                        <br> <strong>{{ $project['labels']['email'] }}: </strong><a
+                            href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a>
                     @endif
                 </p>
             @endforeach

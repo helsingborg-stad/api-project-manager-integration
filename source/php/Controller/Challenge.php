@@ -28,6 +28,15 @@ class Challenge
             return $data;
         }
 
+        $data['challenge'] = [
+            'labels' => [
+                'moreChallengesLabel' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'showAllLabel' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'relatedProjectsLabel' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'contactsLabel' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            ]
+        ];
+
         $category = get_the_terms(get_queried_object_id(), 'challenge_category');
 
         if (!empty($category)) {
@@ -72,28 +81,21 @@ class Challenge
             'orderby' => 'rand'
         ]);
 
-        if(!empty($data['relatedProjects'])) {
-            foreach($data['relatedProjects'] as $post) {
+        if (!empty($data['relatedProjects'])) {
+            foreach ($data['relatedProjects'] as $post) {
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->ID);
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
         }
 
-        if(!empty($data['relatedPosts'])) {
-            foreach($data['relatedPosts'] as $post) {
+        if (!empty($data['relatedPosts'])) {
+            foreach ($data['relatedPosts'] as $post) {
                 \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->ID);
             }
         }
 
         $data['postTypeObject'] = get_post_type_object(get_post_type());
         $data['archive'] = get_post_type_archive_link(get_post_type());
-
-        $data['lang'] = [
-            'moreChallengesLabel' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'showAllLabel' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'relatedProjectsLabel' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-            'contactsLabel' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-        ];
 
         return $data;
     }
