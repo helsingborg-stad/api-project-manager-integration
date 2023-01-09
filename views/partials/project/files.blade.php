@@ -3,9 +3,9 @@
         <div class="c-card__body u-pt-1">
             @typography([
                 'element' => 'h2',
-                'variant' => 'h4',
+                'variant' => 'h4'
             ])
-            {{$lang['filesLabel']}}
+                {{ $project['labels']['filesLabel'] }}
             @endtypography
             <ul>
                 @foreach ($project['files'] as $file)
