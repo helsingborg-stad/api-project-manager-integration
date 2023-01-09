@@ -30,10 +30,10 @@ class Challenge
 
         $data['challenge'] = [
             'labels' => [
-                'moreChallenges' => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'showAll' => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'relatedProjects' => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'contact' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'moreChallenges'    => __('More Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'showAll'           => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'relatedProjects'   => __('Innovation initiatives linked to the challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'contact'           => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             ]
         ];
 

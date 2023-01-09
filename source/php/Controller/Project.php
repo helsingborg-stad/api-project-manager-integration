@@ -44,11 +44,11 @@ class Project
                 'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
                 'relatedPosts'          =>  RelatedPosts::create(),
                 'labels'                => [
-                    'contact' => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'email' => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'name' => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'files' => __('Files', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'links' => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'contact'   => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'email'     => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'name'      => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'files'     => __('Files', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'links'     => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 ]
             ]
         );
