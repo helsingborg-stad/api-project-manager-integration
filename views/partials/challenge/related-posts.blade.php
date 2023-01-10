@@ -14,10 +14,10 @@
                 'element' => 'h3',
                 'classList' => ['challenge__related-heading']
             ])
-                {{ $challenge['labels']['moreChallenges'] }}
+                {{ $challenge['relatedPosts']['title'] }}
             @endtypography
             @link([
-                'href' => $archive,
+                'href' => $challenge['archive'],
                 'classList' => ['challenge__related-link']
             ])
                 @group([
@@ -35,14 +35,14 @@
         @endgroup
 
         <div class="o-grid">
-            @foreach ($relatedPosts as $item)
+            @foreach ($challenge['relatedPosts']['posts'] as $post)
                 <div class="o-grid-3@md">
                     @block([
-                        'heading' => $item->post_title,
-                        'meta' => $item->category,
+                        'heading' => $post->postTitle,
+                        'meta' => $post->challenge->category,
                         'ratio' => '12:16',
-                        'image' => ['src' => $item->thumbnail, 'alt' => $item->post_title],
-                        'link' => $item->permalink
+                        'image' => ['src' => $post->thumbnail['src'], 'alt' => $post->postTitle],
+                        'link' => $post->permalink
                     ])
                     @endblock
                 </div>

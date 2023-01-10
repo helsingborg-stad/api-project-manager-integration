@@ -1,42 +1,36 @@
 @if ($posts)
     <div class="o-grid">
         @foreach ($posts as $key => $post)
-            @php
-                \ProjectManagerIntegration\Helper\AddProjectData::addPostData($post, $post->id);
-                \ProjectManagerIntegration\Helper\AddProjectData::addPostTags($post, $post->id);
-            @endphp
-
             <div class="o-grid-3@md u-margin__bottom--8">
                 @card([
                     'image' => $post->thumbnail['src'],
                     'link' => $post->permalink,
                     'heading' => $post->postTitle,
-                    'content' => $post->taxonomies,
-                    'meta' => $post->category,
+                    'content' => $post->project->taxonomies,
+                    'meta' => $post->project->category,
                     'metaFirst' => true,
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
                     'hasPlaceholder' => !isset($post->thumbnail),
-                    'attributeList' => ['style' => 'z-index:' . (999-$key) . ';',],
-                    'classList' => ['u-height--100'],
-
+                    'attributeList' => ['style' => 'z-index:' . (999 - $key) . ';'],
+                    'classList' => ['u-height--100']
                 ])
-                  @slot('afterContent')
-                    <div class="u-align-self--end u-width--100">
-                        @tooltip([
-                            'label' => $post->statusBar['label'],
-                            'placement' => 'bottom',
-                            'classList' => ['u-justify-content--end']
-                        ])
-                        {{$post->statusBar['explainer']}}
-                        @endtooltip
-                        @progressbar([
-                            'value' => $post->statusBar['value'],
-                            'isCancelled' => $post->statusBar['isCancelled'],
-                        ])
-                        @endprogressbar
-                    </div>
-                @endslot
+                    @slot('afterContent')
+                        <div class="u-align-self--end u-width--100">
+                            @tooltip([
+                                'label' => $post->project->statusBar['label'],
+                                'placement' => 'bottom',
+                                'classList' => ['u-justify-content--end']
+                            ])
+                                {{ $post->project->statusBar['explainer'] }}
+                            @endtooltip
+                            @progressbar([
+                                'value' => $post->project->statusBar['value'],
+                                'isCancelled' => $post->project->statusBar['isCancelled']
+                            ])
+                            @endprogressbar
+                        </div>
+                    @endslot
                 @endcard
             </div>
         @endforeach

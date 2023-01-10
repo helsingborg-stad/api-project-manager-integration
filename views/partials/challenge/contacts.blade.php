@@ -1,4 +1,4 @@
-@foreach ($contacts as $contact)
+@foreach ($challenge['contacts'] as $contact)
     @typography([])
         {{ $challenge['labels']['contact'] }}:
         @link([

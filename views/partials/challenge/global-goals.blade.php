@@ -3,15 +3,15 @@
     'variant' => 'h3',
     'classList' => ['content-width']
 ])
-{{$globalGoalsTitle}}
+    {{ $challenge['globalGoalsTitle'] }}
 @endtypography
-    @if (!empty($globalGoalsDescription))
-        {!!$globalGoalsDescription!!}
-    @endif
+@if (!empty($challenge['globalGoalsDescription']))
+    {!! $challenge['globalGoalsDescription'] !!}
+@endif
 <div class="global-goals">
     <div class="global-goals__container">
-    @foreach($globalGoals as $item)
-        <img class="global-goals__logo" src="{{$item['featured_image']}}">
-    @endforeach
+        @foreach ($challenge['globalGoals'] as $termId)
+            <img class="global-goals__logo" src="{{ get_term_meta($termId, 'featured_image', true) }}">
+        @endforeach
     </div>
 </div>

@@ -3,32 +3,35 @@
         'variant' => 'h2',
         'element' => 'h3'
     ])
-        {{ $challenge['labels']['relatedProjects'] }}
+        {{ $challenge['relatedProjects']['title'] }}
     @endtypography
-    @foreach ($relatedProjects as $key => $item)
+    @foreach ($challenge['relatedProjects']['posts'] as $key => $post)
         <div class="o-grid-3@md u-margin__bottom--8">
             @card([
-                'heading' => $item->post_title,
-                'meta' => $item->category,
+                'image' => $post->thumbnail['src'],
+                'link' => $post->permalink,
+                'heading' => $post->postTitle,
+                'content' => $post->project->taxonomies,
+                'meta' => $post->project->category,
                 'metaFirst' => true,
-                'content' => $item->taxonomies,
-                'link' => $item->permalink,
-                'image' => $item->thumbnail,
-                'classList' => ['u-height--100'],
-                'attributeList' => ['style' => 'z-index:' . (999 - $key) . ';']
+                'context' => ['archive', 'archive.list', 'archive.list.card'],
+                'containerAware' => true,
+                'hasPlaceholder' => false,
+                'attributeList' => ['style' => 'z-index:' . (999 - $key) . ';'],
+                'classList' => ['u-height--100']
             ])
                 @slot('afterContent')
                     <div class="u-align-self--end u-width--100">
                         @tooltip([
-                            'label' => $item->statusBar['label'],
+                            'label' => $post->project->statusBar['label'],
                             'placement' => 'bottom',
                             'classList' => ['u-justify-content--end']
                         ])
-                            {{ $item->statusBar['explainer'] }}
+                            {{ $post->project->statusBar['explainer'] }}
                         @endtooltip
                         @progressbar([
-                            'value' => $item->statusBar['value'],
-                            'isCancelled' => $item->statusBar['isCancelled']
+                            'value' => $post->project->statusBar['value'],
+                            'isCancelled' => $post->project->statusBar['isCancelled']
                         ])
                         @endprogressbar
                     </div>
