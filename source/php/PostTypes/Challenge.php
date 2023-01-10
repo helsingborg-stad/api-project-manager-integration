@@ -4,7 +4,7 @@ namespace ProjectManagerIntegration\PostTypes;
 
 class Challenge
 {
-    public $postType = 'challenge';
+    public static $postType = 'challenge';
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class Challenge
         );
 
         $postType = new \ProjectManagerIntegration\Helper\PostType(
-            $this->postType,
+            self::$postType,
             __('Challenge', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Challenges', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             $args,
