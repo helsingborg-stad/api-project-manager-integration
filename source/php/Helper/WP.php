@@ -4,11 +4,11 @@ namespace ProjectManagerIntegration\Helper;
 
 class WP
 {
-    public static function getPostTermsJoined(string $taxonomy, int $postId = 0): string
+    public static function getPostTermsJoined(array $taxonomies, int $postId = 0, array $termQueryArgs = []): string
     {
         $createString = fn ($term) => '<span>' . $term->name . '</span>';
         return array_reduce(
-            self::getPostTerms($taxonomy, $postId),
+            self::getPostTerms($taxonomies, $postId, $termQueryArgs),
             fn ($accumilator, $term) => empty($accumilator)
                 ? $createString($term)
                 : $accumilator . ', ' . $createString($term),
@@ -16,11 +16,12 @@ class WP
         );
     }
 
-    public static function getPostTerms(string $taxonomy, int $postId = 0): array
+    public static function getPostTerms(array $taxonomies, int $postId = 0, array $termQueryArgs = []): array
     {
-        $terms = get_the_terms(
+        $terms = wp_get_post_terms(
             $postId > 0 ? $postId : get_queried_object_id(),
-            $taxonomy
+            $taxonomies,
+            $termQueryArgs
         );
 
         return !empty($terms) && !is_wp_error($terms) ? $terms : [];
