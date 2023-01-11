@@ -36,7 +36,7 @@ const debounce = (func, delay, sectionElements) => {
     func(sectionElements);
 
     return () => {
-        timer ? clearTimeout(timer) : '';
+        timer ? clearTimeout(timer) : (() => {})();
         timer = setTimeout(() => {
             func(sectionElements);
         }, delay);
