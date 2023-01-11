@@ -11,7 +11,8 @@
 <div class="global-goals">
     <div class="global-goals__container">
         @foreach ($challenge['globalGoals'] as $termId)
-            <img class="global-goals__logo" src="{{ get_term_meta($termId, 'featured_image', true) }}">
+            <img alt="{{ get_term($termId)->name }}" class="global-goals__logo"
+                src="{{ get_term_meta($termId, 'featured_image', true) }}">
         @endforeach
     </div>
 </div>
