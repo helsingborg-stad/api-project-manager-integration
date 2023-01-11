@@ -23,7 +23,6 @@ class Project
         $data['project'] = array_merge(
             WP::getPostMeta(),
             [
-                'contentPieces'         =>  $this->contentPieces(),
                 'meta'                  =>  $this->meta(),
                 'statusBar'             =>  ProjectStatus::create(),
                 'files'                 =>  WP::getPostMeta('files', []),
@@ -201,11 +200,12 @@ class Project
             return $content;
         }
 
+
         $controlledContent = implode(
             PHP_EOL,
             array_map(
                 fn ($piece) => "<h2>{$piece['title']}</h2>" . PHP_EOL . $piece['content'],
-                apply_filters('Municipio/viewData', [])['project']['contentPieces'] ?? []
+                $this->contentPieces()
             )
         );
 
