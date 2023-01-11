@@ -1,5 +1,7 @@
 @if (!empty($title) && !empty($url) && !empty($buttonText))
-    @collection([])
+    @collection([
+        'classList' => ['post-type-shortcode']
+    ])
         @collection__item([
             'action' => [
                 'link' => $url,
