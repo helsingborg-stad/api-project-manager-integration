@@ -9,6 +9,7 @@
             'key' => 'field_5e8c4ad58b110',
             'label' => __('API URL', 'project-manager-integration'),
             'name' => 'project_api_url',
+            'aria-label' => '',
             'type' => 'url',
             'instructions' => '',
             'required' => 1,
@@ -25,6 +26,7 @@
             'key' => 'field_5ece6ba2ad592',
             'label' => __('Organisation filter', 'project-manager-integration'),
             'name' => 'organisation_filter',
+            'aria-label' => '',
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
@@ -35,20 +37,24 @@
                 'id' => '',
             ),
             'choices' => array(
+                0 => __('Importera alla organisationer', 'project-manager-integration'),
+                20 => __('Organisation 1 (2)', 'project-manager-integration'),
             ),
-            'default_value' => array(
-            ),
+            'default_value' => false,
             'allow_null' => 0,
             'multiple' => 0,
             'ui' => 0,
             'return_format' => 'value',
             'ajax' => 0,
             'placeholder' => '',
+            'allow_custom' => 0,
+            'search_placeholder' => '',
         ),
         2 => array(
             'key' => 'field_5e8c514c89ee4',
             'label' => __('Daily import', 'project-manager-integration'),
             'name' => 'project_daily_import',
+            'aria-label' => '',
             'type' => 'true_false',
             'instructions' => '',
             'required' => 0,
@@ -82,5 +88,6 @@
     'hide_on_screen' => '',
     'active' => true,
     'description' => '',
+    'show_in_rest' => false,
 ));
 }

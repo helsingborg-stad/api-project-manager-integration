@@ -64,4 +64,12 @@ class WP
             []
         );
     }
+    public static function embed(string $url = '')
+    {
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            return $GLOBALS['wp_embed']->run_shortcode("[embed]{$url}[/embed]");
+        }
+
+        return false;
+    }
 }

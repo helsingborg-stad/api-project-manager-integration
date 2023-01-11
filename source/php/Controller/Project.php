@@ -61,6 +61,7 @@ class Project
 
     private function contentPieces(): array
     {
+
         return \ProjectManagerIntegration\UI\ContentPieces::create([
             [
                 'title' => __('What', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
@@ -73,6 +74,10 @@ class Project
             [
                 'title' => __('How', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
                 'content' => WP::getPostMeta('project_how', null),
+            ],
+            [
+                'title' => '<span class="u-sr__only">' . __('Video', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '</span>',
+                'content' => WP::embed(WP::getPostMeta('video', [['url' => false]])[0]['url'] ?: ''),
             ],
             [
                 'title' => __('Lessons learned', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
