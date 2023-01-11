@@ -1,54 +1,52 @@
-.hero.hero--project {
-    background: white;
-}
+//styling for single project hero
 
-@media only screen and (min-width: 56em) {
-    // Tablet
-    .hero.hero--project {
-        position: relative;
+// FIX PADDING ON __CONTENT FOR MOBILE UNITS
+.project-hero {
+    padding-top: 0;
+    .c-image__image {
+        width:100%;
+    }
 
+    .project-hero__image-container {
+        display: none;
+    }
 
+    .project-hero__container {
+        background-color: white;
+    }
+
+    .project-hero__content {
+        padding: 0;
+    }
+
+    @media only screen and (min-width: 56em) {
         padding-top: 128px;
-
-        .hero__background-wrapper,
-        .hero__background {
-            z-index: 0;
-        }
-    
-        .hero__background-wrapper {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
+        .project-hero__image-container {
+            display:block;
             height: 100%;
-            overflow: hidden;
-        }
-    
-        .hero__background-wrapper:before {
-            content: '';
-            background: white;
-            height: 64px;
             width: 100%;
             position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: 1;
+            top: 0;
+            z-index: -1;
+            &::after {
+                content: "";
+                height: 64px;
+                width: 100%;
+                bottom:0;
+                left:0;
+                position: absolute;
+                background-color: white;
+            }
+
+            .project-hero__image-background {
+            background-repeat:no-repeat;
+            background-size:cover;
+            filter:blur(30px);
+            top:0;
+            }
         }
-    
-        .hero__background {
-            position: absolute;
-            left: -16;
-            top: -16px;
-            width: 110%;
-            height: 110%;
-            background-size: cover;
-            filter: blur(100px);
+        .project-hero__content {
+            padding: 48px;
         }
-        
-        img.hero__image {
-            width: 100%;
-        }
-    
-        .hero__meta {}
     }
 }

@@ -5,8 +5,8 @@ import smoothScroll from './smoothScroll';
 
 document.addEventListener('DOMContentLoaded', function(event) {
     // Do stuff
-    scrollSpy();
     archiveFilter();
+    scrollSpy();
     collapseSection();
     smoothScroll();
 });

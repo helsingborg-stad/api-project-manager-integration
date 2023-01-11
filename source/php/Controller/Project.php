@@ -2,6 +2,7 @@
 
 namespace ProjectManagerIntegration\Controller;
 
+use ProjectManagerIntegration\Helper\Municipio;
 use ProjectManagerIntegration\Helper\WP;
 use ProjectManagerIntegration\UI\ProjectStatus;
 use ProjectManagerIntegration\UI\RelatedPosts;
@@ -10,23 +11,11 @@ class Project
 {
     public function __construct()
     {
-        add_filter('Municipio/viewData', array($this, 'viewController'));
-        add_filter('the_content', array($this, 'replaceContentWithContentPieces'), 10, 1);
-    }
-
-    public function viewController($data)
-    {
-        global $wp_query;
-
-        if (is_singular(\ProjectManagerIntegration\PostTypes\Project::$postType)) {
-            return $this->singleViewController($data);
-        }
-
-        if (is_archive() && $wp_query->query['post_type'] === \ProjectManagerIntegration\PostTypes\Project::$postType) {
-            return $this->archiveViewController($data);
-        }
-
-        return $data;
+        $postType = \ProjectManagerIntegration\PostTypes\Project::$postType;
+        add_filter("ProjectManagerIntegration/Helper/Municipio/{$postType}/mapPost", [$this, 'mapProjectPostData']);
+        add_filter("Municipio/Template/{$postType}/single/viewData", [$this, 'singleViewController']);
+        add_filter("Municipio/Template/{$postType}/archive/viewData", [$this, 'archiveViewController']);
+        add_filter('the_content', [$this, 'replaceContentWithContentPieces'], 10, 1);
     }
 
     public function singleViewController($data)
@@ -34,7 +23,6 @@ class Project
         $data['project'] = array_merge(
             WP::getPostMeta(),
             [
-                'contentPieces'         =>  $this->contentPieces(),
                 'meta'                  =>  $this->meta(),
                 'statusBar'             =>  ProjectStatus::create(),
                 'files'                 =>  WP::getPostMeta('files', []),
@@ -43,6 +31,13 @@ class Project
                 'residentInvolvement'   =>  WP::getPostMeta('resident_involvement', []),
                 'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
                 'relatedPosts'          =>  RelatedPosts::create(),
+                'labels'                => [
+                    'contact'   => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'email'     => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'name'      => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'files'     => __('Files', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                    'links'     => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                ]
             ]
         );
 
@@ -51,8 +46,42 @@ class Project
         return $data;
     }
 
+    public function mapProjectPostData(object $post): object
+    {
+        $post->project = (object) [
+            'statusBar'     => ProjectStatus::create($post->id),
+            'category'      => WP::getPostTermsJoined(['challenge_category'], $post->id) ?? '',
+            'taxonomies'    => WP::getPostTermsJoined(['project_sector', 'project_technology'], $post->id)
+        ];
+
+        return $post;
+    }
+
+    protected static function createProjectCardPosts(array $posts): array
+    {
+        return array_map(function ($post) {
+            $post->project = (object) [
+                'statusBar'     => ProjectStatus::create($post->id),
+                'category'      => WP::getPostTermsJoined(['challenge_category'], $post->id) ?? '',
+                'taxonomies'    => WP::getPostTermsJoined(['project_sector', 'project_technology'], $post->id)
+            ];
+
+            if (!$post->thumbnail) {
+                $post->thumbnail = municipio_get_thumbnail_source($post->id, "sm", '12:16');
+            }
+
+            if (!$post->permalink) {
+                $post->permalink = get_permalink($post->id);
+            }
+
+            return $post;
+        }, $posts);
+    }
+
     public function archiveViewController($data)
     {
+        $data['posts'] = Municipio::mapPosts($data['posts']);
+
         $data['noResultLabels'][0] = __('We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
         $data['noResultLabels'][1] = __('Try to refine your search.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
 
@@ -91,7 +120,7 @@ class Project
         return \ProjectManagerIntegration\UI\MetaBoxes::create([
             [
                 'title'     => __('Powered by', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content'   => WP::getPostTermsJoined('project_organisation') ?? null,
+                'content'   => WP::getPostTermsJoined(['project_organisation']) ?? null,
                 'url'       => null,
             ],
             [
@@ -101,12 +130,12 @@ class Project
             ],
             [
                 'title'     => __('Category', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content'   => WP::getPostTermsJoined('challenge_category') ?? null,
+                'content'   => WP::getPostTermsJoined(['challenge_category']) ?? null,
                 'url'       => null,
             ],
             [
                 'title'     => __('Technologies', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content'   => WP::getPostTermsJoined('project_technology') ?? null,
+                'content'   => WP::getPostTermsJoined(['project_technology']) ?? null,
                 'url'       => null,
             ],
             [
@@ -128,12 +157,12 @@ class Project
             ],
             [
                 'title'     => __('Sector', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content'   => WP::getPostTermsJoined('project_sector') ?? null,
+                'content'   => WP::getPostTermsJoined(['project_sector']) ?? null,
                 'url'       => null,
             ],
             [
                 'title'     => __('Partners', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                'content'    => WP::getPostTermsJoined('project_partner') ?? null,
+                'content'    => WP::getPostTermsJoined(['project_partner']) ?? null,
                 'url'       => null,
             ],
         ]);
@@ -171,11 +200,12 @@ class Project
             return $content;
         }
 
+
         $controlledContent = implode(
             PHP_EOL,
             array_map(
                 fn ($piece) => "<h2>{$piece['title']}</h2>" . PHP_EOL . $piece['content'],
-                apply_filters('Municipio/viewData', [])['project']['contentPieces'] ?? []
+                $this->contentPieces()
             )
         );
 

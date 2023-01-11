@@ -1,13 +1,22 @@
-.sticky-bar {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 79px;
-    z-index: 9997;
-}
-
-.sticky-bar.sticky-bar--content {
+ #scroll-spy {
     background-color: white;
-    border-top: solid 1px #E7E7E7;
-    border-bottom: solid 1px #E7E7E7;
-}
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    top:0;
+    padding:0 24px;
 
+    .scroll-spy__container {
+        display: flex;
+        flex-wrap: wrap;
+        gap:0 24px;
+        .scroll-spy__item {
+            padding:16px 0;
+            font-size: 1.125em;
+            text-decoration: none;
+            transition:.2s;
+            &.is-active {
+                border-bottom: 1px solid black;
+            }
+        }
+    }
+ }

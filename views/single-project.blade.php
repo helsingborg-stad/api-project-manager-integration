@@ -1,156 +1,39 @@
 @extends('templates.single')
 
+@php
+    $statusBar = \ProjectManagerIntegration\UI\ProjectStatus::create($post->id);
+@endphp
+
+@section('sidebar.top-sidebar.after')
+    @include('partials.project.hero')
+    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
+@stop
+
+@section('article.title.before')
+    <div class="u-display--none">
+@stop
+@section('article.title.after')
+    </div>
+@stop
+
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
-        @if ($project && !empty($project['impactGoals']))
-            @foreach ($project['impactGoals'] as $item)
-                <div class="o-grid-12">
-                    @card([
-                        'classList' => ['single-project__goal']
-                    ])
-                        @if ($item['impact_goal'])
-                            <div class="c-card__body">
-                                @if ($item['impact_goal_completed'])
-                                    <h4>
-                                        <small
-                                            class="secondary-color tiny">{{ __('Impact goals', 'project-manager-integration') }}</small>
-                                    </h4>
-                                    <p class="u-p-0">
-                                        <b>
-                                            {{ $item['impact_goal'] }}
-                                        </b>
-                                    </p>
-                                    @if (!empty($item['impact_goal_comment']))
-                                        <h4 class="u-mt-2">
-                                            <small
-                                                class="secondary-color tiny">{{ __('Results', 'project-manager-integration') }}</small>
-                                        </h4>
-                                        <p>{{ $item['impact_goal_comment'] }}</p>
-                                    @endif
-                                @else
-                                    <h4>
-                                        <small
-                                            class="secondary-color tiny">{{ __('Impact goals', 'project-manager-integration') }}</small>
-                                    </h4>
-                                    <p class="u-p-0">
-                                        <b>
-                                            {{ $item['impact_goal'] }}
-                                        </b>
-                                    </p>
-                                @endif
-                            </div>
-                        @endif
-                    @endcard
-                </div>
-            @endforeach
-        @endif
+        @includeWhen($project && !empty($project['impactGoals']), 'partials.project.goals')
 
         {{-- Resident Involvement --}}
-        @if ($project && !empty($project['residentInvolvement']))
-            @foreach ($project['residentInvolvement'] as $residentInvolement)
-                <div class="o-grid-12 single-project__goal">
-                    @card
-                        <div class="c-card__body">
-                            <h4>
-                                <small
-                                    class="secondary-color tiny">{{ __('Resident involvement', 'project-manager-integration') }}</small>
-                            </h4>
-                            <p class="u-p-0">
-                                <b>
-                                    {{ $residentInvolement['description'] }}
-                                </b>
-                            </p>
-                        </div>
-                    @endcard
-                </div>
-            @endforeach
-        @endif
-
-
+        @includeWhen ($project && !empty($project['residentInvolvement']), 'partials.project.involvement')
+            
         {{-- Project meta --}}
-        @if ($project && !empty($project['meta']))
-            <div class="o-grid-12">
-                @card([
-                    'classList' => ['single-project__meta-list'],
-                ])
-                    <div class="c-card__body">
-                        <ul>
-                            @foreach ($project['meta'] as $meta)
-                                <li>
-                                    <h4>{{ $meta['title'] }}</h4>
-                                    @if (!empty($meta['url']))
-                                        <a href="{{ $meta['url'] }}">
-                                            <p>{!! $meta['content'] !!}</p>
-                                        </a>
-                                    @else
-                                        <p>{!! $meta['content'] !!}</p>
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endcard
-            </div>
-        @endif
+        @includeWhen($project && !empty($project['meta']), 'partials.project.meta')
 
         {{-- Contacts --}}
-        @if ($project && !empty($project['contacts']))
-            <div class="o-grid-12">
-                {{-- TODO: Translate labels --}}
-                @card([
-                    'classList' => ['single-project__contacts'],
-                ])
-                    <div class="c-card__body">
-                        <h4>Kontakt</h4>
-                        @foreach ($project['contacts'] as $contact)
-                            <p><b>Namn:</b> {{ $contact['name'] }}
-                                @if ($contact['email'])
-                                    <br> <b>E-post: </b><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a>
-                                @endif
-                            </p>
-                        @endforeach
-                    </div>
-                @endcard
-            </div>
-        @endif
+        @includeWhen($project && !empty($project['contacts']), 'partials.project.contacts')
 
         {{-- Files --}}
-        @if ($project && !empty($project['files']))
-            <div class="o-grid-12">
-                {{-- TODO: Translate labels --}}
-                @card
-                    <div class="c-card__body u-pt-1">
-                        <h4>Filer</h4>
-                        <ul>
-                            @foreach ($project['files'] as $file)
-                                <li>
-                                    <a href="{{ $file['file']['url'] }}">{{ $file['title'] }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endcard
-            </div>
-        @endif
+        @includeWhen($project && !empty($project['files']), 'partials.project.files')
 
         {{-- Links --}}
-        @if ($project && !empty($project['links']))
-            <div class="o-grid-12">
-                {{-- TODO: Translate labels --}}
-                @card
-                    <div class="c-card__body u-pt-1">
-                        <h4>Länkar</h4>
-                        <ul>
-                            @foreach ($project['links'] as $link)
-                                <li>
-                                    <a target="_blank" href="{{ $link['url'] }}">{{ $link['title'] }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endcard
-            </div>
-        @endif
+        @includeWhen($project && !empty($project['links']), 'partials.project.links')
     </div>
 @stop
 
