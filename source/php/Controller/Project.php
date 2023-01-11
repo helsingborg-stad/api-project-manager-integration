@@ -62,8 +62,6 @@ class Project
     private function contentPieces(): array
     {
 
-        $videoUrl = WP::getPostMeta('video', null) ? WP::getPostMeta('video', null)[0]['url'] : false;
-
         return \ProjectManagerIntegration\UI\ContentPieces::create([
             [
                 'title' => __('What', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
@@ -79,7 +77,7 @@ class Project
             ],
             [
                 'title' => '<span class="u-sr__only">' . __('Video', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '</span>',
-                'content' => WP::embed($videoUrl),
+                'content' => WP::embed(WP::getPostMeta('video', [['url' => false]])[0]['url'] ?: ''),
             ],
             [
                 'title' => __('Lessons learned', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
