@@ -1,22 +1,14 @@
 @if (!empty($title) && !empty($url) && !empty($buttonText))
-    @collection([
-        'classList' => ['post-type-shortcode']
-    ])
-        @collection__item([
-            'action' => [
-                'link' => $url,
-                'style' => 'filled',
-                'text' => $buttonText,
-                'target' => !empty($blank) ? '_blank' : '_top'
-            ]
-        ])
+    @card(['classList' => ['c-card--compact-post', 'post-type-shortcode']])
+        <div class="c-card__body">
             @group([
                 'direction' => 'row',
                 'classList' => ['u-flex--gridgap']
             ])
                 @if (!empty($imageUrl))
                     @image([
-                        'src' => $imageUrl
+                        'src' => $imageUrl,
+                        'classList' => ['u-display--none@xs']
                     ])
                     @endimage
                 @endif
@@ -38,7 +30,17 @@
                         {{ $title }}
                     @endtypography
                 @endgroup
+
+                <div class="u-margin__left--auto u-display--flex u-align-items--center">
+                    @button([
+                        'href' => $url,
+                        'style' => 'filled',
+                        'text' => $buttonText,
+                        'target' => !empty($blank) ? '_blank' : '_top',
+                    ])
+                    @endbutton
+                </div>
             @endgroup
-        @endcollection__item
-    @endcollection
+        </div>
+    @endcard
 @endif
