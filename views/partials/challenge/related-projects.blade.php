@@ -33,7 +33,7 @@
                             'value' => $post->project->statusBar['value'],
                             'isCancelled' => $post->project->statusBar['isCancelled']
                         ])
-                        @endprogressbar
+                        @endprogressBar
                     </div>
                 @endslot
             @endcard
