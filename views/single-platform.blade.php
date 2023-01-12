@@ -7,6 +7,7 @@
 @section('below')
 
     @includeWhen(!empty($platform['getStartedContent']), 'partials.platform.get-started')
+    @includeWhen(!empty($platform['roadmap']), 'partials.platform.roadmap')
 
     @if (!empty($platform['files']) || !empty($platform['links']) || !empty($platform['contacts']))
         <div class="section u-py-7 u-bt-1">
