@@ -3,6 +3,7 @@
 namespace ProjectManagerIntegration\Controller;
 
 use ProjectManagerIntegration\Helper\WP;
+use ProjectManagerIntegration\UI\RelatedPosts;
 
 class Platform
 {
@@ -42,13 +43,7 @@ class Platform
                 __('Get started', PROJECTMANAGERINTEGRATION_TEXTDOMAIN)
             ),
             'getStartedContent' => WP::getPostMeta('get_started_content', ''),
-            'projects' => get_posts([
-                'post_type' => 'project',
-                'posts_per_page' => -1,
-                'meta_key' => 'platforms',
-                'meta_value' => WP::getPostMeta('uuid', 0),
-                'meta_compare' => 'LIKE'
-            ]),
+            'relatedProjects' => self::createRelatedProjects(),
         ];
 
         $data['scrollSpyMenuItems'] =  array();
@@ -80,6 +75,22 @@ class Platform
 
 
         return $data;
+    }
+
+    protected static function createRelatedProjects()
+    {
+        return RelatedPosts::create(
+            0,
+            'project',
+            __('Innovation initiatives linked to the platform', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+            [
+                'post_type' => 'project',
+                'posts_per_page' => -1,
+                'meta_key' => 'platforms',
+                'meta_value' => WP::getPostMeta('uuid', 0),
+                'meta_compare' => 'LIKE'
+            ]
+        );
     }
 
     public static function buildFiles($items)
