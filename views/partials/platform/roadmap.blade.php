@@ -20,57 +20,54 @@
             </div>
             {{-- Roadmap --}}
             <div class="o-grid-12 u-mb-2">
-                @if (!empty($platform['roadmap']['items']))
-                    <div class="o-grid">
-                        @foreach ($platform['roadmap']['items'] as $item)
-                            <div class="o-grid-4">
-                                @if (!empty($item['category']))
+                <div class="o-grid">
+                    @foreach ($platform['roadmap']['items'] as $item)
+                        <div class="o-grid-4">
+                            @if (!empty($item['category']))
+                                @typography([
+                                    'element' => 'meta',
+                                    'classList' => ['content-width']
+                                ])
+                                    {{ $item['category'] }}
+                                @endtypography
+                            @endif
+
+                            @typography([
+                                'element' => 'h3',
+                                'classList' => ['content-width']
+                            ])
+                                {{ $item['title'] }}
+                            @endtypography
+
+
+                            @typography([
+                                'element' => 'p',
+                                'classList' => ['content-width']
+                            ])
+                                {{ $item['content'] }}
+                            @endtypography
+
+                            <div class="o-grid u-mt-3 u-align-items-center">
+                                @if (!empty($item['status']) &&
+                                    !empty($platform['roadmap']['statusColors']) &&
+                                    isset($platform['roadmap']['statusColors'][$item['status']]))
+                                    <div class="o-grid-1">
+                                        <span class="c-status-dot u-display-inline-block"
+                                            style="background-color:{{ $platform['roadmap']['statusColors'][$item['status']] }};"></span>
+                                    </div>
+                                @endif
+                                <div class="o-grid-auto">
                                     @typography([
-                                        'element' => 'meta',
+                                        'element' => 'p',
                                         'classList' => ['content-width']
                                     ])
-                                        {{ $item['category'] }}
+                                        {{ $item['date'] }}
                                     @endtypography
-                                @endif
-
-                                @typography([
-                                    'element' => 'h3',
-                                    'classList' => ['content-width']
-                                ])
-                                    {{ $item['title'] }}
-                                @endtypography
-
-
-                                @typography([
-                                    'element' => 'p',
-                                    'classList' => ['content-width']
-                                ])
-                                    {{ $item['content'] }}
-                                @endtypography
-
-                                <div class="o-grid u-mt-3 u-align-items-center">
-                                    @if (!empty($item['status']) &&
-                                        !empty($platform['roadmap']['statusColors']) &&
-                                        isset($platform['roadmap']['statusColors'][$item['status']]))
-                                        <div class="o-grid-1">
-                                            <span class="c-status-dot u-display-inline-block"
-                                                style="background-color:{{ $platform['roadmap']['statusColors'][$item['status']] }};"></span>
-                                        </div>
-                                    @endif
-                                    <div class="o-grid-auto">
-                                        @typography([
-                                            'element' => 'p',
-                                            'classList' => ['content-width']
-                                        ])
-                                            {{ $item['date'] }}
-                                        @endtypography
-                                    </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-
-                @endif
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
