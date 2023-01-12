@@ -10,7 +10,7 @@
                 <ul class="pricon-list">
                     @foreach ($platform['links'] as $link)
                         <li class="pricon-list__item pricon pricon-external-link">
-                            <a target="_blank" href="{{ $link['url'] }}">{{ $link['title'] }}</a>
+                            <a target="_blank" rel="noopener" href="{{ $link['url'] }}">{{ $link['title'] }}</a>
                         </li>
                     @endforeach
                 </ul>
