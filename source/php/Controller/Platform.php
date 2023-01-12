@@ -34,7 +34,7 @@ class Platform
             ],
             'features' => WP::getPostMeta('platform_features', []),
             'links' => WP::getPostMeta('links', []),
-            'contacts' => get_post_meta(WP::getPostMeta('contacts', [])),
+            'contacts' =>  WP::getPostMeta('contacts', []),
             'files' => self::buildFiles(WP::getPostMeta('files', [])),
             'roadmap' => self::buildRoadmap(WP::getPostMeta('platform_roadmap', [])),
             'youtubeUrl' => \build_youtube_url(WP::getPostMeta('video_url', '')),
@@ -52,21 +52,21 @@ class Platform
             'anchor' => '#background',
         );
 
-        if (!empty($data['features'])) {
+        if (!empty($data['platform']['features'])) {
             $data['scrollSpyMenuItems'][] = array(
                 'label' => __('Features', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'anchor' => '#features',
             );
         }
 
-        if (!empty($data['getStartedContent'])) {
+        if (!empty($data['platform']['getStartedContent'])) {
             $data['scrollSpyMenuItems'][] = array(
                 'label' => __('Get started', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'anchor' => '#get-started',
             );
         }
 
-        if (!empty($data['roadmap']) && !empty($data['roadmap']['items'])) {
+        if (!empty($data['platform']['roadmap']) && !empty($data['platform']['roadmap']['items'])) {
             $data['scrollSpyMenuItems'][] = array(
                 'label' => __('Roadmap', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'anchor' => '#roadmap',
