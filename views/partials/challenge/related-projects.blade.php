@@ -29,7 +29,7 @@
                         ])
                             {{ $post->project->statusBar['explainer'] }}
                         @endtooltip
-                        @progressbar([
+                        @progressBar([
                             'value' => $post->project->statusBar['value'],
                             'isCancelled' => $post->project->statusBar['isCancelled']
                         ])

@@ -5,7 +5,7 @@
         'background' => 'transparent',
     ]
 ])
-    @slot('content') 
+    @slot('content')
         @typography([
             'element' => 'span',
             'classList' => ['page-header_meta']
@@ -23,11 +23,11 @@
             'label' => $statusBar['label'],
             'icon' => 'info'
         ])
-        {{ $statusBar['explainer'] }}
+            {{ $statusBar['explainer'] }}
         @endtooltip
-        @progressbar([
+        @progressBar([
             'value' => $statusBar['value'],
-            'isCancelled' => $statusBar['isCancelled'],
+            'isCancelled' => $statusBar['isCancelled']
         ])
         @endprogressbar
     @endslot
