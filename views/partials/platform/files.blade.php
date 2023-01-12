@@ -10,7 +10,7 @@
                 <ul class="pricon-list">
                     @foreach ($platform['files'] as $file)
                         <li class="pricon-list__item {{ implode(' ', $file['classNames']) }}">
-                            <a target="_blank" href="{{ $file['attachment'] }}">{{ $file['title'] }}</a>
+                            <a target="_blank" rel="noopener" href="{{ $file['attachment'] }}">{{ $file['title'] }}</a>
                         </li>
                     @endforeach
                 </ul>
