@@ -34,5 +34,5 @@
                 @endcard
             </div>
         @endforeach
-
+    </div>
 @endif
