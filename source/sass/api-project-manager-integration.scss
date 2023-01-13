@@ -1,3 +1,7 @@
+$base: var(--base, 8px) !default;
+$color-border-light: var(--color-border-light, #e7e7e7) !default;
+$color-white: var(--color-white, #ffffff) !default;
+
 @import './components/box';
 @import './components/cover';
 @import './components/progressbar';
@@ -15,7 +19,6 @@
 @import './utils/object-fit';
 @import './utils/ratio';
 @import './utils/theme';
-
 
 .u-yt-wrapper {
     position: relative;
