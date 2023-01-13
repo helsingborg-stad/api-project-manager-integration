@@ -14,6 +14,7 @@ class App
         new Controller\Project();
         new Controller\Challenge();
         new Controller\Platform();
+        new Controller\PostsModule();
         new Import\Setup();
         new Options();
         new UI\Theme();
