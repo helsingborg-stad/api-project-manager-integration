@@ -1,5 +1,5 @@
 @if (!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1)
-    <div class="o-container u-position--sticky u-level-9 u-margin__bottom--2 u-margin__top--3 u-display--none@lg u-display--none@xl" id="scroll-spy">
+    <div class="o-container u-position--sticky u-level-5 u-margin__bottom--2 u-margin__top--3 u-display--none@lg u-display--none@xl" id="scroll-spy">
         @group([
             'wrap' => 'wrap',
             'classList' => ['scroll-spy__container']
