@@ -12,6 +12,8 @@
 @stop
 
 @section('below')
-    @includeWhen(!empty($challenge['relatedProjects']), 'partials.challenge.related-projects')
+    @includeWhen(!empty($challenge['relatedProjects']), 'partials.post.project-cards', [
+                'posts' => $challenge['relatedProjects']['posts'],
+    ])
     @includeWhen(!empty($challenge['relatedPosts']), 'partials.challenge.related-posts')
 @stop

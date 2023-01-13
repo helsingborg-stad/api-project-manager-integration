@@ -33,20 +33,9 @@
                 @endgroup
             @endlink
         @endgroup
-
-        <div class="o-grid">
-            @foreach ($challenge['relatedPosts']['posts'] as $post)
-                <div class="o-grid-3@md">
-                    @block([
-                        'heading' => $post->postTitle,
-                        'meta' => $post->challenge->category,
-                        'ratio' => '12:16',
-                        'image' => ['src' => $post->thumbnail['src'], 'alt' => $post->postTitle],
-                        'link' => $post->permalink
-                    ])
-                    @endblock
-                </div>
-            @endforeach
-        </div>
+        
+        @includeWhen($challenge['relatedPosts']['posts'], 'partials.post.challenge-cards', [
+                'posts' => $challenge['relatedPosts']['posts'],
+        ])
     </div>
 @endsegment
