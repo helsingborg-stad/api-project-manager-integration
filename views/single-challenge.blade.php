@@ -12,6 +12,14 @@
 @stop
 
 @section('below')
+    <div class="o-grid u-padding__top--8">
+        @typography([
+            'variant' => 'h2',
+            'element' => 'h3'
+        ])
+            {{ $challenge['relatedProjects']['title'] }}
+        @endtypography
+    </div>
     @includeWhen(!empty($challenge['relatedProjects']), 'partials.post.project-cards', [
                 'posts' => $challenge['relatedProjects']['posts'],
     ])
