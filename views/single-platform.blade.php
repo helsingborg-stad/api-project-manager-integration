@@ -6,5 +6,16 @@
         'partials.platform.roadmap')
     @includeWhen(!empty($platform['files']) || !empty($platform['links']) || !empty($platform['contacts']),
         'partials.platform.meta')
-    @includeWhen(!empty($platform['relatedProjects']), 'partials.platform.related-projects')
+
+    <div class="o-grid u-padding__top--8">
+        @typography([
+            'variant' => 'h2',
+            'element' => 'h3'
+        ])
+            {{ $platform['relatedProjects']['title'] }}
+        @endtypography
+    </div>
+    @includeWhen(!empty($platform['relatedProjects']), 'partials.post.project-cards', [
+         'posts' => $platform['relatedProjects']['posts'],
+    ])
 @stop
