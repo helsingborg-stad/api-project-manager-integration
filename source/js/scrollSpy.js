@@ -1,4 +1,4 @@
-let sectionElementPositions = [];
+/* let sectionElementPositions = [];
 
 const setListeners = () => {
     const scrollContainer = document.querySelector('#scroll-spy');
@@ -61,4 +61,4 @@ const handleScroll = (scrollItems) => {
         i++;
     });
 }
-export default () => { setListeners() };
+export default () => { setListeners() }; */
