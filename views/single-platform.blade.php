@@ -1,6 +1,7 @@
 @extends('templates.single')
 
 @section('below')
+    @includeWhen(!empty($platform['features']), 'partials.platform.features')
     @includeWhen(!empty($platform['getStartedContent']), 'partials.platform.get-started')
 
     {{-- TODO: Implement styling for roadmap  --}}
