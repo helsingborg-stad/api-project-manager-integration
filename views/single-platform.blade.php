@@ -1,5 +1,9 @@
 @extends('templates.single')
 
+@section('sidebar.top-sidebar.after')
+    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
+@stop
+
 @section('below')
     @includeWhen(!empty($platform['features']), 'partials.platform.features')
     @includeWhen(!empty($platform['getStartedContent']), 'partials.platform.get-started')
