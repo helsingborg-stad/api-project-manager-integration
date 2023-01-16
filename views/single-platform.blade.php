@@ -2,10 +2,15 @@
 
 @section('below')
     @includeWhen(!empty($platform['getStartedContent']), 'partials.platform.get-started')
-    @includeWhen(!empty($platform['roadmap']) && !empty($platform['roadmap']['items']),
-        'partials.platform.roadmap')
-    @includeWhen(!empty($platform['files']) || !empty($platform['links']) || !empty($platform['contacts']),
-        'partials.platform.meta')
+
+    {{-- TODO: Implement styling for roadmap  --}}
+    {{-- @includeWhen(!empty($platform['roadmap']) && !empty($platform['roadmap']['items']),
+    'partials.platform.roadmap') --}}
+
+    {{-- TODO: Implement styling for platform meta --}}
+    {{-- TODO: PO/editors acknowledgement before release of platform meta since content might need to get updated --}}
+    {{-- @includeWhen(!empty($platform['files']) || !empty($platform['links']) || !empty($platform['contacts']),
+        'partials.platform.meta') --}}
 
     <div class="o-grid u-padding__top--8">
         @typography([
@@ -16,6 +21,6 @@
         @endtypography
     </div>
     @includeWhen(!empty($platform['relatedProjects']), 'partials.post.project-cards', [
-         'posts' => $platform['relatedProjects']['posts'],
+        'posts' => $platform['relatedProjects']['posts'],
     ])
 @stop
