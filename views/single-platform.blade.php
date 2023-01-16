@@ -1,7 +1,12 @@
 @extends('templates.single')
 
 @section('sidebar.top-sidebar.after')
-    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
+    {{-- @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu') --}}
+    @anchorMenu([
+        'menuItems' => $scrollSpyMenuItems,
+        'classList' => ['u-display--none@lg', 'u-display--none@xl']
+    ])
+    @endanchorMenu
 @stop
 
 @section('below')
