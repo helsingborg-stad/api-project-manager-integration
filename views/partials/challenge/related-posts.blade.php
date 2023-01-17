@@ -2,7 +2,7 @@
     'stretch' => true,
     'paddingTop' => false,
     'paddingBottom' => false,
-    'background' => 'lighter',
+    'background' => 'lightest',
     'layout' => 'full-width'
 ])
     <div class="u-padding__bottom--8">

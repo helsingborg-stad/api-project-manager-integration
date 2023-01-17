@@ -21,15 +21,47 @@
     {{-- @includeWhen(!empty($platform['files']) || !empty($platform['links']) || !empty($platform['contacts']),
         'partials.platform.meta') --}}
 
-    <div class="o-grid u-padding__top--8">
-        @typography([
-            'variant' => 'h2',
-            'element' => 'h3'
+    @if (!empty($platform['relatedProjects']))
+        @segment([
+            'stretch' => true,
+            'paddingTop' => false,
+            'paddingBottom' => false,
+            'background' => 'lightest',
+            'layout' => 'full-width'
         ])
-            {{ $platform['relatedProjects']['title'] }}
-        @endtypography
-    </div>
-    @includeWhen(!empty($platform['relatedProjects']), 'partials.post.project-cards', [
-        'posts' => $platform['relatedProjects']['posts'],
-    ])
+            <div class="u-padding__bottom--8">
+                @group([
+                    'justifyContent' => 'space-between',
+                    'classList' => ['challenge__related', 'u-margin__bottom--3']
+                ])
+                    @typography([
+                        'element' => 'h2',
+                        'variant' => 'h2',
+                        'classList' => ['u-margin__bottom--3']
+                    ])
+                        {{ $platform['relatedProjects']['title'] }}
+                    @endtypography
+                    {{-- @link([
+                        'href' => $challenge['archive'],
+                        'classList' => ['challenge__related-link']
+                    ])
+                        @group([
+                            'alignItems' => 'center'
+                        ])
+                            {{ $challenge['labels']['showAll'] }}
+                            @icon([
+                                'icon' => 'arrow_forward',
+                                'classList' => ['challenge__related-icon'],
+                                'size' => 'lg'
+                            ])
+                            @endicon
+                        @endgroup
+                    @endlink --}}
+                @endgroup
+                @include('partials.post.project-cards', [
+                    'posts' => $platform['relatedProjects']['posts'],
+                ])
+            </div>
+        @endsegment
+    @endif
 @stop

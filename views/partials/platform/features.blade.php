@@ -1,8 +1,10 @@
 @segment([
     'id' => 'features',
-    'stretch' => false,
+    'stretch' => true,
     'paddingTop' => false,
-    'paddingBottom' => false,
+    'paddingBottom' => true,
+    'background' => 'lightest',
+    'layout' => 'full-width',
     'classList' => ['js-scroll-spy-section']
 ])
     <div class="o-grid">

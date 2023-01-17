@@ -44,19 +44,47 @@
 
 @section('below')
     @if (!empty($project['relatedPosts']['posts']))
-        <div class="u-margin__bottom--6">
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2',
-                'classList' => ['u-margin__bottom--3']
-            ])
-                {{ $project['relatedPosts']['title'] }}
-            @endtypography
-
-            @include('partials.post.project-cards', [
-                'posts' => $project['relatedPosts']['posts'],
-                'gridColumnClass' => !empty($gridSize) ? $gridSize : 'grid-xs-12 grid-md-3',
-            ])
-        </div>
+        @segment([
+            'stretch' => true,
+            'paddingTop' => false,
+            'paddingBottom' => false,
+            'background' => 'lightest',
+            'layout' => 'full-width'
+        ])
+            <div class="u-padding__bottom--8">
+                @group([
+                    'justifyContent' => 'space-between',
+                    'classList' => ['challenge__related', 'u-margin__bottom--3']
+                ])
+                    @typography([
+                        'element' => 'h2',
+                        'variant' => 'h2',
+                        'classList' => ['u-margin__bottom--3']
+                    ])
+                        {{ $project['relatedPosts']['title'] }}
+                    @endtypography
+                    {{-- @link([
+                        'href' => $challenge['archive'],
+                        'classList' => ['challenge__related-link']
+                    ])
+                        @group([
+                            'alignItems' => 'center'
+                        ])
+                            {{ $challenge['labels']['showAll'] }}
+                            @icon([
+                                'icon' => 'arrow_forward',
+                                'classList' => ['challenge__related-icon'],
+                                'size' => 'lg'
+                            ])
+                            @endicon
+                        @endgroup
+                    @endlink --}}
+                @endgroup
+                @include('partials.post.project-cards', [
+                    'posts' => $project['relatedPosts']['posts'],
+                    'gridColumnClass' => !empty($gridSize) ? $gridSize : 'grid-xs-12 grid-md-3',
+                ])
+            </div>
+        @endsegment
     @endif
 @stop
