@@ -1,5 +1,13 @@
 @extends('templates.single')
 
+@section('sidebar.top-sidebar.after')
+    @anchorMenu([
+        'menuItems' => $scrollSpyMenuItems,
+        'classList' => ['u-display--none@lg', 'u-display--none@xl']
+    ])
+    @endanchorMenu
+@stop
+
 @section('below')
     @includeWhen(!empty($platform['features']), 'partials.platform.features')
     @includeWhen(!empty($platform['getStartedContent']), 'partials.platform.get-started')

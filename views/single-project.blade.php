@@ -6,7 +6,12 @@
 
 @section('sidebar.top-sidebar.after')
     @include('partials.project.hero')
-    @includeWhen(!empty($scrollSpyMenuItems) && count($scrollSpyMenuItems) > 1, 'partials.project.anchorMenu')
+    
+    @anchorMenu([
+        'menuItems' => $scrollSpyMenuItems,
+        'classList' => ['u-display--none@lg', 'u-display--none@xl']
+    ])
+    @endanchorMenu
 @stop
 
 @section('article.title.before')
