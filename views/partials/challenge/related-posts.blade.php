@@ -2,7 +2,8 @@
     'stretch' => true,
     'paddingTop' => false,
     'paddingBottom' => false,
-    'background' => 'lighter'
+    'background' => 'lighter',
+    'layout' => 'full-width'
 ])
     <div class="u-padding__bottom--8">
         @group([
@@ -33,9 +34,9 @@
                 @endgroup
             @endlink
         @endgroup
-        
+
         @includeWhen($challenge['relatedPosts']['posts'], 'partials.post.challenge-cards', [
-                'posts' => $challenge['relatedPosts']['posts'],
+            'posts' => $challenge['relatedPosts']['posts'],
         ])
     </div>
 @endsegment
