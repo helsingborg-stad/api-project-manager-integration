@@ -15,7 +15,7 @@
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
-            'classList' => ['page-header__title', 'u-margin__top--0 u-margin__bottom--3']
+            'classList' => ['page-header__title', 'u-margin__top--0', 'u-margin__bottom--3']
         ])
             {{ get_the_title() }}
         @endtypography
