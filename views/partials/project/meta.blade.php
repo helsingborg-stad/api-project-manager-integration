@@ -1,23 +1,34 @@
 <div class="o-grid-12" id="about">
-    @card
+    @card(['classList' => ['u-color__bg--lighter']])
         <div class="c-card__body">
-            <ul class="box-project-meta__list">
+            <ul class="unlist">
                 @foreach ($project['meta'] as $meta)
-                    <li>
+                    <li @if (!$loop->first) class="u-margin__top--3" @endif>
                         @typography([
                             'element' => 'h2',
-                            'variant' => 'h4',
+                            'variant' => 'h4'
                         ])
                             {{ $meta['title'] }}
                         @endtypography
                         @if (!empty($meta['url']))
                             <a href="{{ $meta['url'] }}">
-                                <p>{!! $meta['content'] !!}</p>
-                        </a>
+                                @typography([
+                                    'element' => 'p',
+                                    'classList' => ['u-margin__top--0']
+                                ])
+                                    {!! $meta['content'] !!}
+                                @endtypography
+
+                            </a>
                         @else
-                            <p>{!! $meta['content'] !!}</p>
+                            @typography([
+                                'element' => 'p',
+                                'classList' => ['u-margin__top--0']
+                            ])
+                                {!! $meta['content'] !!}
+                            @endtypography
                         @endif
-                </li>
+                    </li>
                 @endforeach
             </ul>
         </div>
