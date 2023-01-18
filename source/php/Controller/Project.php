@@ -204,7 +204,7 @@ class Project
         $controlledContent = implode(
             PHP_EOL,
             array_map(
-                fn ($piece) => "<h2>{$piece['title']}</h2>" . PHP_EOL . $piece['content'],
+                fn ($piece) => "<h2 class='c-typography c-typography__variant--h2'>{$piece['title']}</h2>" . PHP_EOL . $piece['content'],
                 $this->contentPieces()
             )
         );
