@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @deprecated in favor if Municipio\Helper\WP.
+ */
+
 namespace ProjectManagerIntegration\Helper;
 
 use \Municipio\Helper\FormatObject;
