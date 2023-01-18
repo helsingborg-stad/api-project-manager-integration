@@ -1,10 +1,43 @@
-@import './layout/project-hero';
-@import './layout/project-header';
-@import './layout/single-challenge';
+// @import './layout/project-hero';
+// @import './layout/project-header';
+// @import './layout/single-challenge';
 
 @import './utils/object-fit';
 @import './utils/ratio';
 @import './utils/theme';
+
+
+.single:not(.single-project) #main-content .c-article,
+.page #main-content .c-article {
+    > .c-image {
+        @media only screen and (max-width: 56em) {
+            margin-left: 8px * 3 * -1;
+            margin-right: 8px * 3 * -1;
+        }
+        margin-left: 8px * 12 * -1;
+        margin-right: 8px * 12 * -1;
+    }
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.global-goals {
+    margin-top: 24px;
+
+    .global-goals__container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .global-goals__logo {
+        height: auto;
+        max-width: 84px;
+    }
+
+    .global-goals__logo {
+        margin: 4px;
+    }
+}
 
 .u-yt-wrapper {
     position: relative;
