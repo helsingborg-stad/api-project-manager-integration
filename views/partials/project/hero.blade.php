@@ -1,6 +1,6 @@
 @hero([
     'classList' => ['u-color__bg--lighter'],
-    'heroView' => 'initiative',
+    'heroView' => 'twoColumn',
     'customHeroData' => [
         'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
         'background' => 'transparent'
