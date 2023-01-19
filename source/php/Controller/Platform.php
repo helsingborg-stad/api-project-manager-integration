@@ -21,6 +21,11 @@ class Platform
         }
 
         $data['platform'] = [
+            'hero' => [
+                'image' => municipio_get_thumbnail_source(null, array(1440,416)),
+                'meta' => get_post_type_object(get_post_type())->labels->singular_name,
+                'title' => get_the_title(),
+            ],
             'labels' => [
                 'contacts' => __('Contacts', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'documents' => __('Documents', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
