@@ -21,6 +21,10 @@
     </div>
 @stop
 
+@section('article.content.after')
+    @includeWhen(!empty($project['gallery']), 'partials.project.gallery')
+@stop
+
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
         @includeWhen($project && !empty($project['impactGoals']), 'partials.project.goals')
