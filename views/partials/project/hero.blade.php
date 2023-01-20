@@ -1,10 +1,7 @@
 @hero([
-    'classList' => ['u-color__bg--lighter'],
+    'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
     'heroView' => 'twoColumn',
-    'customHeroData' => [
-        'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
-        'background' => 'transparent'
-    ]
+    'background' => 'blue'
 ])
     @slot('content')
         @typography([
