@@ -42,6 +42,17 @@ class Project
         );
 
         $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
+        $data['list'] = [];
+
+        if($data['project']['gallery']) {
+            foreach($data['project']['gallery'] as $item) {
+                $data['list'][] = [
+                    'largeImage' => $item['sizes']['large'], 
+                    'smallImage' => $item['sizes']['medium'], 
+                    'alt' => $item['alt'], 
+                    'caption' => $item['caption']];
+            }
+        }
 
         return $data;
     }
