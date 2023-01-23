@@ -1,8 +1,8 @@
 @hero([
-    'classList' => ['u-color__bg--lighter'],
+    'classList' => ['u-color__bg--lighter', 'project-header'],
     'heroView' => 'initiative',
     'customHeroData' => [
-        'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
+        'image' => municipio_get_thumbnail_source($post->id, [504 * 2, 336 * 2], '3:2'),
         'background' => 'transparent'
     ]
 ])
