@@ -1,5 +1,5 @@
 <div class="o-grid-12">
-    @card(['classList' => ['u-color__bg--lighter']])
+    @card(['context' => ['project.contacts']])
         <div class="c-card__body">
             @typography([
                 'element' => 'h2',

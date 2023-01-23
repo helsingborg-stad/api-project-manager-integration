@@ -1,7 +1,7 @@
 <div id="impactgoals" class="o-grid">
     @foreach ($project['impactGoals'] as $item)
         <div class="o-grid-12">
-            @card(['classList' => ['u-color__bg--lighter']])
+            @card(['context' => ['project.goals']])
                 @if ($item['impact_goal'])
                     <div class="c-card__body">
                         @if ($item['impact_goal_completed'])

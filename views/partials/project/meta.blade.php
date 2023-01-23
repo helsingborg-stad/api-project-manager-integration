@@ -1,5 +1,5 @@
 <div class="o-grid-12" id="about">
-    @card(['classList' => ['u-color__bg--lighter']])
+    @card(['context' => ['project.meta']])
         <div class="c-card__body">
             <ul class="unlist">
                 @foreach ($project['meta'] as $meta)

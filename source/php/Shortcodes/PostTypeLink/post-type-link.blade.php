@@ -1,5 +1,8 @@
 @if (!empty($title) && !empty($url) && !empty($buttonText))
-    @card(['classList' => ['c-card--compact-post', 'post-type-shortcode', 'u-color__bg--lighter']])
+    @card([
+        'classList' => ['c-card--compact-post', 'post-type-shortcode'],
+        'context' => ['shortcode.post-type-link']
+    ])
         <div class="c-card__body">
             @group([
                 'direction' => 'row',
