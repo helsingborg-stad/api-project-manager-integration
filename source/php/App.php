@@ -51,7 +51,7 @@ class App
                 'classList' => ['u-color__bg--lighter']
             ],
             [
-                'context' => ['archive'],
+                'context' => ['archive', 'module.posts.index'],
                 'classList' => ['c-card--flat']
             ]
         ];
