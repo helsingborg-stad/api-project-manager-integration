@@ -1,7 +1,7 @@
 <div id="residentInvolvement">
     @foreach ($project['residentInvolvement'] as $residentInvolement)
         <div class="o-grid-12">
-            @card(['classList' => ['u-color__bg--lighter']])
+            @card(['context' => ['project.resident-involvement']])
                 <div class="c-card__body">
                     @typography([
                         'element' => 'h2',

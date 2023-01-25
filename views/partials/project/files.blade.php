@@ -1,5 +1,5 @@
 <div class="o-grid-12">
-    @card
+    @card(['context' => ['project.files']])
         <div class="c-card__body u-pt-1">
             @typography([
                 'element' => 'h2',

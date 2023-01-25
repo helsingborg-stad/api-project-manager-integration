@@ -31,6 +31,40 @@ class App
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
         add_filter('language_attributes', array($this, 'wpBodyClasses'), 999);
         add_filter('register_post_type_args', array($this, 'modifyPostTypes'), 10, 2);
+        add_filter('ComponentLibrary/Component/Card/Data', array($this, 'applyCardModifiersByContext'), 10, 1);
+    }
+
+    public function applyCardModifiersByContext($componentProps)
+    {
+        $modifiers = [
+            [
+                'context' => [
+                    'module.text.box',
+                    'platform.feature',
+                    'project.links',
+                    'project.contacts',
+                    'project.goals',
+                    'project.meta',
+                    'project.resident-involvement',
+                    'shortcode.post-type-link'
+                ],
+                'classList' => ['u-color__bg--lighter']
+            ],
+            [
+                'context' => ['archive', 'module.posts.index'],
+                'classList' => ['c-card--flat']
+            ]
+        ];
+
+        foreach ($modifiers as $modifier) {
+            $matches = array_intersect($modifier['context'], $componentProps['context']);
+            if (!empty($matches)) {
+                $componentProps['classList'] = array_merge($componentProps['classList'], $modifier['classList']);
+            }
+        }
+
+
+        return $componentProps;
     }
 
     public function wpBodyClasses($output)

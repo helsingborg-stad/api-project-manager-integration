@@ -11,7 +11,7 @@
         @foreach ($platform['features'] as $feature)
             <div class="o-grid-4@md u-mb-4">
                 @card([
-                    'context' => ['platform.feature.item']
+                    'context' => ['platform.feature']
                 ])
                     <div class="c-card__body">
                         @typography([

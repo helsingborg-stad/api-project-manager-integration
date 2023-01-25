@@ -2,6 +2,7 @@
     'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
     'heroView' => 'twoColumn',
     'background' => 'blue'
+
 ])
     @slot('content')
         @typography([
