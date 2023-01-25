@@ -84,6 +84,7 @@ class Project
 
         $data['noResultLabels'][0] = __('We found no results for your search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
         $data['noResultLabels'][1] = __('Try to refine your search.', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
+        $data['lang']->searchFor = __('Search', PROJECTMANAGERINTEGRATION_TEXTDOMAIN);
 
         return $data;
     }
