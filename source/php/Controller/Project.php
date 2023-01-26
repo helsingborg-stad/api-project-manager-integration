@@ -6,6 +6,7 @@ use ProjectManagerIntegration\Helper\Municipio;
 use ProjectManagerIntegration\Helper\WP;
 use ProjectManagerIntegration\UI\ProjectStatus;
 use ProjectManagerIntegration\UI\RelatedPosts;
+use ProjectManagerIntegration\UI\Gallery;
 
 class Project
 {
@@ -31,6 +32,7 @@ class Project
                 'residentInvolvement'   =>  WP::getPostMeta('resident_involvement', []),
                 'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
                 'relatedPosts'          =>  RelatedPosts::create(),
+                'gallery'               =>  Gallery::create(WP::getPostMeta('gallery', [])),
                 'labels'                => [
                     'contact'   => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'email'     => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -42,17 +44,6 @@ class Project
         );
 
         $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
-        $data['list'] = [];
-
-        if($data['project']['gallery']) {
-            foreach($data['project']['gallery'] as $item) {
-                $data['list'][] = [
-                    'largeImage' => $item['sizes']['large'], 
-                    'smallImage' => $item['sizes']['medium'], 
-                    'alt' => $item['alt'], 
-                    'caption' => $item['caption']];
-            }
-        }
 
         return $data;
     }

@@ -1,5 +1,5 @@
 @gallery([
     'classList' => ['project-gallery'],
-    'list' => $list,
+    'list' => $project['gallery'],
 ])
 @endgallery
