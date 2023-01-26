@@ -6,14 +6,12 @@ class Gallery
 {
     public static function create(array $items): array
     {
-        $list = [];
-        foreach($items as $item) {
-            $list[] = [
+        return array_map(function($item) {
+            return [
                 'largeImage' => $item['sizes']['large'], 
                 'smallImage' => $item['sizes']['medium'], 
                 'alt' => $item['alt'], 
                 'caption' => $item['caption']];
-        }
-        return $list;
+        }, $items);
     }
 }
