@@ -6,6 +6,7 @@ use ProjectManagerIntegration\Helper\Municipio;
 use ProjectManagerIntegration\Helper\WP;
 use ProjectManagerIntegration\UI\ProjectStatus;
 use ProjectManagerIntegration\UI\RelatedPosts;
+use ProjectManagerIntegration\UI\Gallery;
 
 class Project
 {
@@ -31,6 +32,7 @@ class Project
                 'residentInvolvement'   =>  WP::getPostMeta('resident_involvement', []),
                 'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
                 'relatedPosts'          =>  RelatedPosts::create(),
+                'gallery'               =>  Gallery::create(WP::getPostMeta('gallery', [])),
                 'labels'                => [
                     'contact'   => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'email'     => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
