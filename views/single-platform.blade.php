@@ -4,7 +4,6 @@
 @includeWhen(!empty($platform['hero']['image']), 'partials.platform.hero')
     @anchorMenu([
         'menuItems' => $scrollSpyMenuItems,
-        'classList' => ['u-display--none@lg', 'u-display--none@xl']
     ])
     @endanchorMenu
 @stop
