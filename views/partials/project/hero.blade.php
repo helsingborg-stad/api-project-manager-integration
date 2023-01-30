@@ -1,9 +1,10 @@
 @hero([
     'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
     'heroView' => 'twoColumn',
-    'background' => '#f7f7f7'
-
+    'background' => '#f7f7f7',
+    'textColor' => 'black'
 ])
+
     @slot('content')
         @typography([
             'element' => 'span',
