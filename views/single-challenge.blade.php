@@ -1,5 +1,17 @@
 @extends('templates.single')
 
+@section('article.title.before')
+    <div class="u-display--none">
+    @stop
+    @section('article.title.after')
+    </div>
+@stop
+
+
+@section('sidebar.top-sidebar.after')
+    @includeWhen(!empty($challenge['hero']['image']), 'partials.challenge.hero')
+@stop
+
 @section('article.content.before')
     @if (!empty($challenge['preamble']))
         <p class="lead">{{ $challenge['preamble'] }}</p>
@@ -21,7 +33,7 @@
         @endtypography
     </div>
     @includeWhen(!empty($challenge['relatedProjects']), 'partials.post.project-cards', [
-                'posts' => $challenge['relatedProjects']['posts'],
+        'posts' => $challenge['relatedProjects']['posts'],
     ])
     @includeWhen(!empty($challenge['relatedPosts']), 'partials.challenge.related-posts')
 @stop
