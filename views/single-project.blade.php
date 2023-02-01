@@ -58,7 +58,7 @@
             <div class="u-padding__bottom--8">
                 @group([
                     'justifyContent' => 'space-between',
-                    'classList' => ['challenge__related', 'u-margin__bottom--3']
+                    'classList' => ['related_posts', 'u-margin__bottom--3']
                 ])
                     @typography([
                         'element' => 'h2',
@@ -67,22 +67,22 @@
                     ])
                         {{ $project['relatedPosts']['title'] }}
                     @endtypography
-                    {{-- @link([
-                        'href' => $challenge['archive'],
-                        'classList' => ['challenge__related-link']
+                    @link([
+                        'href' => $project['archive'],
+                        'classList' => ['related_posts-link', 'u-no-decoration', 'u-color__text--darkest']
                     ])
                         @group([
                             'alignItems' => 'center'
                         ])
-                            {{ $challenge['labels']['showAll'] }}
+                            {{ $project['labels']['showAll'] }}
                             @icon([
                                 'icon' => 'arrow_forward',
-                                'classList' => ['challenge__related-icon'],
+                                'classList' => ['related_posts-icon'],
                                 'size' => 'lg'
                             ])
                             @endicon
                         @endgroup
-                    @endlink --}}
+                    @endlink
                 @endgroup
                 @include('partials.post.project-cards', [
                     'posts' => $project['relatedPosts']['posts'],

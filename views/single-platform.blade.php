@@ -41,22 +41,6 @@
                     ])
                         {{ $platform['relatedProjects']['title'] }}
                     @endtypography
-                    {{-- @link([
-                        'href' => $challenge['archive'],
-                        'classList' => ['challenge__related-link']
-                    ])
-                        @group([
-                            'alignItems' => 'center'
-                        ])
-                            {{ $challenge['labels']['showAll'] }}
-                            @icon([
-                                'icon' => 'arrow_forward',
-                                'classList' => ['challenge__related-icon'],
-                                'size' => 'lg'
-                            ])
-                            @endicon
-                        @endgroup
-                    @endlink --}}
                 @endgroup
                 @include('partials.post.project-cards', [
                     'posts' => $platform['relatedProjects']['posts'],

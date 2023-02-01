@@ -16,7 +16,7 @@
 }
 
 // XS Specific
-@media only screen and (max-width: 32.5em - 0.0625em) {
+@media only screen and (max-width: calc(32.5em - 0.0625em)) {
     .project-header {
         overflow: hidden;
 

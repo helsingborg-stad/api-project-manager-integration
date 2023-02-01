@@ -19,7 +19,7 @@
             @endtypography
             @link([
                 'href' => $challenge['archive'],
-                'classList' => ['challenge__related-link']
+                'classList' => ['challenge__related-link', 'u-no-decoration', 'u-color__text--darkest']
             ])
                 @group([
                     'alignItems' => 'center'

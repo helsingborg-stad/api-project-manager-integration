@@ -39,7 +39,10 @@ class Project
                     'name'      => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'files'     => __('Files', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'links'     => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                ]
+                    'showAll'   => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+
+                ],
+                 'archive' => get_post_type_archive_link(get_post_type()),
             ]
         );
 
