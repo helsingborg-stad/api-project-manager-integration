@@ -15,7 +15,7 @@ class WP
             self::getPostTerms($taxonomies, $postId, $termQueryArgs),
             fn ($accumilator, $term) => empty($accumilator)
                 ? $createString($term)
-                : $accumilator . ', ' . $createString($term),
+                : $accumilator . ' / ' . $createString($term),
             ''
         );
     }
