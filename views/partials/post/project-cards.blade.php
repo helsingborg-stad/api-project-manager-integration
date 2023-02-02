@@ -16,7 +16,7 @@
                     'classList' => ['u-height--100', 'c-card--flat', 'project-cards']
                 ])
                     @slot('afterContent')
-                        <div class="u-align-self--end u-width--100">
+                        <div class="u-margin__top--auto u-width--100">
                             @tooltip([
                                 'label' => $post->project->statusBar['label'],
                                 'placement' => 'bottom',
