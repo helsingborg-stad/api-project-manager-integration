@@ -13,7 +13,7 @@
                     'containerAware' => true,
                     'hasPlaceholder' => !isset($post->thumbnail),
                     'attributeList' => ['style' => 'z-index:' . (999 - $key) . ';'],
-                    'classList' => ['u-height--100', 'c-card--flat', 'project-cards']
+                    'classList' => ['u-height--100', 'c-card--flat', 'project-card']
                 ])
                     @slot('afterContent')
                         <div class="u-margin__top--auto u-width--100">
