@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Manager Integration\n"
 "POT-Creation-Date: 2023-01-23 13:21+0100\n"
-"PO-Revision-Date: 2023-01-23 13:23+0100\n"
+"PO-Revision-Date: 2023-02-07 16:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -193,7 +193,7 @@ msgstr "Brännpunkter"
 
 #: source/php/Controller/Challenge.php:82
 msgid "Innovation initiatives linked to the challenge"
-msgstr ""
+msgstr "Innovationsinitiativ relaterade till utmaningen"
 
 #: source/php/Controller/Platform.php:25
 msgid "Contacts"
@@ -209,7 +209,7 @@ msgstr "Länkar"
 
 #: source/php/Controller/Platform.php:28
 msgid "Initiatives related to the platform"
-msgstr "Några innovationsinnatitiv relaterade till plattformen"
+msgstr "Initiativ relaterade till plattformen"
 
 #: source/php/Controller/Platform.php:29 source/php/Controller/Platform.php:71
 msgid "Roadmap"
@@ -228,10 +228,8 @@ msgid "Features"
 msgstr "Funktioner"
 
 #: source/php/Controller/Platform.php:85
-#, fuzzy
-#| msgid "Initiatives related to the platform"
 msgid "Innovation initiatives linked to the platform"
-msgstr "Några innovationsinnatitiv relaterade till plattformen"
+msgstr "Innovationsinitiativ relaterade till plattformen"
 
 #: source/php/Controller/Project.php:36
 msgid "E-mail"
