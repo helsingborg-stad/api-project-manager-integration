@@ -115,7 +115,7 @@ class Project
                 'content' => WP::embed(WP::getPostMeta('video', [['url' => false]])[0]['url'] ?: ''),
             ],
             [
-                'title' => __('Lessons learned', PROJECTMANAGERINTEGRATION_TEXTDOMAIN) . '?',
+                'title' => __('Lessons learned', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'content' => WP::getPostMeta('project_lessons_learned', null),
             ]
         ]);
