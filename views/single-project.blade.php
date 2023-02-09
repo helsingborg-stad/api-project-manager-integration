@@ -23,6 +23,7 @@
 
 @section('article.content.after')
     @includeWhen(!empty($project['gallery']), 'partials.project.gallery')
+    @include('partials.project.dates')
 @stop
 
 @section('sidebar.right-sidebar.after')
