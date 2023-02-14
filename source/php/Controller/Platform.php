@@ -32,6 +32,9 @@ class Platform
                 'links' => __('Links', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'relatedProjects' => __('Initiatives related to the platform', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'roadmap' => __('Roadmap', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'name' => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'mail' => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
+                'files' => __('Files', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             ],
             'featuredImagePosition' => [
                 'x' => WP::getPostMeta('cover_image_position_x', 'center'),
@@ -77,7 +80,6 @@ class Platform
                 'anchor' => '#roadmap',
             );
         }
-
 
         return $data;
     }

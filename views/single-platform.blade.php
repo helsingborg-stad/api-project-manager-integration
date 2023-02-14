@@ -8,6 +8,22 @@
     @endanchorMenu
 @stop
 
+@section('sidebar.right-sidebar.after')
+    <div class="o-grid">
+        {{-- Meta --}}
+        @includeWhen($platform && !empty($platform['meta']), 'partials.platform.meta')
+
+        {{-- Contacts --}}
+        @includeWhen($platform && !empty($platform['contacts']), 'partials.platform.contacts')
+
+        {{-- Files --}}
+        @includeWhen($platform && !empty($platform['files']), 'partials.platform.files')
+
+        {{-- Links --}}
+        @includeWhen($platform && !empty($platform['links']), 'partials.platform.links')
+    </div>
+@stop
+
 @section('below')
     @includeWhen(!empty($platform['features']), 'partials.platform.features')
     @includeWhen(!empty($platform['getStartedContent']), 'partials.platform.get-started')

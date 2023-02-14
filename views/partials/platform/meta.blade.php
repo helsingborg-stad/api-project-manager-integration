@@ -1,9 +1,36 @@
-<div class="section u-py-7 u-bt-1">
-    <div class="o-container">
-        <div class="o-grid">
-            @includeWhen(!empty($platform['contacts']), 'partials.platform.contacts')
-            @includeWhen(!empty($platform['files']), 'partials.platform.files')
-            @includeWhen(!empty($platform['links']), 'partials.platform.links')
+<div class="o-grid-12" id="about">
+    @card(['context' => ['platform.meta']])
+        <div class="c-card__body">
+            <ul class="unlist">
+                @foreach ($platform['meta'] as $meta)
+                    <li @if (!$loop->first) class="u-margin__top--3" @endif>
+                        @typography([
+                            'element' => 'h2',
+                            'variant' => 'h4'
+                        ])
+                            {{ $meta['title'] }}
+                        @endtypography
+                        @if (!empty($meta['url']))
+                            <a href="{{ $meta['url'] }}">
+                                @typography([
+                                    'element' => 'p',
+                                    'classList' => ['u-margin__top--0']
+                                ])
+                                    {!! $meta['content'] !!}
+                                @endtypography
+
+                            </a>
+                        @else
+                            @typography([
+                                'element' => 'p',
+                                'classList' => ['u-margin__top--0']
+                            ])
+                                {!! $meta['content'] !!}
+                            @endtypography
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
         </div>
-    </div>
+    @endcard
 </div>

@@ -41,6 +41,9 @@ class App
                 'context' => [
                     'module.text.box',
                     'platform.feature',
+                    'platform.contacts',
+                    'platform.links',
+                    'platform.meta',
                     'project.links',
                     'project.contacts',
                     'project.goals',
