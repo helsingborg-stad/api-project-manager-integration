@@ -16,6 +16,7 @@
                     'classList' => ['u-height--100', 'c-card--flat', 'project-card']
                 ])
                     @slot('afterContent')
+                        @if($post->project->statusBar['value'])
                         <div class="u-margin__top--auto u-width--100">
                             @tooltip([
                                 'label' => $post->project->statusBar['label'],
@@ -30,6 +31,7 @@
                             ])
                             @endprogressBar
                         </div>
+                        @endif
                     @endslot
                 @endcard
             </div>
