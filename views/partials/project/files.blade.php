@@ -7,9 +7,9 @@
             ])
                 {{ $project['labels']['files'] }}
             @endtypography
-            <ul>
+            <ul class="u-unlist u-padding__left--0">
                 @foreach ($project['files'] as $file)
-                    <li>
+                    <li class="u-padding__left--0">
                         <a href="{{ $file['file']['url'] }}">{{ $file['title'] }}</a>
                     </li>
                 @endforeach
