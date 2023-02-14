@@ -7,7 +7,7 @@
 @import './utils/theme';
 
 
-.single:not(.single-project) #main-content .c-article,
+.single:not(.single-project, .single-testbaddar) #main-content .c-article,
 .page #main-content .c-article {
     > .c-image {
         @media only screen and (max-width: 56em) {
