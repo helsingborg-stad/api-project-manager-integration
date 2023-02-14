@@ -199,7 +199,7 @@ msgstr "Brännpunkter"
 
 #: source/php/Controller/Challenge.php:88
 msgid "Innovation initiatives linked to the challenge"
-msgstr ""
+msgstr "Innovationsinitiativ relaterade till utmaningen"
 
 #: source/php/Controller/Platform.php:30
 msgid "Contacts"
@@ -215,7 +215,7 @@ msgstr "Länkar"
 
 #: source/php/Controller/Platform.php:33
 msgid "Initiatives related to the platform"
-msgstr "Några innovationsinnatitiv relaterade till plattformen"
+msgstr "Initiativ relaterade till plattformen"
 
 #: source/php/Controller/Platform.php:34 source/php/Controller/Platform.php:76
 msgid "Roadmap"
@@ -237,7 +237,7 @@ msgstr "Funktioner"
 #, fuzzy
 #| msgid "Initiatives related to the platform"
 msgid "Innovation initiatives linked to the platform"
-msgstr "Några innovationsinnatitiv relaterade till plattformen"
+msgstr "Innovationsinitiativ relaterade till plattformen"
 
 #: source/php/Controller/Project.php:38
 msgid "E-mail"
