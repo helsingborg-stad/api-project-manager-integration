@@ -3,7 +3,7 @@
         <div class="o-grid-3@md">
             @block([
                 'heading' => $post->postTitle,
-                'meta' => $post->challenge->category,
+                'meta' => strip_tags(html_entity_decode($post->challenge->category)),
                 'ratio' => '12:16',
                 'image' => ['src' => $post->thumbnail['src'], 'alt' => $post->postTitle],
                 'link' => $post->permalink
