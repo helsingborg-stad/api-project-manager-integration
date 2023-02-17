@@ -10,14 +10,14 @@ class WP
 {
     public static function getPostTermsJoined(array $taxonomies, int $postId = 0, array $termQueryArgs = []): string
     {
-        $createString = fn ($term) => '<span>' . $term->name . '</span>';
-        return array_reduce(
-            self::getPostTerms($taxonomies, $postId, $termQueryArgs),
-            fn ($accumilator, $term) => empty($accumilator)
-                ? $createString($term)
-                : $accumilator . ' / ' . $createString($term),
-            ''
-        );
+        $terms = self::getPostTerms($taxonomies, $postId, $termQueryArgs);
+        $result = '';
+
+        foreach ($terms as $term) {
+            $result .= $term->name . ' / ';
+        }
+
+        return rtrim($result, '/ ');
     }
 
     public static function getPostTerms(array $taxonomies, int $postId = 0, array $termQueryArgs = []): array
