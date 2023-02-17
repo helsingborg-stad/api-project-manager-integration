@@ -14,7 +14,7 @@ class WP
         $result = '';
 
         foreach ($terms as $term) {
-            $result .= $term->name . ' / ';
+            $result .= html_entity_decode($term->name) . ' / ';
         }
 
         return rtrim($result, '/ ');
