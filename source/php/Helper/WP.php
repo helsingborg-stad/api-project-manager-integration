@@ -10,7 +10,7 @@ class WP
 {
     public static function getPostTermsJoined(array $taxonomies, int $postId = 0, array $termQueryArgs = []): string
     {
-        $createString = fn ($term) => '<span>' . $term->name . '</span>';
+        $createString = fn ($term) => html_entity_decode($term->name);
         return array_reduce(
             self::getPostTerms($taxonomies, $postId, $termQueryArgs),
             fn ($accumilator, $term) => empty($accumilator)
