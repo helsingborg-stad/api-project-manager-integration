@@ -19,6 +19,7 @@
         ])
             {{ get_the_title() }}
         @endtypography
+        @if(!empty($statusBar))
         @tooltip([
             'label' => $statusBar['label'],
             'icon' => 'info'
@@ -30,5 +31,6 @@
             'isCancelled' => $statusBar['isCancelled']
         ])
         @endprogressBar
+        @endif
     @endslot
 @endhero
