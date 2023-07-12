@@ -21,6 +21,8 @@ class Project
 
     public function singleViewController($data)
     {
+        $fields = get_fields();
+
         $data['project'] = array_merge(
             WP::getPostMeta(),
             [
@@ -42,11 +44,17 @@ class Project
                     'showAll'   => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'published' => __('Published', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'updated'   => __('Last updated', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-
+                    'collaboration' => __('Seeking collaboration', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 ],
                  'archive' => get_post_type_archive_link(get_post_type()),
             ]
         );
+
+
+        if ($fields['status'] && $fields['status']->name == 'Samarbete sökes') {
+            $data['project']['seekingCollaboration'] = true;
+        }
+
         $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
 
         return $data;

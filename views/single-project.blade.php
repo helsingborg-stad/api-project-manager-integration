@@ -26,8 +26,15 @@
     @include('partials.project.dates')
 @stop
 
+@php
+@endphp
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
+        
+        {{-- Searching collaboration --}}
+        @includeWhen($project && !empty($project['searching_collaborator']) && !empty($project['seekingCollaboration']), 'partials.project.collaborator')
+
+        {{-- Impact goals --}}
         @includeWhen($project && !empty($project['impactGoals']), 'partials.project.goals')
 
         {{-- Resident Involvement --}}
