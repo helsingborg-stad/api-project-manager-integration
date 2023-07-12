@@ -50,11 +50,6 @@ class Project
             ]
         );
 
-
-        if ($fields['status'] && $fields['status']->name == 'Samarbete sökes') {
-            $data['project']['seekingCollaboration'] = true;
-        }
-
         $data['scrollSpyMenuItems'] = $this->scrollSpyMenuItems($data);
 
         return $data;
