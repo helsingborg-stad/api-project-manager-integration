@@ -1,7 +1,7 @@
-<div id="searchingCollaborator" class="o-grid">
+<div id="statusExplanation" class="o-grid">
     <div class="o-grid-12">
         @card([
-            'context' => ['project.collaborator'],
+            'context' => ['project.statusExplanation'],
             'attributeList' => [
                 'style' => 'background-color: #F9DAE2;',
             ],
@@ -16,8 +16,8 @@
                     'attributeList' => [
                         'style' => 'color: #DA291C;'
                     ]
-                    ])
-                        {{ $project['labels']['collaboration'] }}
+                ])
+                    {{ $project['statusBar']['label'] }}
                 @endtypography
                 @icon([
                     'icon' => 'favorite',
@@ -28,7 +28,7 @@
             @typography([
                 'element' => 'p'
             ])
-                {{ $project['searching_collaborator'] }}
+                {{$project['projectStatusDescription']}}
             @endtypography
                 
                 </div>

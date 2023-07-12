@@ -26,16 +26,17 @@ class Project
         $data['project'] = array_merge(
             WP::getPostMeta(),
             [
-                'meta'                  =>  $this->meta(),
-                'statusBar'             =>  ProjectStatus::create(),
-                'files'                 =>  WP::getPostMeta('files', []),
-                'contacts'              =>  WP::getPostMeta('contacts', []),
-                'links'                 =>  WP::getPostMeta('links', []),
-                'residentInvolvement'   =>  WP::getPostMeta('resident_involvement', []),
-                'impactGoals'           =>  WP::getPostMeta('impact_goals', []),
-                'relatedPosts'          =>  RelatedPosts::create(),
-                'gallery'               =>  Gallery::create(WP::getPostMeta('gallery', [])),
-                'labels'                => [
+                'meta'                      =>  $this->meta(),
+                'statusBar'                 =>  ProjectStatus::create(),
+                'files'                     =>  WP::getPostMeta('files', []),
+                'contacts'                  =>  WP::getPostMeta('contacts', []),
+                'links'                     =>  WP::getPostMeta('links', []),
+                'residentInvolvement'       =>  WP::getPostMeta('resident_involvement', []),
+                'impactGoals'               =>  WP::getPostMeta('impact_goals', []),
+                'projectStatusDescription'  =>  WP::getPostMeta('project_status_description', []),
+                'relatedPosts'              =>  RelatedPosts::create(),
+                'gallery'                   =>  Gallery::create(WP::getPostMeta('gallery', [])),
+                'labels'                    => [
                     'contact'   => __('Contact', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'email'     => __('E-mail', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'name'      => __('Name', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
@@ -44,9 +45,9 @@ class Project
                     'showAll'   => __('Show all', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'published' => __('Published', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                     'updated'   => __('Last updated', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
-                    'collaboration' => __('Seeking collaboration', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 ],
                  'archive' => get_post_type_archive_link(get_post_type()),
+
             ]
         );
 

@@ -32,7 +32,7 @@
     <div class="o-grid">
         
         {{-- Searching collaboration --}}
-        @includeWhen($project && !empty($project['searching_collaborator']), 'partials.project.collaborator')
+        @includeWhen($project && !empty($project['projectStatusDescription']), 'partials.project.projectStatusDescription')
 
         {{-- Impact goals --}}
         @includeWhen($project && !empty($project['impactGoals']), 'partials.project.goals')
