@@ -26,8 +26,6 @@
     @include('partials.project.dates')
 @stop
 
-@php
-@endphp
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
         
