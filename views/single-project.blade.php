@@ -28,6 +28,11 @@
 
 @section('sidebar.right-sidebar.after')
     <div class="o-grid">
+        
+        {{-- Searching collaboration --}}
+        @includeWhen($project && !empty($project['projectStatusDescription']), 'partials.project.projectStatusDescription')
+
+        {{-- Impact goals --}}
         @includeWhen($project && !empty($project['impactGoals']), 'partials.project.goals')
 
         {{-- Resident Involvement --}}
