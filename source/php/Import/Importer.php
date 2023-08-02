@@ -635,6 +635,7 @@ class Importer
             'project_what' => $project_what ?? null,
             'project_why' => $project_why ?? null,
             'project_how' => $project_how ?? null,
+            'project_status_description' => $project_status_description ?? null,
             'impact_goals' => $impact_goals ?? null,
             'investment_type' => $investment_type ?? null,
             'investment_amount' => $investment_amount ?? null,
