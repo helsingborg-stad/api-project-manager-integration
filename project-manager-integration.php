@@ -30,7 +30,9 @@ load_plugin_textdomain('project-manager-integration', false, plugin_basename(dir
 require_once PROJECTMANAGERINTEGRATION_PATH . 'Public.php';
 
 // Register the autoloader
-require __DIR__ . '/vendor/autoload.php';
+if(file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require __DIR__ . '/vendor/autoload.php';
+}
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {
