@@ -27,12 +27,11 @@ define('PROJECTMANAGERINTEGRATION_VIEW_PATH', PROJECTMANAGERINTEGRATION_PATH . '
 
 load_plugin_textdomain('project-manager-integration', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once PROJECTMANAGERINTEGRATION_PATH . 'Public.php';
-
 // Register the autoloader
 if(file_exists(__DIR__ . '/vendor/autoload.php')) {
     require __DIR__ . '/vendor/autoload.php';
 }
+require_once PROJECTMANAGERINTEGRATION_PATH . 'Public.php';
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {
