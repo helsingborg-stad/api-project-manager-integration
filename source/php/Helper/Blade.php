@@ -3,6 +3,7 @@
 namespace ProjectManagerIntegration\Helper;
 
 use BadFunctionCallException;
+use ComponentLibrary\Init as ComponentLibraryInit;
 
 class Blade
 {
@@ -21,6 +22,10 @@ class Blade
             );
         }
 
-        return \render_blade_view($view, $data, $viewPaths);
+        $componentLibrary = new ComponentLibraryInit([]);
+        $bladeService = $componentLibrary->getEngine();
+        $markup = $bladeService->makeView($view, $data, [], $viewPaths)->render();
+
+        return $markup;
     }
 }

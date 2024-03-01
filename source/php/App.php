@@ -22,11 +22,8 @@ class App
         new Shortcodes\ExtendedQuote\ExtendedQuote();
         new Shortcodes\PostTypeLink\PostTypeLink();
 
-        // Add view paths
-        add_filter('Municipio/blade/view_paths', array($this, 'addViewPaths'), 2, 1);
-
+        add_action('template_redirect', array($this, 'addViewPaths'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
-
         add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
         add_filter('language_attributes', array($this, 'wpBodyClasses'), 999);
@@ -120,15 +117,23 @@ class App
 
     /**
      * Add searchable blade template paths
-     * @param array  $array Template paths
-     * @return array        Modified template paths
+     * 
+     * @return void
      */
-    public function addViewPaths($array)
+    public function addViewPaths(): void
     {
-        // Add view path first in the list
-        array_unshift($array, PROJECTMANAGERINTEGRATION_VIEW_PATH);
+        $postTypes = [
+            \ProjectManagerIntegration\PostTypes\Challenge::$postType,
+            \ProjectManagerIntegration\PostTypes\Platform::$postType,
+            \ProjectManagerIntegration\PostTypes\Project::$postType
+        ];
 
-        return $array;
+        if (in_array(get_post_type(), $postTypes) && defined('PROJECTMANAGERINTEGRATION_VIEW_PATH')) {
+            add_filter('Municipio/viewPaths', function ($array) {
+                array_unshift($array, PROJECTMANAGERINTEGRATION_VIEW_PATH);
+                return $array;
+            }, 2, 1);
+        }
     }
 
     public function modifyPostTypes($args, $postType)
