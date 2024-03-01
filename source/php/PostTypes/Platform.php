@@ -4,7 +4,7 @@ namespace ProjectManagerIntegration\PostTypes;
 
 class Platform
 {
-    public $postType = 'platform';
+    public static $postType = 'platform';
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class Platform
         );
 
         $postType = new \ProjectManagerIntegration\Helper\PostType(
-            $this->postType,
+            self::$postType,
             __('Platform', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             __('Platforms', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
             $args,
