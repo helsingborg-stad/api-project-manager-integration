@@ -59,7 +59,7 @@ class Project
     public function mapProjectPostData(object $post): object
     {
         $post->project = (object) [
-            // 'statusBar'     => ProjectStatus::create($post->id),
+            'statusBar'     => ProjectStatus::create($post->id),
             'category'      => WP::getPostTermsJoined(['challenge_category'], $post->id) ?? '',
             'taxonomies'    => WP::getPostTermsJoined(['project_sector', 'project_technology'], $post->id)
         ];
