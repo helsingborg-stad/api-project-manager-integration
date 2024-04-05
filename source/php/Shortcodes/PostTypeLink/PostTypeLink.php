@@ -3,6 +3,7 @@
 namespace ProjectManagerIntegration\Shortcodes\PostTypeLink;
 
 use ProjectManagerIntegration\Helper\Blade;
+use ProjectManagerIntegration\UI\FeaturedImage;
 
 class PostTypeLink
 {
@@ -25,12 +26,14 @@ class PostTypeLink
         $post = get_post($atts['id']);
 
         if ($post) {
+            $image = FeaturedImage::getFeaturedImage($post->ID, [75, 56]);
+
             $atts = shortcode_atts(array(
                 'id' => 0,
                 'title' => $post->post_title,
                 'meta' => get_post_type_object($post->post_type)->labels->singular_name,
                 'url' => get_permalink($post->ID),
-                'imageUrl' => municipio_get_thumbnail_source($post->ID, array(75, 56), '3:2'),
+                'imageUrl' => !empty($image['src']) ? $image['src'] : false,
                 'buttonText' => __('Open', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 'blank' => 0
             ), $atts);
