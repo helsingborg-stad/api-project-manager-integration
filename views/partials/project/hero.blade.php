@@ -1,5 +1,5 @@
 @hero([
-    'image' => municipio_get_thumbnail_source($post->id, [456, 342], '4:3'),
+    'image' => !empty($project['image']['src']) ? $project['image']['src'] : null,
     'heroView' => 'twoColumn',
     'background' => '#f7f7f7',
     'textColor' => 'black'

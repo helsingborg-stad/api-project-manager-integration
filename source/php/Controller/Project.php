@@ -7,6 +7,7 @@ use ProjectManagerIntegration\Helper\WP;
 use ProjectManagerIntegration\UI\ProjectStatus;
 use ProjectManagerIntegration\UI\RelatedPosts;
 use ProjectManagerIntegration\UI\Gallery;
+use ProjectManagerIntegration\UI\FeaturedImage;
 
 class Project
 {
@@ -21,8 +22,6 @@ class Project
 
     public function singleViewController($data)
     {
-        $fields = get_fields();
-
         $data['project'] = array_merge(
             WP::getPostMeta(),
             [
@@ -47,6 +46,7 @@ class Project
                     'updated'   => __('Last updated', PROJECTMANAGERINTEGRATION_TEXTDOMAIN),
                 ],
                  'archive' => get_post_type_archive_link(get_post_type()),
+                 'image' => FeaturedImage::getFeaturedImage(),
 
             ]
         );
@@ -59,7 +59,7 @@ class Project
     public function mapProjectPostData(object $post): object
     {
         $post->project = (object) [
-            'statusBar'     => ProjectStatus::create($post->id),
+            // 'statusBar'     => ProjectStatus::create($post->id),
             'category'      => WP::getPostTermsJoined(['challenge_category'], $post->id) ?? '',
             'taxonomies'    => WP::getPostTermsJoined(['project_sector', 'project_technology'], $post->id)
         ];
@@ -77,7 +77,7 @@ class Project
             ];
 
             if (!$post->thumbnail) {
-                $post->thumbnail = municipio_get_thumbnail_source($post->id, "sm", '12:16');
+                $post->thumbnail = FeaturedImage::getFeaturedImage($post->id);
             }
 
             if (!$post->permalink) {
