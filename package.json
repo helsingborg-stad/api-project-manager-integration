@@ -1,6 +1,6 @@
 {
     "name": "project-manager-integration",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "description": "Imports and displays projects from Project Manager API.",
     "main": "",
     "repository": {
