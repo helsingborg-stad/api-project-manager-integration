@@ -4,7 +4,7 @@
  * Plugin Name:       Project Manager Integration
  * Plugin URI:        (#plugin_url#)
  * Description:       Imports and displays projects from Project Manager API.
- * Version: 2.0.6
+ * Version: 2.0.7
  * Author:            Jonatan Hanson
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
