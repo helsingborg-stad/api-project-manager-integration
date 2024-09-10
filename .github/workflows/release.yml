@@ -31,6 +31,10 @@ jobs:
         id: get-version
         run: |
           echo "LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Update version in package.json
         run: |
           # Read the latest release version from environment variable
@@ -38,10 +42,6 @@ jobs:
 
           # Update the "version" field in package.json using jq
           jq --arg version "$LATEST_VERSION" '.version = $version' package.json > temp.json && mv temp.json package.json
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Inject access token in .npmrc
         run: | 
           echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
